@@ -44,8 +44,8 @@ public class ArrowRelation extends DGraph  {
      * @param l : Lattice from which this component is deduced.
      */
     public ArrowRelation(Lattice l) {
-<span class="nc" id="L47">        super(l.arrowRelation());</span>
-<span class="nc" id="L48">    }</span>
+<span class="fc" id="L47">        super(l.arrowRelation());</span>
+<span class="fc" id="L48">    }</span>
     /**
      * Produces the LaTex source code for the array of arrows of this component.
      * The LaTeX source produced isn't autonomous. It must be included in a document.
@@ -54,39 +54,39 @@ public class ArrowRelation extends DGraph  {
      */
     public void writeLaTex(String filename) {
         try {
-<span class="nc" id="L57">            File outfile = new File(filename);</span>
-<span class="nc" id="L58">            FileWriter out = new FileWriter(outfile);</span>
-<span class="nc" id="L59">            SortedSet&lt;Edge&gt; edges = this.getEdges();</span>
-<span class="nc" id="L60">            TreeSet&lt;Node&gt; m = new TreeSet&lt;Node&gt;();</span>
-<span class="nc" id="L61">            TreeSet&lt;Node&gt; j = new TreeSet&lt;Node&gt;();</span>
-<span class="nc bnc" id="L62" title="All 2 branches missed.">            for (Edge e : edges) {</span>
-<span class="nc" id="L63">                m.add(e.getFrom());</span>
-<span class="nc" id="L64">                j.add(e.getTo());</span>
-<span class="nc" id="L65">            }</span>
-<span class="nc" id="L66">            String str = &quot;\\begin{tabular}{|c|*{&quot; + Integer.toString(j.size()) + &quot;}{c|}}\n&quot;;</span>
-<span class="nc" id="L67">            str += &quot;\\hline\n&quot;;</span>
-<span class="nc bnc" id="L68" title="All 2 branches missed.">            for (Node nj : j) {</span>
-<span class="nc" id="L69">                str += &quot; &amp; &quot; + nj.getContent();</span>
-<span class="nc" id="L70">            }</span>
-<span class="nc" id="L71">            str += &quot;\\\\ \n&quot;;</span>
-<span class="nc" id="L72">            str += &quot;\\hline\n&quot;;</span>
-<span class="nc bnc" id="L73" title="All 2 branches missed.">            for (Node nm : m) {</span>
-<span class="nc" id="L74">                str += nm.getContent();</span>
-<span class="nc bnc" id="L75" title="All 2 branches missed.">                for (Node nj : j) {</span>
-<span class="nc" id="L76">                    Edge e = this.getEdge(nm, nj);</span>
-<span class="nc bnc" id="L77" title="All 2 branches missed.">                    if ((String) e.getContent() == &quot;Up&quot;) {</span>
-<span class="nc" id="L78">                        str += &quot; &amp; $\\uparrow$&quot;;</span>
+<span class="fc" id="L57">            File outfile = new File(filename);</span>
+<span class="fc" id="L58">            FileWriter out = new FileWriter(outfile);</span>
+<span class="fc" id="L59">            SortedSet&lt;Edge&gt; edges = this.getEdges();</span>
+<span class="fc" id="L60">            TreeSet&lt;Node&gt; m = new TreeSet&lt;Node&gt;();</span>
+<span class="fc" id="L61">            TreeSet&lt;Node&gt; j = new TreeSet&lt;Node&gt;();</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">            for (Edge e : edges) {</span>
+<span class="fc" id="L63">                m.add(e.getFrom());</span>
+<span class="fc" id="L64">                j.add(e.getTo());</span>
+<span class="fc" id="L65">            }</span>
+<span class="fc" id="L66">            String str = &quot;\\begin{tabular}{|c|*{&quot; + Integer.toString(j.size()) + &quot;}{c|}}\n&quot;;</span>
+<span class="fc" id="L67">            str += &quot;\\hline\n&quot;;</span>
+<span class="fc bfc" id="L68" title="All 2 branches covered.">            for (Node nj : j) {</span>
+<span class="fc" id="L69">                str += &quot; &amp; &quot; + nj.getContent();</span>
+<span class="fc" id="L70">            }</span>
+<span class="fc" id="L71">            str += &quot;\\\\ \n&quot;;</span>
+<span class="fc" id="L72">            str += &quot;\\hline\n&quot;;</span>
+<span class="fc bfc" id="L73" title="All 2 branches covered.">            for (Node nm : m) {</span>
+<span class="fc" id="L74">                str += nm.getContent();</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">                for (Node nj : j) {</span>
+<span class="fc" id="L76">                    Edge e = this.getEdge(nm, nj);</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">                    if ((String) e.getContent() == &quot;Up&quot;) {</span>
+<span class="fc" id="L78">                        str += &quot; &amp; $\\uparrow$&quot;;</span>
                     } else {
-<span class="nc bnc" id="L80" title="All 2 branches missed.">                        if ((String) e.getContent() == &quot;Down&quot;) {</span>
-<span class="nc" id="L81">                        str += &quot; &amp; $\\downarrow$&quot;;</span>
+<span class="fc bfc" id="L80" title="All 2 branches covered.">                        if ((String) e.getContent() == &quot;Down&quot;) {</span>
+<span class="fc" id="L81">                        str += &quot; &amp; $\\downarrow$&quot;;</span>
                     } else {
-<span class="nc bnc" id="L83" title="All 2 branches missed.">                        if ((String) e.getContent() == &quot;UpDown&quot;) {</span>
-<span class="nc" id="L84">                        str += &quot; &amp; $\\updownarrow$&quot;;</span>
+<span class="fc bfc" id="L83" title="All 2 branches covered.">                        if ((String) e.getContent() == &quot;UpDown&quot;) {</span>
+<span class="fc" id="L84">                        str += &quot; &amp; $\\updownarrow$&quot;;</span>
                     } else {
-<span class="nc bnc" id="L86" title="All 2 branches missed.">                        if ((String) e.getContent() == &quot;Cross&quot;) {</span>
-<span class="nc" id="L87">                        str += &quot; &amp; $\\times$&quot;;</span>
+<span class="fc bfc" id="L86" title="All 2 branches covered.">                        if ((String) e.getContent() == &quot;Cross&quot;) {</span>
+<span class="fc" id="L87">                        str += &quot; &amp; $\\times$&quot;;</span>
                     } else {
-<span class="nc" id="L89">                        str += &quot; &amp; $\\circ$&quot;;</span>
+<span class="fc" id="L89">                        str += &quot; &amp; $\\circ$&quot;;</span>
                         }
                         }
                         }
@@ -100,14 +100,14 @@ public class ArrowRelation extends DGraph  {
                         default :break;
                     */
                     }
-<span class="nc" id="L103">                }</span>
-<span class="nc" id="L104">                str += &quot;\\\\ \n&quot;;</span>
-<span class="nc" id="L105">                str += &quot;\\hline\n&quot;;</span>
-<span class="nc" id="L106">            }</span>
-<span class="nc" id="L107">            str += &quot;\\end{tabular}\n&quot;;</span>
-<span class="nc" id="L108">            out.write(str);</span>
-<span class="nc" id="L109">            out.close();</span>
-<span class="nc" id="L110">        }  catch (IOException e)  { System.out.println(&quot;IOException : &quot; + e.getMessage()); }</span>
-<span class="nc" id="L111">    }</span>
+<span class="fc" id="L103">                }</span>
+<span class="fc" id="L104">                str += &quot;\\\\ \n&quot;;</span>
+<span class="fc" id="L105">                str += &quot;\\hline\n&quot;;</span>
+<span class="fc" id="L106">            }</span>
+<span class="fc" id="L107">            str += &quot;\\end{tabular}\n&quot;;</span>
+<span class="fc" id="L108">            out.write(str);</span>
+<span class="fc" id="L109">            out.close();</span>
+<span class="pc" id="L110">        }  catch (IOException e)  { System.out.println(&quot;IOException : &quot; + e.getMessage()); }</span>
+<span class="fc" id="L111">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>
