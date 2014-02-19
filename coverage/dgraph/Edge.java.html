@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Edge.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Java Lattices</a> &gt; <a href="index.source.html" class="el_package">dgraph</a> &gt; <span class="el_source">Edge.java</span></div><h1>Edge.java</h1><pre class="source lang-java linenums">package dgraph;
+
+/*
+ * Edge.java
+ *
+ * Copyright: 2013 University of La Rochelle, France
+ *
+ * License: http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html CeCILL-B license
+ *
+ * This file is part of lattice, free package. You can redistribute it and/or modify
+ * it under the terms of CeCILL-B license.
+ *
+ * @author Karell Bertet
+ * @version 2014
+ */
+
+import java.util.StringTokenizer;
+
+/**
+ * This class gives a standard representation for an edge of a graph.
+ *
+ * An edge is composed of a content, and two nodes
+ *
+ * - `from`
+ * - `to`
+ *
+ * of class {@link Node}.
+ *
+ * This class implements class `Comparable` and provides
+ * the {@link #compareTo} method that compares the edge with
+ * those in parameter by sorting indexes of the nodes that compose it.
+ *
+ * Therefore, edges can be stored in a sorted collection since they are
+ * comparable, and in particular in a sorted set where
+ * set operations are provided.
+ *
+ * ![Edge](Edge.png)
+ *
+ * @uml Edge.png
+ *
+ * Edge &quot;many&quot; *-- &quot;2&quot; Node : contains
+ *
+ * class Edge {
+ *      -Node from
+ *      -Node to
+ *      -Object content
+ *
+ *      +Edge(final Node from, final Node to, final Object content)
+ *      +Edge(final Node from, final Node to)
+ *
+ *      +Node getFrom()
+ *      +Node getTo()
+ *      +Edge setContent(final Object content)
+ *      +Object getContent()
+ *      +boolean hasContent()
+ *
+ *      +String toString()
+ *      +String toDot()
+ *
+ *      +int compareTo(final Object object)
+ * }
+ *
+ * class Node {
+ *      -int identifier
+ *      -Object content
+ *      -{static} int count = 0
+ *
+ *      +Node(final Object content)
+ *      +Node()
+ *      +Node(final Node node)
+ *      +Node()
+ *
+ *      +int getIdentifier()
+ *      +Object getContent()
+ *
+ *      +String toString()
+ *      +String toDot()
+ *
+ *      +Node copy()
+ *
+ *      +boolean equals(final Object object)
+ *      +int hashCode()
+ *      +int compareTo(final Object object)
+ * }
+ */
+public class Edge implements Comparable&lt;Object&gt; {
+    /* ------------- FIELDS --------------------- */
+
+    /**
+     * The origin node of the edge.
+     */
+    private final Node from;
+
+    /**
+     * The destination node of the edge.
+     */
+    private final Node to;
+
+    /**
+     * An object to store information about this edge.
+     */
+    private Object content;
+
+    /* ------------- CONSTRUCTORS ---------------- */
+
+    /**
+     * Constructs a new edge with the specified node as origin and destination node, with the specified content.
+     *
+     * @param   from     the origin node
+     * @param   to       the destination node
+     * @param   content  the edge content
+     */
+<span class="nc" id="L113">    public Edge(final Node from, final Node to, final Object content) {</span>
+<span class="nc" id="L114">        this.from = from;</span>
+<span class="nc" id="L115">        this.to = to;</span>
+<span class="nc" id="L116">        this.content = content;</span>
+<span class="nc" id="L117">    }</span>
+
+    /**
+     * Constructs a new edge with the specified node as origin and destination node, and a null value as content.
+     *
+     * @param   from     the origin node
+     * @param   to       the destination node
+     */
+<span class="nc" id="L125">    public Edge(final Node from, final Node to) {</span>
+<span class="nc" id="L126">        this.from = from;</span>
+<span class="nc" id="L127">        this.to = to;</span>
+<span class="nc" id="L128">        this.content = null;</span>
+<span class="nc" id="L129">    }</span>
+
+    /* -------------- ACCESSORS ------------------- */
+
+    /**
+     * Returns the origin node of this edge.
+     *
+     * @return  the origin node
+     */
+    public Node getFrom() {
+<span class="nc" id="L139">        return this.from;</span>
+    }
+
+    /**
+     * Returns the destination node of this edge.
+     *
+     * @return  the destination node
+     */
+    public Node getTo() {
+<span class="nc" id="L148">        return this.to;</span>
+    }
+
+    /**
+     * Replaces the content of this edge with the specified one.
+     *
+     * @param   content  The edge content
+     *
+     * @return  this for chaining
+     */
+    public Edge setContent(final Object content) {
+<span class="nc" id="L159">        this.content = content;</span>
+<span class="nc" id="L160">        return this;</span>
+    }
+
+    /**
+     * Returns the content this edge.
+     *
+     * @return  the content
+     */
+    public Object getContent() {
+<span class="nc" id="L169">        return this.content;</span>
+    }
+
+    /**
+     * Returns true if content of this edge is not the null value.
+     *
+     * @return  true if the content is not null
+     */
+    public boolean hasContent() {
+<span class="nc bnc" id="L178" title="All 2 branches missed.">        return this.content != null;</span>
+    }
+
+    /* ------------- METHODS ------------------ */
+
+    /**
+     * Compares this edge with those in parameter, based on their identifiers.
+     *
+     * The result is zero if the identifiers are equal; 1 if this edge's identifier is greater,
+     * and -1 otherwise.
+     *
+     * This comparison method is needed to define a natural ordering.
+     * It allows to use objects of this class in a sorted collection
+     *
+     * @param   object  the specified element to be compared with this edge
+     *
+     * @return  a negative integer, zero, or a positive integer as this edge is less than, equal to, or greater than the specified object.
+     */
+    public int compareTo(final Object object)  {
+<span class="nc bnc" id="L197" title="All 2 branches missed.">        if (!(object instanceof Edge)) {</span>
+<span class="nc" id="L198">            return -1;</span>
+        }
+<span class="nc" id="L200">        Edge edge = (Edge) object;</span>
+<span class="nc bnc" id="L201" title="All 4 branches missed.">        if (this.from.getIdentifier() == edge.getFrom().getIdentifier() &amp;&amp; this.to.getIdentifier() == edge.getTo().getIdentifier()) {</span>
+<span class="nc" id="L202">            return 0;</span>
+        }
+<span class="nc bnc" id="L204" title="All 6 branches missed.">        if (this.from.getIdentifier() &lt; edge.getFrom().getIdentifier()</span>
+            || this.from.getIdentifier() == edge.getFrom().getIdentifier() &amp;&amp; this.to.getIdentifier() &lt; edge.getTo().getIdentifier()) {
+<span class="nc" id="L206">            return -1;</span>
+        }
+<span class="nc" id="L208">        return 1;</span>
+    }
+
+    /**
+     * Returns a String representation of this edge.
+     *
+     * @return  The string representation of this edge
+     */
+    public String toString() {
+<span class="nc" id="L217">        String string = this.from.toString() + &quot;-&gt;&quot; + this.to.toString();</span>
+<span class="nc bnc" id="L218" title="All 2 branches missed.">        if (this.hasContent()) {</span>
+<span class="nc" id="L219">            string = string + &quot;(&quot; + this.content + &quot;)&quot;;</span>
+        }
+<span class="nc" id="L221">        return string;</span>
+    }
+
+    /**
+     * Returns the dot description of this edge in a String.
+     *
+     * @return  The dot representation of this edge
+     */
+    public String toDot() {
+<span class="nc" id="L230">        String dot = this.from.getIdentifier() + &quot;-&gt;&quot; + this.to.getIdentifier();</span>
+<span class="nc bnc" id="L231" title="All 2 branches missed.">        if (this.hasContent()) {</span>
+<span class="nc" id="L232">            dot = dot + &quot; [&quot; + &quot;label=\&quot;&quot;;</span>
+<span class="nc" id="L233">            StringTokenizer tokenizer = new StringTokenizer(this.content.toString(), &quot;\&quot;&quot;);</span>
+<span class="nc bnc" id="L234" title="All 2 branches missed.">            while (tokenizer.hasMoreTokens()) {</span>
+<span class="nc" id="L235">                dot += tokenizer.nextToken();</span>
+            }
+<span class="nc" id="L237">            dot = dot + &quot;\&quot;]&quot;;</span>
+        }
+<span class="nc" id="L239">        return dot;</span>
+    }
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>

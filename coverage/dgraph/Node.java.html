@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Node.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Java Lattices</a> &gt; <a href="index.source.html" class="el_package">dgraph</a> &gt; <span class="el_source">Node.java</span></div><h1>Node.java</h1><pre class="source lang-java linenums">/*
+ * Node.java
+ *
+ * Copyright: 2013 University of La Rochelle, France
+ *
+ * License: http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html CeCILL-B license
+ *
+ * This file is part of lattice, free package. You can redistribute it and/or modify
+ * it under the terms of CeCILL-B license.
+ *
+ * @author Karell Bertet
+ * @version 2014
+ */
+
+package dgraph;
+
+import java.util.StringTokenizer;
+
+/**
+ * This class gives a standard representation for a node of a graph.
+ *
+ * A node is composed of a `content` and an
+ * automatically computed and unique index.
+ *
+ * This class implements the `Comparable` interface aiming at
+ * sorting nodes by providing the {@link #compareTo} method
+ * that compares the node with those in parameter by comparing their indexes.
+ *
+ * Since nodes are comparable, they can be stored in a sorted collection,
+ * and in particular in a sorted set where set operations are provided.
+ *
+ * ![Node](Node.png)
+ *
+ * @uml Node.png
+ *
+ * class Node {
+ *      -int identifier
+ *      -Object content
+ *      -{static} int count = 0
+ *
+ *      +Node(final Object content)
+ *      +Node()
+ *      +Node(final Node node)
+ *      +Node()
+ *
+ *      +int getIdentifier()
+ *      +Object getContent()
+ *
+ *      +String toString()
+ *      +String toDot()
+ *
+ *      +Node copy()
+ *
+ *      +boolean equals(final Object object)
+ *      +int hashCode()
+ *      +int compareTo(final Object object)
+ * }
+ */
+public class Node implements Comparable&lt;Object&gt; {
+    /* ------------- FIELDS --------------------- */
+
+    /**
+     * An uniquely defined identifier for this node.
+     */
+   private int identifier;
+
+    /**
+     * An object to store information about the element.
+     */
+   private Object content;
+
+    /**
+     * The total number of nodes.
+     *
+     * Initialized to 0, it is incremented by the constructor,
+     * and used to inialize the identifier.
+     */
+<span class="nc" id="L78">   private static int count = 0;</span>
+
+    /* ------------- CONSTRUCTORS ------------------ */
+
+    /**
+     * Constructs a new node containing the specified content.
+     *
+     * Identifier of this node is initalized with the `count`
+     * variable which is the incremented.
+     *
+     * @param   content  Content for this node
+     */
+<span class="nc" id="L90">    public Node(final Object content) {</span>
+<span class="nc" id="L91">        this.identifier = ++count;</span>
+<span class="nc" id="L92">        this.content = content;</span>
+<span class="nc" id="L93">    }</span>
+
+    /**
+     * Constructs a new node with a null content.
+     *
+     * Identifier of this node is initalized with the `count`
+     * variable which is the incremented.
+     */
+<span class="nc" id="L101">    public Node() {</span>
+<span class="nc" id="L102">        this.identifier = ++count;</span>
+<span class="nc" id="L103">        this.content = null;</span>
+<span class="nc" id="L104">    }</span>
+
+    /**
+     * Constructs this node as a copy of the specified `node`, with the same index.
+     *
+     * @param   node  the node to be copied
+     */
+<span class="nc" id="L111">    public Node(final Node node) {</span>
+<span class="nc" id="L112">        this.identifier = node.identifier;</span>
+<span class="nc" id="L113">        this.content = node.content;</span>
+<span class="nc" id="L114">    }</span>
+
+    /* -------------- ACCESSORS ------------------- */
+
+    /**
+     * Get the identifier.
+     *
+     * @return  the node identifier
+     */
+    public int getIdentifier() {
+<span class="nc" id="L124">        return this.identifier;</span>
+    }
+
+    /**
+     * Get the content.
+     *
+     * @return  the node content
+     */
+    public Object getContent() {
+<span class="nc" id="L133">        return this.content;</span>
+    }
+
+    /* --------------- SAVING METHOD ------------ */
+
+    /**
+     * Returns a string representation of this node without spaces.
+     *
+     * @return  the string representation
+     */
+     public String toString() {
+<span class="nc" id="L144">        String string = &quot;&quot;;</span>
+<span class="nc bnc" id="L145" title="All 2 branches missed.">        if (this.content == null) {</span>
+<span class="nc" id="L146">            string = this.identifier + &quot;&quot;;</span>
+        } else {
+<span class="nc" id="L148">            string = this.content.toString();</span>
+        }
+<span class="nc" id="L150">        StringTokenizer tokenizer = new StringTokenizer(string);</span>
+<span class="nc" id="L151">        string = &quot;&quot;;</span>
+<span class="nc bnc" id="L152" title="All 2 branches missed.">        while (tokenizer.hasMoreTokens()) {</span>
+<span class="nc" id="L153">            string += tokenizer.nextToken();</span>
+        }
+<span class="nc" id="L155">        return string;</span>
+    }
+
+    /**
+     * Returns the dot description of this node in a String.
+     *
+     * @return  the dot description
+     */
+    public String toDot() {
+<span class="nc" id="L164">        String dot = this.identifier + &quot; [label=\&quot;&quot;;</span>
+<span class="nc" id="L165">        StringTokenizer tokenizer = new StringTokenizer(this.toString(), &quot;\&quot;&quot;);</span>
+<span class="nc bnc" id="L166" title="All 2 branches missed.">        while (tokenizer.hasMoreTokens()) {</span>
+<span class="nc" id="L167">            dot += tokenizer.nextToken();</span>
+        }
+<span class="nc" id="L169">        dot += &quot;\&quot;]&quot;;</span>
+<span class="nc" id="L170">        return dot;</span>
+    }
+
+    /* --------------- OVERLAPPING METHODS ------------ */
+
+    /**
+     * Returns a copy of this node.
+     *
+     * @return  a clone of this node
+     */
+    public Node copy() {
+<span class="nc" id="L181">        return new Node(this.content);</span>
+    }
+
+    /**
+     * Compares this node with the specified one.
+     *
+     * @param  object  The object to be tested with
+     *
+     * @return  true or false as this node is equal to the specified object.
+     */
+    public boolean equals(final Object object) {
+<span class="nc bnc" id="L192" title="All 2 branches missed.">        if (!(object instanceof Node)) {</span>
+<span class="nc" id="L193">            return false;</span>
+        }
+<span class="nc" id="L195">        Node node = (Node) object;</span>
+<span class="nc bnc" id="L196" title="All 2 branches missed.">        return this.identifier == node.identifier;</span>
+    }
+
+    /**
+     * Compute the hash code.
+     *
+     * @return  an integer representing the object
+     */
+    public int hashCode() {
+<span class="nc" id="L205">        return this.identifier;</span>
+    }
+
+   /**
+    * Compares this node with those in parameter, based on their identifiers.
+    *
+    * The result is zero if the identifiers are equal; 1 if this node's identifier is greater, and -1 otherwise.
+    * This comparison method is needed to define a natural ordering.
+    * It allows to use objects of this class in a sorted collection.
+    *
+    * @param   object  the specified element to be compared with this node
+    *
+    * @return  a negative integer, zero, or a positive integer as this node is less than, equal to, or greater than the specified object.
+    */
+    public int compareTo(final Object object) {
+<span class="nc bnc" id="L220" title="All 2 branches missed.">        if (!(object instanceof Node)) {</span>
+<span class="nc" id="L221">            return -1;</span>
+        }
+<span class="nc" id="L223">        int id = ((Node) object).identifier;</span>
+<span class="nc bnc" id="L224" title="All 2 branches missed.">        if (this.identifier &gt; id) {</span>
+<span class="nc" id="L225">            return 1;</span>
+<span class="nc bnc" id="L226" title="All 2 branches missed.">        } else if (this.identifier == id) {</span>
+<span class="nc" id="L227">            return 0;</span>
+        } else {
+<span class="nc" id="L229">            return -1;</span>
+        }
+    }
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>
