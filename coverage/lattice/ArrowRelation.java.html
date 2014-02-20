@@ -28,11 +28,11 @@ import dgraph.DGraph;
  *
  * Let m and b be respectively meet and join irreductibles of a lattice.
  * Recall that m has a unique successor say m+ and j has a unique predecessor say j-, then :
- * j &quot;Up Arrow&quot; m (stored has &quot;Up&quot;) iff j is not less or equal than m and j is less than m+
- * j &quot;Down Arrow&quot; m (stored has &quot;Down&quot;) iff j is not less or equal than m and j- is less than m
- * j &quot;Up Down Arrow&quot; m (stored has &quot;UpDown&quot;) iff j &quot;Up&quot; m and j &quot;Down&quot; m
- * j &quot;Cross&quot; m (stored has &quot;Cross&quot;) iff j is less or equal than m
- * j &quot;Circ&quot; m (stored has &quot;Circ&quot;) iff neither j &quot;Up&quot; m nor j &quot;Down&quot; m nor j &quot;Cross&quot; m
+ * j &quot;Up Arrow&quot; m (stored as &quot;Up&quot;) iff j is not less or equal than m and j is less than m+
+ * j &quot;Down Arrow&quot; m (stored as &quot;Down&quot;) iff j is not less or equal than m and j- is less than m
+ * j &quot;Up Down Arrow&quot; m (stored as &quot;UpDown&quot;) iff j &quot;Up&quot; m and j &quot;Down&quot; m
+ * j &quot;Cross&quot; m (stored as &quot;Cross&quot;) iff j is less or equal than m
+ * j &quot;Circ&quot; m (stored as &quot;Circ&quot;) iff neither j &quot;Up&quot; m nor j &quot;Down&quot; m nor j &quot;Cross&quot; m
  */
 public class ArrowRelation extends DGraph  {
     /**
