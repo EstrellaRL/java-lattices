@@ -125,6 +125,8 @@ import java.util.Set;
  *     +void transpose()
  *     +DAGraph getStronglyConnectedComponent()
  * }
+ *
+ * @todo  Do we forbid to add an edge that breaks acyclic property by verifying that the destination node has no successors?
  */
 public class DAGraph extends DGraph {
 
@@ -132,8 +134,8 @@ public class DAGraph extends DGraph {
      * Constructs a new DAG with an empty set of node.
      */
     public DAGraph() {
-<span class="fc" id="L135">        super();</span>
-<span class="fc" id="L136">    }</span>
+<span class="fc" id="L137">        super();</span>
+<span class="fc" id="L138">    }</span>
 
     /**
      * Constructs this component with the specified set of nodes,
@@ -142,8 +144,8 @@ public class DAGraph extends DGraph {
      * @param   set  the set of nodes
      */
     public DAGraph(final Set&lt;Node&gt; set) {
-<span class="fc" id="L145">        super(set);</span>
-<span class="fc" id="L146">    }</span>
+<span class="fc" id="L147">        super(set);</span>
+<span class="fc" id="L148">    }</span>
 
     /**
      * Constructs this component as a copy of the specified directed graph.
@@ -154,20 +156,20 @@ public class DAGraph extends DGraph {
      * @param   graph  the DGraph to be copied
      */
     public DAGraph(final DGraph graph) {
-<span class="fc" id="L157">        super(graph);</span>
-<span class="fc bfc" id="L158" title="All 2 branches covered.">        if (this.isAcyclic()) {</span>
-<span class="fc" id="L159">            this.reflexiveReduction();</span>
+<span class="fc" id="L159">        super(graph);</span>
+<span class="fc bfc" id="L160" title="All 2 branches covered.">        if (this.isAcyclic()) {</span>
+<span class="fc" id="L161">            this.reflexiveReduction();</span>
         } else {
-<span class="fc" id="L161">            TreeMap&lt;Node, TreeSet&lt;Edge&gt;&gt; successors = new TreeMap&lt;Node, TreeSet&lt;Edge&gt;&gt;();</span>
-<span class="fc" id="L162">            TreeMap&lt;Node, TreeSet&lt;Edge&gt;&gt; predecessors = new TreeMap&lt;Node, TreeSet&lt;Edge&gt;&gt;();</span>
-<span class="fc bfc" id="L163" title="All 2 branches covered.">            for (Node node : this.getNodes()) {</span>
-<span class="fc" id="L164">                successors.put(node, new TreeSet&lt;Edge&gt;());</span>
-<span class="fc" id="L165">                predecessors.put(node, new TreeSet&lt;Edge&gt;());</span>
-<span class="fc" id="L166">            }</span>
-<span class="fc" id="L167">            this.setSuccessors(successors);</span>
-<span class="fc" id="L168">            this.setPredecessors(predecessors);</span>
+<span class="fc" id="L163">            TreeMap&lt;Node, TreeSet&lt;Edge&gt;&gt; successors = new TreeMap&lt;Node, TreeSet&lt;Edge&gt;&gt;();</span>
+<span class="fc" id="L164">            TreeMap&lt;Node, TreeSet&lt;Edge&gt;&gt; predecessors = new TreeMap&lt;Node, TreeSet&lt;Edge&gt;&gt;();</span>
+<span class="fc bfc" id="L165" title="All 2 branches covered.">            for (Node node : this.getNodes()) {</span>
+<span class="fc" id="L166">                successors.put(node, new TreeSet&lt;Edge&gt;());</span>
+<span class="fc" id="L167">                predecessors.put(node, new TreeSet&lt;Edge&gt;());</span>
+<span class="fc" id="L168">            }</span>
+<span class="fc" id="L169">            this.setSuccessors(successors);</span>
+<span class="fc" id="L170">            this.setPredecessors(predecessors);</span>
         }
-<span class="fc" id="L170">    }</span>
+<span class="fc" id="L172">    }</span>
 
     /* --------------- DAG HANDLING METHODS ------------ */
 
@@ -177,7 +179,7 @@ public class DAGraph extends DGraph {
      * @return  the minimal element
      */
     public TreeSet&lt;Node&gt; min() {
-<span class="fc" id="L180">        return this.getSinks();</span>
+<span class="fc" id="L182">        return this.getSinks();</span>
     }
 
     /**
@@ -186,7 +188,7 @@ public class DAGraph extends DGraph {
      * @return  the maximal element
      */
     public TreeSet&lt;Node&gt; max() {
-<span class="fc" id="L189">        return this.getWells();</span>
+<span class="fc" id="L191">        return this.getWells();</span>
     }
 
     /**
@@ -199,9 +201,9 @@ public class DAGraph extends DGraph {
      * @return  the set of majorants
      */
     public TreeSet&lt;Node&gt; majorants(final Node node) {
-<span class="fc" id="L202">        DAGraph graph = new DAGraph(this);</span>
-<span class="fc" id="L203">        graph.transitiveClosure();</span>
-<span class="fc" id="L204">        return graph.getSuccessorNodes(node);</span>
+<span class="fc" id="L204">        DAGraph graph = new DAGraph(this);</span>
+<span class="fc" id="L205">        graph.transitiveClosure();</span>
+<span class="fc" id="L206">        return graph.getSuccessorNodes(node);</span>
     }
 
     /**
@@ -214,9 +216,9 @@ public class DAGraph extends DGraph {
      * @return  the set of minorants
      */
     public TreeSet&lt;Node&gt; minorants(final Node node) {
-<span class="fc" id="L217">        DAGraph graph = new DAGraph(this);</span>
-<span class="fc" id="L218">        graph.transitiveClosure();</span>
-<span class="fc" id="L219">        return graph.getPredecessorNodes(node);</span>
+<span class="fc" id="L219">        DAGraph graph = new DAGraph(this);</span>
+<span class="fc" id="L220">        graph.transitiveClosure();</span>
+<span class="fc" id="L221">        return graph.getPredecessorNodes(node);</span>
     }
 
     /**
@@ -228,9 +230,9 @@ public class DAGraph extends DGraph {
      * @return  the subgraph
      */
     public DAGraph filter(final Node node) {
-<span class="fc" id="L231">        TreeSet&lt;Node&gt; set = this.majorants(node);</span>
-<span class="fc" id="L232">        set.add(node);</span>
-<span class="fc" id="L233">        return this.getSubgraphByNodes(set);</span>
+<span class="fc" id="L233">        TreeSet&lt;Node&gt; set = this.majorants(node);</span>
+<span class="fc" id="L234">        set.add(node);</span>
+<span class="fc" id="L235">        return this.getSubgraphByNodes(set);</span>
     }
 
     /**
@@ -242,9 +244,9 @@ public class DAGraph extends DGraph {
      * @return  the subgraph
      */
     public DAGraph ideal(final Node node) {
-<span class="fc" id="L245">        TreeSet&lt;Node&gt; set = this.minorants(node);</span>
-<span class="fc" id="L246">        set.add(node);</span>
-<span class="fc" id="L247">        return this.getSubgraphByNodes(set);</span>
+<span class="fc" id="L247">        TreeSet&lt;Node&gt; set = this.minorants(node);</span>
+<span class="fc" id="L248">        set.add(node);</span>
+<span class="fc" id="L249">        return this.getSubgraphByNodes(set);</span>
     }
 
     /**
@@ -257,12 +259,12 @@ public class DAGraph extends DGraph {
      * @return  The subgraph
      */
     public DAGraph getSubgraphByNodes(final Set&lt;Node&gt; nodes) {
-<span class="fc" id="L260">        DGraph tmp = new DGraph(this);</span>
-<span class="fc" id="L261">        tmp.transitiveClosure();</span>
-<span class="fc" id="L262">        DGraph sub = tmp.getSubgraphByNodes(nodes);</span>
-<span class="fc" id="L263">        DAGraph sub2 = new DAGraph(sub);</span>
-<span class="fc" id="L264">        sub2.transitiveReduction();</span>
-<span class="fc" id="L265">        return sub2;</span>
+<span class="fc" id="L262">        DGraph tmp = new DGraph(this);</span>
+<span class="fc" id="L263">        tmp.transitiveClosure();</span>
+<span class="fc" id="L264">        DGraph sub = tmp.getSubgraphByNodes(nodes);</span>
+<span class="fc" id="L265">        DAGraph sub2 = new DAGraph(sub);</span>
+<span class="fc" id="L266">        sub2.transitiveReduction();</span>
+<span class="fc" id="L267">        return sub2;</span>
     }
 
     /* --------------- DAG TREATMENT METHODS ------------ */
@@ -285,55 +287,55 @@ public class DAGraph extends DGraph {
     public int transitiveReduction() {
 
         // copy this component in a new DAG graph
-<span class="fc" id="L288">        DAGraph graph = new DAGraph(this);</span>
-<span class="fc" id="L289">        graph.reflexiveReduction();</span>
+<span class="fc" id="L290">        DAGraph graph = new DAGraph(this);</span>
+<span class="fc" id="L291">        graph.reflexiveReduction();</span>
         // initalize this component with no edges
-<span class="fc" id="L291">        this.setSuccessors(new TreeMap&lt;Node, TreeSet&lt;Edge&gt;&gt;());</span>
-<span class="fc bfc" id="L292" title="All 2 branches covered.">        for (Node node : this.getNodes()) {</span>
-<span class="fc" id="L293">            this.getSuccessors().put(node, new TreeSet&lt;Edge&gt;());</span>
-<span class="fc" id="L294">        }</span>
-<span class="fc" id="L295">        this.setPredecessors(new TreeMap&lt;Node, TreeSet&lt;Edge&gt;&gt;());</span>
-<span class="fc bfc" id="L296" title="All 2 branches covered.">        for (Node node : this.getNodes()) {</span>
-<span class="fc" id="L297">            this.getPredecessors().put(node, new TreeSet&lt;Edge&gt;());</span>
-<span class="fc" id="L298">        }</span>
-<span class="fc" id="L299">        int number = 0;</span>
+<span class="fc" id="L293">        this.setSuccessors(new TreeMap&lt;Node, TreeSet&lt;Edge&gt;&gt;());</span>
+<span class="fc bfc" id="L294" title="All 2 branches covered.">        for (Node node : this.getNodes()) {</span>
+<span class="fc" id="L295">            this.getSuccessors().put(node, new TreeSet&lt;Edge&gt;());</span>
+<span class="fc" id="L296">        }</span>
+<span class="fc" id="L297">        this.setPredecessors(new TreeMap&lt;Node, TreeSet&lt;Edge&gt;&gt;());</span>
+<span class="fc bfc" id="L298" title="All 2 branches covered.">        for (Node node : this.getNodes()) {</span>
+<span class="fc" id="L299">            this.getPredecessors().put(node, new TreeSet&lt;Edge&gt;());</span>
+<span class="fc" id="L300">        }</span>
+<span class="fc" id="L301">        int number = 0;</span>
         // mark each node to false
-<span class="fc" id="L301">        TreeMap&lt;Node, Boolean&gt; mark = new TreeMap&lt;Node, Boolean&gt;();</span>
-<span class="fc bfc" id="L302" title="All 2 branches covered.">        for (Node node : graph.getNodes()) {</span>
-<span class="fc" id="L303">            mark.put(node, new Boolean(false));</span>
-<span class="fc" id="L304">        }</span>
+<span class="fc" id="L303">        TreeMap&lt;Node, Boolean&gt; mark = new TreeMap&lt;Node, Boolean&gt;();</span>
+<span class="fc bfc" id="L304" title="All 2 branches covered.">        for (Node node : graph.getNodes()) {</span>
+<span class="fc" id="L305">            mark.put(node, new Boolean(false));</span>
+<span class="fc" id="L306">        }</span>
         // treatment of nodes according to a topological sort
-<span class="fc" id="L306">        ArrayList&lt;Node&gt; sort = graph.topologicalSort();</span>
-<span class="fc bfc" id="L307" title="All 2 branches covered.">        for (Node x : sort) {</span>
-<span class="fc" id="L308">            TreeSet&lt;Node&gt; set = new TreeSet&lt;Node&gt;(graph.getSuccessorNodes(x));</span>
-<span class="fc bfc" id="L309" title="All 2 branches covered.">            while (!set.isEmpty()) {</span>
+<span class="fc" id="L308">        ArrayList&lt;Node&gt; sort = graph.topologicalSort();</span>
+<span class="fc bfc" id="L309" title="All 2 branches covered.">        for (Node x : sort) {</span>
+<span class="fc" id="L310">            TreeSet&lt;Node&gt; set = new TreeSet&lt;Node&gt;(graph.getSuccessorNodes(x));</span>
+<span class="fc bfc" id="L311" title="All 2 branches covered.">            while (!set.isEmpty()) {</span>
                 // compute the smallest successor y of x according to the topological sort
-<span class="fc" id="L311">                int i = 0;</span>
-<span class="fc bfc" id="L312" title="All 2 branches covered.">                while (!set.contains(sort.get(i))) {</span>
-<span class="fc" id="L313">                    i++;</span>
+<span class="fc" id="L313">                int i = 0;</span>
+<span class="fc bfc" id="L314" title="All 2 branches covered.">                while (!set.contains(sort.get(i))) {</span>
+<span class="fc" id="L315">                    i++;</span>
                 }
-<span class="fc" id="L315">                Node y = sort.get(i);</span>
+<span class="fc" id="L317">                Node y = sort.get(i);</span>
                 // when y is not not marked, x-&gt;y is a reduced edge
-<span class="pc bpc" id="L317" title="1 of 4 branches missed.">                if (y != null &amp;&amp; !mark.get(y).booleanValue()) {</span>
-<span class="fc" id="L318">                    this.addEdge(x, y);</span>
-<span class="fc" id="L319">                    graph.addEdge(x, y);</span>
+<span class="pc bpc" id="L319" title="1 of 4 branches missed.">                if (y != null &amp;&amp; !mark.get(y).booleanValue()) {</span>
+<span class="fc" id="L320">                    this.addEdge(x, y);</span>
+<span class="fc" id="L321">                    graph.addEdge(x, y);</span>
                 }
-<span class="fc bfc" id="L321" title="All 2 branches covered.">                for (Node z : graph.getSuccessorNodes(y)) {</span>
+<span class="fc bfc" id="L323" title="All 2 branches covered.">                for (Node z : graph.getSuccessorNodes(y)) {</span>
                     // treatment of z when not marked
-<span class="fc bfc" id="L323" title="All 2 branches covered.">                    if (!mark.get(z).booleanValue()) {</span>
-<span class="fc" id="L324">                        mark.put(z, new Boolean(true));</span>
-<span class="fc" id="L325">                        graph.addEdge(x, z);</span>
-<span class="fc" id="L326">                        number++;</span>
-<span class="fc" id="L327">                        set.add(z);</span>
+<span class="fc bfc" id="L325" title="All 2 branches covered.">                    if (!mark.get(z).booleanValue()) {</span>
+<span class="fc" id="L326">                        mark.put(z, new Boolean(true));</span>
+<span class="fc" id="L327">                        graph.addEdge(x, z);</span>
+<span class="fc" id="L328">                        number++;</span>
+<span class="fc" id="L329">                        set.add(z);</span>
                     }
-<span class="fc" id="L329">                }</span>
-<span class="fc" id="L330">                set.remove(y);</span>
-<span class="fc" id="L331">            }</span>
-<span class="fc bfc" id="L332" title="All 2 branches covered.">            for (Node y : graph.getSuccessorNodes(x)) {</span>
-<span class="fc" id="L333">                mark.put(y, new Boolean(false));</span>
-<span class="fc" id="L334">            }</span>
-<span class="fc" id="L335">        }</span>
-<span class="fc" id="L336">        return number;</span>
+<span class="fc" id="L331">                }</span>
+<span class="fc" id="L332">                set.remove(y);</span>
+<span class="fc" id="L333">            }</span>
+<span class="fc bfc" id="L334" title="All 2 branches covered.">            for (Node y : graph.getSuccessorNodes(x)) {</span>
+<span class="fc" id="L335">                mark.put(y, new Boolean(false));</span>
+<span class="fc" id="L336">            }</span>
+<span class="fc" id="L337">        }</span>
+<span class="fc" id="L338">        return number;</span>
     }
 
    /**
@@ -351,39 +353,39 @@ public class DAGraph extends DGraph {
     * @return  the number of added edges
     */
    public int transitiveClosure() {
-<span class="fc" id="L354">        int number = 0;</span>
+<span class="fc" id="L356">        int number = 0;</span>
         // mark each node to false
-<span class="fc" id="L356">        TreeMap&lt;Node, Boolean&gt; mark = new TreeMap&lt;Node, Boolean&gt;();</span>
-<span class="fc bfc" id="L357" title="All 2 branches covered.">        for (Node node : this.getNodes()) {</span>
-<span class="fc" id="L358">            mark.put(node, new Boolean(false));</span>
-<span class="fc" id="L359">        }</span>
+<span class="fc" id="L358">        TreeMap&lt;Node, Boolean&gt; mark = new TreeMap&lt;Node, Boolean&gt;();</span>
+<span class="fc bfc" id="L359" title="All 2 branches covered.">        for (Node node : this.getNodes()) {</span>
+<span class="fc" id="L360">            mark.put(node, new Boolean(false));</span>
+<span class="fc" id="L361">        }</span>
         // treatment of nodes according to a topological sort
-<span class="fc" id="L361">        ArrayList&lt;Node&gt; sort = this.topologicalSort();</span>
-<span class="fc bfc" id="L362" title="All 2 branches covered.">        for (Node x : sort) {</span>
-<span class="fc" id="L363">            TreeSet&lt;Node&gt; set = new TreeSet&lt;Node&gt;(this.getSuccessorNodes(x));</span>
-<span class="fc bfc" id="L364" title="All 2 branches covered.">            while (!set.isEmpty()) {</span>
+<span class="fc" id="L363">        ArrayList&lt;Node&gt; sort = this.topologicalSort();</span>
+<span class="fc bfc" id="L364" title="All 2 branches covered.">        for (Node x : sort) {</span>
+<span class="fc" id="L365">            TreeSet&lt;Node&gt; set = new TreeSet&lt;Node&gt;(this.getSuccessorNodes(x));</span>
+<span class="fc bfc" id="L366" title="All 2 branches covered.">            while (!set.isEmpty()) {</span>
                 // compute the smallest successor y of x according to the topological sort
-<span class="fc" id="L366">                int i = 0;</span>
+<span class="fc" id="L368">                int i = 0;</span>
                 do {
-<span class="fc" id="L368">                    i++;</span>
-<span class="fc bfc" id="L369" title="All 2 branches covered.">                } while (!set.contains(sort.get(i)));</span>
-<span class="fc" id="L370">                Node y = sort.get(i);</span>
-<span class="fc bfc" id="L371" title="All 2 branches covered.">                for (Node z : this.getSuccessorNodes(y)) {</span>
+<span class="fc" id="L370">                    i++;</span>
+<span class="fc bfc" id="L371" title="All 2 branches covered.">                } while (!set.contains(sort.get(i)));</span>
+<span class="fc" id="L372">                Node y = sort.get(i);</span>
+<span class="fc bfc" id="L373" title="All 2 branches covered.">                for (Node z : this.getSuccessorNodes(y)) {</span>
                     // treatment of z when not marked
-<span class="fc bfc" id="L373" title="All 2 branches covered.">                    if (!mark.get(z).booleanValue()) {</span>
-<span class="fc" id="L374">                        mark.put(z, new Boolean(true));</span>
-<span class="fc" id="L375">                        this.addEdge(x, z);</span>
-<span class="fc" id="L376">                        number++;</span>
-<span class="fc" id="L377">                        set.add(z);</span>
+<span class="fc bfc" id="L375" title="All 2 branches covered.">                    if (!mark.get(z).booleanValue()) {</span>
+<span class="fc" id="L376">                        mark.put(z, new Boolean(true));</span>
+<span class="fc" id="L377">                        this.addEdge(x, z);</span>
+<span class="fc" id="L378">                        number++;</span>
+<span class="fc" id="L379">                        set.add(z);</span>
                     }
-<span class="fc" id="L379">                }</span>
-<span class="fc" id="L380">                set.remove(y);</span>
-<span class="fc" id="L381">            }</span>
-<span class="fc bfc" id="L382" title="All 2 branches covered.">            for (Node y : this.getSuccessorNodes(x)) {</span>
-<span class="fc" id="L383">                mark.put(y, new Boolean(false));</span>
-<span class="fc" id="L384">            }</span>
-<span class="fc" id="L385">        }</span>
-<span class="fc" id="L386">        return number;</span>
+<span class="fc" id="L381">                }</span>
+<span class="fc" id="L382">                set.remove(y);</span>
+<span class="fc" id="L383">            }</span>
+<span class="fc bfc" id="L384" title="All 2 branches covered.">            for (Node y : this.getSuccessorNodes(x)) {</span>
+<span class="fc" id="L385">                mark.put(y, new Boolean(false));</span>
+<span class="fc" id="L386">            }</span>
+<span class="fc" id="L387">        }</span>
+<span class="fc" id="L388">        return number;</span>
     }
 
     /* ----------- STATIC GENERATION METHODS ------------- */
@@ -401,22 +403,22 @@ public class DAGraph extends DGraph {
      * @return  the acyclic graph
      */
     public static DAGraph divisors(int number) {
-<span class="fc" id="L404">        DAGraph graph = new DAGraph();</span>
+<span class="fc" id="L406">        DAGraph graph = new DAGraph();</span>
         // addition of nodes
-<span class="fc bfc" id="L406" title="All 2 branches covered.">        for (int i = 2; i &lt;= number; i++) {</span>
-<span class="fc" id="L407">            graph.addNode(new Node(new Integer(i)));</span>
+<span class="fc bfc" id="L408" title="All 2 branches covered.">        for (int i = 2; i &lt;= number; i++) {</span>
+<span class="fc" id="L409">            graph.addNode(new Node(new Integer(i)));</span>
         }
         // addition of edges
-<span class="fc bfc" id="L410" title="All 2 branches covered.">        for (Node from : graph.getNodes()) {</span>
-<span class="fc bfc" id="L411" title="All 2 branches covered.">            for (Node to : graph.getNodes()) {</span>
-<span class="fc" id="L412">               int v1 = ((Integer) from.getContent()).intValue();</span>
-<span class="fc" id="L413">               int v2 = ((Integer) to.getContent()).intValue();</span>
-<span class="fc bfc" id="L414" title="All 4 branches covered.">               if (v1 &lt; v2 &amp;&amp; v2 % v1 == 0) {</span>
-<span class="fc" id="L415">                   graph.addEdge(from, to);</span>
+<span class="fc bfc" id="L412" title="All 2 branches covered.">        for (Node from : graph.getNodes()) {</span>
+<span class="fc bfc" id="L413" title="All 2 branches covered.">            for (Node to : graph.getNodes()) {</span>
+<span class="fc" id="L414">               int v1 = ((Integer) from.getContent()).intValue();</span>
+<span class="fc" id="L415">               int v2 = ((Integer) to.getContent()).intValue();</span>
+<span class="fc bfc" id="L416" title="All 4 branches covered.">               if (v1 &lt; v2 &amp;&amp; v2 % v1 == 0) {</span>
+<span class="fc" id="L417">                   graph.addEdge(from, to);</span>
                }
-<span class="fc" id="L417">            }</span>
-<span class="fc" id="L418">        }</span>
-<span class="fc" id="L419">        return graph;</span>
+<span class="fc" id="L419">            }</span>
+<span class="fc" id="L420">        }</span>
+<span class="fc" id="L421">        return graph;</span>
     }
 
     /**
@@ -428,23 +430,23 @@ public class DAGraph extends DGraph {
      * @return  a random acyclic graph
      */
     public static DAGraph random(int size, double threshold) {
-<span class="fc" id="L431">        DAGraph graph = new DAGraph();</span>
+<span class="fc" id="L433">        DAGraph graph = new DAGraph();</span>
         // addition of Nodes
-<span class="fc bfc" id="L433" title="All 2 branches covered.">        for (int i = 1; i &lt;= size; i++) {</span>
-<span class="fc" id="L434">            graph.addNode(new Node(new Integer(i)));</span>
+<span class="fc bfc" id="L435" title="All 2 branches covered.">        for (int i = 1; i &lt;= size; i++) {</span>
+<span class="fc" id="L436">            graph.addNode(new Node(new Integer(i)));</span>
         }
         // addition of edges
-<span class="fc bfc" id="L437" title="All 2 branches covered.">        for (Node from : graph.getNodes()) {</span>
-<span class="fc bfc" id="L438" title="All 2 branches covered.">            for (Node to : graph.getNodes()) {</span>
+<span class="fc bfc" id="L439" title="All 2 branches covered.">        for (Node from : graph.getNodes()) {</span>
+<span class="fc bfc" id="L440" title="All 2 branches covered.">            for (Node to : graph.getNodes()) {</span>
                 // Test to avoid cycles
-<span class="fc bfc" id="L440" title="All 2 branches covered.">                if (from.compareTo(to) &gt; 0) {</span>
-<span class="fc bfc" id="L441" title="All 2 branches covered.">                    if (Math.random() &lt; threshold) {</span>
-<span class="fc" id="L442">                        graph.addEdge(from, to);</span>
+<span class="fc bfc" id="L442" title="All 2 branches covered.">                if (from.compareTo(to) &gt; 0) {</span>
+<span class="fc bfc" id="L443" title="All 2 branches covered.">                    if (Math.random() &lt; threshold) {</span>
+<span class="fc" id="L444">                        graph.addEdge(from, to);</span>
                     }
                 }
-<span class="fc" id="L445">            }</span>
-<span class="fc" id="L446">        }</span>
-<span class="fc" id="L447">        return graph;</span>
+<span class="fc" id="L447">            }</span>
+<span class="fc" id="L448">        }</span>
+<span class="fc" id="L449">        return graph;</span>
     }
 
     /**
@@ -455,7 +457,7 @@ public class DAGraph extends DGraph {
      * @return  a random acyclic graph
      */
     public static DAGraph random(int size) {
-<span class="nc" id="L458">        return random(size, 0.5);</span>
+<span class="nc" id="L460">        return random(size, 0.5);</span>
     }
 }
 
