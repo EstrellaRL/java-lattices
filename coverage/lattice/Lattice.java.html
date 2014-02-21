@@ -373,9 +373,9 @@ public class Lattice extends DAGraph {
      * @return  the subgraph induced by the irreducibles nodes of this component
      */
     public DAGraph irreduciblesSubgraph() {
-<span class="nc" id="L376">        TreeSet&lt;Node&gt; irr = this.meetIrreducibles();</span>
-<span class="nc" id="L377">        irr.addAll(this.joinIrreducibles());</span>
-<span class="nc" id="L378">        return this.getSubgraphByNodes(irr);</span>
+<span class="fc" id="L376">        TreeSet&lt;Node&gt; irr = this.meetIrreducibles();</span>
+<span class="fc" id="L377">        irr.addAll(this.joinIrreducibles());</span>
+<span class="fc" id="L378">        return this.getSubgraphByNodes(irr);</span>
     }
 
     /**
@@ -506,26 +506,26 @@ public class Lattice extends DAGraph {
      */
     public Context getTable() {
         // generation of attributes
-<span class="nc" id="L509">        TreeSet&lt;Node&gt; join = this.joinIrreducibles();</span>
+<span class="fc" id="L509">        TreeSet&lt;Node&gt; join = this.joinIrreducibles();</span>
         //TreeMap&lt;Node,Node&gt; JoinContent = new TreeMap();
-<span class="nc" id="L511">        Context context = new Context();</span>
-<span class="nc bnc" id="L512" title="All 2 branches missed.">        for (Node j : join) {</span>
+<span class="fc" id="L511">        Context context = new Context();</span>
+<span class="pc bpc" id="L512" title="1 of 2 branches missed.">        for (Node j : join) {</span>
           //  Node nj = new Node(j);
             //JoinContent.put(j,nj);
 <span class="nc" id="L515">            context.addToAttributes(j);</span>
 <span class="nc" id="L516">        }</span>
         // generation of observations
-<span class="nc" id="L518">        TreeSet&lt;Node&gt; meet = this.meetIrreducibles();</span>
+<span class="fc" id="L518">        TreeSet&lt;Node&gt; meet = this.meetIrreducibles();</span>
         //TreeMap&lt;Node,Node&gt; MeetContent = new TreeMap();
-<span class="nc bnc" id="L520" title="All 2 branches missed.">        for (Node m : meet) {</span>
+<span class="pc bpc" id="L520" title="1 of 2 branches missed.">        for (Node m : meet) {</span>
         //    Node nm = new Node(m);
 <span class="nc" id="L522">            context.addToObservations(m);</span>
         //    MeetContent.put(m,nm);
 <span class="nc" id="L524">        }</span>
         // generation of extent-intent
-<span class="nc" id="L526">        Lattice tmp = new Lattice(this);</span>
-<span class="nc" id="L527">        tmp.transitiveClosure();</span>
-<span class="nc bnc" id="L528" title="All 2 branches missed.">        for (Node j : join) {</span>
+<span class="fc" id="L526">        Lattice tmp = new Lattice(this);</span>
+<span class="fc" id="L527">        tmp.transitiveClosure();</span>
+<span class="pc bpc" id="L528" title="1 of 2 branches missed.">        for (Node j : join) {</span>
 <span class="nc bnc" id="L529" title="All 2 branches missed.">            for (Node m : meet) {</span>
 <span class="nc bnc" id="L530" title="All 4 branches missed.">                if (j.equals(m) || tmp.getSuccessorNodes(j).contains(m)) {</span>
 <span class="nc" id="L531">                    context.addExtentIntent(m, j);</span>
@@ -533,7 +533,7 @@ public class Lattice extends DAGraph {
                 }
 <span class="nc" id="L534">            }</span>
 <span class="nc" id="L535">        }</span>
-<span class="nc" id="L536">        return context;</span>
+<span class="fc" id="L536">        return context;</span>
     }
 
     /**
@@ -619,21 +619,21 @@ public class Lattice extends DAGraph {
     * @return  the dependency graph
     */
     public DGraph getDependencyGraph() {
-<span class="nc bnc" id="L622" title="All 2 branches missed.">        if (this.dependencyGraph == null) {</span>
+<span class="pc bpc" id="L622" title="1 of 2 branches missed.">        if (this.dependencyGraph == null) {</span>
 <span class="nc" id="L623">            return this.dependencyGraph;</span>
         }
-<span class="nc" id="L625">        this.dependencyGraph = new DGraph();</span>
+<span class="fc" id="L625">        this.dependencyGraph = new DGraph();</span>
         // nodes of the dependency graph are join-irreducibles
-<span class="nc" id="L627">        TreeSet&lt;Node&gt; joins = this.joinIrreducibles();</span>
-<span class="nc bnc" id="L628" title="All 2 branches missed.">        for (Node j : joins) {</span>
+<span class="fc" id="L627">        TreeSet&lt;Node&gt; joins = this.joinIrreducibles();</span>
+<span class="pc bpc" id="L628" title="1 of 2 branches missed.">        for (Node j : joins) {</span>
 <span class="nc" id="L629">            this.dependencyGraph.addNode(j);</span>
 <span class="nc" id="L630">        }</span>
         // computes the transitive closure of the join-irreducibles subgraph of this compnent
-<span class="nc" id="L632">        DAGraph joinG = this.irreduciblesSubgraph();</span>
-<span class="nc" id="L633">        joinG.transitiveClosure();</span>
+<span class="fc" id="L632">        DAGraph joinG = this.irreduciblesSubgraph();</span>
+<span class="fc" id="L633">        joinG.transitiveClosure();</span>
         // edges of the dependency graph are dependency relation between join-irreducibles
         // they are first valuated by nodes of the lattice
-<span class="nc bnc" id="L636" title="All 2 branches missed.">        for (Node j1 : joins) {</span>
+<span class="pc bpc" id="L636" title="1 of 2 branches missed.">        for (Node j1 : joins) {</span>
 <span class="nc" id="L637">            TreeSet&lt;Node&gt; majj1 = this.majorants(j1);</span>
 <span class="nc bnc" id="L638" title="All 2 branches missed.">            for (Node j2 : joins) {</span>
 <span class="nc bnc" id="L639" title="All 2 branches missed.">                if (!j1.equals(j2)) {</span>
@@ -688,7 +688,7 @@ public class Lattice extends DAGraph {
                      if (X1.containsAll(X2) &amp;&amp; !X2.containsAll(X1))
                          ((TreeSet&lt;ComparableSet&gt;)ed.getContent()).remove(X1);
         }**/
-<span class="nc" id="L691">        return this.dependencyGraph;</span>
+<span class="fc" id="L691">        return this.dependencyGraph;</span>
     }
 
     /**
@@ -697,8 +697,8 @@ public class Lattice extends DAGraph {
      * @param   graph  the dependency graph
      */
     protected void setDependencyGraph(DGraph graph) {
-<span class="nc" id="L700">        this.dependencyGraph = graph;</span>
-<span class="nc" id="L701">    }</span>
+<span class="fc" id="L700">        this.dependencyGraph = graph;</span>
+<span class="fc" id="L701">    }</span>
 
     /**
      * Test if this component has a dependency graph.
@@ -706,7 +706,7 @@ public class Lattice extends DAGraph {
     * @return  the truth value for this property
      */
     protected boolean hasDependencyGraph() {
-<span class="nc bnc" id="L709" title="All 2 branches missed.">        return this.dependencyGraph != null;</span>
+<span class="pc bpc" id="L709" title="1 of 2 branches missed.">        return this.dependencyGraph != null;</span>
     }
 
     /**
@@ -725,14 +725,14 @@ public class Lattice extends DAGraph {
      * @return  the canonical direct basis of the lattice
      */
     public IS getCanonicalDirectBasis() {
-<span class="nc" id="L728">        DGraph odGraph = this.getDependencyGraph();</span>
+<span class="fc" id="L728">        DGraph odGraph = this.getDependencyGraph();</span>
         // initialize elements of the IS with nodes of the ODGraph
-<span class="nc" id="L730">        IS bcd = new IS();</span>
-<span class="nc bnc" id="L731" title="All 2 branches missed.">        for (Node n : odGraph.getNodes()) {</span>
+<span class="fc" id="L730">        IS bcd = new IS();</span>
+<span class="pc bpc" id="L731" title="1 of 2 branches missed.">        for (Node n : odGraph.getNodes()) {</span>
 <span class="nc" id="L732">            bcd.addElement((Comparable) n.getContent());</span>
 <span class="nc" id="L733">        }</span>
         // computes rules of the BCD from edges of the ODGraph
-<span class="nc bnc" id="L735" title="All 2 branches missed.">        for (Edge ed : odGraph.getEdges()) {</span>
+<span class="pc bpc" id="L735" title="1 of 2 branches missed.">        for (Edge ed : odGraph.getEdges()) {</span>
 <span class="nc" id="L736">            Node from = ed.getFrom();</span>
 <span class="nc" id="L737">            Node to = ed.getTo();</span>
 <span class="nc" id="L738">            TreeSet&lt;ComparableSet&gt; l = (TreeSet&lt;ComparableSet&gt;) ed.getContent();</span>
@@ -745,8 +745,8 @@ public class Lattice extends DAGraph {
 <span class="nc" id="L745">            }</span>
 <span class="nc" id="L746">        }</span>
         //bcd.makeLeftMinimal();
-<span class="nc" id="L748">        bcd.makeCompact();</span>
-<span class="nc" id="L749">        return bcd;</span>
+<span class="fc" id="L748">        bcd.makeCompact();</span>
+<span class="fc" id="L749">        return bcd;</span>
     }
 
     /**
@@ -764,12 +764,12 @@ public class Lattice extends DAGraph {
      * @return  a TreeSet of the minimal generators
      */
     public TreeSet getMinimalGenerators() {
-<span class="nc" id="L767">        IS bcd = this.getCanonicalDirectBasis();</span>
-<span class="nc" id="L768">        TreeSet genMin = new TreeSet();</span>
-<span class="nc bnc" id="L769" title="All 2 branches missed.">        for (Rule r : bcd.getRules()) {</span>
+<span class="fc" id="L767">        IS bcd = this.getCanonicalDirectBasis();</span>
+<span class="fc" id="L768">        TreeSet genMin = new TreeSet();</span>
+<span class="pc bpc" id="L769" title="1 of 2 branches missed.">        for (Rule r : bcd.getRules()) {</span>
 <span class="nc" id="L770">            genMin.add(r.getPremise());</span>
 <span class="nc" id="L771">        }</span>
-<span class="nc" id="L772">        return genMin;</span>
+<span class="fc" id="L772">        return genMin;</span>
     }
 
      /**

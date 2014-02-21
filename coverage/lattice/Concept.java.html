@@ -51,10 +51,10 @@ public class Concept extends Node {
 	
   	/** Constructs a new concept containing the specified
 	* comparables set as setA and setB **/
-<span class="nc" id="L54">	public Concept (TreeSet&lt;Comparable&gt; setA, TreeSet&lt;Comparable&gt; setB) {</span>
-<span class="nc" id="L55">		this.setA = new ComparableSet(setA);</span>
-<span class="nc" id="L56">		this.setB = new ComparableSet(setB);</span>
-<span class="nc" id="L57">		}</span>
+<span class="fc" id="L54">	public Concept (TreeSet&lt;Comparable&gt; setA, TreeSet&lt;Comparable&gt; setB) {</span>
+<span class="fc" id="L55">		this.setA = new ComparableSet(setA);</span>
+<span class="fc" id="L56">		this.setB = new ComparableSet(setB);</span>
+<span class="fc" id="L57">		}</span>
     /** Constructs a new concept with an empty set of comparableset as setA
      * and set B if the two boolean are true. False booleans allow to construct
      * a concept with only one of the two sets.  **/
@@ -68,11 +68,11 @@ public class Concept extends Node {
 	* comparables set as setA, and an empty set of comparableset as setB
     * if the boolean is true. A false boolean allows to construct
     * a concept with the only set A.  **/
-<span class="nc" id="L71">	public Concept(TreeSet&lt;Comparable&gt; setA, boolean setB) {</span>
-<span class="nc" id="L72">		this.setA = new ComparableSet(setA);</span>
-<span class="nc bnc" id="L73" title="All 2 branches missed.">        if (setB) this.setB = new ComparableSet();</span>
-<span class="nc" id="L74">        else this.setB = null;</span>
-<span class="nc" id="L75">		}</span>
+<span class="fc" id="L71">	public Concept(TreeSet&lt;Comparable&gt; setA, boolean setB) {</span>
+<span class="fc" id="L72">		this.setA = new ComparableSet(setA);</span>
+<span class="pc bpc" id="L73" title="1 of 2 branches missed.">        if (setB) this.setB = new ComparableSet();</span>
+<span class="fc" id="L74">        else this.setB = null;</span>
+<span class="fc" id="L75">		}</span>
     /** Constructs a new concept containing the specified
 	* comparables set as setB, and an empty set of comparableset as setA
     * if the boolean is true. A false boolean allows to construct
@@ -95,14 +95,14 @@ public class Concept extends Node {
 
     /** Returns a copy of this component **/
     public Concept copy() {       
-<span class="nc bnc" id="L98" title="All 4 branches missed.">        if (this.hasSetA() &amp;&amp; this.hasSetB()) {</span>
-<span class="nc" id="L99">            TreeSet setA = (TreeSet) this.getSetA().clone();</span>
-<span class="nc" id="L100">            TreeSet setB = (TreeSet) this.getSetB().clone();            </span>
-<span class="nc" id="L101">            return new Concept(setA,setB);</span>
+<span class="pc bpc" id="L98" title="1 of 4 branches missed.">        if (this.hasSetA() &amp;&amp; this.hasSetB()) {</span>
+<span class="fc" id="L99">            TreeSet setA = (TreeSet) this.getSetA().clone();</span>
+<span class="fc" id="L100">            TreeSet setB = (TreeSet) this.getSetB().clone();            </span>
+<span class="fc" id="L101">            return new Concept(setA,setB);</span>
         }
-<span class="nc bnc" id="L103" title="All 4 branches missed.">        if (this.hasSetA() &amp;&amp; !this.hasSetB()) {</span>
-<span class="nc" id="L104">            TreeSet setA = (TreeSet) this.getSetA().clone();</span>
-<span class="nc" id="L105">            return new Concept(setA,false);</span>
+<span class="pc bpc" id="L103" title="2 of 4 branches missed.">        if (this.hasSetA() &amp;&amp; !this.hasSetB()) {</span>
+<span class="fc" id="L104">            TreeSet setA = (TreeSet) this.getSetA().clone();</span>
+<span class="fc" id="L105">            return new Concept(setA,false);</span>
         }
         else {
 <span class="nc" id="L108">            TreeSet setB = (TreeSet) this.getSetB().clone();</span>
@@ -112,18 +112,18 @@ public class Concept extends Node {
 
     /** Cheks if the concept has an empty set B */
     public boolean hasSetB () {
-<span class="nc bnc" id="L115" title="All 2 branches missed.">        return this.setB!=null; }</span>
+<span class="fc bfc" id="L115" title="All 2 branches covered.">        return this.setB!=null; }</span>
     /** Cheks if the concept has an empty set B */
     public boolean hasSetA () {
-<span class="nc bnc" id="L118" title="All 2 branches missed.">        return this.setA!=null; }</span>
+<span class="pc bpc" id="L118" title="1 of 2 branches missed.">        return this.setA!=null; }</span>
 
 
 	/** Returns the set A of this component */
 	public TreeSet&lt;Comparable&gt; getSetA () {
-<span class="nc" id="L123">		return this.setA; }</span>
+<span class="fc" id="L123">		return this.setA; }</span>
     /** Returns the set B of comparable of this component */
 	public TreeSet&lt;Comparable&gt; getSetB () {
-<span class="nc" id="L126">		return this.setB; }</span>
+<span class="fc" id="L126">		return this.setB; }</span>
 
 	/** Checks if the set A contains the specified comparable */
 	public boolean containsInA (Comparable x) {
@@ -147,9 +147,9 @@ public class Concept extends Node {
 <span class="nc" id="L147">        else return false;}</span>
 	/** Replaces the set A of this component by the specified one */
     public void putSetB (ComparableSet X) {
-<span class="nc bnc" id="L150" title="All 2 branches missed.">        if (this.hasSetB())</span>
+<span class="pc bpc" id="L150" title="1 of 2 branches missed.">        if (this.hasSetB())</span>
 <span class="nc" id="L151">    		this.setB = X;</span>
-<span class="nc" id="L152">        else this.setB = new ComparableSet(X);}</span>
+<span class="fc" id="L152">        else this.setB = new ComparableSet(X);}</span>
 	/** Replaces the set A of this component by the specified one */
 	public void putSetA (ComparableSet X) {
 <span class="nc bnc" id="L155" title="All 2 branches missed.">		if (this.hasSetA())</span>
@@ -214,16 +214,16 @@ public class Concept extends Node {
 
     /** Returns the dot description of this component in a String */
 	public String toDot () {
-<span class="nc" id="L217">    	String s = this.getIdentifier()+&quot; [label=\&quot; &quot;  ;</span>
-<span class="nc" id="L218">        String tmp=&quot;&quot;;</span>
-<span class="nc bnc" id="L219" title="All 2 branches missed.">       if (this.hasSetA()) tmp+=this.setA;</span>
-<span class="nc bnc" id="L220" title="All 4 branches missed.">       if (this.hasSetA()&amp;&amp;this.hasSetB()) tmp+=&quot;\\n&quot;;</span>
-<span class="nc bnc" id="L221" title="All 2 branches missed.">       if (this.hasSetB()) tmp+=this.setB;</span>
-<span class="nc" id="L222">		StringTokenizer st = new StringTokenizer (tmp,&quot;\&quot;&quot;);</span>
-<span class="nc bnc" id="L223" title="All 2 branches missed.">		while (st.hasMoreTokens())</span>
-<span class="nc" id="L224">				s+=st.nextToken();</span>
-<span class="nc" id="L225">		s += &quot;\&quot;]&quot;;</span>
-<span class="nc" id="L226">		return s;</span>
+<span class="fc" id="L217">    	String s = this.getIdentifier()+&quot; [label=\&quot; &quot;  ;</span>
+<span class="fc" id="L218">        String tmp=&quot;&quot;;</span>
+<span class="pc bpc" id="L219" title="1 of 2 branches missed.">       if (this.hasSetA()) tmp+=this.setA;</span>
+<span class="pc bpc" id="L220" title="2 of 4 branches missed.">       if (this.hasSetA()&amp;&amp;this.hasSetB()) tmp+=&quot;\\n&quot;;</span>
+<span class="pc bpc" id="L221" title="1 of 2 branches missed.">       if (this.hasSetB()) tmp+=this.setB;</span>
+<span class="fc" id="L222">		StringTokenizer st = new StringTokenizer (tmp,&quot;\&quot;&quot;);</span>
+<span class="fc bfc" id="L223" title="All 2 branches covered.">		while (st.hasMoreTokens())</span>
+<span class="fc" id="L224">				s+=st.nextToken();</span>
+<span class="fc" id="L225">		s += &quot;\&quot;]&quot;;</span>
+<span class="fc" id="L226">		return s;</span>
     }
 
 	/** Compares this component with the specified one */

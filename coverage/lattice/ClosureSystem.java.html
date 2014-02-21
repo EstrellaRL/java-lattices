@@ -42,7 +42,7 @@ import dgraph.Node;
  * @author Karell Bertet
  * @version 2013
  */
-<span class="nc" id="L45">public abstract class ClosureSystem {</span>
+<span class="fc" id="L45">public abstract class ClosureSystem {</span>
 
 	/* ------------- ABSTRACT METHODS ------------------ */
 
@@ -75,8 +75,8 @@ import dgraph.Node;
      * @param diagram a boolean indicating if the Hasse diagramm of the lattice is computed or not.
 	 **/
 	public ConceptLattice closedSetLattice (boolean  diagram) {
-<span class="nc bnc" id="L78" title="All 2 branches missed.">        if (diagram)</span>
-<span class="nc" id="L79">            return ConceptLattice.diagramLattice(this);</span>
+<span class="pc bpc" id="L78" title="1 of 2 branches missed.">        if (diagram)</span>
+<span class="fc" id="L79">            return ConceptLattice.diagramLattice(this);</span>
         else
 <span class="nc" id="L81">            return ConceptLattice.completeLattice(this);</span>
 	}
@@ -152,29 +152,29 @@ import dgraph.Node;
 	*/
 	public DGraph precedenceGraph () {
         // compute a TreeMap of closures for each element of the component
-<span class="nc" id="L155">        TreeMap&lt;Comparable,TreeSet&lt;Comparable&gt;&gt; Closures = new TreeMap&lt;Comparable,TreeSet&lt;Comparable&gt;&gt;();</span>
-<span class="nc bnc" id="L156" title="All 2 branches missed.">	for (Comparable x : this.getSet()) {</span>
+<span class="fc" id="L155">        TreeMap&lt;Comparable,TreeSet&lt;Comparable&gt;&gt; Closures = new TreeMap&lt;Comparable,TreeSet&lt;Comparable&gt;&gt;();</span>
+<span class="pc bpc" id="L156" title="1 of 2 branches missed.">	for (Comparable x : this.getSet()) {</span>
 <span class="nc" id="L157">            ComparableSet setX = new ComparableSet();</span>
 <span class="nc" id="L158">            setX.add(x);        </span>
 <span class="nc" id="L159">            Closures.put(x, this.closure(setX));</span>
 <span class="nc" id="L160">        }</span>
         // nodes of the graph are elements
-<span class="nc" id="L162">	DGraph prec = new DGraph();</span>
-<span class="nc" id="L163">        TreeMap&lt;Comparable,Node&gt; nodeCreated = new TreeMap&lt;Comparable,Node&gt;();</span>
-<span class="nc bnc" id="L164" title="All 2 branches missed.">	for (Comparable x : this.getSet()) {</span>
+<span class="fc" id="L162">	DGraph prec = new DGraph();</span>
+<span class="fc" id="L163">        TreeMap&lt;Comparable,Node&gt; nodeCreated = new TreeMap&lt;Comparable,Node&gt;();</span>
+<span class="pc bpc" id="L164" title="1 of 2 branches missed.">	for (Comparable x : this.getSet()) {</span>
 <span class="nc" id="L165">            Node n = new Node(x);</span>
 <span class="nc" id="L166">            prec.addNode (n);</span>
 <span class="nc" id="L167">            nodeCreated.put(x, n);</span>
 <span class="nc" id="L168">        }        </span>
         // edges of the graph are closures containments
-<span class="nc bnc" id="L170" title="All 2 branches missed.">        for (Comparable from : this.getSet())</span>
+<span class="pc bpc" id="L170" title="1 of 2 branches missed.">        for (Comparable from : this.getSet())</span>
 <span class="nc bnc" id="L171" title="All 2 branches missed.">            for (Comparable to : this.getSet())</span>
 <span class="nc bnc" id="L172" title="All 2 branches missed.">               if (!from.equals(to)) {</span>
                 // check if from belongs to the closure of to                
 <span class="nc bnc" id="L174" title="All 2 branches missed.">                if (Closures.get(to).contains(from))</span>
 <span class="nc" id="L175">                    prec.addEdge(nodeCreated.get(from), nodeCreated.get(to));</span>
                }
-<span class="nc" id="L177">        return prec;</span>
+<span class="fc" id="L177">        return prec;</span>
 	}
         
 /*** 

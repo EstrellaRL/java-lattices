@@ -63,10 +63,10 @@ public class IS extends ClosureSystem
 	/* --------------- CONSTRUCTORS -----------*/
 	
 	/** Constructs a new empty component */
-<span class="nc" id="L66">	public IS() { </span>
-<span class="nc" id="L67">		this.sigma = new TreeSet&lt;Rule&gt;();</span>
-<span class="nc" id="L68">		this.S = new TreeSet&lt;Comparable&gt;();</span>
-<span class="nc" id="L69">	}	</span>
+<span class="fc" id="L66">	public IS() { </span>
+<span class="fc" id="L67">		this.sigma = new TreeSet&lt;Rule&gt;();</span>
+<span class="fc" id="L68">		this.S = new TreeSet&lt;Comparable&gt;();</span>
+<span class="fc" id="L69">	}	</span>
 		
 	/** Constructs this component from the specified set of rules `sigma`.
 	* @param sigma the set of rules 
@@ -84,10 +84,10 @@ public class IS extends ClosureSystem
 	* Only structures (conataining reference of indexed elements) are copied.
 	* @param s the IS to be copied 
 	*/	
-<span class="nc" id="L87">	public IS(IS s) {</span>
-<span class="nc" id="L88">		this.sigma = new TreeSet&lt;Rule&gt;(s.getRules());</span>
-<span class="nc" id="L89">		this.S = new TreeSet&lt;Comparable&gt;(s.getSet());</span>
-<span class="nc" id="L90">	}	</span>
+<span class="fc" id="L87">	public IS(IS s) {</span>
+<span class="fc" id="L88">		this.sigma = new TreeSet&lt;Rule&gt;(s.getRules());</span>
+<span class="fc" id="L89">		this.S = new TreeSet&lt;Comparable&gt;(s.getSet());</span>
+<span class="fc" id="L90">	}	</span>
 	/** Constructs this component from the specified file.
 	*	
 	* The file have to respect a certain format :
@@ -178,13 +178,13 @@ public class IS extends ClosureSystem
 	/* ------------- ACCESSORS METHODS ------------------ */
 	
 	/** Returns the set of rules 	*/	
-<span class="nc" id="L181">	public TreeSet&lt;Rule&gt; getRules() { return this.sigma; }		</span>
+<span class="fc" id="L181">	public TreeSet&lt;Rule&gt; getRules() { return this.sigma; }		</span>
 	/** Returns the set of indexed elements 	*/	
-<span class="nc" id="L183">	public TreeSet&lt;Comparable&gt; getSet() { return this.S; }</span>
+<span class="fc" id="L183">	public TreeSet&lt;Comparable&gt; getSet() { return this.S; }</span>
 	/** Returns the number of elements in the set S of this component	*/		
 <span class="nc" id="L185">	public int nbElements() { return this.S.size(); }</span>
 	/** Returns the number of rules of this component	*/		
-<span class="nc" id="L187">	public int nbRules() { return this.sigma.size(); }</span>
+<span class="fc" id="L187">	public int nbRules() { return this.sigma.size(); }</span>
 	
 	/* ------------- MODIFICATION METHODS ------------------ */	
 		
@@ -294,22 +294,22 @@ public class IS extends ClosureSystem
      *
     */
     public String toString()	{
-<span class="nc" id="L297">        StringBuffer s = new StringBuffer();</span>
+<span class="fc" id="L297">        StringBuffer s = new StringBuffer();</span>
         // first line : All elements of S separated by a space
 		// a StringTokenizer is used to delete spaces in the
         // string description of each element of S
-<span class="nc bnc" id="L301" title="All 2 branches missed.">	for (Comparable e : this.S) {</span>
+<span class="pc bpc" id="L301" title="1 of 2 branches missed.">	for (Comparable e : this.S) {</span>
 <span class="nc" id="L302">            StringTokenizer st = new StringTokenizer(e.toString());</span>
 <span class="nc bnc" id="L303" title="All 2 branches missed.">            while (st.hasMoreTokens())</span>
 <span class="nc" id="L304">                s.append(st.nextToken());</span>
 <span class="nc" id="L305">		s.append(&quot; &quot;);</span>
 <span class="nc" id="L306">            }</span>
-<span class="nc" id="L307">            s.append(&quot;\n&quot;);</span>
+<span class="fc" id="L307">            s.append(&quot;\n&quot;);</span>
         // next lines : a rule on each line, described by:
         // [elements of the premise separated by a space] -&gt; [elements of the conclusion separated by a space]
-<span class="nc bnc" id="L310" title="All 2 branches missed.">	for (Rule r : this.sigma)</span>
+<span class="pc bpc" id="L310" title="1 of 2 branches missed.">	for (Rule r : this.sigma)</span>
 <span class="nc" id="L311">            s.append(r.toString()).append(&quot;\n&quot;);</span>
-<span class="nc" id="L312">	return s.toString();</span>
+<span class="fc" id="L312">	return s.toString();</span>
 	}
 	
 	/** Saves this component in a file which name is specified.
@@ -328,12 +328,12 @@ public class IS extends ClosureSystem
 	*/
 	public void toFile(String filename)	{
 		try 	{
-<span class="nc" id="L331">			BufferedWriter fichier = new BufferedWriter(new FileWriter(filename));</span>
-<span class="nc" id="L332">			fichier.write(this.toString());</span>
-<span class="nc" id="L333">            fichier.close();</span>
+<span class="fc" id="L331">			BufferedWriter fichier = new BufferedWriter(new FileWriter(filename));</span>
+<span class="fc" id="L332">			fichier.write(this.toString());</span>
+<span class="fc" id="L333">            fichier.close();</span>
     	}
-<span class="nc" id="L335">    	catch (Exception e) { e.printStackTrace(); } </span>
-<span class="nc" id="L336">	}</span>
+<span class="pc" id="L335">    	catch (Exception e) { e.printStackTrace(); } </span>
+<span class="fc" id="L336">	}</span>
 
 	/*-----------  PROPERTIES TEST METHODS -------------------- */
 		
@@ -497,8 +497,8 @@ public class IS extends ClosureSystem
 	* before and after this treatment
 	*/
 	public int makeProper ()	{
-<span class="nc" id="L500">		IS sauv = new IS(this);			</span>
-<span class="nc bnc" id="L501" title="All 2 branches missed.">		for (Rule r : sauv.sigma) {</span>
+<span class="fc" id="L500">		IS sauv = new IS(this);			</span>
+<span class="pc bpc" id="L501" title="1 of 2 branches missed.">		for (Rule r : sauv.sigma) {</span>
 			// deletes elements of conclusion which are in the premise
 <span class="nc" id="L503">			Rule new_r = new Rule (r.getPremise(), r.getConclusion());			</span>
 <span class="nc bnc" id="L504" title="All 2 branches missed.">			for (Object e : r.getConclusion())</span>
@@ -510,7 +510,7 @@ public class IS extends ClosureSystem
 <span class="nc bnc" id="L510" title="All 2 branches missed.">			if (new_r.getConclusion().isEmpty())	</span>
 <span class="nc" id="L511">				this.removeRule(new_r);</span>
 <span class="nc" id="L512">			}</span>
-<span class="nc" id="L513">		return sauv.nbRules()-this.nbRules();</span>
+<span class="fc" id="L513">		return sauv.nbRules()-this.nbRules();</span>
 		}	
 		
 	/** Makes this component an unary IS.
@@ -550,8 +550,8 @@ public class IS extends ClosureSystem
 	* before and after this treatment
 	*/
     public int makeCompact(){        
-<span class="nc" id="L553">		IS sauv = new IS(this);</span>
-<span class="nc bnc" id="L554" title="All 2 branches missed.">        for(Rule r1: sauv.sigma){</span>
+<span class="fc" id="L553">		IS sauv = new IS(this);</span>
+<span class="pc bpc" id="L554" title="1 of 2 branches missed.">        for(Rule r1: sauv.sigma){</span>
 <span class="nc bnc" id="L555" title="All 2 branches missed.">            if (this.containsRule(r1)) {</span>
 <span class="nc" id="L556">		 	ComparableSet new_conc = new ComparableSet();            </span>
 <span class="nc bnc" id="L557" title="All 2 branches missed.">		    for(Rule r2: sauv.sigma) {                </span>
@@ -568,7 +568,7 @@ public class IS extends ClosureSystem
 	          }                            
            }
 <span class="nc" id="L570">	    }</span>
-<span class="nc" id="L571">		return sauv.nbRules()-this.nbRules();							</span>
+<span class="fc" id="L571">		return sauv.nbRules()-this.nbRules();							</span>
     	}
 
 	/** Replaces conclusion of each rule with their closure without the premise.
@@ -579,16 +579,16 @@ public class IS extends ClosureSystem
 	* before and after this treatment
 	*/
     public int makeRightMaximal(){    
-<span class="nc" id="L582">		int s = this.nbRules();</span>
-<span class="nc" id="L583">		this.makeCompact();</span>
-<span class="nc" id="L584">		IS sauv = new IS(this);	</span>
-<span class="nc bnc" id="L585" title="All 2 branches missed.">		for(Rule r: sauv.sigma){									</span>
+<span class="fc" id="L582">		int s = this.nbRules();</span>
+<span class="fc" id="L583">		this.makeCompact();</span>
+<span class="fc" id="L584">		IS sauv = new IS(this);	</span>
+<span class="pc bpc" id="L585" title="1 of 2 branches missed.">		for(Rule r: sauv.sigma){									</span>
 <span class="nc" id="L586">           Rule new_r= new Rule(r.getPremise(), this.closure(r.getPremise()));</span>
 <span class="nc" id="L587">			  new_r.removeAllFromConclusion(new_r.getPremise());</span>
 <span class="nc bnc" id="L588" title="All 2 branches missed.">			  if (!r.equals(new_r)) </span>
 <span class="nc" id="L589">			  		this.replaceRule(r, new_r);</span>
 <span class="nc" id="L590">       }</span>
-<span class="nc" id="L591">		return s-this.nbRules();</span>
+<span class="fc" id="L591">		return s-this.nbRules();</span>
     	}
 
 	/** Makes this component a left minimal and compact IS.
@@ -669,15 +669,15 @@ public class IS extends ClosureSystem
 	* before and after this treatment
 	*/    
     public int makeMinimum(){	
-<span class="nc" id="L672">		this.makeRightMaximal();</span>
-<span class="nc" id="L673">		IS sauv = new IS(this);				</span>
-<span class="nc bnc" id="L674" title="All 2 branches missed.">      for(Rule r: sauv.sigma){</span>
+<span class="fc" id="L672">		this.makeRightMaximal();</span>
+<span class="fc" id="L673">		IS sauv = new IS(this);				</span>
+<span class="pc bpc" id="L674" title="1 of 2 branches missed.">      for(Rule r: sauv.sigma){</span>
 <span class="nc" id="L675">          IS epsylon= new IS(this);</span>
 <span class="nc" id="L676">          epsylon.removeRule(r);       </span>
 <span class="nc bnc" id="L677" title="All 2 branches missed.">          if(epsylon.closure(r.getPremise()).equals(this.closure(r.getPremise()))) </span>
 <span class="nc" id="L678">             this.removeRule(r);</span>
 <span class="nc" id="L679">      }                </span>
-<span class="nc" id="L680">		return sauv.nbRules()-this.nbRules();			 		</span>
+<span class="fc" id="L680">		return sauv.nbRules()-this.nbRules();			 		</span>
     }
 
 	/** Replace this component by its canonical direct basis.
@@ -711,17 +711,17 @@ public class IS extends ClosureSystem
 	* before and after this treatment
 	*/
    public int makeCanonicalBasis(){
-<span class="nc" id="L714">		this.makeMinimum();</span>
-<span class="nc" id="L715">		IS sauv = new IS(this);				</span>
-<span class="nc bnc" id="L716" title="All 2 branches missed.">      for(Rule r: sauv.sigma){</span>
+<span class="fc" id="L714">		this.makeMinimum();</span>
+<span class="fc" id="L715">		IS sauv = new IS(this);				</span>
+<span class="pc bpc" id="L716" title="1 of 2 branches missed.">      for(Rule r: sauv.sigma){</span>
 <span class="nc" id="L717">         IS epsylon= new IS(this);</span>
 <span class="nc" id="L718">         epsylon.removeRule(r);</span>
 <span class="nc" id="L719">         Rule tmp= new Rule(epsylon.closure(r.getPremise()),r.getConclusion() );         </span>
 <span class="nc bnc" id="L720" title="All 2 branches missed.">			if (!r.equals (tmp))</span>
 <span class="nc" id="L721">         this.replaceRule(r,tmp);</span>
 <span class="nc" id="L722">        }</span>
-<span class="nc" id="L723">		this.makeProper();</span>
-<span class="nc" id="L724">		return sauv.nbRules()-this.nbRules();</span>
+<span class="fc" id="L723">		this.makeProper();</span>
+<span class="fc" id="L724">		return sauv.nbRules()-this.nbRules();</span>
    }
 
    /* --------------- METHODS BASED ON GRAPH ------------ */
@@ -848,17 +848,17 @@ public class IS extends ClosureSystem
 	* @return  the closure of X for this component 
 	*/
 	public TreeSet&lt;Comparable&gt; closure (TreeSet&lt;Comparable&gt; X) {
-<span class="nc" id="L851">		TreeSet&lt;Comparable&gt; oldES = new TreeSet&lt;Comparable&gt;();</span>
+<span class="fc" id="L851">		TreeSet&lt;Comparable&gt; oldES = new TreeSet&lt;Comparable&gt;();</span>
 		// all the attributes are in their own closure
-<span class="nc" id="L853">		TreeSet&lt;Comparable&gt; newES = new TreeSet&lt;Comparable&gt;(X);</span>
+<span class="fc" id="L853">		TreeSet&lt;Comparable&gt; newES = new TreeSet&lt;Comparable&gt;(X);</span>
         do {
-<span class="nc" id="L855">			oldES.addAll(newES);		</span>
-<span class="nc bnc" id="L856" title="All 2 branches missed.">			for (Rule r : this.sigma) {</span>
+<span class="fc" id="L855">			oldES.addAll(newES);		</span>
+<span class="pc bpc" id="L856" title="1 of 2 branches missed.">			for (Rule r : this.sigma) {</span>
 <span class="nc bnc" id="L857" title="All 2 branches missed.">				if (newES.containsAll(r.getPremise()))</span>
 <span class="nc" id="L858">					newES.addAll(r.getConclusion());</span>
 <span class="nc" id="L859">			}</span>
-<span class="nc bnc" id="L860" title="All 2 branches missed.">		} while (!(oldES.equals(newES)));</span>
-<span class="nc" id="L861">		return newES;</span>
+<span class="pc bpc" id="L860" title="1 of 2 branches missed.">		} while (!(oldES.equals(newES)));</span>
+<span class="fc" id="L861">		return newES;</span>
 	}
 }	// end of IS
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>
