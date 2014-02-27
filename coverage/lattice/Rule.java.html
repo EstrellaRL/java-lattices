@@ -34,118 +34,192 @@ import java.util.TreeSet;
  * @author Karell Bertet
  * @version 2013
  */
-public class Rule implements Comparable
-{
-	/* ------------- FIELDS ------------------ */		
-	/** The premise of the rule */
-	private ComparableSet premise;
-	/** The conclusion of the rule */
-	private ComparableSet conclusion;
-
-	/* ------------- CONSTRUCTORS ------------------ */		
-	/** Constructs a new empty Rule with a empty premise and an empty conclusion */
-<span class="nc" id="L47">	public Rule() {</span>
-<span class="nc" id="L48">		premise = new ComparableSet();</span>
-<span class="nc" id="L49">		conclusion = new ComparableSet();</span>
-<span class="nc" id="L50">	}</span>
-	/** Constructs a new Rule with the premise and the conclusion given in parameters.
-	 * @param premise a set of indexed elements
-	 * @param conclusion a set of indexed elements
-	 */
-<span class="nc" id="L55">	public Rule (TreeSet&lt;Comparable&gt; premise, TreeSet&lt;Comparable&gt; conclusion) {</span>
-<span class="nc" id="L56">		this.premise = new ComparableSet (premise);</span>
-<span class="nc" id="L57">		this.conclusion = new ComparableSet (conclusion);</span>
-<span class="nc" id="L58">	}</span>
-	
-	/* ------------- ACCESSORS METHODS ------------------ */		
-	/** Returns a copy of the premise of the Rule */
-<span class="nc" id="L62">	public TreeSet&lt;Comparable&gt; getPremise() {return this.premise;}</span>
-	/** Returns a copy of the conclusion of the Rule*/
-<span class="nc" id="L64">	public TreeSet&lt;Comparable&gt; getConclusion() {return this.conclusion;}</span>
-
-	/* ------------- MODIFICATION METHODS ------------------ */		
-	/** Adds the specified comparable to the premise of this component */
-	public boolean addToPremise(Comparable a) {
-<span class="nc" id="L69">		return this.premise.add(a);}</span>
-	/** Removes the specified comparable from the premise of this component */
-	public boolean removeFromPremise(Comparable a){
-<span class="nc" id="L72">		return this.premise.remove(a);}</span>
-	/** Adds the specified element to the conclusion of this component */
-	public boolean addToConclusion(Comparable a){
-<span class="nc" id="L75">		return this.conclusion.add(a);}</span>
-	/** Removes the specified comparable from the conclusion of this component */
-	public boolean removeFromConclusion(Object a) {
-<span class="nc" id="L78">		return this.conclusion.remove(a);}</span>
-	/** Adds the specified collection of indexed elements to the premise of this component */
-	public boolean addAllToPremise(Collection&lt;Comparable&gt; A){
-<span class="nc" id="L81">		return this.premise.addAll(A);}</span>
-	/** Removes the specified collection of indexed elements from the premise of this component */
-	public boolean removeAllFromPremise(Collection&lt;Comparable&gt; A){
-<span class="nc" id="L84">		return premise.removeAll(A);}</span>
-	/** Adds the specified collection of indexed elements to the conclusion of this component */
-	public boolean addAllToConclusion(Collection&lt;Comparable&gt; A){
-<span class="nc" id="L87">		return conclusion.addAll(A);}</span>
-	/** Removes the specified collection of indexed elements from the conclusion of this component */
-	public boolean removeAllFromConclusion(Collection&lt;Comparable&gt; A){
-<span class="nc" id="L90">		return conclusion.removeAll(A);}</span>
-	
-	/* ------------- OVERLAPING METHODS ------------------ */		
-	/** Returns a String representation of this component.
+public class Rule implements Comparable {
+    /* ------------- FIELDS ------------------ */
+    /** The premise of the rule.
+     */
+    private ComparableSet premise;
+    /** The conclusion of the rule.
+     */
+    private ComparableSet conclusion;
+    /* ------------- CONSTRUCTORS ------------------ */
+    /** Constructs a new empty Rule with a empty premise and an empty conclusion.
+     */
+<span class="fc" id="L48">    public Rule() {</span>
+<span class="fc" id="L49">        premise = new ComparableSet();</span>
+<span class="fc" id="L50">        conclusion = new ComparableSet();</span>
+<span class="fc" id="L51">    }</span>
+    /** Constructs a new Rule with the premise and the conclusion given in parameters.
+     * @param premise a set of indexed elements
+     * @param conclusion a set of indexed elements
+     */
+<span class="fc" id="L56">    public Rule(TreeSet&lt;Comparable&gt; premise, TreeSet&lt;Comparable&gt; conclusion) {</span>
+<span class="fc" id="L57">        this.premise = new ComparableSet(premise);</span>
+<span class="fc" id="L58">        this.conclusion = new ComparableSet(conclusion);</span>
+<span class="fc" id="L59">    }</span>
+    /* ------------- ACCESSORS METHODS ------------------ */
+    /** Returns a copy of the premise of the Rule.
+     *
+     * @return premises of this component
+     */
+<span class="fc" id="L65">    public TreeSet&lt;Comparable&gt; getPremise() { return this.premise; }</span>
+    /** Returns a copy of the conclusion of the Rule.
+     *
+     * @return conclusions of this component
+     */
+<span class="fc" id="L70">    public TreeSet&lt;Comparable&gt; getConclusion() { return this.conclusion; }</span>
+    /* ------------- MODIFICATION METHODS ------------------ */
+    /** Adds the specified comparable to the premise of this component.
+     *
+     * @param a Comparable to add to this component's premises.
+     *
+     * @return true if addition is successfull.
+     */
+    public boolean addToPremise(Comparable a) {
+<span class="fc" id="L79">        return this.premise.add(a);</span>
+    }
+    /** Removes the specified comparable from the premise of this component.
+     *
+     * @param a Comparable to remove to this component's premises.
+     *
+     * @return true if addition is successfull.
+     */
+    public boolean removeFromPremise(Comparable a) {
+<span class="fc" id="L88">        return this.premise.remove(a);</span>
+    }
+    /** Adds the specified element to the conclusion of this component.
+     *
+     * @param a Comparable to add to this component's conclusions.
+     *
+     * @return true if addition is successfull.
+     */
+    public boolean addToConclusion(Comparable a) {
+<span class="fc" id="L97">        return this.conclusion.add(a);</span>
+    }
+    /** Removes the specified comparable from the conclusion of this component.
+     *
+     * @param a Comparable to remove to this component's conclusions.
+     *
+     * @return true if addition is successfull.
+     */
+    public boolean removeFromConclusion(Object a) {
+<span class="fc" id="L106">        return this.conclusion.remove(a);</span>
+    }
+    /** Adds the specified collection of indexed elements to the premise of this component.
+     *
+     * @param a Collection of comparables to add to this component's premises.
+     *
+     * @return true if addition is successfull.
+     */
+    public boolean addAllToPremise(Collection&lt;Comparable&gt; a) {
+<span class="fc" id="L115">        return this.premise.addAll(a);</span>
+    }
+    /** Removes the specified collection of indexed elements from the premise of this component.
+     *
+     * @param a Collection of comparables to remove to this component's premises.
+     *
+     * @return true if addition is successfull.
+     */
+    public boolean removeAllFromPremise(Collection&lt;Comparable&gt; a) {
+<span class="fc" id="L124">        return premise.removeAll(a);</span>
+    }
+    /** Adds the specified collection of indexed elements to the conclusion of this component.
+     *
+     * @param a Collection of comparables to add to this component's conclusions.
+     *
+     * @return true if addition is successfull.
+     */
+    public boolean addAllToConclusion(Collection&lt;Comparable&gt; a) {
+<span class="fc" id="L133">        return conclusion.addAll(a);</span>
+    }
+    /** Removes the specified collection of indexed elements from the conclusion of this component.
+     *
+     * @param a Collection of comparables to remove to this component's conclusions.
+     *
+     * @return true if addition is successfull.
+     */
+    public boolean removeAllFromConclusion(Collection&lt;Comparable&gt; a) {
+<span class="fc" id="L142">        return conclusion.removeAll(a); }</span>
+    /* ------------- OVERLAPING METHODS ------------------ */
+    /** Returns a String representation of this component.
      * The following format is used:
      *
      * [elements of the premise separated by a space] -&gt; [elements of the conclusion separated by a space]
      * a StringTokenizer is used to delete spaces in the
      * string description of each element of premise and conclusion
+     *
+     * @return a string made of premises followed by -&gt; and the conclusions.
      */
-	public String toString() {
-<span class="nc" id="L101">        String s = &quot;&quot;;</span>
-<span class="nc bnc" id="L102" title="All 2 branches missed.">        for (Object e : this.getPremise()) {</span>
-<span class="nc" id="L103">            StringTokenizer st = new StringTokenizer(e.toString());</span>
-<span class="nc bnc" id="L104" title="All 2 branches missed.">            while (st.hasMoreTokens())</span>
-<span class="nc" id="L105">                s+=st.nextToken();</span>
-<span class="nc" id="L106">            s+= &quot; &quot;;</span>
-<span class="nc" id="L107">            }</span>
-<span class="nc" id="L108">        s+=&quot; -&gt; &quot;;</span>
-<span class="nc bnc" id="L109" title="All 2 branches missed.">        for (Object e : this.getConclusion()) {</span>
-<span class="nc" id="L110">            StringTokenizer st = new StringTokenizer(e.toString());</span>
-<span class="nc bnc" id="L111" title="All 2 branches missed.">            while (st.hasMoreTokens())</span>
-<span class="nc" id="L112">                s+=st.nextToken();</span>
-<span class="nc" id="L113">            s+= &quot; &quot;;</span>
-<span class="nc" id="L114">            }</span>
-<span class="nc" id="L115">        return s;</span>
+    public String toString() {
+<span class="fc" id="L154">        String s = &quot;&quot;;</span>
+<span class="fc bfc" id="L155" title="All 2 branches covered.">        for (Object e : this.getPremise()) {</span>
+<span class="fc" id="L156">            StringTokenizer st = new StringTokenizer(e.toString());</span>
+<span class="fc bfc" id="L157" title="All 2 branches covered.">            while (st.hasMoreTokens()) {</span>
+<span class="fc" id="L158">                s += st.nextToken();</span>
+            }
+<span class="fc" id="L160">            s += &quot; &quot;;</span>
+<span class="fc" id="L161">            }</span>
+<span class="fc" id="L162">        s += &quot; -&gt; &quot;;</span>
+<span class="fc bfc" id="L163" title="All 2 branches covered.">        for (Object e : this.getConclusion()) {</span>
+<span class="fc" id="L164">            StringTokenizer st = new StringTokenizer(e.toString());</span>
+<span class="fc bfc" id="L165" title="All 2 branches covered.">            while (st.hasMoreTokens()) {</span>
+<span class="fc" id="L166">                s += st.nextToken();</span>
+            }
+<span class="fc" id="L168">            s += &quot; &quot;;</span>
+<span class="fc" id="L169">            }</span>
+<span class="fc" id="L170">        return s;</span>
     }
-		
-	/** Returns a String representation of this component to be saved in a file.
-	*
-	* Element in a set are separated by a space */
-	public String toFile(){
-<span class="nc" id="L122">		String res = &quot;&quot;;</span>
-<span class="nc bnc" id="L123" title="All 2 branches missed.">		for (Object e : this.premise ) res+=e.toString();</span>
-<span class="nc" id="L124">		res+=&quot;-&gt; &quot;;</span>
-<span class="nc bnc" id="L125" title="All 2 branches missed.">		for (Object e : this.conclusion ) res+=e.toString();</span>
-<span class="nc" id="L126">		return res;</span>
-		}
-			
-	/** Compares this component with the specified one .
-	* @return true or false as this componant is equals to the specified object.
-	*/
-	public boolean equals (Object o){
-<span class="nc bnc" id="L133" title="All 2 branches missed.">        if (!(o instanceof Rule)) return false;</span>
-<span class="nc" id="L134">		Rule r = (Rule)o;</span>
-<span class="nc bnc" id="L135" title="All 4 branches missed.">		return (this.getPremise().equals(r.getPremise()) &amp;&amp; this.getConclusion().equals(r.getConclusion()));</span>
-		}
-	/** Compares this component with the specified one by comparing their premises,
-    * or their conclusion in case of equality of the premises.
-	* @return a negative integer, zero, or a positive integer as this component is less than,
-	* equal to, or greater than the specified object.
-	*/
-	public int compareTo(Object o){
-<span class="nc" id="L143">		Rule r = (Rule)o;</span>
-<span class="nc" id="L144">        ComparableSet thisPremise = (ComparableSet)this.getPremise();</span>
-<span class="nc" id="L145">        ComparableSet thisConclusion = (ComparableSet)this.getConclusion();</span>
-<span class="nc bnc" id="L146" title="All 2 branches missed.">        if (thisPremise.compareTo(r.getPremise())==0)</span>
-<span class="nc" id="L147">            return (thisConclusion.compareTo(r.getConclusion()));</span>
-<span class="nc" id="L148">        else return (thisPremise.compareTo(r.getPremise()));</span>
-		}
-}// end of Rule
+    /** Returns a String representation of this component to be saved in a file.
+     *
+     * Element in a set are separated by a space
+     *
+     * @return a string made of premises followed by -&gt; and the conclusions.
+     */
+    public String toFile() {
+<span class="fc" id="L179">        String res = &quot;&quot;;</span>
+<span class="fc bfc" id="L180" title="All 2 branches covered.">        for (Object e : this.premise) {</span>
+<span class="fc" id="L181">            res += e.toString();</span>
+<span class="fc" id="L182">        }</span>
+<span class="fc" id="L183">        res += &quot;-&gt; &quot;;</span>
+<span class="fc bfc" id="L184" title="All 2 branches covered.">        for (Object e : this.conclusion) {</span>
+<span class="fc" id="L185">            res += e.toString();</span>
+<span class="fc" id="L186">        }</span>
+<span class="fc" id="L187">        return res;</span>
+    }
+    /**
+     * Returns hashCode of this component.
+     *
+     * @return hashCode of this component
+     */
+    public int hashCode() {
+<span class="fc" id="L195">        return super.hashCode();</span>
+    }
+    /** Compares this component with the specified one .
+     * @return true or false as this componant is equals to the specified object.
+     * @param o : object to compare to this component.
+     */
+    public boolean equals(Object o) {
+<span class="pc bpc" id="L202" title="1 of 2 branches missed.">        if (!(o instanceof Rule)) {</span>
+<span class="nc" id="L203">            return false;</span>
+        }
+<span class="fc" id="L205">        Rule r = (Rule) o;</span>
+<span class="pc bpc" id="L206" title="2 of 4 branches missed.">        return (this.getPremise().equals(r.getPremise()) &amp;&amp; this.getConclusion().equals(r.getConclusion()));</span>
+    }
+    /** Compares this component with the specified one by comparing their premises,
+     * or their conclusion in case of equality of the premises.
+     * @return a negative integer, zero, or a positive integer as this component is less than,
+     * equal to, or greater than the specified object.
+     * @param o : object to compare to this component.
+     */
+    public int compareTo(Object o) {
+<span class="fc" id="L215">        Rule r = (Rule) o;</span>
+<span class="fc" id="L216">        ComparableSet thisPremise = (ComparableSet) this.getPremise();</span>
+<span class="fc" id="L217">        ComparableSet thisConclusion = (ComparableSet) this.getConclusion();</span>
+<span class="pc bpc" id="L218" title="1 of 2 branches missed.">        if (thisPremise.compareTo(r.getPremise()) == 0) {</span>
+<span class="fc" id="L219">            return (thisConclusion.compareTo(r.getConclusion()));</span>
+        } else {
+<span class="nc" id="L221">            return (thisPremise.compareTo(r.getPremise()));</span>
+        }
+    }
+} // end of Rule
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>

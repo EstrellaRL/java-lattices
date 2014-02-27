@@ -65,9 +65,9 @@ public class ComparableSet extends TreeSet implements Comparable, Cloneable
 	*/
     public boolean equals (Object o) {
         //if (!(o instanceof lattice.ComparableSet)) return false;
-<span class="nc bnc" id="L68" title="All 2 branches missed.">        if (!(o instanceof ComparableSet)) return false;</span>
-<span class="nc" id="L69">        ComparableSet A = (ComparableSet) o;</span>
-<span class="nc" id="L70">        return (super.equals(A));</span>
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">        if (!(o instanceof ComparableSet)) return false;</span>
+<span class="fc" id="L69">        ComparableSet A = (ComparableSet) o;</span>
+<span class="fc" id="L70">        return (super.equals(A));</span>
     }
 
     /** Returns a copy of this component **/
@@ -92,9 +92,9 @@ public class ComparableSet extends TreeSet implements Comparable, Cloneable
 	* equal to, or greater than the specified object according to the lectic order.
 	*/    
    public int compareTo (Object o) {
-<span class="nc bnc" id="L95" title="All 2 branches missed.">        if (!(o instanceof ComparableSet)) return -1;</span>
+<span class="pc bpc" id="L95" title="1 of 2 branches missed.">        if (!(o instanceof ComparableSet)) return -1;</span>
         // case of equality between this component and o
-<span class="nc bnc" id="L97" title="All 2 branches missed.">        if (this.equals(o)) return 0;</span>
+<span class="pc bpc" id="L97" title="1 of 2 branches missed.">        if (this.equals(o)) return 0;</span>
         // test if this component is smaller than B by lectic order
 <span class="nc" id="L99">        ComparableSet B = (ComparableSet) o;</span>
         // computes index i of the first element in B minus A
