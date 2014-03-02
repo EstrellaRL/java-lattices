@@ -32,29 +32,9 @@ import java.util.StringTokenizer;
  * ![Node](Node.png)
  *
  * @uml Node.png
+ * !include src/dgraph/Node.iuml
  *
- * class Node {
- *      -int identifier
- *      -Object content
- *      -{static} int count = 0
- *
- *      +Node(final Object content)
- *      +Node()
- *      +Node(final Node node)
- *      +Node()
- *
- *      +int getIdentifier()
- *      +Object getContent()
- *
- *      +String toString()
- *      +String toDot()
- *
- *      +Node copy()
- *
- *      +boolean equals(final Object object)
- *      +int hashCode()
- *      +int compareTo(final Object object)
- * }
+ * @todo  Do we implement mutator for content?
  */
 public class Node implements Comparable&lt;Object&gt; {
     /* ------------- FIELDS --------------------- */
@@ -75,7 +55,7 @@ public class Node implements Comparable&lt;Object&gt; {
      * Initialized to 0, it is incremented by the constructor,
      * and used to inialize the identifier.
      */
-<span class="fc" id="L78">   private static int count = 0;</span>
+<span class="fc" id="L58">   private static int count = 0;</span>
 
     /* ------------- CONSTRUCTORS ------------------ */
 
@@ -87,10 +67,10 @@ public class Node implements Comparable&lt;Object&gt; {
      *
      * @param   content  Content for this node
      */
-<span class="fc" id="L90">    public Node(final Object content) {</span>
-<span class="fc" id="L91">        this.identifier = ++count;</span>
-<span class="fc" id="L92">        this.content = content;</span>
-<span class="fc" id="L93">    }</span>
+<span class="fc" id="L70">    public Node(final Object content) {</span>
+<span class="fc" id="L71">        this.identifier = ++count;</span>
+<span class="fc" id="L72">        this.content = content;</span>
+<span class="fc" id="L73">    }</span>
 
     /**
      * Constructs a new node with a null content.
@@ -98,10 +78,10 @@ public class Node implements Comparable&lt;Object&gt; {
      * Identifier of this node is initalized with the `count`
      * variable which is the incremented.
      */
-<span class="fc" id="L101">    public Node() {</span>
-<span class="fc" id="L102">        this.identifier = ++count;</span>
-<span class="fc" id="L103">        this.content = null;</span>
-<span class="fc" id="L104">    }</span>
+<span class="fc" id="L81">    public Node() {</span>
+<span class="fc" id="L82">        this.identifier = ++count;</span>
+<span class="fc" id="L83">        this.content = null;</span>
+<span class="fc" id="L84">    }</span>
 
     /**
      * Constructs this node as a copy of the specified `node`, with the same index.
@@ -110,10 +90,10 @@ public class Node implements Comparable&lt;Object&gt; {
      *
      * @todo  Is this constructor usefull since it breaks identifier unicity
      */
-<span class="fc" id="L113">    public Node(final Node node) {</span>
-<span class="fc" id="L114">        this.identifier = node.identifier;</span>
-<span class="fc" id="L115">        this.content = node.content;</span>
-<span class="fc" id="L116">    }</span>
+<span class="fc" id="L93">    public Node(final Node node) {</span>
+<span class="fc" id="L94">        this.identifier = node.identifier;</span>
+<span class="fc" id="L95">        this.content = node.content;</span>
+<span class="fc" id="L96">    }</span>
 
     /* -------------- ACCESSORS ------------------- */
 
@@ -123,7 +103,7 @@ public class Node implements Comparable&lt;Object&gt; {
      * @return  the node identifier
      */
     public int getIdentifier() {
-<span class="fc" id="L126">        return this.identifier;</span>
+<span class="fc" id="L106">        return this.identifier;</span>
     }
 
     /**
@@ -132,7 +112,7 @@ public class Node implements Comparable&lt;Object&gt; {
      * @return  the node content
      */
     public Object getContent() {
-<span class="fc" id="L135">        return this.content;</span>
+<span class="fc" id="L115">        return this.content;</span>
     }
 
     /* --------------- SAVING METHOD ------------ */
@@ -145,18 +125,18 @@ public class Node implements Comparable&lt;Object&gt; {
      * @todo  Why do we need to remove spaces?
      */
      public String toString() {
-<span class="fc" id="L148">        String string = &quot;&quot;;</span>
-<span class="fc bfc" id="L149" title="All 2 branches covered.">        if (this.content == null) {</span>
-<span class="fc" id="L150">            string = this.identifier + &quot;&quot;;</span>
+<span class="fc" id="L128">        String string = &quot;&quot;;</span>
+<span class="fc bfc" id="L129" title="All 2 branches covered.">        if (this.content == null) {</span>
+<span class="fc" id="L130">            string = this.identifier + &quot;&quot;;</span>
         } else {
-<span class="fc" id="L152">            string = this.content.toString();</span>
+<span class="fc" id="L132">            string = this.content.toString();</span>
         }
-<span class="fc" id="L154">        StringTokenizer tokenizer = new StringTokenizer(string);</span>
-<span class="fc" id="L155">        string = &quot;&quot;;</span>
-<span class="fc bfc" id="L156" title="All 2 branches covered.">        while (tokenizer.hasMoreTokens()) {</span>
-<span class="fc" id="L157">            string += tokenizer.nextToken();</span>
+<span class="fc" id="L134">        StringTokenizer tokenizer = new StringTokenizer(string);</span>
+<span class="fc" id="L135">        string = &quot;&quot;;</span>
+<span class="fc bfc" id="L136" title="All 2 branches covered.">        while (tokenizer.hasMoreTokens()) {</span>
+<span class="fc" id="L137">            string += tokenizer.nextToken();</span>
         }
-<span class="fc" id="L159">        return string;</span>
+<span class="fc" id="L139">        return string;</span>
     }
 
     /**
@@ -165,13 +145,13 @@ public class Node implements Comparable&lt;Object&gt; {
      * @return  the dot description
      */
     public String toDot() {
-<span class="fc" id="L168">        String dot = this.identifier + &quot; [label=\&quot;&quot;;</span>
-<span class="fc" id="L169">        StringTokenizer tokenizer = new StringTokenizer(this.toString(), &quot;\&quot;&quot;);</span>
-<span class="fc bfc" id="L170" title="All 2 branches covered.">        while (tokenizer.hasMoreTokens()) {</span>
-<span class="fc" id="L171">            dot += tokenizer.nextToken();</span>
+<span class="fc" id="L148">        String dot = this.identifier + &quot; [label=\&quot;&quot;;</span>
+<span class="fc" id="L149">        StringTokenizer tokenizer = new StringTokenizer(this.toString(), &quot;\&quot;&quot;);</span>
+<span class="fc bfc" id="L150" title="All 2 branches covered.">        while (tokenizer.hasMoreTokens()) {</span>
+<span class="fc" id="L151">            dot += tokenizer.nextToken();</span>
         }
-<span class="fc" id="L173">        dot += &quot;\&quot;]&quot;;</span>
-<span class="fc" id="L174">        return dot;</span>
+<span class="fc" id="L153">        dot += &quot;\&quot;]&quot;;</span>
+<span class="fc" id="L154">        return dot;</span>
     }
 
     /* --------------- OVERLAPPING METHODS ------------ */
@@ -182,7 +162,7 @@ public class Node implements Comparable&lt;Object&gt; {
      * @return  a clone of this node
      */
     public Node copy() {
-<span class="fc" id="L185">        return new Node(this.content);</span>
+<span class="fc" id="L165">        return new Node(this.content);</span>
     }
 
     /**
@@ -193,11 +173,11 @@ public class Node implements Comparable&lt;Object&gt; {
      * @return  true or false as this node is equal to the specified object.
      */
     public boolean equals(final Object object) {
-<span class="pc bpc" id="L196" title="1 of 2 branches missed.">        if (!(object instanceof Node)) {</span>
-<span class="nc" id="L197">            return false;</span>
+<span class="pc bpc" id="L176" title="1 of 2 branches missed.">        if (!(object instanceof Node)) {</span>
+<span class="nc" id="L177">            return false;</span>
         }
-<span class="fc" id="L199">        Node node = (Node) object;</span>
-<span class="fc bfc" id="L200" title="All 2 branches covered.">        return this.identifier == node.identifier;</span>
+<span class="fc" id="L179">        Node node = (Node) object;</span>
+<span class="fc bfc" id="L180" title="All 2 branches covered.">        return this.identifier == node.identifier;</span>
     }
 
     /**
@@ -206,7 +186,7 @@ public class Node implements Comparable&lt;Object&gt; {
      * @return  an integer representing the object
      */
     public int hashCode() {
-<span class="fc" id="L209">        return this.identifier;</span>
+<span class="fc" id="L189">        return this.identifier;</span>
     }
 
    /**
@@ -221,16 +201,16 @@ public class Node implements Comparable&lt;Object&gt; {
     * @return  a negative integer, zero, or a positive integer as this node is less than, equal to, or greater than the specified object.
     */
     public int compareTo(final Object object) {
-<span class="pc bpc" id="L224" title="1 of 2 branches missed.">        if (!(object instanceof Node)) {</span>
-<span class="nc" id="L225">            return -1;</span>
+<span class="pc bpc" id="L204" title="1 of 2 branches missed.">        if (!(object instanceof Node)) {</span>
+<span class="nc" id="L205">            return -1;</span>
         }
-<span class="fc" id="L227">        int id = ((Node) object).identifier;</span>
-<span class="fc bfc" id="L228" title="All 2 branches covered.">        if (this.identifier &gt; id) {</span>
-<span class="fc" id="L229">            return 1;</span>
-<span class="fc bfc" id="L230" title="All 2 branches covered.">        } else if (this.identifier == id) {</span>
-<span class="fc" id="L231">            return 0;</span>
+<span class="fc" id="L207">        int id = ((Node) object).identifier;</span>
+<span class="fc bfc" id="L208" title="All 2 branches covered.">        if (this.identifier &gt; id) {</span>
+<span class="fc" id="L209">            return 1;</span>
+<span class="fc bfc" id="L210" title="All 2 branches covered.">        } else if (this.identifier == id) {</span>
+<span class="fc" id="L211">            return 0;</span>
         } else {
-<span class="fc" id="L233">            return -1;</span>
+<span class="fc" id="L213">            return -1;</span>
         }
     }
 }
