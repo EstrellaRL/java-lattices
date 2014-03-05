@@ -71,14 +71,14 @@ public class IS extends ClosureSystem
 	/** Constructs this component from the specified set of rules `sigma`.
 	* @param sigma the set of rules 
 	*/
-<span class="nc" id="L74">	public IS (Collection&lt;Rule&gt; sigma) {</span>
-<span class="nc" id="L75">		this.sigma = new TreeSet&lt;Rule&gt;(sigma);</span>
-<span class="nc" id="L76">		this.S = new TreeSet&lt;Comparable&gt;();</span>
-<span class="nc bnc" id="L77" title="All 2 branches missed.">		for (Rule r: this.sigma) {</span>
-<span class="nc" id="L78">			S.addAll(r.getPremise());</span>
-<span class="nc" id="L79">			S.addAll(r.getConclusion());</span>
-<span class="nc" id="L80">		}</span>
-<span class="nc" id="L81">	 }</span>
+<span class="fc" id="L74">	public IS (Collection&lt;Rule&gt; sigma) {</span>
+<span class="fc" id="L75">		this.sigma = new TreeSet&lt;Rule&gt;(sigma);</span>
+<span class="fc" id="L76">		this.S = new TreeSet&lt;Comparable&gt;();</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">		for (Rule r: this.sigma) {</span>
+<span class="fc" id="L78">			S.addAll(r.getPremise());</span>
+<span class="fc" id="L79">			S.addAll(r.getConclusion());</span>
+<span class="fc" id="L80">		}</span>
+<span class="fc" id="L81">	 }</span>
 		
 	/** Constructs this component as a copy of the specified IS `s`.
 	* Only structures (conataining reference of indexed elements) are copied.
@@ -853,11 +853,11 @@ public class IS extends ClosureSystem
 <span class="fc" id="L853">		TreeSet&lt;Comparable&gt; newES = new TreeSet&lt;Comparable&gt;(X);</span>
         do {
 <span class="fc" id="L855">			oldES.addAll(newES);		</span>
-<span class="pc bpc" id="L856" title="1 of 2 branches missed.">			for (Rule r : this.sigma) {</span>
-<span class="nc bnc" id="L857" title="All 2 branches missed.">				if (newES.containsAll(r.getPremise()))</span>
-<span class="nc" id="L858">					newES.addAll(r.getConclusion());</span>
-<span class="nc" id="L859">			}</span>
-<span class="pc bpc" id="L860" title="1 of 2 branches missed.">		} while (!(oldES.equals(newES)));</span>
+<span class="fc bfc" id="L856" title="All 2 branches covered.">			for (Rule r : this.sigma) {</span>
+<span class="fc bfc" id="L857" title="All 2 branches covered.">				if (newES.containsAll(r.getPremise()))</span>
+<span class="fc" id="L858">					newES.addAll(r.getConclusion());</span>
+<span class="fc" id="L859">			}</span>
+<span class="fc bfc" id="L860" title="All 2 branches covered.">		} while (!(oldES.equals(newES)));</span>
 <span class="fc" id="L861">		return newES;</span>
 	}
 }	// end of IS

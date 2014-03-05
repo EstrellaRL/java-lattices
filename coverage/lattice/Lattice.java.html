@@ -502,31 +502,32 @@ public class Lattice extends DAGraph {
 <span class="nc" id="L502">        ConceptLattice conceptLattice = lattice.joinClosure();</span>
 <span class="nc bnc" id="L503" title="All 2 branches missed.">        for (Node n : conceptLattice.getNodes()) {</span>
 <span class="nc" id="L504">            Concept c = (Concept) n;</span>
-<span class="nc" id="L505">            family.add(c.setA);</span>
-<span class="nc" id="L506">        }</span>
+<span class="nc" id="L505">            ComparableSet setA = new ComparableSet(c.getSetA());</span>
+<span class="nc" id="L506">            family.add(setA);</span>
+<span class="nc" id="L507">        }</span>
         // rules generation
-<span class="nc bnc" id="L508" title="All 2 branches missed.">        for (ComparableSet jx : family) {</span>
-<span class="nc bnc" id="L509" title="All 2 branches missed.">            for (Node j : join) {</span>
-<span class="nc" id="L510">                ComparableSet p = new ComparableSet();</span>
-<span class="nc" id="L511">                p.add(j.getContent());</span>
-<span class="nc" id="L512">                p.addAll(jx);</span>
-<span class="nc bnc" id="L513" title="All 2 branches missed.">                if (!family.contains(p)) {</span>
-<span class="nc" id="L514">                    ComparableSet min = new ComparableSet();</span>
-<span class="nc" id="L515">                    min.addAll(family.last());</span>
-<span class="nc bnc" id="L516" title="All 2 branches missed.">                    for (ComparableSet c : family) {</span>
+<span class="nc bnc" id="L509" title="All 2 branches missed.">        for (ComparableSet jx : family) {</span>
+<span class="nc bnc" id="L510" title="All 2 branches missed.">            for (Node j : join) {</span>
+<span class="nc" id="L511">                ComparableSet p = new ComparableSet();</span>
+<span class="nc" id="L512">                p.add(j.getContent());</span>
+<span class="nc" id="L513">                p.addAll(jx);</span>
+<span class="nc bnc" id="L514" title="All 2 branches missed.">                if (!family.contains(p)) {</span>
+<span class="nc" id="L515">                    ComparableSet min = new ComparableSet();</span>
+<span class="nc" id="L516">                    min.addAll(family.last());</span>
+<span class="nc bnc" id="L517" title="All 2 branches missed.">                    for (ComparableSet c : family) {</span>
                         //System.out.println(&quot;min: &quot;+min.getClass()+&quot; -C:&quot;+C.getClass());
-<span class="nc bnc" id="L518" title="All 6 branches missed.">                        if (c.containsAll(p) &amp;&amp; !p.containsAll(c) &amp;&amp; min.containsAll(c)) {</span>
-<span class="nc" id="L519">                            min = c.copy();</span>
+<span class="nc bnc" id="L519" title="All 6 branches missed.">                        if (c.containsAll(p) &amp;&amp; !p.containsAll(c) &amp;&amp; min.containsAll(c)) {</span>
+<span class="nc" id="L520">                            min = c.copy();</span>
                         }
-<span class="nc" id="L521">                    }</span>
-<span class="nc" id="L522">                    Rule r = new Rule();</span>
-<span class="nc" id="L523">                    r.addAllToPremise(p);</span>
-<span class="nc" id="L524">                    min.removeAll(p);</span>
-<span class="nc" id="L525">                    r.addAllToConclusion(min);</span>
-<span class="nc" id="L526">                    sigma.addRule(r);</span>
+<span class="nc" id="L522">                    }</span>
+<span class="nc" id="L523">                    Rule r = new Rule();</span>
+<span class="nc" id="L524">                    r.addAllToPremise(p);</span>
+<span class="nc" id="L525">                    min.removeAll(p);</span>
+<span class="nc" id="L526">                    r.addAllToConclusion(min);</span>
+<span class="nc" id="L527">                    sigma.addRule(r);</span>
                 }
-<span class="nc" id="L528">            }</span>
-<span class="nc" id="L529">        }</span>
+<span class="nc" id="L529">            }</span>
+<span class="nc" id="L530">        }</span>
 
 
 /**        for (Node j : join)
@@ -535,8 +536,8 @@ public class Lattice extends DAGraph {
                     T.addExtentIntent (m,j);
                     //T.addExtentIntent (MeetContent.get(m),JoinContent.get(j));
         return T;**/
-<span class="nc" id="L538">        sigma.makeRightMaximal();</span>
-<span class="nc" id="L539">        return sigma;</span>
+<span class="nc" id="L539">        sigma.makeRightMaximal();</span>
+<span class="nc" id="L540">        return sigma;</span>
     }
    /* ------------- dependency GRAPH RELATIVE METHODS ------------------ */
 
@@ -565,67 +566,67 @@ public class Lattice extends DAGraph {
     * @return  the dependency graph
     */
     public DGraph getDependencyGraph() {
-<span class="pc bpc" id="L568" title="1 of 2 branches missed.">        if (this.dependencyGraph == null) {</span>
-<span class="nc" id="L569">            return this.dependencyGraph;</span>
+<span class="pc bpc" id="L569" title="1 of 2 branches missed.">        if (this.dependencyGraph == null) {</span>
+<span class="nc" id="L570">            return this.dependencyGraph;</span>
         }
-<span class="fc" id="L571">        this.dependencyGraph = new DGraph();</span>
+<span class="fc" id="L572">        this.dependencyGraph = new DGraph();</span>
         // nodes of the dependency graph are join-irreducibles
-<span class="fc" id="L573">        TreeSet&lt;Node&gt; joins = this.joinIrreducibles();</span>
-<span class="pc bpc" id="L574" title="1 of 2 branches missed.">        for (Node j : joins) {</span>
-<span class="nc" id="L575">            this.dependencyGraph.addNode(j);</span>
-<span class="nc" id="L576">        }</span>
+<span class="fc" id="L574">        TreeSet&lt;Node&gt; joins = this.joinIrreducibles();</span>
+<span class="pc bpc" id="L575" title="1 of 2 branches missed.">        for (Node j : joins) {</span>
+<span class="nc" id="L576">            this.dependencyGraph.addNode(j);</span>
+<span class="nc" id="L577">        }</span>
         // computes the transitive closure of the join-irreducibles subgraph of this compnent
-<span class="fc" id="L578">        DAGraph joinG = this.irreduciblesSubgraph();</span>
-<span class="fc" id="L579">        joinG.transitiveClosure();</span>
+<span class="fc" id="L579">        DAGraph joinG = this.irreduciblesSubgraph();</span>
+<span class="fc" id="L580">        joinG.transitiveClosure();</span>
         // edges of the dependency graph are dependency relation between join-irreducibles
         // they are first valuated by nodes of the lattice
-<span class="pc bpc" id="L582" title="1 of 2 branches missed.">        for (Node j1 : joins) {</span>
-<span class="nc" id="L583">            TreeSet&lt;Node&gt; majj1 = this.majorants(j1);</span>
-<span class="nc bnc" id="L584" title="All 2 branches missed.">            for (Node j2 : joins) {</span>
-<span class="nc bnc" id="L585" title="All 2 branches missed.">                if (!j1.equals(j2)) {</span>
+<span class="pc bpc" id="L583" title="1 of 2 branches missed.">        for (Node j1 : joins) {</span>
+<span class="nc" id="L584">            TreeSet&lt;Node&gt; majj1 = this.majorants(j1);</span>
+<span class="nc bnc" id="L585" title="All 2 branches missed.">            for (Node j2 : joins) {</span>
+<span class="nc bnc" id="L586" title="All 2 branches missed.">                if (!j1.equals(j2)) {</span>
                     // computes the set S of nodes not greather than j1 and j2
-<span class="nc" id="L587">                    TreeSet&lt;Node&gt; set = new TreeSet&lt;Node&gt;(this.getNodes());</span>
-<span class="nc" id="L588">                    set.removeAll(majj1);</span>
-<span class="nc" id="L589">                    set.removeAll(this.majorants(j2));</span>
-<span class="nc" id="L590">                    set.remove(j1);</span>
-<span class="nc" id="L591">                    set.remove(j2);</span>
-<span class="nc bnc" id="L592" title="All 2 branches missed.">                    for (Node x: set) {</span>
+<span class="nc" id="L588">                    TreeSet&lt;Node&gt; set = new TreeSet&lt;Node&gt;(this.getNodes());</span>
+<span class="nc" id="L589">                    set.removeAll(majj1);</span>
+<span class="nc" id="L590">                    set.removeAll(this.majorants(j2));</span>
+<span class="nc" id="L591">                    set.remove(j1);</span>
+<span class="nc" id="L592">                    set.remove(j2);</span>
+<span class="nc bnc" id="L593" title="All 2 branches missed.">                    for (Node x: set) {</span>
                         // when j2 V x greather than j1 then add a new edge from j1 to J2
                         // or only a new valuation when the edge already exists
-<span class="nc bnc" id="L595" title="All 2 branches missed.">                        if (majj1.contains(this.join(j2, x))) {</span>
-<span class="nc" id="L596">                            Edge ed = this.dependencyGraph.getEdge(j1, j2);</span>
-<span class="nc bnc" id="L597" title="All 2 branches missed.">                            if (ed == null) {</span>
-<span class="nc" id="L598">                                ed = new Edge(j1, j2, new TreeSet&lt;ComparableSet&gt;());</span>
-<span class="nc" id="L599">                                this.dependencyGraph.addEdge(ed);</span>
+<span class="nc bnc" id="L596" title="All 2 branches missed.">                        if (majj1.contains(this.join(j2, x))) {</span>
+<span class="nc" id="L597">                            Edge ed = this.dependencyGraph.getEdge(j1, j2);</span>
+<span class="nc bnc" id="L598" title="All 2 branches missed.">                            if (ed == null) {</span>
+<span class="nc" id="L599">                                ed = new Edge(j1, j2, new TreeSet&lt;ComparableSet&gt;());</span>
+<span class="nc" id="L600">                                this.dependencyGraph.addEdge(ed);</span>
                             }
                             // add {Jx minus predecessors in joinG of j in Jx} as valuation of edge
                             // from j1 to j2
-<span class="nc" id="L603">                            TreeSet&lt;ComparableSet&gt; valEd = (TreeSet&lt;ComparableSet&gt;) ed.getContent();</span>
-<span class="nc" id="L604">                            ComparableSet newValByNode = new ComparableSet(this.joinIrreducibles(x));</span>
-<span class="nc bnc" id="L605" title="All 2 branches missed.">                            for (Comparable j : this.joinIrreducibles(x)) {</span>
-<span class="nc" id="L606">                                newValByNode.removeAll(joinG.getPredecessorNodes((Node) j));</span>
-<span class="nc" id="L607">                            }</span>
-<span class="nc" id="L608">                            ComparableSet newVal = new ComparableSet();</span>
-<span class="nc bnc" id="L609" title="All 2 branches missed.">                            for (Object j : newValByNode) {</span>
-<span class="nc" id="L610">                                Node n = (Node) j;</span>
-<span class="nc" id="L611">                                newVal.add(n.getContent());</span>
-<span class="nc" id="L612">                            }</span>
-<span class="nc" id="L613">                            ((TreeSet&lt;ComparableSet&gt;) ed.getContent()).add(newVal);</span>
+<span class="nc" id="L604">                            TreeSet&lt;ComparableSet&gt; valEd = (TreeSet&lt;ComparableSet&gt;) ed.getContent();</span>
+<span class="nc" id="L605">                            ComparableSet newValByNode = new ComparableSet(this.joinIrreducibles(x));</span>
+<span class="nc bnc" id="L606" title="All 2 branches missed.">                            for (Comparable j : this.joinIrreducibles(x)) {</span>
+<span class="nc" id="L607">                                newValByNode.removeAll(joinG.getPredecessorNodes((Node) j));</span>
+<span class="nc" id="L608">                            }</span>
+<span class="nc" id="L609">                            ComparableSet newVal = new ComparableSet();</span>
+<span class="nc bnc" id="L610" title="All 2 branches missed.">                            for (Object j : newValByNode) {</span>
+<span class="nc" id="L611">                                Node n = (Node) j;</span>
+<span class="nc" id="L612">                                newVal.add(n.getContent());</span>
+<span class="nc" id="L613">                            }</span>
+<span class="nc" id="L614">                            ((TreeSet&lt;ComparableSet&gt;) ed.getContent()).add(newVal);</span>
                             // Minimalisation by inclusion of valuations on edge j1-&gt;j2
-<span class="nc" id="L615">                            valEd = new TreeSet&lt;ComparableSet&gt;((TreeSet&lt;ComparableSet&gt;) ed.getContent());</span>
-<span class="nc bnc" id="L616" title="All 2 branches missed.">                            for (ComparableSet x1 : valEd) {</span>
-<span class="nc bnc" id="L617" title="All 4 branches missed.">                                if (x1.containsAll(newVal) &amp;&amp; !newVal.containsAll(x1)) {</span>
-<span class="nc" id="L618">                                    ((TreeSet&lt;ComparableSet&gt;) ed.getContent()).remove(x1);</span>
+<span class="nc" id="L616">                            valEd = new TreeSet&lt;ComparableSet&gt;((TreeSet&lt;ComparableSet&gt;) ed.getContent());</span>
+<span class="nc bnc" id="L617" title="All 2 branches missed.">                            for (ComparableSet x1 : valEd) {</span>
+<span class="nc bnc" id="L618" title="All 4 branches missed.">                                if (x1.containsAll(newVal) &amp;&amp; !newVal.containsAll(x1)) {</span>
+<span class="nc" id="L619">                                    ((TreeSet&lt;ComparableSet&gt;) ed.getContent()).remove(x1);</span>
                                 }
-<span class="nc bnc" id="L620" title="All 4 branches missed.">                                if (!x1.containsAll(newVal) &amp;&amp; newVal.containsAll(x1)) {</span>
-<span class="nc" id="L621">                                    ((TreeSet&lt;ComparableSet&gt;) ed.getContent()).remove(newVal);</span>
+<span class="nc bnc" id="L621" title="All 4 branches missed.">                                if (!x1.containsAll(newVal) &amp;&amp; newVal.containsAll(x1)) {</span>
+<span class="nc" id="L622">                                    ((TreeSet&lt;ComparableSet&gt;) ed.getContent()).remove(newVal);</span>
                                 }
-<span class="nc" id="L623">                            }</span>
+<span class="nc" id="L624">                            }</span>
                         }
-<span class="nc" id="L625">                    }</span>
+<span class="nc" id="L626">                    }</span>
                  }
-<span class="nc" id="L627">             }</span>
-<span class="nc" id="L628">         }</span>
+<span class="nc" id="L628">             }</span>
+<span class="nc" id="L629">         }</span>
         // minimalisation of edge's content to get only inclusion-minimal valuation for each edge
         /**for (Edge ed : this.dependencyGraph.getEdges()) {
              TreeSet&lt;ComparableSet&gt; valEd = new TreeSet&lt;ComparableSet&gt;(((TreeSet&lt;ComparableSet&gt;)ed.getContent()));
@@ -634,7 +635,7 @@ public class Lattice extends DAGraph {
                      if (X1.containsAll(X2) &amp;&amp; !X2.containsAll(X1))
                          ((TreeSet&lt;ComparableSet&gt;)ed.getContent()).remove(X1);
         }**/
-<span class="fc" id="L637">        return this.dependencyGraph;</span>
+<span class="fc" id="L638">        return this.dependencyGraph;</span>
     }
 
     /**
@@ -643,8 +644,8 @@ public class Lattice extends DAGraph {
      * @param   graph  the dependency graph
      */
     protected void setDependencyGraph(DGraph graph) {
-<span class="fc" id="L646">        this.dependencyGraph = graph;</span>
-<span class="fc" id="L647">    }</span>
+<span class="fc" id="L647">        this.dependencyGraph = graph;</span>
+<span class="fc" id="L648">    }</span>
 
     /**
      * Test if this component has a dependency graph.
@@ -652,7 +653,7 @@ public class Lattice extends DAGraph {
     * @return  the truth value for this property
      */
     protected boolean hasDependencyGraph() {
-<span class="pc bpc" id="L655" title="1 of 2 branches missed.">        return this.dependencyGraph != null;</span>
+<span class="pc bpc" id="L656" title="1 of 2 branches missed.">        return this.dependencyGraph != null;</span>
     }
 
     /**
@@ -671,28 +672,28 @@ public class Lattice extends DAGraph {
      * @return  the canonical direct basis of the lattice
      */
     public IS getCanonicalDirectBasis() {
-<span class="fc" id="L674">        DGraph odGraph = this.getDependencyGraph();</span>
+<span class="fc" id="L675">        DGraph odGraph = this.getDependencyGraph();</span>
         // initialize elements of the IS with nodes of the ODGraph
-<span class="fc" id="L676">        IS bcd = new IS();</span>
-<span class="pc bpc" id="L677" title="1 of 2 branches missed.">        for (Node n : odGraph.getNodes()) {</span>
-<span class="nc" id="L678">            bcd.addElement((Comparable) n.getContent());</span>
-<span class="nc" id="L679">        }</span>
+<span class="fc" id="L677">        IS bcd = new IS();</span>
+<span class="pc bpc" id="L678" title="1 of 2 branches missed.">        for (Node n : odGraph.getNodes()) {</span>
+<span class="nc" id="L679">            bcd.addElement((Comparable) n.getContent());</span>
+<span class="nc" id="L680">        }</span>
         // computes rules of the BCD from edges of the ODGraph
-<span class="pc bpc" id="L681" title="1 of 2 branches missed.">        for (Edge ed : odGraph.getEdges()) {</span>
-<span class="nc" id="L682">            Node from = ed.getFrom();</span>
-<span class="nc" id="L683">            Node to = ed.getTo();</span>
-<span class="nc" id="L684">            TreeSet&lt;ComparableSet&gt; l = (TreeSet&lt;ComparableSet&gt;) ed.getContent();</span>
-<span class="nc bnc" id="L685" title="All 2 branches missed.">            for (ComparableSet set : l) {</span>
-<span class="nc" id="L686">                ComparableSet premise = new ComparableSet(set);</span>
-<span class="nc" id="L687">                premise.add((Comparable) to.getContent());</span>
-<span class="nc" id="L688">                ComparableSet conclusion = new ComparableSet();</span>
-<span class="nc" id="L689">                conclusion.add((Comparable) from.getContent());</span>
-<span class="nc" id="L690">                bcd.addRule(new Rule(premise, conclusion));</span>
-<span class="nc" id="L691">            }</span>
-<span class="nc" id="L692">        }</span>
+<span class="pc bpc" id="L682" title="1 of 2 branches missed.">        for (Edge ed : odGraph.getEdges()) {</span>
+<span class="nc" id="L683">            Node from = ed.getFrom();</span>
+<span class="nc" id="L684">            Node to = ed.getTo();</span>
+<span class="nc" id="L685">            TreeSet&lt;ComparableSet&gt; l = (TreeSet&lt;ComparableSet&gt;) ed.getContent();</span>
+<span class="nc bnc" id="L686" title="All 2 branches missed.">            for (ComparableSet set : l) {</span>
+<span class="nc" id="L687">                ComparableSet premise = new ComparableSet(set);</span>
+<span class="nc" id="L688">                premise.add((Comparable) to.getContent());</span>
+<span class="nc" id="L689">                ComparableSet conclusion = new ComparableSet();</span>
+<span class="nc" id="L690">                conclusion.add((Comparable) from.getContent());</span>
+<span class="nc" id="L691">                bcd.addRule(new Rule(premise, conclusion));</span>
+<span class="nc" id="L692">            }</span>
+<span class="nc" id="L693">        }</span>
         //bcd.makeLeftMinimal();
-<span class="fc" id="L694">        bcd.makeCompact();</span>
-<span class="fc" id="L695">        return bcd;</span>
+<span class="fc" id="L695">        bcd.makeCompact();</span>
+<span class="fc" id="L696">        return bcd;</span>
     }
 
     /**
@@ -710,12 +711,12 @@ public class Lattice extends DAGraph {
      * @return  a TreeSet of the minimal generators
      */
     public TreeSet getMinimalGenerators() {
-<span class="fc" id="L713">        IS bcd = this.getCanonicalDirectBasis();</span>
-<span class="fc" id="L714">        TreeSet genMin = new TreeSet();</span>
-<span class="pc bpc" id="L715" title="1 of 2 branches missed.">        for (Rule r : bcd.getRules()) {</span>
-<span class="nc" id="L716">            genMin.add(r.getPremise());</span>
-<span class="nc" id="L717">        }</span>
-<span class="fc" id="L718">        return genMin;</span>
+<span class="fc" id="L714">        IS bcd = this.getCanonicalDirectBasis();</span>
+<span class="fc" id="L715">        TreeSet genMin = new TreeSet();</span>
+<span class="pc bpc" id="L716" title="1 of 2 branches missed.">        for (Rule r : bcd.getRules()) {</span>
+<span class="nc" id="L717">            genMin.add(r.getPremise());</span>
+<span class="nc" id="L718">        }</span>
+<span class="fc" id="L719">        return genMin;</span>
     }
 
      /**
@@ -740,46 +741,46 @@ public class Lattice extends DAGraph {
      public DGraph arrowRelation() {
 
         /* Nodes are join or meet irreductibles of the lattice. */
-<span class="fc" id="L743">        TreeSet&lt;Node&gt; joins = new TreeSet&lt;Node&gt;(this.joinIrreducibles());</span>
-<span class="fc" id="L744">        TreeSet&lt;Node&gt; meets = new TreeSet&lt;Node&gt;(this.meetIrreducibles());</span>
-<span class="fc" id="L745">        TreeSet&lt;Node&gt; nodes = new TreeSet&lt;Node&gt;(meets);</span>
-<span class="fc" id="L746">        nodes.addAll(joins);</span>
+<span class="fc" id="L744">        TreeSet&lt;Node&gt; joins = new TreeSet&lt;Node&gt;(this.joinIrreducibles());</span>
+<span class="fc" id="L745">        TreeSet&lt;Node&gt; meets = new TreeSet&lt;Node&gt;(this.meetIrreducibles());</span>
+<span class="fc" id="L746">        TreeSet&lt;Node&gt; nodes = new TreeSet&lt;Node&gt;(meets);</span>
+<span class="fc" id="L747">        nodes.addAll(joins);</span>
 
-<span class="fc" id="L748">        DGraph graph = new DGraph(nodes);</span>
+<span class="fc" id="L749">        DGraph graph = new DGraph(nodes);</span>
 
-<span class="fc" id="L750">        Lattice transitiveClosure = new Lattice(this);</span>
-<span class="fc" id="L751">        transitiveClosure.transitiveClosure();</span>
-<span class="fc" id="L752">        Lattice transitiveReduction = new Lattice(this);</span>
-<span class="fc" id="L753">        transitiveReduction.transitiveReduction();</span>
-<span class="fc" id="L754">        Node jminus = new Node();</span>
-<span class="fc" id="L755">        Node mplus = new Node();</span>
-<span class="fc" id="L756">        String arrow = &quot;&quot;;</span>
+<span class="fc" id="L751">        Lattice transitiveClosure = new Lattice(this);</span>
+<span class="fc" id="L752">        transitiveClosure.transitiveClosure();</span>
+<span class="fc" id="L753">        Lattice transitiveReduction = new Lattice(this);</span>
+<span class="fc" id="L754">        transitiveReduction.transitiveReduction();</span>
+<span class="fc" id="L755">        Node jminus = new Node();</span>
+<span class="fc" id="L756">        Node mplus = new Node();</span>
+<span class="fc" id="L757">        String arrow = &quot;&quot;;</span>
 
         /* Content of edges are arrows */
-<span class="fc bfc" id="L759" title="All 2 branches covered.">        for (Node j : joins) {</span>
-<span class="fc bfc" id="L760" title="All 2 branches covered.">            for (Node m : meets) {</span>
-<span class="fc" id="L761">                mplus = transitiveReduction.getSuccessorNodes(m).first();</span>
-<span class="fc" id="L762">                jminus = transitiveReduction.getPredecessorNodes(j).first();</span>
-<span class="fc bfc" id="L763" title="All 4 branches covered.">                if (transitiveClosure.getSuccessorNodes(j).contains(m) || j.equals(m)) {</span>
-<span class="fc" id="L764">                    arrow = &quot;Cross&quot;;</span>
+<span class="fc bfc" id="L760" title="All 2 branches covered.">        for (Node j : joins) {</span>
+<span class="fc bfc" id="L761" title="All 2 branches covered.">            for (Node m : meets) {</span>
+<span class="fc" id="L762">                mplus = transitiveReduction.getSuccessorNodes(m).first();</span>
+<span class="fc" id="L763">                jminus = transitiveReduction.getPredecessorNodes(j).first();</span>
+<span class="fc bfc" id="L764" title="All 4 branches covered.">                if (transitiveClosure.getSuccessorNodes(j).contains(m) || j.equals(m)) {</span>
+<span class="fc" id="L765">                    arrow = &quot;Cross&quot;;</span>
                 } else {
-<span class="fc bfc" id="L766" title="All 2 branches covered.">                    if (transitiveClosure.getSuccessorNodes(jminus).contains(m)) {</span>
-<span class="fc" id="L767">                        arrow = &quot;Down&quot;;</span>
-<span class="fc bfc" id="L768" title="All 2 branches covered.">                        if (transitiveClosure.getPredecessorNodes(mplus).contains(j)) {</span>
-<span class="fc" id="L769">                            arrow = &quot;UpDown&quot;;</span>
+<span class="fc bfc" id="L767" title="All 2 branches covered.">                    if (transitiveClosure.getSuccessorNodes(jminus).contains(m)) {</span>
+<span class="fc" id="L768">                        arrow = &quot;Down&quot;;</span>
+<span class="fc bfc" id="L769" title="All 2 branches covered.">                        if (transitiveClosure.getPredecessorNodes(mplus).contains(j)) {</span>
+<span class="fc" id="L770">                            arrow = &quot;UpDown&quot;;</span>
                         }
                     } else {
-<span class="fc bfc" id="L772" title="All 2 branches covered.">                        if (transitiveClosure.getPredecessorNodes(mplus).contains(j)) {</span>
-<span class="fc" id="L773">                            arrow = &quot;Up&quot;;</span>
+<span class="fc bfc" id="L773" title="All 2 branches covered.">                        if (transitiveClosure.getPredecessorNodes(mplus).contains(j)) {</span>
+<span class="fc" id="L774">                            arrow = &quot;Up&quot;;</span>
                         } else {
-<span class="fc" id="L775">                            arrow = &quot;Circ&quot;;</span>
+<span class="fc" id="L776">                            arrow = &quot;Circ&quot;;</span>
                         }
                     }
                 }
-<span class="fc" id="L779">                graph.addEdge(m, j, arrow);</span>
-<span class="fc" id="L780">            }</span>
-<span class="fc" id="L781">        }</span>
-<span class="fc" id="L782">        return graph;</span>
+<span class="fc" id="L780">                graph.addEdge(m, j, arrow);</span>
+<span class="fc" id="L781">            }</span>
+<span class="fc" id="L782">        }</span>
+<span class="fc" id="L783">        return graph;</span>
     }
 }
 

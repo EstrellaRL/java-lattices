@@ -314,14 +314,14 @@ public class DGraph {
      * @return  the found edge or null
      */
     public Edge getEdge(final Node from, final Node to) {
-<span class="pc bpc" id="L317" title="1 of 2 branches missed.">        if (this.containsEdge(from, to)) {</span>
+<span class="fc bfc" id="L317" title="All 2 branches covered.">        if (this.containsEdge(from, to)) {</span>
 <span class="pc bpc" id="L318" title="1 of 2 branches missed.">            for (Edge edge : this.successors.get(from)) {</span>
 <span class="fc bfc" id="L319" title="All 2 branches covered.">                if (edge.getTo().equals(to)) {</span>
 <span class="fc" id="L320">                    return edge;</span>
                 }
 <span class="fc" id="L322">            }</span>
         }
-<span class="nc" id="L324">        return null;</span>
+<span class="fc" id="L324">        return null;</span>
     }
 
     /**

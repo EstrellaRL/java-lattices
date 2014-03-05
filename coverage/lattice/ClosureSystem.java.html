@@ -153,26 +153,26 @@ import dgraph.Node;
 	public DGraph precedenceGraph () {
         // compute a TreeMap of closures for each element of the component
 <span class="fc" id="L155">        TreeMap&lt;Comparable,TreeSet&lt;Comparable&gt;&gt; Closures = new TreeMap&lt;Comparable,TreeSet&lt;Comparable&gt;&gt;();</span>
-<span class="pc bpc" id="L156" title="1 of 2 branches missed.">	for (Comparable x : this.getSet()) {</span>
-<span class="nc" id="L157">            ComparableSet setX = new ComparableSet();</span>
-<span class="nc" id="L158">            setX.add(x);        </span>
-<span class="nc" id="L159">            Closures.put(x, this.closure(setX));</span>
-<span class="nc" id="L160">        }</span>
+<span class="fc bfc" id="L156" title="All 2 branches covered.">	for (Comparable x : this.getSet()) {</span>
+<span class="fc" id="L157">            ComparableSet setX = new ComparableSet();</span>
+<span class="fc" id="L158">            setX.add(x);        </span>
+<span class="fc" id="L159">            Closures.put(x, this.closure(setX));</span>
+<span class="fc" id="L160">        }</span>
         // nodes of the graph are elements
 <span class="fc" id="L162">	DGraph prec = new DGraph();</span>
 <span class="fc" id="L163">        TreeMap&lt;Comparable,Node&gt; nodeCreated = new TreeMap&lt;Comparable,Node&gt;();</span>
-<span class="pc bpc" id="L164" title="1 of 2 branches missed.">	for (Comparable x : this.getSet()) {</span>
-<span class="nc" id="L165">            Node n = new Node(x);</span>
-<span class="nc" id="L166">            prec.addNode (n);</span>
-<span class="nc" id="L167">            nodeCreated.put(x, n);</span>
-<span class="nc" id="L168">        }        </span>
+<span class="fc bfc" id="L164" title="All 2 branches covered.">	for (Comparable x : this.getSet()) {</span>
+<span class="fc" id="L165">            Node n = new Node(x);</span>
+<span class="fc" id="L166">            prec.addNode (n);</span>
+<span class="fc" id="L167">            nodeCreated.put(x, n);</span>
+<span class="fc" id="L168">        }        </span>
         // edges of the graph are closures containments
-<span class="pc bpc" id="L170" title="1 of 2 branches missed.">        for (Comparable from : this.getSet())</span>
-<span class="nc bnc" id="L171" title="All 2 branches missed.">            for (Comparable to : this.getSet())</span>
-<span class="nc bnc" id="L172" title="All 2 branches missed.">               if (!from.equals(to)) {</span>
+<span class="fc bfc" id="L170" title="All 2 branches covered.">        for (Comparable from : this.getSet())</span>
+<span class="fc bfc" id="L171" title="All 2 branches covered.">            for (Comparable to : this.getSet())</span>
+<span class="fc bfc" id="L172" title="All 2 branches covered.">               if (!from.equals(to)) {</span>
                 // check if from belongs to the closure of to                
-<span class="nc bnc" id="L174" title="All 2 branches missed.">                if (Closures.get(to).contains(from))</span>
-<span class="nc" id="L175">                    prec.addEdge(nodeCreated.get(from), nodeCreated.get(to));</span>
+<span class="pc bpc" id="L174" title="1 of 2 branches missed.">                if (Closures.get(to).contains(from))</span>
+<span class="fc" id="L175">                    prec.addEdge(nodeCreated.get(from), nodeCreated.get(to));</span>
                }
 <span class="fc" id="L177">        return prec;</span>
 	}

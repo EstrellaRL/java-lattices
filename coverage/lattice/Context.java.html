@@ -337,15 +337,15 @@ public class Context extends ClosureSystem {
 <span class="fc" id="L337">		return this.attributes; }		</span>
 	/** Checks if the specified attribute belong to this component */
 	public boolean containsAttribute (Comparable att) {
-<span class="nc" id="L340">		return this.attributes.contains(att); }</span>
+<span class="fc" id="L340">		return this.attributes.contains(att); }</span>
 	/** Checks if the specified set of attributes belong to this component */
 	public boolean containsAllAttributes (TreeSet&lt;Comparable&gt; X) {
 <span class="nc" id="L343">		return this.attributes.containsAll(X); }</span>
 	/** Adds the specified element to the set of attributes of this component */	
 	public boolean addToAttributes (Comparable att) {
-<span class="nc bnc" id="L346" title="All 2 branches missed.">		if (!this.containsAttribute(att)) </span>
-<span class="nc" id="L347">			this.extent.put(att, new TreeSet&lt;Comparable&gt;());</span>
-<span class="nc" id="L348">		return this.attributes.add(att); }</span>
+<span class="pc bpc" id="L346" title="1 of 2 branches missed.">		if (!this.containsAttribute(att)) </span>
+<span class="fc" id="L347">			this.extent.put(att, new TreeSet&lt;Comparable&gt;());</span>
+<span class="fc" id="L348">		return this.attributes.add(att); }</span>
 	/** Adds the set of specified element to the set of attributes of this component */	
 	public boolean addAllToAttributes (TreeSet&lt;Comparable&gt; X) {
 <span class="nc" id="L351">		boolean all = true;</span>
@@ -366,15 +366,15 @@ public class Context extends ClosureSystem {
 <span class="fc" id="L366">		return this.observations; }</span>
 	/** Checks if the specified observation belong to this component */
 	public boolean containsObservation (Comparable obs) {
-<span class="nc" id="L369">		return this.observations.contains(obs); }</span>
+<span class="fc" id="L369">		return this.observations.contains(obs); }</span>
 	/** Checks if the specified set of observations belong to this component */
 	public boolean containsAllObservations (TreeSet&lt;Comparable&gt; X) {
 <span class="nc" id="L372">		return this.observations.containsAll(X); }</span>
 	/** Adds the specified element to the set of observations of this component */	
 	public boolean addToObservations (Comparable obs) {
-<span class="nc bnc" id="L375" title="All 2 branches missed.">		if (!this.containsObservation(obs)) </span>
-<span class="nc" id="L376">			this.intent.put(obs, new TreeSet&lt;Comparable&gt;());</span>
-<span class="nc" id="L377">		return this.observations.add(obs); }</span>
+<span class="pc bpc" id="L375" title="1 of 2 branches missed.">		if (!this.containsObservation(obs)) </span>
+<span class="fc" id="L376">			this.intent.put(obs, new TreeSet&lt;Comparable&gt;());</span>
+<span class="fc" id="L377">		return this.observations.add(obs); }</span>
 	/** Adds the set of specified element to the set of observations of this component */	
 	public boolean addAllToObservations (TreeSet&lt;Comparable&gt; X) {
 <span class="nc" id="L380">		boolean all = true;</span>
@@ -495,15 +495,15 @@ public class Context extends ClosureSystem {
 <span class="fc" id="L495">            return ext;</span>
         }		
 	public int getExtentNb (TreeSet&lt;Comparable&gt; X) {
-<span class="nc" id="L498">            int size = this.getObservations().size();</span>
-<span class="nc" id="L499">            BitSet b_resExtent = new BitSet(size);</span>
-<span class="nc" id="L500">            b_resExtent.set(0, size);</span>
-<span class="nc bnc" id="L501" title="All 2 branches missed.">            for (Comparable att : X){</span>
+<span class="fc" id="L498">            int size = this.getObservations().size();</span>
+<span class="fc" id="L499">            BitSet b_resExtent = new BitSet(size);</span>
+<span class="fc" id="L500">            b_resExtent.set(0, size);</span>
+<span class="pc bpc" id="L501" title="1 of 2 branches missed.">            for (Comparable att : X){</span>
                 try{
 <span class="nc" id="L503">                    b_resExtent.and(this.b_extent.get(att));</span>
                 }
-<span class="nc" id="L505">                catch(NullPointerException e){</span>
-<span class="nc" id="L506">                    return 0;</span>
+<span class="fc" id="L505">                catch(NullPointerException e){</span>
+<span class="fc" id="L506">                    return 0;</span>
 <span class="nc" id="L507">                }</span>
 <span class="nc" id="L508">            }</span>
 <span class="nc" id="L509">            return b_resExtent.cardinality();</span>
@@ -526,8 +526,8 @@ public class Context extends ClosureSystem {
 	* and the second one to the attribute set.
 	*/
 	public boolean addExtentIntent (Comparable obs, Comparable att ) {
-<span class="nc bnc" id="L529" title="All 4 branches missed.">		if (this.containsObservation(obs) &amp;&amp; this.containsAttribute(att))</span>
-<span class="nc bnc" id="L530" title="All 4 branches missed.">			return this.intent.get(obs).add(att) &amp;&amp; this.extent.get(att).add(obs);</span>
+<span class="pc bpc" id="L529" title="2 of 4 branches missed.">		if (this.containsObservation(obs) &amp;&amp; this.containsAttribute(att))</span>
+<span class="pc bpc" id="L530" title="2 of 4 branches missed.">			return this.intent.get(obs).add(att) &amp;&amp; this.extent.get(att).add(obs);</span>
 <span class="nc" id="L531">		else return false; }		</span>
 	/** Removes the second specified element from the intent of the first one, 
 	* and the first one from the extent of the second one.

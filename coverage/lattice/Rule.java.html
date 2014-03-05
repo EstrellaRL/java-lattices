@@ -280,10 +280,10 @@ public class Rule implements Comparable {
 <span class="fc" id="L280">        Rule r = (Rule) o;</span>
 <span class="fc" id="L281">        ComparableSet thisPremise = (ComparableSet) this.getPremise();</span>
 <span class="fc" id="L282">        ComparableSet thisConclusion = (ComparableSet) this.getConclusion();</span>
-<span class="pc bpc" id="L283" title="1 of 2 branches missed.">        if (thisPremise.compareTo(r.getPremise()) == 0) {</span>
+<span class="fc bfc" id="L283" title="All 2 branches covered.">        if (thisPremise.compareTo(r.getPremise()) == 0) {</span>
 <span class="fc" id="L284">            return (thisConclusion.compareTo(r.getConclusion()));</span>
         } else {
-<span class="nc" id="L286">            return (thisPremise.compareTo(r.getPremise()));</span>
+<span class="fc" id="L286">            return (thisPremise.compareTo(r.getPremise()));</span>
         }
     }
 }
