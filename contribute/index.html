@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="Contributor's Guide" />
+  <title>Java-lattices</title>
+  <link rel="stylesheet" href="markdown.css" type="text/css" />
+</head>
+<body>
+<div id="header">
+<h1 class="title">Java-lattices</h1>
+<h2 class="author">Contributor's Guide</h2>
+<h3 class="date">March 7, 2014</h3>
+</div>
+<h1 id="how-to-contribute">How to contribute?</h1>
+<p>This is a quick guide describing the essential steps to contribute.</p>
+<h2 id="step-1-connect-to-github">Step 1: Connect to github</h2>
+<p><a href="https://github.com/join">Create</a>/<a href="https://github.com/login">Use</a> your github account</p>
+<h2 id="step-2-fork-the-project">Step 2: Fork the project</h2>
+<p>Fork the <a href="https://github.com/kbertet/java-lattices/fork">project</a></p>
+<h2 id="step-3-clone-your-fork-into-your-local-machine">Step 3: Clone your fork into your local machine</h2>
+<p>If you use ssh:</p>
+<pre><code>$ git clone git@github.com:{your_account}/java-lattices.git</code></pre>
+<p>If you use https:</p>
+<pre><code>$ git clone https://github.com/{your_account}/java-lattices.git</code></pre>
+<h2 id="step-4-create-a-branch">Step 4: Create a branch</h2>
+<p>We recommend to create several branches in order to implement several features or fix several bugs at the same time:</p>
+<pre><code>$ git checkout -b {new_branch_name}</code></pre>
+<h2 id="step-5-take-a-cup-of-tea">Step 5: Take a cup of tea</h2>
+<p>Start to code and when it's finished, modify the ChangeLog explaining the changes and commit all your work onto your local branch:</p>
+<pre><code>$ git commit -am &#39;My very usefull comment&#39;</code></pre>
+<h2 id="step-6-push-you-branch">Step 6: Push you branch</h2>
+<p>Your code is now ready to be pushed onto your remote repository.</p>
+<p><code>origin</code> is the default name of your remote repository. You can get all your remote repositories with:</p>
+<pre><code>$ git remote -v</code></pre>
+<p>We recommand to rename your remote repository using your githut account:</p>
+<pre><code>$ git remote rename origin {your_account}</code></pre>
+<pre><code>$ git push {your_account} {new_branch_name}</code></pre>
+<h2 id="step-7-submit-your-pull-request">Step 7: Submit your pull request</h2>
+<p>Browse your remote repository, switch to your new branch and click on the pull request button. The button should redirect you to:</p>
+<pre><code>https://github.com/{your_account}/java-lattices/pull/new/{new_branch_name}</code></pre>
+<h2 id="step-8-go-to-bed">Step 8: Go to bed</h2>
+<p>And wait for comments on your pull request from the developer team. Discuss with the team using github facilities and redo Step 5 to Step 6 until your code has been accepted.</p>
+<h2 id="step-9-delete-the-branch">Step 9: Delete the branch</h2>
+<p>The branch you was using for the new feature or bug fix is now obsolete.</p>
+<p>You can delete it on your local machine using:</p>
+<pre><code>$ git checkout master</code></pre>
+<p>to switch to the master branch</p>
+<pre><code>$ git branch -D {new_branch_name}</code></pre>
+<p>to delete the branch</p>
+<p>You can also delete the branch on your remote repository using:</p>
+<pre><code>$ git push {your_account} :{new_branch_name}</code></pre>
+<h2 id="step-10-merge-the-official-repository">Step 10: Merge the official repository</h2>
+<p>If you want to add more features or to fix bugs, don't forget to merge the official repository in your master branch.</p>
+<p>First you have to add a remote repository.</p>
+<p>If you use ssh:</p>
+<pre><code>$ git remote add kbertet git@github.com:kbertet/java-lattices.git</code></pre>
+<p>If you use https:</p>
+<pre><code>$ git remote add kbertet https://github.com/kbertet/java-lattices.git</code></pre>
+<p>To view all your remote repositories:</p>
+<pre><code>$ git remote -v</code></pre>
+<p>You can now merge the up-to-date code in your master branch</p>
+<pre><code>$ git pull kbertet master</code></pre>
+</body>
+</html>
