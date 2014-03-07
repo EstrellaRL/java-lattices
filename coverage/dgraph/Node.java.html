@@ -176,8 +176,8 @@ public class Node implements Comparable&lt;Object&gt; {
      * @return  true or false as this node is equal to the specified object.
      */
     public boolean equals(final Object object) {
-<span class="pc bpc" id="L179" title="1 of 2 branches missed.">        if (!(object instanceof Node)) {</span>
-<span class="nc" id="L180">            return false;</span>
+<span class="fc bfc" id="L179" title="All 2 branches covered.">        if (!(object instanceof Node)) {</span>
+<span class="fc" id="L180">            return false;</span>
         }
 <span class="fc" id="L182">        Node node = (Node) object;</span>
 <span class="fc bfc" id="L183" title="All 2 branches covered.">        return this.identifier == node.identifier;</span>
