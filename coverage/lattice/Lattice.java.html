@@ -483,16 +483,16 @@ public class Lattice extends DAGraph {
     }
 
     /**
-     * Returns an IS of the lattice defined on the join irreducibles nodes.
+     * Returns an ImplicationalSystem of the lattice defined on the join irreducibles nodes.
      *
-     * Each element of the IS is a copy of a a join irreducibles node.
+     * Each element of the ImplicationalSystem is a copy of a a join irreducibles node.
      *
      * @return  an implicational system
      */
-    public IS getIS() {
-        // initialization of IS
+    public ImplicationalSystem getIS() {
+        // initialization of ImplicationalSystem
 <span class="nc" id="L494">        TreeSet&lt;Node&gt; join = this.joinIrreducibles();</span>
-<span class="nc" id="L495">        IS sigma = new IS();</span>
+<span class="nc" id="L495">        ImplicationalSystem sigma = new ImplicationalSystem();</span>
 <span class="nc bnc" id="L496" title="All 2 branches missed.">        for (Node j : join) {</span>
 <span class="nc" id="L497">            sigma.addElement((Comparable) j.getContent());</span>
 <span class="nc" id="L498">        }</span>
@@ -671,10 +671,10 @@ public class Lattice extends DAGraph {
      *
      * @return  the canonical direct basis of the lattice
      */
-    public IS getCanonicalDirectBasis() {
+    public ImplicationalSystem getCanonicalDirectBasis() {
 <span class="fc" id="L675">        DGraph odGraph = this.getDependencyGraph();</span>
-        // initialize elements of the IS with nodes of the ODGraph
-<span class="fc" id="L677">        IS bcd = new IS();</span>
+        // initialize elements of the ImplicationalSystem with nodes of the ODGraph
+<span class="fc" id="L677">        ImplicationalSystem bcd = new ImplicationalSystem();</span>
 <span class="pc bpc" id="L678" title="1 of 2 branches missed.">        for (Node n : odGraph.getNodes()) {</span>
 <span class="nc" id="L679">            bcd.addElement((Comparable) n.getContent());</span>
 <span class="nc" id="L680">        }</span>
@@ -711,7 +711,7 @@ public class Lattice extends DAGraph {
      * @return  a TreeSet of the minimal generators
      */
     public TreeSet getMinimalGenerators() {
-<span class="fc" id="L714">        IS bcd = this.getCanonicalDirectBasis();</span>
+<span class="fc" id="L714">        ImplicationalSystem bcd = this.getCanonicalDirectBasis();</span>
 <span class="fc" id="L715">        TreeSet genMin = new TreeSet();</span>
 <span class="pc bpc" id="L716" title="1 of 2 branches missed.">        for (Rule r : bcd.getRules()) {</span>
 <span class="nc" id="L717">            genMin.add(r.getPremise());</span>
