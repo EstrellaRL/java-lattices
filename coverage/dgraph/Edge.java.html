@@ -38,9 +38,12 @@ import java.util.StringTokenizer;
  *
  * @uml Edge.png
  * !include src/dgraph/Edge.iuml
+ * !include src/dgraph/Node.iuml
  *
  * hide members
  * show Edge members
+ * class Edge #LightCyan
+ * title Edge UML graph
  */
 public class Edge implements Comparable&lt;Object&gt; {
     /* ------------- FIELDS --------------------- */
@@ -69,11 +72,11 @@ public class Edge implements Comparable&lt;Object&gt; {
      * @param   to       the destination node
      * @param   content  the edge content
      */
-<span class="fc" id="L72">    public Edge(final Node from, final Node to, final Object content) {</span>
-<span class="fc" id="L73">        this.from = from;</span>
-<span class="fc" id="L74">        this.to = to;</span>
-<span class="fc" id="L75">        this.content = content;</span>
-<span class="fc" id="L76">    }</span>
+<span class="fc" id="L75">    public Edge(final Node from, final Node to, final Object content) {</span>
+<span class="fc" id="L76">        this.from = from;</span>
+<span class="fc" id="L77">        this.to = to;</span>
+<span class="fc" id="L78">        this.content = content;</span>
+<span class="fc" id="L79">    }</span>
 
     /**
      * Constructs a new edge with the specified node as origin and destination node, and a null value as content.
@@ -81,11 +84,11 @@ public class Edge implements Comparable&lt;Object&gt; {
      * @param   from     the origin node
      * @param   to       the destination node
      */
-<span class="fc" id="L84">    public Edge(final Node from, final Node to) {</span>
-<span class="fc" id="L85">        this.from = from;</span>
-<span class="fc" id="L86">        this.to = to;</span>
-<span class="fc" id="L87">        this.content = null;</span>
-<span class="fc" id="L88">    }</span>
+<span class="fc" id="L87">    public Edge(final Node from, final Node to) {</span>
+<span class="fc" id="L88">        this.from = from;</span>
+<span class="fc" id="L89">        this.to = to;</span>
+<span class="fc" id="L90">        this.content = null;</span>
+<span class="fc" id="L91">    }</span>
 
     /* -------------- ACCESSORS ------------------- */
 
@@ -95,7 +98,7 @@ public class Edge implements Comparable&lt;Object&gt; {
      * @return  the origin node
      */
     public Node getFrom() {
-<span class="fc" id="L98">        return this.from;</span>
+<span class="fc" id="L101">        return this.from;</span>
     }
 
     /**
@@ -104,7 +107,7 @@ public class Edge implements Comparable&lt;Object&gt; {
      * @return  the destination node
      */
     public Node getTo() {
-<span class="fc" id="L107">        return this.to;</span>
+<span class="fc" id="L110">        return this.to;</span>
     }
 
     /**
@@ -115,8 +118,8 @@ public class Edge implements Comparable&lt;Object&gt; {
      * @return  this for chaining
      */
     public Edge setContent(final Object content) {
-<span class="fc" id="L118">        this.content = content;</span>
-<span class="fc" id="L119">        return this;</span>
+<span class="fc" id="L121">        this.content = content;</span>
+<span class="fc" id="L122">        return this;</span>
     }
 
     /**
@@ -125,7 +128,7 @@ public class Edge implements Comparable&lt;Object&gt; {
      * @return  the content
      */
     public Object getContent() {
-<span class="fc" id="L128">        return this.content;</span>
+<span class="fc" id="L131">        return this.content;</span>
     }
 
     /**
@@ -134,7 +137,7 @@ public class Edge implements Comparable&lt;Object&gt; {
      * @return  true if the content is not null
      */
     public boolean hasContent() {
-<span class="fc bfc" id="L137" title="All 2 branches covered.">        return this.content != null;</span>
+<span class="fc bfc" id="L140" title="All 2 branches covered.">        return this.content != null;</span>
     }
 
     /* ------------- METHODS ------------------ */
@@ -153,18 +156,18 @@ public class Edge implements Comparable&lt;Object&gt; {
      * @return  a negative integer, zero, or a positive integer as this edge is less than, equal to, or greater than the specified object.
      */
     public int compareTo(final Object object)  {
-<span class="fc bfc" id="L156" title="All 2 branches covered.">        if (!(object instanceof Edge)) {</span>
-<span class="fc" id="L157">            return -1;</span>
+<span class="fc bfc" id="L159" title="All 2 branches covered.">        if (!(object instanceof Edge)) {</span>
+<span class="fc" id="L160">            return -1;</span>
         }
-<span class="fc" id="L159">        Edge edge = (Edge) object;</span>
-<span class="fc bfc" id="L160" title="All 4 branches covered.">        if (this.from.getIdentifier() == edge.getFrom().getIdentifier() &amp;&amp; this.to.getIdentifier() == edge.getTo().getIdentifier()) {</span>
-<span class="fc" id="L161">            return 0;</span>
+<span class="fc" id="L162">        Edge edge = (Edge) object;</span>
+<span class="fc bfc" id="L163" title="All 4 branches covered.">        if (this.from.getIdentifier() == edge.getFrom().getIdentifier() &amp;&amp; this.to.getIdentifier() == edge.getTo().getIdentifier()) {</span>
+<span class="fc" id="L164">            return 0;</span>
         }
-<span class="fc bfc" id="L163" title="All 6 branches covered.">        if (this.from.getIdentifier() &lt; edge.getFrom().getIdentifier()</span>
+<span class="fc bfc" id="L166" title="All 6 branches covered.">        if (this.from.getIdentifier() &lt; edge.getFrom().getIdentifier()</span>
             || this.from.getIdentifier() == edge.getFrom().getIdentifier() &amp;&amp; this.to.getIdentifier() &lt; edge.getTo().getIdentifier()) {
-<span class="fc" id="L165">            return -1;</span>
+<span class="fc" id="L168">            return -1;</span>
         }
-<span class="fc" id="L167">        return 1;</span>
+<span class="fc" id="L170">        return 1;</span>
     }
 
     /**
@@ -173,11 +176,11 @@ public class Edge implements Comparable&lt;Object&gt; {
      * @return  The string representation of this edge
      */
     public String toString() {
-<span class="fc" id="L176">        String string = this.from.toString() + &quot;-&gt;&quot; + this.to.toString();</span>
-<span class="fc bfc" id="L177" title="All 2 branches covered.">        if (this.hasContent()) {</span>
-<span class="fc" id="L178">            string = string + &quot;(&quot; + this.content + &quot;)&quot;;</span>
+<span class="fc" id="L179">        String string = this.from.toString() + &quot;-&gt;&quot; + this.to.toString();</span>
+<span class="fc bfc" id="L180" title="All 2 branches covered.">        if (this.hasContent()) {</span>
+<span class="fc" id="L181">            string = string + &quot;(&quot; + this.content + &quot;)&quot;;</span>
         }
-<span class="fc" id="L180">        return string;</span>
+<span class="fc" id="L183">        return string;</span>
     }
 
     /**
@@ -186,16 +189,16 @@ public class Edge implements Comparable&lt;Object&gt; {
      * @return  The dot representation of this edge
      */
     public String toDot() {
-<span class="fc" id="L189">        String dot = this.from.getIdentifier() + &quot;-&gt;&quot; + this.to.getIdentifier();</span>
-<span class="pc bpc" id="L190" title="1 of 2 branches missed.">        if (this.hasContent()) {</span>
-<span class="fc" id="L191">            dot = dot + &quot; [&quot; + &quot;label=\&quot;&quot;;</span>
-<span class="fc" id="L192">            StringTokenizer tokenizer = new StringTokenizer(this.content.toString(), &quot;\&quot;&quot;);</span>
-<span class="fc bfc" id="L193" title="All 2 branches covered.">            while (tokenizer.hasMoreTokens()) {</span>
-<span class="fc" id="L194">                dot += tokenizer.nextToken();</span>
+<span class="fc" id="L192">        String dot = this.from.getIdentifier() + &quot;-&gt;&quot; + this.to.getIdentifier();</span>
+<span class="pc bpc" id="L193" title="1 of 2 branches missed.">        if (this.hasContent()) {</span>
+<span class="fc" id="L194">            dot = dot + &quot; [&quot; + &quot;label=\&quot;&quot;;</span>
+<span class="fc" id="L195">            StringTokenizer tokenizer = new StringTokenizer(this.content.toString(), &quot;\&quot;&quot;);</span>
+<span class="fc bfc" id="L196" title="All 2 branches covered.">            while (tokenizer.hasMoreTokens()) {</span>
+<span class="fc" id="L197">                dot += tokenizer.nextToken();</span>
             }
-<span class="fc" id="L196">            dot = dot + &quot;\&quot;]&quot;;</span>
+<span class="fc" id="L199">            dot = dot + &quot;\&quot;]&quot;;</span>
         }
-<span class="fc" id="L198">        return dot;</span>
+<span class="fc" id="L201">        return dot;</span>
     }
 }
 

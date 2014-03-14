@@ -51,8 +51,10 @@ import dgraph.Node;
  *
  * hide members
  * show ClosureSystem members
+ * class ClosureSystem #LightCyan
+ * title ClosureSystem UML graph
  */
-<span class="fc" id="L55">public abstract class ClosureSystem {</span>
+<span class="fc" id="L57">public abstract class ClosureSystem {</span>
 
     /* ------------- ABSTRACT METHODS ------------------ */
 
@@ -102,10 +104,10 @@ import dgraph.Node;
      * @return  The concept lattice
      */
     public ConceptLattice closedSetLattice(boolean  diagram) {
-<span class="pc bpc" id="L105" title="1 of 2 branches missed.">        if (diagram) {</span>
-<span class="fc" id="L106">            return ConceptLattice.diagramLattice(this);</span>
+<span class="pc bpc" id="L107" title="1 of 2 branches missed.">        if (diagram) {</span>
+<span class="fc" id="L108">            return ConceptLattice.diagramLattice(this);</span>
         } else {
-<span class="nc" id="L108">            return ConceptLattice.completeLattice(this);</span>
+<span class="nc" id="L110">            return ConceptLattice.completeLattice(this);</span>
         }
     }
 
@@ -125,22 +127,22 @@ import dgraph.Node;
     * @return  all the closeds set in the lectically order.
     */
     public Vector&lt;Concept&gt; allClosures() {
-<span class="nc" id="L128">        Vector&lt;Concept&gt; allclosure = new Vector&lt;Concept&gt;();</span>
+<span class="nc" id="L130">        Vector&lt;Concept&gt; allclosure = new Vector&lt;Concept&gt;();</span>
         // first closure: closure of the empty set
-<span class="nc" id="L130">        allclosure.add(new Concept(this.closure(new ComparableSet()), false));</span>
-<span class="nc" id="L131">        Concept cl = allclosure.firstElement();</span>
+<span class="nc" id="L132">        allclosure.add(new Concept(this.closure(new ComparableSet()), false));</span>
+<span class="nc" id="L133">        Concept cl = allclosure.firstElement();</span>
         // next closures in lectically order
-<span class="nc" id="L133">        boolean continu = true;</span>
+<span class="nc" id="L135">        boolean continu = true;</span>
         do {
-<span class="nc" id="L135">            cl = this.nextClosure(cl);</span>
-<span class="nc bnc" id="L136" title="All 2 branches missed.">            if (allclosure.contains(cl)) {</span>
-<span class="nc" id="L137">                continu = false;</span>
+<span class="nc" id="L137">            cl = this.nextClosure(cl);</span>
+<span class="nc bnc" id="L138" title="All 2 branches missed.">            if (allclosure.contains(cl)) {</span>
+<span class="nc" id="L139">                continu = false;</span>
             } else {
-<span class="nc" id="L139">                allclosure.add(cl);</span>
+<span class="nc" id="L141">                allclosure.add(cl);</span>
             }
-<span class="nc bnc" id="L141" title="All 2 branches missed.">        } while (continu);</span>
+<span class="nc bnc" id="L143" title="All 2 branches missed.">        } while (continu);</span>
 
-<span class="nc" id="L143">        return allclosure;</span>
+<span class="nc" id="L145">        return allclosure;</span>
     }
 
     /**
@@ -155,28 +157,28 @@ import dgraph.Node;
      * @return  the lecticaly next closed set
      */
     public Concept nextClosure(Concept cl) {
-<span class="nc" id="L158">        TreeSet&lt;Comparable&gt; set = new TreeSet(this.getSet());</span>
-<span class="nc" id="L159">        boolean success = false;</span>
-<span class="nc" id="L160">        TreeSet setA = new TreeSet(cl.getSetA());</span>
-<span class="nc" id="L161">        Comparable ni = set.last();</span>
+<span class="nc" id="L160">        TreeSet&lt;Comparable&gt; set = new TreeSet(this.getSet());</span>
+<span class="nc" id="L161">        boolean success = false;</span>
+<span class="nc" id="L162">        TreeSet setA = new TreeSet(cl.getSetA());</span>
+<span class="nc" id="L163">        Comparable ni = set.last();</span>
         do {
-<span class="nc" id="L163">            ni = (Comparable) set.last();</span>
-<span class="nc" id="L164">            set.remove(ni);</span>
-<span class="nc bnc" id="L165" title="All 2 branches missed.">            if (!setA.contains(ni)) {</span>
-<span class="nc" id="L166">                setA.add(ni);</span>
-<span class="nc" id="L167">                TreeSet setB = this.closure(setA);</span>
-<span class="nc" id="L168">                setB.removeAll(setA);</span>
-<span class="nc bnc" id="L169" title="All 4 branches missed.">                if (setB.isEmpty() || ((Comparable) setB.first()).compareTo(ni) &gt;= 1) {</span>
-<span class="nc" id="L170">                    setA = this.closure(setA);</span>
-<span class="nc" id="L171">                    success = true;</span>
+<span class="nc" id="L165">            ni = (Comparable) set.last();</span>
+<span class="nc" id="L166">            set.remove(ni);</span>
+<span class="nc bnc" id="L167" title="All 2 branches missed.">            if (!setA.contains(ni)) {</span>
+<span class="nc" id="L168">                setA.add(ni);</span>
+<span class="nc" id="L169">                TreeSet setB = this.closure(setA);</span>
+<span class="nc" id="L170">                setB.removeAll(setA);</span>
+<span class="nc bnc" id="L171" title="All 4 branches missed.">                if (setB.isEmpty() || ((Comparable) setB.first()).compareTo(ni) &gt;= 1) {</span>
+<span class="nc" id="L172">                    setA = this.closure(setA);</span>
+<span class="nc" id="L173">                    success = true;</span>
                 } else {
-<span class="nc" id="L173">                    setA.remove(ni);</span>
+<span class="nc" id="L175">                    setA.remove(ni);</span>
                 }
-<span class="nc" id="L175">            } else {</span>
-<span class="nc" id="L176">                setA.remove(ni);</span>
+<span class="nc" id="L177">            } else {</span>
+<span class="nc" id="L178">                setA.remove(ni);</span>
             }
-<span class="nc bnc" id="L178" title="All 4 branches missed.">        } while (!success &amp;&amp; ni.compareTo(this.getSet().first()) &gt;= 1);</span>
-<span class="nc" id="L179">        return new Concept(setA, false);</span>
+<span class="nc bnc" id="L180" title="All 4 branches missed.">        } while (!success &amp;&amp; ni.compareTo(this.getSet().first()) &gt;= 1);</span>
+<span class="nc" id="L181">        return new Concept(setA, false);</span>
     }
 
 
@@ -192,32 +194,32 @@ import dgraph.Node;
     */
     public DGraph precedenceGraph() {
         // compute a TreeMap of closures for each element of the component
-<span class="fc" id="L195">        TreeMap&lt;Comparable, TreeSet&lt;Comparable&gt;&gt; closures = new TreeMap&lt;Comparable, TreeSet&lt;Comparable&gt;&gt;();</span>
-<span class="fc bfc" id="L196" title="All 2 branches covered.">        for (Comparable x : this.getSet()) {</span>
-<span class="fc" id="L197">            ComparableSet setX = new ComparableSet();</span>
-<span class="fc" id="L198">            setX.add(x);</span>
-<span class="fc" id="L199">            closures.put(x, this.closure(setX));</span>
-<span class="fc" id="L200">        }</span>
+<span class="fc" id="L197">        TreeMap&lt;Comparable, TreeSet&lt;Comparable&gt;&gt; closures = new TreeMap&lt;Comparable, TreeSet&lt;Comparable&gt;&gt;();</span>
+<span class="fc bfc" id="L198" title="All 2 branches covered.">        for (Comparable x : this.getSet()) {</span>
+<span class="fc" id="L199">            ComparableSet setX = new ComparableSet();</span>
+<span class="fc" id="L200">            setX.add(x);</span>
+<span class="fc" id="L201">            closures.put(x, this.closure(setX));</span>
+<span class="fc" id="L202">        }</span>
         // nodes of the graph are elements
-<span class="fc" id="L202">        DGraph prec = new DGraph();</span>
-<span class="fc" id="L203">        TreeMap&lt;Comparable, Node&gt; nodeCreated = new TreeMap&lt;Comparable, Node&gt;();</span>
-<span class="fc bfc" id="L204" title="All 2 branches covered.">        for (Comparable x : this.getSet()) {</span>
-<span class="fc" id="L205">            Node n = new Node(x);</span>
-<span class="fc" id="L206">            prec.addNode(n);</span>
-<span class="fc" id="L207">            nodeCreated.put(x, n);</span>
-<span class="fc" id="L208">        }</span>
+<span class="fc" id="L204">        DGraph prec = new DGraph();</span>
+<span class="fc" id="L205">        TreeMap&lt;Comparable, Node&gt; nodeCreated = new TreeMap&lt;Comparable, Node&gt;();</span>
+<span class="fc bfc" id="L206" title="All 2 branches covered.">        for (Comparable x : this.getSet()) {</span>
+<span class="fc" id="L207">            Node n = new Node(x);</span>
+<span class="fc" id="L208">            prec.addNode(n);</span>
+<span class="fc" id="L209">            nodeCreated.put(x, n);</span>
+<span class="fc" id="L210">        }</span>
         // edges of the graph are closures containments
-<span class="fc bfc" id="L210" title="All 2 branches covered.">        for (Comparable from : this.getSet()) {</span>
-<span class="fc bfc" id="L211" title="All 2 branches covered.">            for (Comparable to : this.getSet()) {</span>
-<span class="fc bfc" id="L212" title="All 2 branches covered.">                if (!from.equals(to)) {</span>
+<span class="fc bfc" id="L212" title="All 2 branches covered.">        for (Comparable from : this.getSet()) {</span>
+<span class="fc bfc" id="L213" title="All 2 branches covered.">            for (Comparable to : this.getSet()) {</span>
+<span class="fc bfc" id="L214" title="All 2 branches covered.">                if (!from.equals(to)) {</span>
                     // check if from belongs to the closure of to
-<span class="pc bpc" id="L214" title="1 of 2 branches missed.">                    if (closures.get(to).contains(from)) {</span>
-<span class="fc" id="L215">                        prec.addEdge(nodeCreated.get(from), nodeCreated.get(to));</span>
+<span class="pc bpc" id="L216" title="1 of 2 branches missed.">                    if (closures.get(to).contains(from)) {</span>
+<span class="fc" id="L217">                        prec.addEdge(nodeCreated.get(from), nodeCreated.get(to));</span>
                     }
                 }
-<span class="fc" id="L218">            }</span>
-<span class="fc" id="L219">        }</span>
-<span class="fc" id="L220">        return prec;</span>
+<span class="fc" id="L220">            }</span>
+<span class="fc" id="L221">        }</span>
+<span class="fc" id="L222">        return prec;</span>
     }
 
     /**
@@ -231,59 +233,59 @@ import dgraph.Node;
      */
     public TreeMap&lt;Object, TreeSet&gt; getReducibleElements() {
         // Initialize a map Red of reducible attributes
-<span class="nc" id="L234">        TreeMap&lt;Object, TreeSet&gt; red = new TreeMap();</span>
+<span class="nc" id="L236">        TreeMap&lt;Object, TreeSet&gt; red = new TreeMap();</span>
         // Initialize the precedence graph G of the closure system
-<span class="nc" id="L236">        DGraph graph = this.precedenceGraph();</span>
+<span class="nc" id="L238">        DGraph graph = this.precedenceGraph();</span>
         // First, compute each group of equivalent attributes
         // This group will be a strongly connected component on the graph.
         // Then, only one element of each group is skipped, others will be deleted.
-<span class="nc" id="L240">        DAGraph cfc = graph.getStronglyConnectedComponent();</span>
-<span class="nc bnc" id="L241" title="All 2 branches missed.">        for (Node node : cfc.getNodes()) {</span>
+<span class="nc" id="L242">        DAGraph cfc = graph.getStronglyConnectedComponent();</span>
+<span class="nc bnc" id="L243" title="All 2 branches missed.">        for (Node node : cfc.getNodes()) {</span>
             // Get list of node of this component
-<span class="nc" id="L243">            TreeSet&lt;Node&gt; sCC = (TreeSet) node.getContent();</span>
-<span class="nc bnc" id="L244" title="All 2 branches missed.">            if (sCC.size() &gt; 1) {</span>
-<span class="nc" id="L245">                Node y = sCC.first();</span>
-<span class="nc" id="L246">                TreeSet yClass = new TreeSet();</span>
-<span class="nc" id="L247">                yClass.add(y.getContent());</span>
-<span class="nc bnc" id="L248" title="All 2 branches missed.">                for (Node x : sCC) {</span>
-<span class="nc bnc" id="L249" title="All 2 branches missed.">                    if (!x.getContent().equals(y.getContent())) {</span>
-<span class="nc" id="L250">                        graph.removeNode(x);</span>
-<span class="nc" id="L251">                        red.put(x.getContent(), yClass);</span>
+<span class="nc" id="L245">            TreeSet&lt;Node&gt; sCC = (TreeSet) node.getContent();</span>
+<span class="nc bnc" id="L246" title="All 2 branches missed.">            if (sCC.size() &gt; 1) {</span>
+<span class="nc" id="L247">                Node y = sCC.first();</span>
+<span class="nc" id="L248">                TreeSet yClass = new TreeSet();</span>
+<span class="nc" id="L249">                yClass.add(y.getContent());</span>
+<span class="nc bnc" id="L250" title="All 2 branches missed.">                for (Node x : sCC) {</span>
+<span class="nc bnc" id="L251" title="All 2 branches missed.">                    if (!x.getContent().equals(y.getContent())) {</span>
+<span class="nc" id="L252">                        graph.removeNode(x);</span>
+<span class="nc" id="L253">                        red.put(x.getContent(), yClass);</span>
                     }
-<span class="nc" id="L253">                }</span>
+<span class="nc" id="L255">                }</span>
             }
-<span class="nc" id="L255">        }</span>
+<span class="nc" id="L257">        }</span>
         // Next, check if an attribute is equivalent to emptyset
         // i.e. its closure is equal to emptyset closure
-<span class="nc" id="L258">        TreeSet&lt;Node&gt; sinks = graph.getSinks();</span>
-<span class="nc bnc" id="L259" title="All 2 branches missed.">        if (sinks.size() == 1) {</span>
-<span class="nc" id="L260">            Node s = sinks.first();</span>
-<span class="nc" id="L261">            red.put(s.getContent(), new TreeSet());</span>
-<span class="nc" id="L262">            graph.removeNode(s);</span>
+<span class="nc" id="L260">        TreeSet&lt;Node&gt; sinks = graph.getSinks();</span>
+<span class="nc bnc" id="L261" title="All 2 branches missed.">        if (sinks.size() == 1) {</span>
+<span class="nc" id="L262">            Node s = sinks.first();</span>
+<span class="nc" id="L263">            red.put(s.getContent(), new TreeSet());</span>
+<span class="nc" id="L264">            graph.removeNode(s);</span>
         }
         // Finaly, checking a remaining attribute equivalent to its predecessors or not may reduce more attributes.
         // Check all remaining nodes of graph G
-<span class="nc bnc" id="L266" title="All 2 branches missed.">        for (Node x : graph.getNodes()) {</span>
-<span class="nc" id="L267">            TreeSet&lt;Node&gt; predecessors = graph.getPredecessorNodes(x);</span>
-<span class="nc bnc" id="L268" title="All 2 branches missed.">            if (predecessors.size() &gt; 1) {</span>
+<span class="nc bnc" id="L268" title="All 2 branches missed.">        for (Node x : graph.getNodes()) {</span>
+<span class="nc" id="L269">            TreeSet&lt;Node&gt; predecessors = graph.getPredecessorNodes(x);</span>
+<span class="nc bnc" id="L270" title="All 2 branches missed.">            if (predecessors.size() &gt; 1) {</span>
                 // Create the closure of x
-<span class="nc" id="L270">                TreeSet set = new TreeSet();</span>
-<span class="nc" id="L271">                set.add(x.getContent());</span>
-<span class="nc" id="L272">                TreeSet closureSet = this.closure(set);</span>
+<span class="nc" id="L272">                TreeSet set = new TreeSet();</span>
+<span class="nc" id="L273">                set.add(x.getContent());</span>
+<span class="nc" id="L274">                TreeSet closureSet = this.closure(set);</span>
                 // Create the closure of predecessors
-<span class="nc" id="L274">                TreeSet&lt;Comparable&gt; pred = new TreeSet&lt;Comparable&gt;();</span>
-<span class="nc bnc" id="L275" title="All 2 branches missed.">                for (Node n : predecessors) {</span>
-<span class="nc" id="L276">                    pred.add((Comparable) n.getContent());</span>
-<span class="nc" id="L277">                }</span>
-<span class="nc" id="L278">                TreeSet&lt;Comparable&gt; closureP = this.closure(pred);</span>
+<span class="nc" id="L276">                TreeSet&lt;Comparable&gt; pred = new TreeSet&lt;Comparable&gt;();</span>
+<span class="nc bnc" id="L277" title="All 2 branches missed.">                for (Node n : predecessors) {</span>
+<span class="nc" id="L278">                    pred.add((Comparable) n.getContent());</span>
+<span class="nc" id="L279">                }</span>
+<span class="nc" id="L280">                TreeSet&lt;Comparable&gt; closureP = this.closure(pred);</span>
                 // Check the equality of two closures
-<span class="nc bnc" id="L280" title="All 4 branches missed.">                if (closureSet.containsAll(closureP) &amp;&amp; closureP.containsAll(closureSet)) {</span>
-<span class="nc" id="L281">                    red.put(x.getContent(), pred);</span>
+<span class="nc bnc" id="L282" title="All 4 branches missed.">                if (closureSet.containsAll(closureP) &amp;&amp; closureP.containsAll(closureSet)) {</span>
+<span class="nc" id="L283">                    red.put(x.getContent(), pred);</span>
                 }
             }
-<span class="nc" id="L284">        }</span>
+<span class="nc" id="L286">        }</span>
         // Finally, return the list of reducible elements with their equivalent attributes.
-<span class="nc" id="L286">        return red;</span>
+<span class="nc" id="L288">        return red;</span>
     }
 }
 
