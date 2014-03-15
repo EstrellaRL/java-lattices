@@ -956,13 +956,8 @@ public class Context extends ClosureSystem {
      */
     public Context getReverseContext() {
 <span class="nc" id="L958">        Context context = new Context(this);</span>
-<span class="nc" id="L959">        TreeSet&lt;Comparable&gt; tmp = context.attributes;</span>
-<span class="nc" id="L960">        context.attributes = context.observations;</span>
-<span class="nc" id="L961">        context.observations = tmp;</span>
-<span class="nc" id="L962">        TreeMap&lt;Comparable, TreeSet&lt;Comparable&gt;&gt; sauv = context.intent;</span>
-<span class="nc" id="L963">        context.intent = context.extent;</span>
-<span class="nc" id="L964">        context.extent = sauv;</span>
-<span class="nc" id="L965">        return context;</span>
+<span class="nc" id="L959">        context.reverse();</span>
+<span class="nc" id="L960">        return context;</span>
     }
 
     /* --------------- IMPLEMENTATION OF CLOSURE SYSTEM ABSTRACT METHODS ------------ */
@@ -976,7 +971,7 @@ public class Context extends ClosureSystem {
      * @return  the set of attributes
      */
     public TreeSet&lt;Comparable&gt; getSet() {
-<span class="fc" id="L979">        return this.attributes;</span>
+<span class="fc" id="L974">        return this.attributes;</span>
     }
 
     /**
@@ -992,7 +987,7 @@ public class Context extends ClosureSystem {
      * @return  the closure of the set for this component
      */
     public TreeSet&lt;Comparable&gt; closure(TreeSet&lt;Comparable&gt; set) {
-<span class="fc" id="L995">        return this.getIntent(this.getExtent(set));</span>
+<span class="fc" id="L990">        return this.getIntent(this.getExtent(set));</span>
     }
 
     /**
@@ -1003,15 +998,15 @@ public class Context extends ClosureSystem {
      * @return  the set of union of observations
      */
       public TreeSet&lt;Comparable&gt; getExtentUnion(TreeSet&lt;Comparable&gt; set) {
-<span class="nc" id="L1006">        TreeSet&lt;Comparable&gt; ext = new TreeSet&lt;Comparable&gt;();</span>
-<span class="nc bnc" id="L1007" title="All 2 branches missed.">        for (Comparable att : set) {</span>
-<span class="nc bnc" id="L1008" title="All 2 branches missed.">            for (Comparable obs : this.getExtent(att)) {</span>
-<span class="nc bnc" id="L1009" title="All 4 branches missed.">                if (this.containAsExtent(att, obs) &amp;&amp; !ext.contains(obs)) {</span>
-<span class="nc" id="L1010">                    ext.add(obs);</span>
+<span class="nc" id="L1001">        TreeSet&lt;Comparable&gt; ext = new TreeSet&lt;Comparable&gt;();</span>
+<span class="nc bnc" id="L1002" title="All 2 branches missed.">        for (Comparable att : set) {</span>
+<span class="nc bnc" id="L1003" title="All 2 branches missed.">            for (Comparable obs : this.getExtent(att)) {</span>
+<span class="nc bnc" id="L1004" title="All 4 branches missed.">                if (this.containAsExtent(att, obs) &amp;&amp; !ext.contains(obs)) {</span>
+<span class="nc" id="L1005">                    ext.add(obs);</span>
                 }
-<span class="nc" id="L1012">            }</span>
-<span class="nc" id="L1013">        }</span>
-<span class="nc" id="L1014">        return ext;</span>
+<span class="nc" id="L1007">            }</span>
+<span class="nc" id="L1008">        }</span>
+<span class="nc" id="L1009">        return ext;</span>
     }
 
     /**
@@ -1026,7 +1021,7 @@ public class Context extends ClosureSystem {
      * @return  the closure of the set for this component
      */
     public ComparableSet inverseClosure(ComparableSet set) {
-<span class="nc" id="L1029">        return new ComparableSet(this.getExtent(this.getIntent((TreeSet) set)));</span>
+<span class="nc" id="L1024">        return new ComparableSet(this.getExtent(this.getIntent((TreeSet) set)));</span>
     }
 
     /**
@@ -1045,13 +1040,13 @@ public class Context extends ClosureSystem {
      * @return  The concept lattice induced by this component
      */
     public ConceptLattice conceptLattice(boolean  diagram) {
-<span class="fc" id="L1048">        ConceptLattice csl = this.closedSetLattice(diagram);</span>
+<span class="fc" id="L1043">        ConceptLattice csl = this.closedSetLattice(diagram);</span>
         // TreeMap&lt;Concept, Concept&gt; nodes = new TreeMap&lt;Concept, Concept&gt;();
-<span class="fc bfc" id="L1050" title="All 2 branches covered.">        for (Node n : csl.getNodes()) {</span>
-<span class="fc" id="L1051">             Concept cl = (Concept) n;</span>
-<span class="fc" id="L1052">             cl.putSetB(new ComparableSet(this.getExtent(cl.getSetA())));</span>
-<span class="fc" id="L1053">        }</span>
-<span class="fc" id="L1054">        return csl;</span>
+<span class="fc bfc" id="L1045" title="All 2 branches covered.">        for (Node n : csl.getNodes()) {</span>
+<span class="fc" id="L1046">             Concept cl = (Concept) n;</span>
+<span class="fc" id="L1047">             cl.putSetB(new ComparableSet(this.getExtent(cl.getSetA())));</span>
+<span class="fc" id="L1048">        }</span>
+<span class="fc" id="L1049">        return csl;</span>
     }
 }
 
