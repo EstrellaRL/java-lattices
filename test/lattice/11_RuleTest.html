@@ -1,13 +1,13 @@
 <html xmlns:lxslt="http://xml.apache.org/xslt" xmlns:stringutils="xalan://org.apache.tools.ant.util.StringUtils">
 <head>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Unit Test Results: lattice.ConceptTest</title>
+<title>Unit Test Results: lattice.RuleTest</title>
 <link rel="stylesheet" type="text/css" title="Style" href="../stylesheet.css">
 <script type="text/javascript" language="JavaScript">
         var TestCases = new Array();
         var cur;
         
-    cur = TestCases['lattice.ConceptTest'] = new Array();
+    cur = TestCases['lattice.RuleTest'] = new Array();
     
         cur['_jacoco.agentFile'] = '/tmp/jacocoagent7680626505971597278.jar';
     
@@ -221,13 +221,13 @@
 </tr>
 </table>
 <hr size="1">
-<h3>Class lattice.ConceptTest</h3>
+<h3>Class lattice.RuleTest</h3>
 <table class="details" border="0" cellpadding="5" cellspacing="2" width="95%">
 <tr valign="top">
 <th width="80%">Name</th><th>Tests</th><th>Errors</th><th>Failures</th><th nowrap>Time(s)</th><th nowrap>Time Stamp</th><th>Host</th>
 </tr>
 <tr valign="top" class="Pass">
-<td><a title="Display all tests" href="7_ConceptTest.html">ConceptTest</a></td><td><a title="Display all tests" href="7_ConceptTest.html">37</a></td><td>0</td><td>0</td><td>0.092</td><td>2014-03-16T17:04:40</td><td>testing-worker-linux-5-2-19571-linux-19-20885969</td>
+<td><a title="Display all tests" href="11_RuleTest.html">RuleTest</a></td><td><a title="Display all tests" href="11_RuleTest.html">17</a></td><td>0</td><td>0</td><td>0.040</td><td>2014-03-16T17:04:40</td><td>testing-worker-linux-5-2-19571-linux-19-20885969</td>
 </tr>
 </table>
 <h2>Tests</h2>
@@ -236,126 +236,61 @@
 <th>Name</th><th>Status</th><th width="80%">Type</th><th nowrap>Time(s)</th>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testcontainsInA"></a>testcontainsInA</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="testremoveAllFromPremise"></a>testremoveAllFromPremise</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testcontainsInB"></a>testcontainsInB</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="testgetPremise"></a>testgetPremise</td><td>Success</td><td></td><td>0.001</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testATSetBConcept"></a>testATSetBConcept</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="testEmptyConstructor"></a>testEmptyConstructor</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testaddAllToA"></a>testaddAllToA</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="testtoFile"></a>testtoFile</td><td>Success</td><td></td><td>0.001</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testaddAllToB"></a>testaddAllToB</td><td>Success</td><td></td><td>0.001</td>
-</tr>
-<tr valign="top" class="TableRowColor">
-<td><a name="testATBFConcept"></a>testATBFConcept</td><td>Success</td><td></td><td>0.001</td>
-</tr>
-<tr valign="top" class="TableRowColor">
-<td><a name="testhasSetA"></a>testhasSetA</td><td>Success</td><td></td><td>0.001</td>
-</tr>
-<tr valign="top" class="TableRowColor">
-<td><a name="testhasSetB"></a>testhasSetB</td><td>Success</td><td></td><td>0.001</td>
-</tr>
-<tr valign="top" class="TableRowColor">
-<td><a name="testSetASetBConcept"></a>testSetASetBConcept</td><td>Success</td><td></td><td>0.000</td>
-</tr>
-<tr valign="top" class="TableRowColor">
-<td><a name="testcontainsInAF"></a>testcontainsInAF</td><td>Success</td><td></td><td>0.000</td>
-</tr>
-<tr valign="top" class="TableRowColor">
-<td><a name="testcontainsInBF"></a>testcontainsInBF</td><td>Success</td><td></td><td>0.000</td>
-</tr>
-<tr valign="top" class="TableRowColor">
-<td><a name="testcontainsAllInA"></a>testcontainsAllInA</td><td>Success</td><td></td><td>0.000</td>
-</tr>
-<tr valign="top" class="TableRowColor">
-<td><a name="testcontainsAllInB"></a>testcontainsAllInB</td><td>Success</td><td></td><td>0.000</td>
-</tr>
-<tr valign="top" class="TableRowColor">
-<td><a name="testtoDot"></a>testtoDot</td><td>Success</td><td></td><td>0.000</td>
-</tr>
-<tr valign="top" class="TableRowColor">
-<td><a name="testCopy"></a>testCopy</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="testaddToPremise"></a>testaddToPremise</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
 <td><a name="testtoString"></a>testtoString</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testimmediateSuccessorsLOA"></a>testimmediateSuccessorsLOA</td><td>Success</td><td></td><td>0.007</td>
+<td><a name="testremoveFromConclusion"></a>testremoveFromConclusion</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testCopyConcept"></a>testCopyConcept</td><td>Success</td><td></td><td>0.001</td>
+<td><a name="testaddToConclusion"></a>testaddToConclusion</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testAFBTConcept"></a>testAFBTConcept</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="testgetConclusion"></a>testgetConclusion</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testremoveAllFromA"></a>testremoveAllFromA</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="testremoveAllFromConclusion"></a>testremoveAllFromConclusion</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testremoveAllFromB"></a>testremoveAllFromB</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="testremoveFromPremise"></a>testremoveFromPremise</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testcontainsAllInAF"></a>testcontainsAllInAF</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="testaddAllToConclusion"></a>testaddAllToConclusion</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testcontainsAllInBF"></a>testcontainsAllInBF</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="testhashCode"></a>testhashCode</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testSetABTConcept"></a>testSetABTConcept</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="testEquals"></a>testEquals</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testAFSetBConcept"></a>testAFSetBConcept</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="testcompareTo"></a>testcompareTo</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testimmediateSucessors"></a>testimmediateSucessors</td><td>Success</td><td></td><td>0.014</td>
+<td><a name="testaddAllToPremise"></a>testaddAllToPremise</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testhashCode"></a>testhashCode</td><td>Success</td><td></td><td>0.001</td>
-</tr>
-<tr valign="top" class="TableRowColor">
-<td><a name="testAFBFConcept"></a>testAFBFConcept</td><td>Success</td><td></td><td>0.001</td>
-</tr>
-<tr valign="top" class="TableRowColor">
-<td><a name="testEquals"></a>testEquals</td><td>Success</td><td></td><td>0.001</td>
-</tr>
-<tr valign="top" class="TableRowColor">
-<td><a name="testATBTConcept"></a>testATBTConcept</td><td>Success</td><td></td><td>0.000</td>
-</tr>
-<tr valign="top" class="TableRowColor">
-<td><a name="testSetABFConcept"></a>testSetABFConcept</td><td>Success</td><td></td><td>0.001</td>
-</tr>
-<tr valign="top" class="TableRowColor">
-<td><a name="testremoveFromA"></a>testremoveFromA</td><td>Success</td><td></td><td>0.000</td>
-</tr>
-<tr valign="top" class="TableRowColor">
-<td><a name="testremoveFromB"></a>testremoveFromB</td><td>Success</td><td></td><td>0.000</td>
-</tr>
-<tr valign="top" class="TableRowColor">
-<td><a name="testputSetA"></a>testputSetA</td><td>Success</td><td></td><td>0.000</td>
-</tr>
-<tr valign="top" class="TableRowColor">
-<td><a name="testputSetB"></a>testputSetB</td><td>Success</td><td></td><td>0.000</td>
-</tr>
-<tr valign="top" class="TableRowColor">
-<td><a name="testaddToA"></a>testaddToA</td><td>Success</td><td></td><td>0.000</td>
-</tr>
-<tr valign="top" class="TableRowColor">
-<td><a name="testaddToB"></a>testaddToB</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="testConstructor"></a>testConstructor</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 </table>
 <div class="Properties">
-<a href="javascript:displayProperties('lattice.ConceptTest');">
+<a href="javascript:displayProperties('lattice.RuleTest');">
                     Properties &raquo;
                 </a>
-</div>
-<div class="Properties">
-<a href="./7_ConceptTest-out.html">
-                        System.out &raquo;
-                    </a>
 </div>
 </body>
 </html>
