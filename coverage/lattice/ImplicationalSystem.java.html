@@ -537,7 +537,7 @@ public class ImplicationalSystem extends ClosureSystem {
     public boolean isLeftMinimal() {
 <span class="fc bfc" id="L538" title="All 2 branches covered.">        for (Rule r1 : this.sigma) {</span>
 <span class="fc bfc" id="L539" title="All 2 branches covered.">            for (Rule r2 : this.sigma) {</span>
-<span class="pc bpc" id="L540" title="1 of 6 branches missed.">                if (!r1.equals(r2) &amp;&amp; r1.getPremise().containsAll(r2.getPremise()) &amp;&amp; r1.getConclusion().equals(r2.getConclusion())) {</span>
+<span class="pc bpc" id="L540" title="3 of 6 branches missed.">                if (!r1.equals(r2) &amp;&amp; r1.getPremise().containsAll(r2.getPremise()) &amp;&amp; r1.getConclusion().equals(r2.getConclusion())) {</span>
 <span class="nc" id="L541">                    return false;</span>
                 }
 <span class="fc" id="L543">            }</span>
@@ -777,8 +777,8 @@ public class ImplicationalSystem extends ClosureSystem {
 <span class="fc bfc" id="L777" title="All 2 branches covered.">        for (Rule r1 : sauv.sigma) {</span>
 <span class="fc bfc" id="L778" title="All 2 branches covered.">            for (Rule r2 : sauv.sigma) {</span>
 <span class="fc bfc" id="L779" title="All 2 branches covered.">                if (!r1.equals(r2)) {</span>
-<span class="fc bfc" id="L780" title="All 4 branches covered.">                    if ((r2.getPremise().containsAll(r1.getPremise())) &amp;&amp; (r1.getConclusion().equals(r2.getConclusion()))) {</span>
-<span class="fc" id="L781">                        this.sigma.remove(r2);</span>
+<span class="pc bpc" id="L780" title="1 of 4 branches missed.">                    if ((r2.getPremise().containsAll(r1.getPremise())) &amp;&amp; (r1.getConclusion().equals(r2.getConclusion()))) {</span>
+<span class="nc" id="L781">                        this.sigma.remove(r2);</span>
                     }
                 }
 <span class="fc" id="L784">            }</span>
@@ -895,8 +895,8 @@ public class ImplicationalSystem extends ClosureSystem {
 <span class="fc" id="L895">            ImplicationalSystem epsylon = new ImplicationalSystem(this);</span>
 <span class="fc" id="L896">            epsylon.removeRule(r);</span>
 <span class="fc" id="L897">            Rule tmp = new Rule(epsylon.closure(r.getPremise()), r.getConclusion());</span>
-<span class="fc bfc" id="L898" title="All 2 branches covered.">            if (!r.equals(tmp)) {</span>
-<span class="fc" id="L899">                this.replaceRule(r, tmp);</span>
+<span class="pc bpc" id="L898" title="1 of 2 branches missed.">            if (!r.equals(tmp)) {</span>
+<span class="nc" id="L899">                this.replaceRule(r, tmp);</span>
             }
 <span class="fc" id="L901">        }</span>
 <span class="fc" id="L902">        this.makeProper();</span>
