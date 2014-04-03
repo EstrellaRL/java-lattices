@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Couple.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Java Lattices</a> &gt; <a href="index.source.html" class="el_package">lattice</a> &gt; <span class="el_source">Couple.java</span></div><h1>Couple.java</h1><pre class="source lang-java linenums">package lattice;
+/*
+ * Couple.java
+ *
+ * Copyright: 2013 University of La Rochelle, France
+ *
+ * License: http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html CeCILL-B license
+ *
+ * This file is part of lattice, free package. You can redistribute it and/or modify
+ * it under the terms of CeCILL-B license.
+ *
+ * @version 2014
+ */
+
+/**
+ * This class provides a representation of couple (A,B) of objects.
+ *
+ * ![Couple](Couple.png)
+ *
+ * @uml Couple.png
+ * !include src/lattice/Couple.iuml
+ *
+ * class Couple #LightCyan
+ * title Couple UML graph
+ * @author jeff
+ */
+public class Couple {
+    /**
+     * Left hand side of this component.
+     */
+    private Object left;
+    /**
+     * Right hand side of this component.
+     */
+    private Object right;
+    /**
+     * Constructor from two objects.
+     *
+     * @param l left hand side of this component
+     * @param r right hand side of this component
+     */
+<span class="fc" id="L42">    public Couple(Object l, Object r) {</span>
+<span class="fc" id="L43">        this.left = l;</span>
+<span class="fc" id="L44">        this.right = r;</span>
+<span class="fc" id="L45">    }</span>
+    /**
+     * Returns left hand side of this component.
+     *
+     * @return left hand side of this component
+     */
+    public Object getLeft() {
+<span class="fc" id="L52">        return left;</span>
+    }
+    /**
+     * Set left hand side of this component.
+     *
+     * @param left hand side of this component
+     */
+    public void setLeft(Object left) {
+<span class="fc" id="L60">        this.left = left;</span>
+<span class="fc" id="L61">    }</span>
+    /**
+     * Returns right hand side of this component.
+     *
+     * @return right hand side of this component
+     */
+    public Object getRight() {
+<span class="fc" id="L68">        return right;</span>
+    }
+    /**
+     * Set right hand side of this component.
+     *
+     * @param right hand side of this component
+     */
+    public void setRight(Object right) {
+<span class="fc" id="L76">        this.right = right;</span>
+<span class="fc" id="L77">    }</span>
+    /**
+     * Returns true if c is equals to this component.
+     *
+     * @param c Couple tested with this component
+     * @return true if c is equals to this component.
+     */
+    public boolean equals(Couple c) {
+<span class="pc bpc" id="L85" title="2 of 4 branches missed.">        return (this.left == c.getLeft()) &amp;&amp; (this.right == c.getRight());</span>
+    }
+    /**
+     * Compute the hash code.
+     *
+     * @return  an integer representing the object
+     */
+    @Override
+    public int hashCode() {
+<span class="fc" id="L94">        return super.hashCode();</span>
+    }
+    /**
+     * Returns a string representations of this component.
+     *
+     * @return a string representations of this component.
+     */
+    @Override
+    public String toString() {
+<span class="nc" id="L103">        return &quot;(&quot; + this.left.toString() + &quot;,&quot; + this.right.toString() + &quot;)&quot;;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.5.201403032054</span></div></body></html>

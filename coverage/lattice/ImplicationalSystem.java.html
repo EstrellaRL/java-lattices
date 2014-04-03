@@ -308,7 +308,7 @@ public class ImplicationalSystem extends ClosureSystem {
 <span class="fc" id="L308">                Rule newR = new Rule(r.getPremise(), r.getConclusion());</span>
 <span class="fc" id="L309">                newR.removeFromPremise(e);</span>
 <span class="fc" id="L310">                newR.removeFromConclusion(e);</span>
-<span class="pc bpc" id="L311" title="1 of 2 branches missed.">                if (!r.equals(newR)) {</span>
+<span class="fc bfc" id="L311" title="All 2 branches covered.">                if (!r.equals(newR)) {</span>
 <span class="pc bpc" id="L312" title="1 of 2 branches missed.">                    if (newR.getConclusion().size() != 0) {</span>
 <span class="nc" id="L313">                        this.replaceRule(r, newR);</span>
                     } else {
@@ -916,34 +916,34 @@ public class ImplicationalSystem extends ClosureSystem {
      * @return  the representative graph of this component.
      */
     public DGraph representativeGraph() {
-<span class="nc" id="L919">        ImplicationalSystem tmp = new ImplicationalSystem(this);</span>
-<span class="nc" id="L920">        tmp.makeUnary();</span>
+<span class="fc" id="L919">        ImplicationalSystem tmp = new ImplicationalSystem(this);</span>
+<span class="fc" id="L920">        tmp.makeUnary();</span>
         // nodes of the graph are elements not belonging to X
-<span class="nc" id="L922">        DGraph pred = new DGraph();</span>
-<span class="nc" id="L923">        TreeMap&lt;Comparable, Node&gt; nodeCreated = new TreeMap&lt;Comparable, Node&gt;();</span>
-<span class="nc bnc" id="L924" title="All 2 branches missed.">        for (Comparable x : tmp.getSet()) {</span>
-<span class="nc" id="L925">            Node n = new Node(x);</span>
-<span class="nc" id="L926">            pred.addNode(n);</span>
-<span class="nc" id="L927">            nodeCreated.put(x, n);</span>
-<span class="nc" id="L928">        }</span>
+<span class="fc" id="L922">        DGraph pred = new DGraph();</span>
+<span class="fc" id="L923">        TreeMap&lt;Comparable, Node&gt; nodeCreated = new TreeMap&lt;Comparable, Node&gt;();</span>
+<span class="fc bfc" id="L924" title="All 2 branches covered.">        for (Comparable x : tmp.getSet()) {</span>
+<span class="fc" id="L925">            Node n = new Node(x);</span>
+<span class="fc" id="L926">            pred.addNode(n);</span>
+<span class="fc" id="L927">            nodeCreated.put(x, n);</span>
+<span class="fc" id="L928">        }</span>
         // an edge is added from b to a when there exists a rule X+a -&gt; b or a -&gt; b
-<span class="nc bnc" id="L930" title="All 2 branches missed.">        for (Rule r : tmp.getRules()) {</span>
-<span class="nc bnc" id="L931" title="All 2 branches missed.">            for (Comparable a : r.getPremise()) {</span>
-<span class="nc" id="L932">                ComparableSet diff = new ComparableSet(r.getPremise());</span>
-<span class="nc" id="L933">                diff.remove(a);</span>
-<span class="nc" id="L934">                Node from = nodeCreated.get(r.getConclusion().first());</span>
-<span class="nc" id="L935">                Node to = nodeCreated.get(a);</span>
+<span class="fc bfc" id="L930" title="All 2 branches covered.">        for (Rule r : tmp.getRules()) {</span>
+<span class="fc bfc" id="L931" title="All 2 branches covered.">            for (Comparable a : r.getPremise()) {</span>
+<span class="fc" id="L932">                ComparableSet diff = new ComparableSet(r.getPremise());</span>
+<span class="fc" id="L933">                diff.remove(a);</span>
+<span class="fc" id="L934">                Node from = nodeCreated.get(r.getConclusion().first());</span>
+<span class="fc" id="L935">                Node to = nodeCreated.get(a);</span>
                 Edge ed;
-<span class="nc bnc" id="L937" title="All 2 branches missed.">                if (pred.containsEdge(from, to)) {</span>
+<span class="pc bpc" id="L937" title="1 of 2 branches missed.">                if (pred.containsEdge(from, to)) {</span>
 <span class="nc" id="L938">                    ed = pred.getEdge(from, to);</span>
                 } else {
-<span class="nc" id="L940">                    ed = new Edge(from, to, new TreeSet&lt;ComparableSet&gt;());</span>
-<span class="nc" id="L941">                    pred.addEdge(ed);</span>
+<span class="fc" id="L940">                    ed = new Edge(from, to, new TreeSet&lt;ComparableSet&gt;());</span>
+<span class="fc" id="L941">                    pred.addEdge(ed);</span>
                 }
-<span class="nc" id="L943">                ((TreeSet&lt;ComparableSet&gt;) ed.getContent()).add(diff);</span>
-<span class="nc" id="L944">            }</span>
-<span class="nc" id="L945">        }</span>
-<span class="nc" id="L946">        return pred;</span>
+<span class="fc" id="L943">                ((TreeSet&lt;ComparableSet&gt;) ed.getContent()).add(diff);</span>
+<span class="fc" id="L944">            }</span>
+<span class="fc" id="L945">        }</span>
+<span class="fc" id="L946">        return pred;</span>
     }
 
     /**
@@ -960,10 +960,10 @@ public class ImplicationalSystem extends ClosureSystem {
      * @return  the dependency graph of this component.
      */
     public DGraph dependencyGraph() {
-<span class="nc" id="L963">        ImplicationalSystem bcd = new ImplicationalSystem(this);</span>
-<span class="nc" id="L964">        bcd.makeCanonicalDirectBasis();</span>
-<span class="nc" id="L965">        bcd.makeUnary();</span>
-<span class="nc" id="L966">        return bcd.representativeGraph();</span>
+<span class="fc" id="L963">        ImplicationalSystem bcd = new ImplicationalSystem(this);</span>
+<span class="fc" id="L964">        bcd.makeCanonicalDirectBasis();</span>
+<span class="fc" id="L965">        bcd.makeUnary();</span>
+<span class="fc" id="L966">        return bcd.representativeGraph();</span>
     }
 
     /**
@@ -977,45 +977,65 @@ public class ImplicationalSystem extends ClosureSystem {
      */
     public TreeMap&lt;Comparable, TreeSet&lt;Comparable&gt;&gt; reduction() {
         // compute the reducible elements
-<span class="nc" id="L980">        TreeMap red = this.getReducibleElements();</span>
+<span class="fc" id="L980">        TreeMap red = this.getReducibleElements();</span>
+        // collect elements implied by nothing
+<span class="fc" id="L982">        TreeSet&lt;Comparable&gt; truth = this.closure(new TreeSet&lt;Comparable&gt;());</span>
         // modify each rule
-<span class="nc bnc" id="L982" title="All 2 branches missed.">        for (Object x : red.keySet()) {</span>
-<span class="nc" id="L983">            TreeSet&lt;Rule&gt; rules = this.getRules();</span>
-<span class="nc" id="L984">            rules = (TreeSet&lt;Rule&gt;) rules.clone();</span>
-<span class="nc bnc" id="L985" title="All 2 branches missed.">            for (Rule r : rules) {</span>
-<span class="nc" id="L986">                Rule r2 = new Rule();</span>
-<span class="nc" id="L987">                boolean modif = false;</span>
+<span class="fc bfc" id="L984" title="All 2 branches covered.">        for (Object x : red.keySet()) {</span>
+<span class="fc" id="L985">            TreeSet&lt;Rule&gt; rules = this.getRules();</span>
+<span class="fc" id="L986">            rules = (TreeSet&lt;Rule&gt;) rules.clone();</span>
+<span class="fc bfc" id="L987" title="All 2 branches covered.">            for (Rule r : rules) {</span>
+<span class="fc" id="L988">                Rule r2 = new Rule();</span>
+<span class="fc" id="L989">                boolean modif = false;</span>
                 // replace the reducible element by its equivalent in the premise
-<span class="nc" id="L989">                TreeSet premise = r.getPremise();</span>
-<span class="nc" id="L990">                premise = (TreeSet) premise.clone();</span>
-<span class="nc bnc" id="L991" title="All 2 branches missed.">                if (premise.contains(x)) {</span>
-<span class="nc" id="L992">                    premise.remove(x);</span>
-<span class="nc" id="L993">                    premise.addAll((TreeSet) red.get(x));</span>
-<span class="nc" id="L994">                    r2.addAllToPremise(premise);</span>
-<span class="nc" id="L995">                    modif = true;</span>
+<span class="fc" id="L991">                TreeSet premise = r.getPremise();</span>
+<span class="fc" id="L992">                premise = (TreeSet) premise.clone();</span>
+<span class="fc bfc" id="L993" title="All 2 branches covered.">                if (premise.contains(x)) {</span>
+<span class="fc" id="L994">                    premise.remove(x);</span>
+<span class="fc" id="L995">                    premise.addAll((TreeSet) red.get(x));</span>
+<span class="fc" id="L996">                    r2.addAllToPremise(premise);</span>
+<span class="fc" id="L997">                    modif = true;</span>
                 } else {
-<span class="nc" id="L997">                    r2.addAllToPremise(premise);</span>
+<span class="fc" id="L999">                    r2.addAllToPremise(premise);</span>
                 }
                 // replace the reducible element by its equivalent in the conclusion
-<span class="nc" id="L1000">                TreeSet conclusion = r.getConclusion();</span>
-<span class="nc" id="L1001">                conclusion = (TreeSet) conclusion.clone();</span>
-<span class="nc bnc" id="L1002" title="All 2 branches missed.">                if (conclusion.contains(x)) {</span>
-<span class="nc" id="L1003">                    conclusion.remove(x);</span>
-<span class="nc" id="L1004">                    conclusion.addAll((TreeSet) red.get(x));</span>
-<span class="nc" id="L1005">                    r2.addAllToConclusion(conclusion);</span>
-<span class="nc" id="L1006">                    modif = true;</span>
+<span class="fc" id="L1002">                TreeSet conclusion = r.getConclusion();</span>
+<span class="fc" id="L1003">                conclusion = (TreeSet) conclusion.clone();</span>
+<span class="fc bfc" id="L1004" title="All 2 branches covered.">                if (conclusion.contains(x)) {</span>
+<span class="fc" id="L1005">                    conclusion.remove(x);</span>
+<span class="fc" id="L1006">                    conclusion.addAll((TreeSet) red.get(x));</span>
+<span class="fc" id="L1007">                    r2.addAllToConclusion(conclusion);</span>
+<span class="fc" id="L1008">                    modif = true;</span>
                 } else {
-<span class="nc" id="L1008">                    r2.addAllToConclusion(conclusion);</span>
+<span class="fc" id="L1010">                    r2.addAllToConclusion(conclusion);</span>
                 }
                 // replace the rule if modified
-<span class="nc bnc" id="L1011" title="All 2 branches missed.">                if (modif) {</span>
-<span class="nc" id="L1012">                    this.replaceRule(r, r2);</span>
+<span class="fc bfc" id="L1013" title="All 2 branches covered.">                if (modif) {</span>
+<span class="fc bfc" id="L1014" title="All 2 branches covered.">                    if (truth.containsAll(r2.getConclusion())) {</span>
+<span class="fc" id="L1015">                        this.removeRule(r); // Conclusions of this rule are always true, thus the rule is useless</span>
+                    } else {
+<span class="fc" id="L1017">                        this.replaceRule(r, r2);</span>
+                    }
+                } else {
+<span class="pc bpc" id="L1020" title="1 of 2 branches missed.">                    if (truth.containsAll(r.getConclusion())) {</span>
+<span class="nc" id="L1021">                        this.removeRule(r); // Conclusions of this rule are always true, thus the rule is useless</span>
+                    }
                 }
-<span class="nc" id="L1014">            }</span>
+<span class="fc" id="L1024">            }</span>
             // remove the reducible elements from the elements set
-<span class="nc" id="L1016">            this.deleteElement((Comparable) x);</span>
-<span class="nc" id="L1017">        }</span>
-<span class="nc" id="L1018">        return red;</span>
+<span class="fc" id="L1026">            this.deleteElement((Comparable) x);</span>
+<span class="fc" id="L1027">        }</span>
+<span class="fc" id="L1028">        return red;</span>
+    }
+    /**
+     * Return true if this component is reduced.
+     *
+     * @return true if this component is reduced.
+     */
+    public boolean isReduced() {
+        // Copy this component not to modify it
+<span class="fc" id="L1037">        ImplicationalSystem tmp = new ImplicationalSystem(this);</span>
+<span class="fc" id="L1038">        return tmp.reduction().isEmpty();</span>
     }
 
     /* --------------- IMPLEMENTATION OF CLOSURESYSTEM ABSTRACT METHODS ------------ */
@@ -1039,18 +1059,18 @@ public class ImplicationalSystem extends ClosureSystem {
      * @return  the closure of X for this component
      */
     public TreeSet&lt;Comparable&gt; closure(TreeSet&lt;Comparable&gt; x) {
-<span class="fc" id="L1042">        TreeSet&lt;Comparable&gt; oldES = new TreeSet&lt;Comparable&gt;();</span>
+<span class="fc" id="L1062">        TreeSet&lt;Comparable&gt; oldES = new TreeSet&lt;Comparable&gt;();</span>
         // all the attributes are in their own closure
-<span class="fc" id="L1044">        TreeSet&lt;Comparable&gt; newES = new TreeSet&lt;Comparable&gt;(x);</span>
+<span class="fc" id="L1064">        TreeSet&lt;Comparable&gt; newES = new TreeSet&lt;Comparable&gt;(x);</span>
         do {
-<span class="fc" id="L1046">            oldES.addAll(newES);</span>
-<span class="fc bfc" id="L1047" title="All 2 branches covered.">            for (Rule r : this.sigma) {</span>
-<span class="pc bpc" id="L1048" title="1 of 4 branches missed.">                if (newES.containsAll(r.getPremise()) || r.getPremise().isEmpty()) {</span>
-<span class="fc" id="L1049">                    newES.addAll(r.getConclusion());</span>
+<span class="fc" id="L1066">            oldES.addAll(newES);</span>
+<span class="fc bfc" id="L1067" title="All 2 branches covered.">            for (Rule r : this.sigma) {</span>
+<span class="pc bpc" id="L1068" title="1 of 4 branches missed.">                if (newES.containsAll(r.getPremise()) || r.getPremise().isEmpty()) {</span>
+<span class="fc" id="L1069">                    newES.addAll(r.getConclusion());</span>
                 }
-<span class="fc" id="L1051">            }</span>
-<span class="fc bfc" id="L1052" title="All 2 branches covered.">        } while (!(oldES.equals(newES)));</span>
-<span class="fc" id="L1053">        return newES;</span>
+<span class="fc" id="L1071">            }</span>
+<span class="fc bfc" id="L1072" title="All 2 branches covered.">        } while (!(oldES.equals(newES)));</span>
+<span class="fc" id="L1073">        return newES;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.5.201403032054</span></div></body></html>

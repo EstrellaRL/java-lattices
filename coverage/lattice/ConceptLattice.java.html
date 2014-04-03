@@ -135,8 +135,8 @@ public class ConceptLattice extends Lattice {
      * @todo  Comment the return
      */
     public boolean addEdge(Node from, Node to) {
-<span class="nc bnc" id="L138" title="All 4 branches missed.">        if ((to instanceof Concept) &amp;&amp; (from instanceof Concept)) {</span>
-<span class="nc" id="L139">            return super.addEdge(from, to);</span>
+<span class="pc bpc" id="L138" title="2 of 4 branches missed.">        if ((to instanceof Concept) &amp;&amp; (from instanceof Concept)) {</span>
+<span class="fc" id="L139">            return super.addEdge(from, to);</span>
         } else {
 <span class="nc" id="L141">            return false;</span>
         }
@@ -650,23 +650,23 @@ public class ConceptLattice extends Lattice {
      * @return  a concept lattice
      */
     public static ConceptLattice completeLattice(ClosureSystem init) {
-<span class="nc" id="L653">        ConceptLattice lattice = new ConceptLattice();</span>
+<span class="fc" id="L653">        ConceptLattice lattice = new ConceptLattice();</span>
         // compute all the closed set with allClosures
-<span class="nc" id="L655">        Vector&lt;Concept&gt; allclosure = init.allClosures();</span>
-<span class="nc bnc" id="L656" title="All 2 branches missed.">        for (Concept cl : allclosure) {</span>
-<span class="nc" id="L657">            lattice.addNode(cl);</span>
-<span class="nc" id="L658">        }</span>
+<span class="fc" id="L655">        Vector&lt;Concept&gt; allclosure = init.allClosures();</span>
+<span class="fc bfc" id="L656" title="All 2 branches covered.">        for (Concept cl : allclosure) {</span>
+<span class="fc" id="L657">            lattice.addNode(cl);</span>
+<span class="fc" id="L658">        }</span>
 
         // an edge corresponds to an inclusion between two closed sets
-<span class="nc bnc" id="L661" title="All 2 branches missed.">        for (Node from : lattice.getNodes()) {</span>
-<span class="nc bnc" id="L662" title="All 2 branches missed.">            for (Node to : lattice.getNodes()) {</span>
-<span class="nc bnc" id="L663" title="All 2 branches missed.">                if (((Concept) to).containsAllInA(((Concept) from).getSetA())) {</span>
-<span class="nc" id="L664">                   lattice.addEdge(from, to);</span>
+<span class="fc bfc" id="L661" title="All 2 branches covered.">        for (Node from : lattice.getNodes()) {</span>
+<span class="fc bfc" id="L662" title="All 2 branches covered.">            for (Node to : lattice.getNodes()) {</span>
+<span class="fc bfc" id="L663" title="All 2 branches covered.">                if (((Concept) to).containsAllInA(((Concept) from).getSetA())) {</span>
+<span class="fc" id="L664">                   lattice.addEdge(from, to);</span>
                 }
-<span class="nc" id="L666">            }</span>
-<span class="nc" id="L667">        }</span>
+<span class="fc" id="L666">            }</span>
+<span class="fc" id="L667">        }</span>
         // Hasse diagram is computed
-<span class="nc" id="L669">        return lattice;</span>
+<span class="fc" id="L669">        return lattice;</span>
     }
 
     /**
@@ -696,9 +696,9 @@ public class ConceptLattice extends Lattice {
             // computes the dependance graph of the closure system
             // addition of nodes in the precedence graph
 <span class="fc" id="L698">            DGraph graph = new DGraph();</span>
-<span class="pc bpc" id="L699" title="1 of 2 branches missed.">            for (Comparable c : init.getSet()) {</span>
-<span class="nc" id="L700">                graph.addNode(new Node(c));</span>
-<span class="nc" id="L701">            }</span>
+<span class="fc bfc" id="L699" title="All 2 branches covered.">            for (Comparable c : init.getSet()) {</span>
+<span class="fc" id="L700">                graph.addNode(new Node(c));</span>
+<span class="fc" id="L701">            }</span>
 <span class="fc" id="L702">            lattice.setDependencyGraph(graph);</span>
             // intialize the close set lattice with botom element
 <span class="fc" id="L704">            Concept bot = new Concept(init.closure(new ComparableSet()), false);</span>
@@ -735,18 +735,18 @@ public class ConceptLattice extends Lattice {
      */
     public void recursiveDiagramLattice(Concept n, ClosureSystem init) {
 <span class="fc" id="L737">        Vector&lt;TreeSet&lt;Comparable&gt;&gt; immSucc = this.immediateSuccessors(n, init);</span>
-<span class="pc bpc" id="L738" title="1 of 2 branches missed.">        for (TreeSet&lt;Comparable&gt; setX : immSucc) {</span>
-<span class="nc" id="L739">            Concept c = new Concept(new TreeSet(setX), false);</span>
-<span class="nc" id="L740">            Concept ns = (Concept) this.getNode(c);</span>
-<span class="nc bnc" id="L741" title="All 2 branches missed.">            if (ns != null)  {</span>
+<span class="fc bfc" id="L738" title="All 2 branches covered.">        for (TreeSet&lt;Comparable&gt; setX : immSucc) {</span>
+<span class="fc" id="L739">            Concept c = new Concept(new TreeSet(setX), false);</span>
+<span class="fc" id="L740">            Concept ns = (Concept) this.getNode(c);</span>
+<span class="fc bfc" id="L741" title="All 2 branches covered.">            if (ns != null)  {</span>
                 // when ns already exists, addition of a new edge
-<span class="nc" id="L743">                this.addEdge(n, ns);</span>
+<span class="fc" id="L743">                this.addEdge(n, ns);</span>
             } else { // when ns don't already exists, addition of a new node and recursive treatment
-<span class="nc" id="L745">                this.addNode(c);</span>
-<span class="nc" id="L746">                this.addEdge(n, c);</span>
-<span class="nc" id="L747">                this.recursiveDiagramLattice(c, init);</span>
+<span class="fc" id="L745">                this.addNode(c);</span>
+<span class="fc" id="L746">                this.addEdge(n, c);</span>
+<span class="fc" id="L747">                this.recursiveDiagramLattice(c, init);</span>
             }
-<span class="nc" id="L749">        }</span>
+<span class="fc" id="L749">        }</span>
 <span class="fc" id="L750">    }</span>
 
     /**
@@ -790,69 +790,69 @@ public class ConceptLattice extends Lattice {
 <span class="fc" id="L790">        DAGraph acyclPrec = prec.getStronglyConnectedComponent();</span>
 <span class="fc" id="L791">        ComparableSet newVal = new ComparableSet();</span>
 <span class="fc" id="L792">        newVal.addAll(setF);</span>
-<span class="pc bpc" id="L793" title="1 of 2 branches missed.">        for (Object x : setF)  {</span>
+<span class="fc bfc" id="L793" title="All 2 branches covered.">        for (Object x : setF)  {</span>
             // computes nx, the strongly connected component containing x
-<span class="nc" id="L795">            Node nx = null;</span>
-<span class="nc bnc" id="L796" title="All 2 branches missed.">            for (Node cc : acyclPrec.getNodes()) {</span>
-<span class="nc" id="L797">                TreeSet&lt;Node&gt; setCC = (TreeSet&lt;Node&gt;) cc.getContent();</span>
-<span class="nc bnc" id="L798" title="All 2 branches missed.">                for (Node y : setCC) {</span>
-<span class="nc bnc" id="L799" title="All 2 branches missed.">                    if (x.equals(y.getContent())) {</span>
-<span class="nc" id="L800">                        nx = cc;</span>
+<span class="fc" id="L795">            Node nx = null;</span>
+<span class="fc bfc" id="L796" title="All 2 branches covered.">            for (Node cc : acyclPrec.getNodes()) {</span>
+<span class="fc" id="L797">                TreeSet&lt;Node&gt; setCC = (TreeSet&lt;Node&gt;) cc.getContent();</span>
+<span class="fc bfc" id="L798" title="All 2 branches covered.">                for (Node y : setCC) {</span>
+<span class="fc bfc" id="L799" title="All 2 branches covered.">                    if (x.equals(y.getContent())) {</span>
+<span class="fc" id="L800">                        nx = cc;</span>
                     }
-<span class="nc" id="L802">                }</span>
-<span class="nc" id="L803">            }</span>
+<span class="fc" id="L802">                }</span>
+<span class="fc" id="L803">            }</span>
             // computes the minorants of nx in the acyclic graph
-<span class="nc" id="L805">            TreeSet&lt;Node&gt; ccMinNx = acyclPrec.minorants(nx);</span>
+<span class="fc" id="L805">            TreeSet&lt;Node&gt; ccMinNx = acyclPrec.minorants(nx);</span>
             // removes from newVal every minorants of nx
-<span class="nc bnc" id="L807" title="All 2 branches missed.">            for (Node cc : ccMinNx) {</span>
-<span class="nc" id="L808">                TreeSet&lt;Node&gt; setCC = (TreeSet&lt;Node&gt;) cc.getContent();</span>
-<span class="nc bnc" id="L809" title="All 2 branches missed.">                for (Node y : setCC) {</span>
-<span class="nc" id="L810">                    newVal.remove(y.getContent());</span>
-<span class="nc" id="L811">                }</span>
-<span class="nc" id="L812">            }</span>
-<span class="nc" id="L813">        }</span>
+<span class="fc bfc" id="L807" title="All 2 branches covered.">            for (Node cc : ccMinNx) {</span>
+<span class="fc" id="L808">                TreeSet&lt;Node&gt; setCC = (TreeSet&lt;Node&gt;) cc.getContent();</span>
+<span class="fc bfc" id="L809" title="All 2 branches covered.">                for (Node y : setCC) {</span>
+<span class="fc" id="L810">                    newVal.remove(y.getContent());</span>
+<span class="fc" id="L811">                }</span>
+<span class="fc" id="L812">            }</span>
+<span class="fc" id="L813">        }</span>
         // computes the node belonging in S\F
 <span class="fc" id="L815">        TreeSet&lt;Node&gt; nodes = new TreeSet&lt;Node&gt;();</span>
-<span class="pc bpc" id="L816" title="1 of 2 branches missed.">        for (Node in : this.getDependencyGraph().getNodes()) {</span>
-<span class="nc bnc" id="L817" title="All 2 branches missed.">            if (!setF.contains(in.getContent())) {</span>
-<span class="nc" id="L818">                nodes.add(in);</span>
+<span class="fc bfc" id="L816" title="All 2 branches covered.">        for (Node in : this.getDependencyGraph().getNodes()) {</span>
+<span class="fc bfc" id="L817" title="All 2 branches covered.">            if (!setF.contains(in.getContent())) {</span>
+<span class="fc" id="L818">                nodes.add(in);</span>
             }
-<span class="nc" id="L820">        }</span>
+<span class="fc" id="L820">        }</span>
         // computes the dependance relation between nodes in S\F
         // and valuated this relation by the subset of S\F
 <span class="fc" id="L823">        TreeSet&lt;Edge&gt; edges = new TreeSet&lt;Edge&gt;();</span>
-<span class="pc bpc" id="L824" title="1 of 2 branches missed.">        for (Node from : nodes) {</span>
-<span class="nc bnc" id="L825" title="All 2 branches missed.">            for (Node to : nodes) {</span>
-<span class="nc bnc" id="L826" title="All 2 branches missed.">                if (!from.equals(to)) {</span>
+<span class="fc bfc" id="L824" title="All 2 branches covered.">        for (Node from : nodes) {</span>
+<span class="fc bfc" id="L825" title="All 2 branches covered.">            for (Node to : nodes) {</span>
+<span class="fc bfc" id="L826" title="All 2 branches covered.">                if (!from.equals(to)) {</span>
                     // check if from is in dependance relation with to
                     // i.e. &quot;from&quot; belongs to the closure of &quot;F+to&quot;
-<span class="nc" id="L829">                    ComparableSet fPlusTo = new ComparableSet(setF);</span>
-<span class="nc" id="L830">                    fPlusTo.add(to.getContent());</span>
-<span class="nc" id="L831">                    fPlusTo = new ComparableSet(init.closure(fPlusTo));</span>
-<span class="nc bnc" id="L832" title="All 2 branches missed.">                    if (fPlusTo.contains(from.getContent())) {</span>
+<span class="fc" id="L829">                    ComparableSet fPlusTo = new ComparableSet(setF);</span>
+<span class="fc" id="L830">                    fPlusTo.add(to.getContent());</span>
+<span class="fc" id="L831">                    fPlusTo = new ComparableSet(init.closure(fPlusTo));</span>
+<span class="fc bfc" id="L832" title="All 2 branches covered.">                    if (fPlusTo.contains(from.getContent())) {</span>
                         // there is a dependance relation between from and to
                         // search for an existing edge between from and to
-<span class="nc" id="L835">                        Edge ed = this.getDependencyGraph().getEdge(from, to);</span>
-<span class="nc bnc" id="L836" title="All 2 branches missed.">                        if (ed == null) {</span>
-<span class="nc" id="L837">                            ed = new Edge(from, to, new TreeSet&lt;ComparableSet&gt;());</span>
-<span class="nc" id="L838">                            this.getDependencyGraph().addEdge(ed);</span>
+<span class="fc" id="L835">                        Edge ed = this.getDependencyGraph().getEdge(from, to);</span>
+<span class="fc bfc" id="L836" title="All 2 branches covered.">                        if (ed == null) {</span>
+<span class="fc" id="L837">                            ed = new Edge(from, to, new TreeSet&lt;ComparableSet&gt;());</span>
+<span class="fc" id="L838">                            this.getDependencyGraph().addEdge(ed);</span>
                         }
-<span class="nc" id="L840">                        edges.add(ed);</span>
+<span class="fc" id="L840">                        edges.add(ed);</span>
                         // check if F is a minimal set closed for dependance relation between from and to
-<span class="nc" id="L842">                        ((TreeSet&lt;ComparableSet&gt;) ed.getContent()).add(newVal);</span>
-<span class="nc" id="L843">                        TreeSet&lt;ComparableSet&gt; valEd = new TreeSet&lt;ComparableSet&gt;((TreeSet&lt;ComparableSet&gt;) ed.getContent());</span>
-<span class="nc bnc" id="L844" title="All 2 branches missed.">                        for (ComparableSet x1 : valEd) {</span>
-<span class="nc bnc" id="L845" title="All 4 branches missed.">                            if (x1.containsAll(newVal) &amp;&amp; !newVal.containsAll(x1)) {</span>
-<span class="nc" id="L846">                                ((TreeSet&lt;ComparableSet&gt;) ed.getContent()).remove(x1);</span>
+<span class="fc" id="L842">                        ((TreeSet&lt;ComparableSet&gt;) ed.getContent()).add(newVal);</span>
+<span class="fc" id="L843">                        TreeSet&lt;ComparableSet&gt; valEd = new TreeSet&lt;ComparableSet&gt;((TreeSet&lt;ComparableSet&gt;) ed.getContent());</span>
+<span class="fc bfc" id="L844" title="All 2 branches covered.">                        for (ComparableSet x1 : valEd) {</span>
+<span class="fc bfc" id="L845" title="All 4 branches covered.">                            if (x1.containsAll(newVal) &amp;&amp; !newVal.containsAll(x1)) {</span>
+<span class="fc" id="L846">                                ((TreeSet&lt;ComparableSet&gt;) ed.getContent()).remove(x1);</span>
                             }
-<span class="nc bnc" id="L848" title="All 4 branches missed.">                            if (!x1.containsAll(newVal) &amp;&amp; newVal.containsAll(x1)) {</span>
-<span class="nc" id="L849">                                ((TreeSet&lt;ComparableSet&gt;) ed.getContent()).remove(newVal);</span>
+<span class="fc bfc" id="L848" title="All 4 branches covered.">                            if (!x1.containsAll(newVal) &amp;&amp; newVal.containsAll(x1)) {</span>
+<span class="fc" id="L849">                                ((TreeSet&lt;ComparableSet&gt;) ed.getContent()).remove(newVal);</span>
                             }
-<span class="nc" id="L851">                        }</span>
+<span class="fc" id="L851">                        }</span>
                     }
                 }
-<span class="nc" id="L854">            }</span>
-<span class="nc" id="L855">        }</span>
+<span class="fc" id="L854">            }</span>
+<span class="fc" id="L855">        }</span>
         // computes the dependance subgraph of the closed set F as the reduction
         // of the dependance graph composed of nodes in S\A and edges of the dependance relation
 <span class="fc" id="L858">        DGraph sub = this.getDependencyGraph().getSubgraphByNodes(nodes);</span>
@@ -862,14 +862,14 @@ public class ConceptLattice extends Lattice {
 <span class="fc" id="L862">        DAGraph cfc = delta.getStronglyConnectedComponent();</span>
 <span class="fc" id="L863">        TreeSet&lt;Node&gt; sccMin = cfc.getSinks();</span>
 <span class="fc" id="L864">        Vector&lt;TreeSet&lt;Comparable&gt;&gt; immSucc = new Vector&lt;TreeSet&lt;Comparable&gt;&gt;();</span>
-<span class="pc bpc" id="L865" title="1 of 2 branches missed.">        for (Node n1 : sccMin) {</span>
-<span class="nc" id="L866">            TreeSet s = new TreeSet(setF);</span>
-<span class="nc" id="L867">            TreeSet&lt;Node&gt; toadd = (TreeSet&lt;Node&gt;) n1.getContent();</span>
-<span class="nc bnc" id="L868" title="All 2 branches missed.">            for (Node n2 : toadd) {</span>
-<span class="nc" id="L869">                s.add(n2.getContent());</span>
-<span class="nc" id="L870">            }</span>
-<span class="nc" id="L871">            immSucc.add(s);</span>
-<span class="nc" id="L872">        }</span>
+<span class="fc bfc" id="L865" title="All 2 branches covered.">        for (Node n1 : sccMin) {</span>
+<span class="fc" id="L866">            TreeSet s = new TreeSet(setF);</span>
+<span class="fc" id="L867">            TreeSet&lt;Node&gt; toadd = (TreeSet&lt;Node&gt;) n1.getContent();</span>
+<span class="fc bfc" id="L868" title="All 2 branches covered.">            for (Node n2 : toadd) {</span>
+<span class="fc" id="L869">                s.add(n2.getContent());</span>
+<span class="fc" id="L870">            }</span>
+<span class="fc" id="L871">            immSucc.add(s);</span>
+<span class="fc" id="L872">        }</span>
 <span class="fc" id="L873">       return immSucc;</span>
     }
 }
