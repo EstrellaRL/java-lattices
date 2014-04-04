@@ -480,8 +480,8 @@ public class Concept extends Node {
      * @return  true if and only if o is equals to this component.
      */
     public boolean equals(Object o) {
-<span class="fc bfc" id="L483" title="All 2 branches covered.">        if (!(o instanceof Concept)) {</span>
-<span class="fc" id="L484">            return false;</span>
+<span class="pc bpc" id="L483" title="1 of 2 branches missed.">        if (!(o instanceof Concept)) {</span>
+<span class="nc" id="L484">            return false;</span>
         }
 <span class="fc bfc" id="L486" title="All 2 branches covered.">        if (!this.hasSetB()) {</span>
 <span class="fc" id="L487">            return this.setA.equals(((Concept) o).setA);</span>

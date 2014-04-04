@@ -90,10 +90,10 @@ public class ConceptLattice extends Lattice {
      */
     public ConceptLattice(Lattice lattice) {
 <span class="fc" id="L92">        super(lattice);</span>
-<span class="fc bfc" id="L93" title="All 2 branches covered.">        if (!this.isConceptLattice()) {</span>
-<span class="fc" id="L94">            this.setNodes(new TreeSet&lt;Node&gt;());</span>
-<span class="fc" id="L95">            this.setSuccessors(new TreeMap&lt;Node, TreeSet&lt;Edge&gt;&gt;());</span>
-<span class="fc" id="L96">            this.setPredecessors(new TreeMap&lt;Node, TreeSet&lt;Edge&gt;&gt;());</span>
+<span class="pc bpc" id="L93" title="1 of 2 branches missed.">        if (!this.isConceptLattice()) {</span>
+<span class="nc" id="L94">            this.setNodes(new TreeSet&lt;Node&gt;());</span>
+<span class="nc" id="L95">            this.setSuccessors(new TreeMap&lt;Node, TreeSet&lt;Edge&gt;&gt;());</span>
+<span class="nc" id="L96">            this.setPredecessors(new TreeMap&lt;Node, TreeSet&lt;Edge&gt;&gt;());</span>
         }
 <span class="fc" id="L98">    }</span>
 
@@ -153,8 +153,8 @@ public class ConceptLattice extends Lattice {
      */
     public boolean containsConcepts() {
 <span class="fc bfc" id="L155" title="All 2 branches covered.">        for (Node n : this.getNodes()) {</span>
-<span class="fc bfc" id="L156" title="All 2 branches covered.">            if (!(n instanceof Concept)) {</span>
-<span class="fc" id="L157">                return false;</span>
+<span class="pc bpc" id="L156" title="1 of 2 branches missed.">            if (!(n instanceof Concept)) {</span>
+<span class="nc" id="L157">                return false;</span>
             }
 <span class="fc" id="L159">        }</span>
 <span class="fc" id="L160">        return true;</span>
@@ -168,11 +168,11 @@ public class ConceptLattice extends Lattice {
      * @todo  Comment the return
      */
     public boolean isConceptLattice() {
-<span class="fc bfc" id="L171" title="All 2 branches covered.">        if (!this.isLattice()) {</span>
-<span class="fc" id="L172">            return false;</span>
+<span class="pc bpc" id="L171" title="1 of 2 branches missed.">        if (!this.isLattice()) {</span>
+<span class="nc" id="L172">            return false;</span>
         }
-<span class="fc bfc" id="L174" title="All 2 branches covered.">        if (!this.containsConcepts()) {</span>
-<span class="fc" id="L175">            return false;</span>
+<span class="pc bpc" id="L174" title="1 of 2 branches missed.">        if (!this.containsConcepts()) {</span>
+<span class="nc" id="L175">            return false;</span>
         }
 <span class="fc" id="L177">        return true;</span>
     }
@@ -774,12 +774,12 @@ public class ConceptLattice extends Lattice {
      */
     public Vector&lt;TreeSet&lt;Comparable&gt;&gt; immediateSuccessors(Node n, ClosureSystem init) {
         // Initialization of the dependance graph when not initialized by method recursiveDiagramLattice
-<span class="fc bfc" id="L777" title="All 2 branches covered.">        if (!this.hasDependencyGraph()) {</span>
-<span class="fc" id="L778">            DGraph graph = new DGraph();</span>
-<span class="fc bfc" id="L779" title="All 2 branches covered.">            for (Comparable c : init.getSet()) {</span>
-<span class="fc" id="L780">                graph.addNode(new Node(c));</span>
-<span class="fc" id="L781">            }</span>
-<span class="fc" id="L782">            this.setDependencyGraph(graph);</span>
+<span class="pc bpc" id="L777" title="1 of 2 branches missed.">        if (!this.hasDependencyGraph()) {</span>
+<span class="nc" id="L778">            DGraph graph = new DGraph();</span>
+<span class="nc bnc" id="L779" title="All 2 branches missed.">            for (Comparable c : init.getSet()) {</span>
+<span class="nc" id="L780">                graph.addNode(new Node(c));</span>
+<span class="nc" id="L781">            }</span>
+<span class="nc" id="L782">            this.setDependencyGraph(graph);</span>
         }
         // computes newVal, the subset to be used to valuate every new dependance relation
         // newVal = F\predecessors of F in the precedence graph of the closure system
