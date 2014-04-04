@@ -1,13 +1,13 @@
 <html xmlns:lxslt="http://xml.apache.org/xslt" xmlns:stringutils="xalan://org.apache.tools.ant.util.StringUtils">
 <head>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Unit Test Results: lattice.BijectiveComponentsTest</title>
+<title>Unit Test Results: lattice.LatticeTest</title>
 <link rel="stylesheet" type="text/css" title="Style" href="../stylesheet.css">
 <script type="text/javascript" language="JavaScript">
         var TestCases = new Array();
         var cur;
         
-    cur = TestCases['lattice.BijectiveComponentsTest'] = new Array();
+    cur = TestCases['lattice.LatticeTest'] = new Array();
     
         cur['_jacoco.agentFile'] = '/tmp/jacocoagent8411897228175117729.jar';
     
@@ -221,13 +221,13 @@
 </tr>
 </table>
 <hr size="1">
-<h3>Class lattice.BijectiveComponentsTest</h3>
+<h3>Class lattice.LatticeTest</h3>
 <table class="details" border="0" cellpadding="5" cellspacing="2" width="95%">
 <tr valign="top">
 <th width="80%">Name</th><th>Tests</th><th>Errors</th><th>Failures</th><th nowrap>Time(s)</th><th nowrap>Time Stamp</th><th>Host</th>
 </tr>
 <tr valign="top" class="Pass">
-<td><a title="Display all tests" href="5_BijectiveComponentsTest.html">BijectiveComponentsTest</a></td><td><a title="Display all tests" href="5_BijectiveComponentsTest.html">20</a></td><td>0</td><td>0</td><td>0.210</td><td>2014-04-04T14:13:56</td><td>testing-worker-linux-6-1-21511-linux-6-22271567</td>
+<td><a title="Display all tests" href="14_LatticeTest.html">LatticeTest</a></td><td><a title="Display all tests" href="14_LatticeTest.html">26</a></td><td>0</td><td>0</td><td>0.498</td><td>2014-04-04T14:14:06</td><td>testing-worker-linux-6-1-21511-linux-6-22271567</td>
 </tr>
 </table>
 <h2>Tests</h2>
@@ -236,75 +236,88 @@
 <th>Name</th><th>Status</th><th width="80%">Type</th><th nowrap>Time(s)</th>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testgetInit"></a>testgetInit</td><td>Success</td><td></td><td>0.007</td>
+<td><a name="testbottom"></a>testbottom</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testBijectiveComponent"></a>testBijectiveComponent</td><td>Success</td><td></td><td>0.046</td>
+<td><a name="testLatticeEmpty"></a>testLatticeEmpty</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testsetCanonicalBasis"></a>testsetCanonicalBasis</td><td>Success</td><td></td><td>0.001</td>
+<td><a name="testirreducibleClosure"></a>testirreducibleClosure</td><td>Success</td><td></td><td>0.001</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testgetLattice"></a>testgetLattice</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="testisLattice"></a>testisLattice</td><td>Success</td><td></td><td>0.002</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testgetTable"></a>testgetTable</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="testmeetIrreduciblesNode"></a>testmeetIrreduciblesNode</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testgetCanonicalDirectBasis"></a>testgetCanonicalDirectBasis</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="testgetTable"></a>testgetTable</td><td>Success</td><td></td><td>0.001</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="testgetCanonicalDirectBasis"></a>testgetCanonicalDirectBasis</td><td>Success</td><td></td><td>0.002</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="testjoinIrreducibles"></a>testjoinIrreducibles</td><td>Success</td><td></td><td>0.001</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="testtop"></a>testtop</td><td>Success</td><td></td><td>0.001</td>
 </tr>
 <tr valign="top" class="TableRowColor">
 <td><a name="testsetDependencyGraph"></a>testsetDependencyGraph</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testsetMinimalGenerators"></a>testsetMinimalGenerators</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="testgetIS"></a>testgetIS</td><td>Success</td><td></td><td>0.001</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testsave"></a>testsave</td><td>Success</td><td></td><td>0.018</td>
+<td><a name="testjoin"></a>testjoin</td><td>Success</td><td></td><td>0.001</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testgetCanonicalBasis"></a>testgetCanonicalBasis</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="testmeet"></a>testmeet</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testgetMinimalGenerators"></a>testgetMinimalGenerators</td><td>Success</td><td></td><td>0.001</td>
+<td><a name="testLatticeTS"></a>testLatticeTS</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testsetReducedLattice"></a>testsetReducedLattice</td><td>Success</td><td></td><td>0.001</td>
+<td><a name="testLatticeDAG"></a>testLatticeDAG</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testinitalizeContext"></a>testinitalizeContext</td><td>Success</td><td></td><td>0.006</td>
+<td><a name="testmeetIrreducibles"></a>testmeetIrreducibles</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testsetInit"></a>testsetInit</td><td>Success</td><td></td><td>0.001</td>
+<td><a name="testgetMinimalGenerators"></a>testgetMinimalGenerators</td><td>Success</td><td></td><td>0.002</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testsetLattice"></a>testsetLattice</td><td>Success</td><td></td><td>0.001</td>
+<td><a name="testjoinClosure"></a>testjoinClosure</td><td>Success</td><td></td><td>0.001</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testsetCanonicalDirectBasis"></a>testsetCanonicalDirectBasis</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="testhasDependencyGraph"></a>testhasDependencyGraph</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testgetReducedLattice"></a>testgetReducedLattice</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="testjoinIrreduciblesNode"></a>testjoinIrreduciblesNode</td><td>Success</td><td></td><td>0.001</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testinitalizeIS"></a>testinitalizeIS</td><td>Success</td><td></td><td>0.007</td>
+<td><a name="testirreduciblesSubgraph"></a>testirreduciblesSubgraph</td><td>Success</td><td></td><td>0.001</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testgetDependencyGraph"></a>testgetDependencyGraph</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="testjoinIrreduciblesSubgraph"></a>testjoinIrreduciblesSubgraph</td><td>Success</td><td></td><td>0.001</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testsetTable"></a>testsetTable</td><td>Success</td><td></td><td>0.001</td>
+<td><a name="testArrowRelation"></a>testArrowRelation</td><td>Success</td><td></td><td>0.002</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="testmeetClosure"></a>testmeetClosure</td><td>Success</td><td></td><td>0.001</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="testmeetIrreduciblesSubgraph"></a>testmeetIrreduciblesSubgraph</td><td>Success</td><td></td><td>0.001</td>
+</tr>
+<tr valign="top" class="TableRowColor">
+<td><a name="testgetDependencyGraph"></a>testgetDependencyGraph</td><td>Success</td><td></td><td>0.001</td>
 </tr>
 </table>
 <div class="Properties">
-<a href="javascript:displayProperties('lattice.BijectiveComponentsTest');">
+<a href="javascript:displayProperties('lattice.LatticeTest');">
                     Properties &raquo;
                 </a>
-</div>
-<div class="Properties">
-<a href="./5_BijectiveComponentsTest-out.html">
-                        System.out &raquo;
-                    </a>
 </div>
 </body>
 </html>

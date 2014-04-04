@@ -1,15 +1,15 @@
 <html xmlns:lxslt="http://xml.apache.org/xslt" xmlns:stringutils="xalan://org.apache.tools.ant.util.StringUtils">
 <head>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Unit Test Results: lattice.LatticeTest</title>
+<title>Unit Test Results: lattice.ConceptLatticeTest</title>
 <link rel="stylesheet" type="text/css" title="Style" href="../stylesheet.css">
 <script type="text/javascript" language="JavaScript">
         var TestCases = new Array();
         var cur;
         
-    cur = TestCases['lattice.LatticeTest'] = new Array();
+    cur = TestCases['lattice.ConceptLatticeTest'] = new Array();
     
-        cur['_jacoco.agentFile'] = '/tmp/jacocoagent9021485154218647083.jar';
+        cur['_jacoco.agentFile'] = '/tmp/jacocoagent8411897228175117729.jar';
     
         cur['ant.core.lib'] = '/usr/share/ant/lib/ant.jar';
     
@@ -85,7 +85,7 @@
     
         cur['java.awt.printerjob'] = 'sun.print.PSPrinterJob';
     
-        cur['java.class.path'] = '/home/travis/build/kbertet/java-lattices/lib/junit/junit-4.11.jar:/home/travis/build/kbertet/java-lattices/lib/junit/hamcrest-core-1.3.jar:/home/travis/build/kbertet/java-lattices/build/jar/lattices-debug.jar:/home/travis/build/kbertet/java-lattices/build/test:/usr/share/java/ant-launcher-1.8.2.jar:/usr/share/ant/lib/ant.jar:/usr/share/ant/lib/ant-junit.jar:/usr/share/ant/lib/ant-junit4.jar:/tmp/jacocoagent9021485154218647083.jar';
+        cur['java.class.path'] = '/home/travis/build/kbertet/java-lattices/lib/junit/junit-4.11.jar:/home/travis/build/kbertet/java-lattices/lib/junit/hamcrest-core-1.3.jar:/home/travis/build/kbertet/java-lattices/build/jar/lattices-debug.jar:/home/travis/build/kbertet/java-lattices/build/test:/usr/share/java/ant-launcher-1.8.2.jar:/usr/share/ant/lib/ant.jar:/usr/share/ant/lib/ant-junit.jar:/usr/share/ant/lib/ant-junit4.jar:/tmp/jacocoagent8411897228175117729.jar';
     
         cur['java.class.version'] = '51.0';
     
@@ -138,7 +138,7 @@
     
         cur['os.name'] = 'Linux';
     
-        cur['os.version'] = '2.6.32-042stab061.2';
+        cur['os.version'] = '2.6.32-042stab079.5';
     
         cur['output.examples.dir'] = 'build/output';
     
@@ -158,7 +158,7 @@
     
         cur['sun.io.unicode.encoding'] = 'UnicodeLittle';
     
-        cur['sun.java.command'] = 'org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner testsfile=/home/travis/build/kbertet/java-lattices/junittestcases4100843192761098827.properties filtertrace=true haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.SummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/home/travis/build/kbertet/java-lattices/build/reports/xml/IGNORETHIS.xml crashfile=/home/travis/build/kbertet/java-lattices/junitvmwatcher9017287462135709218.properties propsfile=/home/travis/build/kbertet/java-lattices/junit7068491826402620528.properties';
+        cur['sun.java.command'] = 'org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner testsfile=/home/travis/build/kbertet/java-lattices/junittestcases1639647036394379423.properties filtertrace=true haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.SummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/home/travis/build/kbertet/java-lattices/build/reports/xml/IGNORETHIS.xml crashfile=/home/travis/build/kbertet/java-lattices/junitvmwatcher5513813893376940457.properties propsfile=/home/travis/build/kbertet/java-lattices/junit8032661609389290822.properties';
     
         cur['sun.java.launcher'] = 'SUN_STANDARD';
     
@@ -221,13 +221,13 @@
 </tr>
 </table>
 <hr size="1">
-<h3>Class lattice.LatticeTest</h3>
+<h3>Class lattice.ConceptLatticeTest</h3>
 <table class="details" border="0" cellpadding="5" cellspacing="2" width="95%">
 <tr valign="top">
 <th width="80%">Name</th><th>Tests</th><th>Errors</th><th>Failures</th><th nowrap>Time(s)</th><th nowrap>Time Stamp</th><th>Host</th>
 </tr>
-<tr valign="top" class="Pass">
-<td><a title="Display all tests" href="13_LatticeTest.html">LatticeTest</a></td><td><a title="Display all tests" href="13_LatticeTest.html">26</a></td><td>0</td><td>0</td><td>0.060</td><td>2014-04-03T16:58:27</td><td>testing-worker-linux-8-2-16883-linux-18-22202191</td>
+<tr valign="top" class="Failure">
+<td><a title="Display all tests" href="8_ConceptLatticeTest.html">ConceptLatticeTest</a></td><td><a title="Display all tests" href="8_ConceptLatticeTest.html">22</a></td><td>0</td><td><a title="Display only failures" href="8_ConceptLatticeTest-fails.html">2</a></td><td>0.086</td><td>2014-04-04T14:13:59</td><td>testing-worker-linux-6-1-21511-linux-6-22271567</td>
 </tr>
 </table>
 <h2>Tests</h2>
@@ -236,86 +236,80 @@
 <th>Name</th><th>Status</th><th width="80%">Type</th><th nowrap>Time(s)</th>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testbottom"></a>testbottom</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="testRemoveAllSetA"></a>testRemoveAllSetA</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testLatticeEmpty"></a>testLatticeEmpty</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="testRemoveAllSetB"></a>testRemoveAllSetB</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testirreducibleClosure"></a>testirreducibleClosure</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="testContainsConcepts"></a>testContainsConcepts</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testisLattice"></a>testisLattice</td><td>Success</td><td></td><td>0.002</td>
+<td><a name="testGetJoinReduction"></a>testGetJoinReduction</td><td>Success</td><td></td><td>0.004</td>
+</tr>
+<tr valign="top" class="Failure">
+<td><a name="testImmediateSuccessors"></a>testImmediateSuccessors</td><td>Failure</td><td>expected:&lt;[[a, b, c]]&gt; but was:&lt;[[a, b, c, d]]&gt;<br>
+<br>
+<code>junit.framework.AssertionFailedError: expected:&lt;[[a, b, c]]&gt; but was:&lt;[[a, b, c, d]]&gt;<br>	at lattice.ConceptLatticeTest.testImmediateSuccessors(Unknown Source)<br>
+</code></td><td>0.021</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testmeetIrreduciblesNode"></a>testmeetIrreduciblesNode</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="testAddEdge"></a>testAddEdge</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testgetTable"></a>testgetTable</td><td>Success</td><td></td><td>0.001</td>
+<td><a name="testAddNode"></a>testAddNode</td><td>Success</td><td></td><td>0.000</td>
+</tr>
+<tr valign="top" class="Failure">
+<td><a name="testCopy"></a>testCopy</td><td>Failure</td><td>expected:&lt;[]-[]&gt; but was:&lt;null&gt;<br>
+<br>
+<code>junit.framework.AssertionFailedError: expected:&lt;[]-[]&gt; but was:&lt;null&gt;<br>	at lattice.ConceptLatticeTest.testCopy(Unknown Source)<br>
+</code></td><td>0.002</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testgetCanonicalDirectBasis"></a>testgetCanonicalDirectBasis</td><td>Success</td><td></td><td>0.002</td>
+<td><a name="testIsConceptLattice"></a>testIsConceptLattice</td><td>Success</td><td></td><td>0.001</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testjoinIrreducibles"></a>testjoinIrreducibles</td><td>Success</td><td></td><td>0.001</td>
+<td><a name="testContainsAllSetA"></a>testContainsAllSetA</td><td>Success</td><td></td><td>0.002</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testtop"></a>testtop</td><td>Success</td><td></td><td>0.001</td>
+<td><a name="testContainsAllSetB"></a>testContainsAllSetB</td><td>Success</td><td></td><td>0.002</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testsetDependencyGraph"></a>testsetDependencyGraph</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="testInitializeSetBForMeet"></a>testInitializeSetBForMeet</td><td>Success</td><td></td><td>0.001</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testgetIS"></a>testgetIS</td><td>Success</td><td></td><td>0.001</td>
+<td><a name="testConstructorFromLattice"></a>testConstructorFromLattice</td><td>Success</td><td></td><td>0.003</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testjoin"></a>testjoin</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="testMakeEdgeValuation"></a>testMakeEdgeValuation</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testmeet"></a>testmeet</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="testMakeInclusionReduction"></a>testMakeInclusionReduction</td><td>Success</td><td></td><td>0.001</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testLatticeTS"></a>testLatticeTS</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="testDiagramLattice"></a>testDiagramLattice</td><td>Success</td><td></td><td>0.004</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testLatticeDAG"></a>testLatticeDAG</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="testIdealsLattice"></a>testIdealsLattice</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testmeetIrreducibles"></a>testmeetIrreducibles</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="testCompleteLattice"></a>testCompleteLattice</td><td>Success</td><td></td><td>0.001</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testgetMinimalGenerators"></a>testgetMinimalGenerators</td><td>Success</td><td></td><td>0.001</td>
+<td><a name="testInitializeSetAForJoin"></a>testInitializeSetAForJoin</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testjoinClosure"></a>testjoinClosure</td><td>Success</td><td></td><td>0.001</td>
+<td><a name="testGetIrreduciblesReduction"></a>testGetIrreduciblesReduction</td><td>Success</td><td></td><td>0.003</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testhasDependencyGraph"></a>testhasDependencyGraph</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="testGetMeetReduction"></a>testGetMeetReduction</td><td>Success</td><td></td><td>0.003</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="testjoinIrreduciblesNode"></a>testjoinIrreduciblesNode</td><td>Success</td><td></td><td>0.001</td>
-</tr>
-<tr valign="top" class="TableRowColor">
-<td><a name="testirreduciblesSubgraph"></a>testirreduciblesSubgraph</td><td>Success</td><td></td><td>0.000</td>
-</tr>
-<tr valign="top" class="TableRowColor">
-<td><a name="testjoinIrreduciblesSubgraph"></a>testjoinIrreduciblesSubgraph</td><td>Success</td><td></td><td>0.000</td>
-</tr>
-<tr valign="top" class="TableRowColor">
-<td><a name="testArrowRelation"></a>testArrowRelation</td><td>Success</td><td></td><td>0.002</td>
-</tr>
-<tr valign="top" class="TableRowColor">
-<td><a name="testmeetClosure"></a>testmeetClosure</td><td>Success</td><td></td><td>0.001</td>
-</tr>
-<tr valign="top" class="TableRowColor">
-<td><a name="testmeetIrreduciblesSubgraph"></a>testmeetIrreduciblesSubgraph</td><td>Success</td><td></td><td>0.000</td>
-</tr>
-<tr valign="top" class="TableRowColor">
-<td><a name="testgetDependencyGraph"></a>testgetDependencyGraph</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="testMakeIrreduciblesReduction"></a>testMakeIrreduciblesReduction</td><td>Success</td><td></td><td>0.000</td>
 </tr>
 </table>
 <div class="Properties">
-<a href="javascript:displayProperties('lattice.LatticeTest');">
+<a href="javascript:displayProperties('lattice.ConceptLatticeTest');">
                     Properties &raquo;
                 </a>
 </div>
