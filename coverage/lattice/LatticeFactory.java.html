@@ -220,5 +220,81 @@ public class LatticeFactory {
 <span class="fc" id="L220">        }</span>
 <span class="fc" id="L221">        return prod;</span>
     }
+    /**
+     * Returns lattice l in which convex c has been doubled.
+     *
+     * @param l a lattice
+     * @param c a convex subset of l, to be doubled.
+     * @return a lattice construct from l by doubling the convex subset c.
+     */
+    public static Lattice doublingConvex(Lattice l, DAGraph c) {
+<span class="fc" id="L231">        Lattice doubled = new Lattice();</span>
+        // Copy nodes by Content
+<span class="fc bfc" id="L233" title="All 2 branches covered.">        for (Node n : l.getNodes()) {</span>
+<span class="fc bfc" id="L234" title="All 2 branches covered.">            if (c.containsNode(n)) {</span>
+                // These nodes are doubled
+<span class="fc" id="L236">                Couple cpl0 = new Couple(n.getContent(), 0);</span>
+<span class="fc" id="L237">                Node n0 = new Node(cpl0);</span>
+<span class="fc" id="L238">                Couple cpl1 = new Couple(n.getContent(), 1);</span>
+<span class="fc" id="L239">                Node n1 = new Node(cpl1);</span>
+<span class="fc" id="L240">                doubled.addNode(n0);</span>
+<span class="fc" id="L241">                doubled.addNode(n1);</span>
+<span class="fc" id="L242">            } else {</span>
+                // These nodes are just copied
+<span class="fc" id="L244">                doubled.addNode(new Node(n.getContent()));</span>
+            }
+<span class="fc" id="L246">        }</span>
+        // Construct edges of doubled
+<span class="fc" id="L248">        Couple test = new Couple(0, 0); // used to test class of contents</span>
+<span class="fc bfc" id="L249" title="All 2 branches covered.">        for (Node x : doubled.getNodes()) {</span>
+<span class="fc bfc" id="L250" title="All 2 branches covered.">            for (Node y : doubled.getNodes()) {</span>
+                // Add an edge if x &lt; y
+<span class="fc bfc" id="L252" title="All 2 branches covered.">                if (x.getContent().getClass() == test.getClass()) { // x was in convex c</span>
+<span class="fc bfc" id="L253" title="All 2 branches covered.">                    if (y.getContent().getClass() == test.getClass()) { // y was also in convex c</span>
+                        // x &amp; y were in convex c
+<span class="fc" id="L255">                        Couple cX = (Couple) x.getContent();</span>
+<span class="fc" id="L256">                        Couple cY = (Couple) y.getContent();</span>
+<span class="fc bfc" id="L257" title="All 6 branches covered.">                        if ((cX.getLeft() == cY.getLeft()) &amp;&amp; (((Integer) cX.getRight()).intValue() == 0)</span>
+                                &amp;&amp; (((Integer) cY.getRight()).intValue() == 1)) {
+                            // Same content means same node. x is of the form (cX, 0) and y is of the for (cX, 1) so x &lt; y in doubled.
+<span class="fc" id="L260">                            doubled.addEdge(x, y);</span>
+                        } else {
+<span class="fc bfc" id="L262" title="All 4 branches covered.">                            if (l.majorants(l.getNodeByContent(cX.getLeft())).contains(l.getNodeByContent(cY.getLeft()))</span>
+                                    &amp;&amp; (cX.getRight() == cY.getRight())) {
+                                // x &lt; y in l and x &amp; y have the same second component si x &lt; y in doubled.
+<span class="fc" id="L265">                                doubled.addEdge(x, y);</span>
+                            }
+                        }
+<span class="fc" id="L268">                    } else { // y wasn't in convex c</span>
+                        // x was in c &amp; y wasn't
+<span class="fc" id="L270">                        Couple cX = (Couple) x.getContent();</span>
+<span class="pc bpc" id="L271" title="1 of 4 branches missed.">                        if (l.majorants(l.getNodeByContent(cX.getLeft())).contains(l.getNodeByContent(y.getContent()))</span>
+                                &amp;&amp; (((Integer) cX.getRight()).intValue() == 1)) {
+                            // x &lt; y in l and second component of x is 1.
+<span class="fc" id="L274">                            doubled.addEdge(x, y);</span>
+                        }
+<span class="fc" id="L276">                    }</span>
+                } else { // x wasn't in convex c
+<span class="fc bfc" id="L278" title="All 2 branches covered.">                    if (y.getContent().getClass() == test.getClass()) { // y was in convex c</span>
+                        // x wasn't in c but y was
+<span class="fc" id="L280">                        Couple cY = (Couple) y.getContent();</span>
+<span class="pc bpc" id="L281" title="3 of 4 branches missed.">                        if (l.majorants(l.getNodeByContent(x.getContent())).contains(l.getNodeByContent(cY.getLeft()))</span>
+                                &amp;&amp; (((Integer) cY.getRight()).intValue() == 0)) {
+                                // x &lt; y in l and x &amp; second component of y is 0.
+<span class="nc" id="L284">                                doubled.addEdge(x, y);</span>
+                            }
+<span class="fc" id="L286">                    } else { // y wasn't in convex c</span>
+                        // x wasn't in c nor y
+<span class="pc bpc" id="L288" title="1 of 2 branches missed.">                        if (l.majorants(l.getNodeByContent(x.getContent())).contains(l.getNodeByContent(y.getContent()))) {</span>
+                                // x &lt; y in l and x &amp; second component of y is 0.
+<span class="nc" id="L290">                                doubled.addEdge(x, y);</span>
+                            }
+                    }
+                }
+<span class="fc" id="L294">            }</span>
+<span class="fc" id="L295">        }</span>
+<span class="fc" id="L296">        doubled.transitiveReduction();</span>
+<span class="fc" id="L297">        return doubled;</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.5.201403032054</span></div></body></html>
