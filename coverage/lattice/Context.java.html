@@ -271,12 +271,12 @@ public class Context extends ClosureSystem {
      */
     public static Context random(int nbObs, int nbGrp, int nbAttrPerGrp) {
 <span class="fc" id="L273">        Context ctx = new Context();</span>
-// Generates Observations.
-<span class="fc bfc" id="L275" title="All 2 branches covered.">         for (int i = 1; i &lt;= nbObs; i++) {</span>
+        // Generates Observations.
+<span class="fc bfc" id="L275" title="All 2 branches covered.">        for (int i = 1; i &lt;= nbObs; i++) {</span>
 <span class="fc" id="L276">            ctx.addToObservations(Integer.toString(i));</span>
-         }
-// Generates Attributes.
-<span class="fc bfc" id="L279" title="All 2 branches covered.">         for (int i = 1; i &lt;= nbGrp; i++) {</span>
+        }
+        // Generates Attributes.
+<span class="fc bfc" id="L279" title="All 2 branches covered.">        for (int i = 1; i &lt;= nbGrp; i++) {</span>
 <span class="fc bfc" id="L280" title="All 2 branches covered.">            for (int j = 1; j &lt;= nbAttrPerGrp; j++) {</span>
 <span class="fc" id="L281">                int q = i;</span>
 <span class="fc" id="L282">                int rem = 0;</span>
@@ -288,11 +288,11 @@ public class Context extends ClosureSystem {
 <span class="fc bfc" id="L288" title="All 2 branches covered.">                } while (q != 0);</span>
 <span class="fc" id="L289">                ctx.addToAttributes(name + Integer.toString(j)); // These names are cool ...</span>
             }
-         }
-      // Generates all requested observations.
-<span class="fc" id="L293">         Random r = new Random();</span>
-<span class="fc" id="L294">         int attr = r.nextInt(nbAttrPerGrp) + 1;</span>
-<span class="fc bfc" id="L295" title="All 2 branches covered.">         for (int i = 1; i &lt;= nbObs; i++) { // i : Observation</span>
+        }
+        // Generates all requested observations.
+<span class="fc" id="L293">        Random r = new Random();</span>
+<span class="fc" id="L294">        int attr = r.nextInt(nbAttrPerGrp) + 1;</span>
+<span class="fc bfc" id="L295" title="All 2 branches covered.">        for (int i = 1; i &lt;= nbObs; i++) { // i : Observation</span>
 <span class="fc bfc" id="L296" title="All 2 branches covered.">            for (int j = 1; j &lt;= nbGrp; j++) { // j : Familly</span>
 <span class="fc" id="L297">                int q = j;</span>
 <span class="fc" id="L298">                int rem = 0;</span>
@@ -306,9 +306,9 @@ public class Context extends ClosureSystem {
 <span class="fc" id="L306">               ctx.addExtentIntent(Integer.toString(i), name);</span>
 <span class="fc" id="L307">               attr = r.nextInt(nbAttrPerGrp) + 1;</span>
             }
-         }
-<span class="fc" id="L310">         ctx.setBitSets();</span>
-<span class="fc" id="L311">         return ctx;</span>
+        }
+<span class="fc" id="L310">        ctx.setBitSets();</span>
+<span class="fc" id="L311">        return ctx;</span>
     }
 
     /**

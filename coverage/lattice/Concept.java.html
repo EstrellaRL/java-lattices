@@ -512,68 +512,70 @@ public class Concept extends Node {
     return this.setA.compareTo(c.setA);
     }
     }*/
+
     /**
-* Computes the immediate successors of this component with the LOA algorithm.
-*
-* @param init context from which successor of this component are computed.
-*
-* @return immediate successors of this component.
-*/
-public ArrayList&lt;TreeSet&lt;Comparable&gt;&gt; immediateSuccessorsLOA(Context init) {
-<span class="fc" id="L523">        ArrayList&lt;TreeSet&lt;Comparable&gt;&gt; succB = new ArrayList();</span>
-<span class="fc" id="L524">        TreeSet&lt;Comparable&gt; attributes = (TreeSet&lt;Comparable&gt;) init.getSet().clone();</span>
-<span class="fc" id="L525">        attributes.removeAll(this.getSetA());</span>
+     * Computes the immediate successors of this component with the LOA algorithm.
+     *
+     * @param init context from which successor of this component are computed.
+     *
+     * @return immediate successors of this component.
+     */
+     public ArrayList&lt;TreeSet&lt;Comparable&gt;&gt; immediateSuccessorsLOA(Context init) {
+<span class="fc" id="L524">        ArrayList&lt;TreeSet&lt;Comparable&gt;&gt; succB = new ArrayList();</span>
+<span class="fc" id="L525">        TreeSet&lt;Comparable&gt; attributes = (TreeSet&lt;Comparable&gt;) init.getSet().clone();</span>
+<span class="fc" id="L526">        attributes.removeAll(this.getSetA());</span>
 
         boolean add;
-<span class="fc bfc" id="L528" title="All 2 branches covered.">        for (Comparable x : attributes) {</span>
-<span class="fc" id="L529">            add = true;</span>
-<span class="fc" id="L530">            Iterator it = succB.iterator();</span>
-<span class="fc bfc" id="L531" title="All 2 branches covered.">            while (it.hasNext()) {</span>
-<span class="fc" id="L532">                TreeSet tX = (TreeSet) it.next();</span>
-<span class="fc" id="L533">                TreeSet&lt;Comparable&gt; bx = (TreeSet&lt;Comparable&gt;) this.getSetA().clone();</span>
-<span class="fc" id="L534">                bx.add(x);</span>
-<span class="fc" id="L535">                TreeSet&lt;Comparable&gt; bX = (TreeSet&lt;Comparable&gt;) this.getSetA().clone();</span>
-<span class="fc" id="L536">                bX.addAll(tX);</span>
-<span class="fc" id="L537">                TreeSet&lt;Comparable&gt; bXx = (TreeSet&lt;Comparable&gt;) bX.clone();</span>
-<span class="fc" id="L538">                bXx.add(x);</span>
-<span class="fc" id="L539">                int cBx = count(init, bx);</span>
-<span class="fc" id="L540">                int cBX = count(init, bX);</span>
-<span class="fc" id="L541">                int cBXx = count(init, bXx);</span>
-<span class="fc bfc" id="L542" title="All 2 branches covered.">                if (cBx == cBX) { // Try to group tests by pairs.</span>
-<span class="pc bpc" id="L543" title="1 of 2 branches missed.">                    if (cBXx == cBx) {</span>
-<span class="nc" id="L544">                        it.remove(); // Update present potential successor.</span>
-<span class="nc" id="L545">                        TreeSet&lt;Comparable&gt; xX = new TreeSet();</span>
-<span class="nc" id="L546">                        xX.addAll(tX);</span>
-<span class="nc" id="L547">                        xX.add(x);</span>
-<span class="nc" id="L548">                        succB.add(xX);</span>
-<span class="nc" id="L549">                        add = false;</span>
-<span class="nc" id="L550">                        break;</span>
+<span class="fc bfc" id="L529" title="All 2 branches covered.">        for (Comparable x : attributes) {</span>
+<span class="fc" id="L530">            add = true;</span>
+<span class="fc" id="L531">            Iterator it = succB.iterator();</span>
+<span class="fc bfc" id="L532" title="All 2 branches covered.">            while (it.hasNext()) {</span>
+<span class="fc" id="L533">                TreeSet tX = (TreeSet) it.next();</span>
+<span class="fc" id="L534">                TreeSet&lt;Comparable&gt; bx = (TreeSet&lt;Comparable&gt;) this.getSetA().clone();</span>
+<span class="fc" id="L535">                bx.add(x);</span>
+<span class="fc" id="L536">                TreeSet&lt;Comparable&gt; bX = (TreeSet&lt;Comparable&gt;) this.getSetA().clone();</span>
+<span class="fc" id="L537">                bX.addAll(tX);</span>
+<span class="fc" id="L538">                TreeSet&lt;Comparable&gt; bXx = (TreeSet&lt;Comparable&gt;) bX.clone();</span>
+<span class="fc" id="L539">                bXx.add(x);</span>
+<span class="fc" id="L540">                int cBx = count(init, bx);</span>
+<span class="fc" id="L541">                int cBX = count(init, bX);</span>
+<span class="fc" id="L542">                int cBXx = count(init, bXx);</span>
+<span class="fc bfc" id="L543" title="All 2 branches covered.">                if (cBx == cBX) { // Try to group tests by pairs.</span>
+<span class="pc bpc" id="L544" title="1 of 2 branches missed.">                    if (cBXx == cBx) {</span>
+<span class="nc" id="L545">                        it.remove(); // Update present potential successor.</span>
+<span class="nc" id="L546">                        TreeSet&lt;Comparable&gt; xX = new TreeSet();</span>
+<span class="nc" id="L547">                        xX.addAll(tX);</span>
+<span class="nc" id="L548">                        xX.add(x);</span>
+<span class="nc" id="L549">                        succB.add(xX);</span>
+<span class="nc" id="L550">                        add = false;</span>
+<span class="nc" id="L551">                        break;</span>
                     }
                 }
-<span class="fc bfc" id="L553" title="All 2 branches covered.">                if (cBx &lt; cBX) {</span>
-<span class="fc bfc" id="L554" title="All 2 branches covered.">                    if (cBXx == cBx) {</span>
-<span class="fc" id="L555">                        add = false;</span>
-<span class="fc" id="L556">                        break;</span>
+<span class="fc bfc" id="L554" title="All 2 branches covered.">                if (cBx &lt; cBX) {</span>
+<span class="fc bfc" id="L555" title="All 2 branches covered.">                    if (cBXx == cBx) {</span>
+<span class="fc" id="L556">                        add = false;</span>
+<span class="fc" id="L557">                        break;</span>
                     }
                 }
-<span class="pc bpc" id="L559" title="1 of 2 branches missed.">                if (cBx &gt; cBX) {</span>
-<span class="nc bnc" id="L560" title="All 2 branches missed.">                    if (cBXx == cBX) {</span>
-<span class="nc" id="L561">                        it.remove();</span>
+<span class="pc bpc" id="L560" title="1 of 2 branches missed.">                if (cBx &gt; cBX) {</span>
+<span class="nc bnc" id="L561" title="All 2 branches missed.">                    if (cBXx == cBX) {</span>
+<span class="nc" id="L562">                        it.remove();</span>
                     }
                 }
-<span class="fc" id="L564">            }</span>
-<span class="fc bfc" id="L565" title="All 2 branches covered.">            if (add) {</span>
-<span class="fc" id="L566">                TreeSet&lt;Comparable&gt; t = new TreeSet();</span>
-<span class="fc" id="L567">                t.add(x);</span>
-<span class="fc" id="L568">                succB.add(new TreeSet(t));</span>
+<span class="fc" id="L565">            }</span>
+<span class="fc bfc" id="L566" title="All 2 branches covered.">            if (add) {</span>
+<span class="fc" id="L567">                TreeSet&lt;Comparable&gt; t = new TreeSet();</span>
+<span class="fc" id="L568">                t.add(x);</span>
+<span class="fc" id="L569">                succB.add(new TreeSet(t));</span>
             }
-<span class="fc" id="L570">        }</span>
-<span class="fc bfc" id="L571" title="All 2 branches covered.">        for (TreeSet t : succB) {</span>
-<span class="fc" id="L572">            t.addAll(this.getSetA());</span>
-<span class="fc" id="L573">        }</span>
-<span class="fc" id="L574">        return succB;</span>
+<span class="fc" id="L571">        }</span>
+<span class="fc bfc" id="L572" title="All 2 branches covered.">        for (TreeSet t : succB) {</span>
+<span class="fc" id="L573">            t.addAll(this.getSetA());</span>
+<span class="fc" id="L574">        }</span>
+<span class="fc" id="L575">        return succB;</span>
     }
-/**
+
+    /**
      * Returns the number of observations corresponding to the set of attributes in the init context.
      *
      * @param   init        initial context from which attributes are count.
@@ -582,7 +584,7 @@ public ArrayList&lt;TreeSet&lt;Comparable&gt;&gt; immediateSuccessorsLOA(Context
      * @return  number of observations corresponding to the set of attributes in init context.
      */
     private int count(Context init, TreeSet&lt;Comparable&gt; attributes) {
-<span class="fc" id="L585">        return init.getExtentNb(attributes);</span>
+<span class="fc" id="L587">        return init.getExtentNb(attributes);</span>
     }
 
     /**
@@ -611,113 +613,113 @@ public ArrayList&lt;TreeSet&lt;Comparable&gt;&gt; immediateSuccessorsLOA(Context
      */
     public ArrayList&lt;TreeSet&lt;Comparable&gt;&gt; immediateSuccessors(ClosureSystem init) {
         // Initialization of the dependance graph when not initialized by method recursiveDiagramLattice
-<span class="fc" id="L614">        DGraph dependanceGraph = null;</span>
-<span class="fc" id="L615">        dependanceGraph = new DGraph();</span>
-<span class="fc bfc" id="L616" title="All 2 branches covered.">        for (Comparable c : init.getSet()) {</span>
-<span class="fc" id="L617">            dependanceGraph.addNode(new Node(c));</span>
-<span class="fc" id="L618">        }</span>
+<span class="fc" id="L616">        DGraph dependanceGraph = null;</span>
+<span class="fc" id="L617">        dependanceGraph = new DGraph();</span>
+<span class="fc bfc" id="L618" title="All 2 branches covered.">        for (Comparable c : init.getSet()) {</span>
+<span class="fc" id="L619">            dependanceGraph.addNode(new Node(c));</span>
+<span class="fc" id="L620">        }</span>
         // computes newVal, the subset to be used to valuate every new dependance relation
         // newVal = F\predecessors of F in the precedence graph of the closure system
         // For a non reduced closure system, the precedence graph is not acyclic,
         // and therefore strongly connected components have to be used.
-<span class="fc" id="L623">        ComparableSet f = new ComparableSet(this.getSetA());</span>
-<span class="fc" id="L624">        long start = System.currentTimeMillis();</span>
-<span class="fc" id="L625">        System.out.print(&quot;Precedence graph... &quot;);</span>
-<span class="fc" id="L626">        DGraph prec = init.precedenceGraph();</span>
-<span class="fc" id="L627">        System.out.println(System.currentTimeMillis() - start + &quot;ms&quot;);</span>
-<span class="fc" id="L628">        start = System.currentTimeMillis();</span>
-<span class="fc" id="L629">        System.out.print(&quot;Srongly connected component... &quot;);</span>
-<span class="fc" id="L630">        DAGraph acyclPrec = prec.getStronglyConnectedComponent();</span>
-<span class="fc" id="L631">        System.out.println(System.currentTimeMillis() - start + &quot;ms&quot;);</span>
-<span class="fc" id="L632">        ComparableSet newVal = new ComparableSet();</span>
-<span class="fc" id="L633">        newVal.addAll(f);</span>
-<span class="fc bfc" id="L634" title="All 2 branches covered.">        for (Object x : f)  {</span>
+<span class="fc" id="L625">        ComparableSet f = new ComparableSet(this.getSetA());</span>
+<span class="fc" id="L626">        long start = System.currentTimeMillis();</span>
+<span class="fc" id="L627">        System.out.print(&quot;Precedence graph... &quot;);</span>
+<span class="fc" id="L628">        DGraph prec = init.precedenceGraph();</span>
+<span class="fc" id="L629">        System.out.println(System.currentTimeMillis() - start + &quot;ms&quot;);</span>
+<span class="fc" id="L630">        start = System.currentTimeMillis();</span>
+<span class="fc" id="L631">        System.out.print(&quot;Srongly connected component... &quot;);</span>
+<span class="fc" id="L632">        DAGraph acyclPrec = prec.getStronglyConnectedComponent();</span>
+<span class="fc" id="L633">        System.out.println(System.currentTimeMillis() - start + &quot;ms&quot;);</span>
+<span class="fc" id="L634">        ComparableSet newVal = new ComparableSet();</span>
+<span class="fc" id="L635">        newVal.addAll(f);</span>
+<span class="fc bfc" id="L636" title="All 2 branches covered.">        for (Object x : f)  {</span>
             // computes nx, the strongly connected component containing x
-<span class="fc" id="L636">            Node nx = null;</span>
-<span class="fc bfc" id="L637" title="All 2 branches covered.">            for (Node cc : acyclPrec.getNodes()) {</span>
-<span class="fc" id="L638">                TreeSet&lt;Node&gt; cC = (TreeSet&lt;Node&gt;) cc.getContent();</span>
-<span class="fc bfc" id="L639" title="All 2 branches covered.">                for (Node y : cC) {</span>
-<span class="fc bfc" id="L640" title="All 2 branches covered.">                    if (x.equals(y.getContent())) {</span>
-<span class="fc" id="L641">                        nx = cc;</span>
+<span class="fc" id="L638">            Node nx = null;</span>
+<span class="fc bfc" id="L639" title="All 2 branches covered.">            for (Node cc : acyclPrec.getNodes()) {</span>
+<span class="fc" id="L640">                TreeSet&lt;Node&gt; cC = (TreeSet&lt;Node&gt;) cc.getContent();</span>
+<span class="fc bfc" id="L641" title="All 2 branches covered.">                for (Node y : cC) {</span>
+<span class="fc bfc" id="L642" title="All 2 branches covered.">                    if (x.equals(y.getContent())) {</span>
+<span class="fc" id="L643">                        nx = cc;</span>
                     }
-<span class="fc" id="L643">                }</span>
-<span class="fc" id="L644">            }</span>
+<span class="fc" id="L645">                }</span>
+<span class="fc" id="L646">            }</span>
             // computes the minorants of nx in the acyclic graph
-<span class="fc" id="L646">            TreeSet&lt;Node&gt; ccMinNx = acyclPrec.minorants(nx);</span>
+<span class="fc" id="L648">            TreeSet&lt;Node&gt; ccMinNx = acyclPrec.minorants(nx);</span>
             // removes from newVal every minorants of nx
-<span class="pc bpc" id="L648" title="1 of 2 branches missed.">            for (Node cc : ccMinNx) {</span>
-<span class="nc" id="L649">                TreeSet&lt;Node&gt; cC = (TreeSet&lt;Node&gt;) cc.getContent();</span>
-<span class="nc bnc" id="L650" title="All 2 branches missed.">                for (Node y : cC) {</span>
-<span class="nc" id="L651">                    newVal.remove(y.getContent());</span>
-<span class="nc" id="L652">                }</span>
-<span class="nc" id="L653">            }</span>
-<span class="fc" id="L654">        }</span>
+<span class="pc bpc" id="L650" title="1 of 2 branches missed.">            for (Node cc : ccMinNx) {</span>
+<span class="nc" id="L651">                TreeSet&lt;Node&gt; cC = (TreeSet&lt;Node&gt;) cc.getContent();</span>
+<span class="nc bnc" id="L652" title="All 2 branches missed.">                for (Node y : cC) {</span>
+<span class="nc" id="L653">                    newVal.remove(y.getContent());</span>
+<span class="nc" id="L654">                }</span>
+<span class="nc" id="L655">            }</span>
+<span class="fc" id="L656">        }</span>
         // computes the node belonging in S\F
-<span class="fc" id="L656">        TreeSet&lt;Node&gt; n = new TreeSet&lt;Node&gt;();</span>
-<span class="fc bfc" id="L657" title="All 2 branches covered.">        for (Node in : dependanceGraph.getNodes()) {</span>
-<span class="fc bfc" id="L658" title="All 2 branches covered.">            if (!f.contains(in.getContent())) {</span>
-<span class="fc" id="L659">                n.add(in);</span>
+<span class="fc" id="L658">        TreeSet&lt;Node&gt; n = new TreeSet&lt;Node&gt;();</span>
+<span class="fc bfc" id="L659" title="All 2 branches covered.">        for (Node in : dependanceGraph.getNodes()) {</span>
+<span class="fc bfc" id="L660" title="All 2 branches covered.">            if (!f.contains(in.getContent())) {</span>
+<span class="fc" id="L661">                n.add(in);</span>
             }
-<span class="fc" id="L661">        }</span>
-<span class="fc" id="L662">        System.out.print(&quot;Dependance... &quot;);</span>
-<span class="fc" id="L663">        start = System.currentTimeMillis();</span>
+<span class="fc" id="L663">        }</span>
+<span class="fc" id="L664">        System.out.print(&quot;Dependance... &quot;);</span>
+<span class="fc" id="L665">        start = System.currentTimeMillis();</span>
         // computes the dependance relation between nodes in S\F
         // and valuated this relation by the subset of S\F
-<span class="fc" id="L666">        TreeSet&lt;Edge&gt; e = new TreeSet&lt;Edge&gt;();</span>
-<span class="fc bfc" id="L667" title="All 2 branches covered.">        for (Node from : n) {</span>
-<span class="fc bfc" id="L668" title="All 2 branches covered.">            for (Node to : n) {</span>
-<span class="fc bfc" id="L669" title="All 2 branches covered.">               if (!from.equals(to)) {</span>
+<span class="fc" id="L668">        TreeSet&lt;Edge&gt; e = new TreeSet&lt;Edge&gt;();</span>
+<span class="fc bfc" id="L669" title="All 2 branches covered.">        for (Node from : n) {</span>
+<span class="fc bfc" id="L670" title="All 2 branches covered.">            for (Node to : n) {</span>
+<span class="fc bfc" id="L671" title="All 2 branches covered.">               if (!from.equals(to)) {</span>
                 // check if from is in dependance relation with to
                 // i.e. &quot;from&quot; belongs to the closure of &quot;F+to&quot;
-<span class="fc" id="L672">                ComparableSet fPlusTo = new ComparableSet(f);</span>
-<span class="fc" id="L673">                fPlusTo.add(to.getContent());</span>
-<span class="fc" id="L674">                fPlusTo = new ComparableSet(init.closure(fPlusTo));</span>
-<span class="pc bpc" id="L675" title="1 of 2 branches missed.">                if (fPlusTo.contains(from.getContent())) {</span>
+<span class="fc" id="L674">                ComparableSet fPlusTo = new ComparableSet(f);</span>
+<span class="fc" id="L675">                fPlusTo.add(to.getContent());</span>
+<span class="fc" id="L676">                fPlusTo = new ComparableSet(init.closure(fPlusTo));</span>
+<span class="pc bpc" id="L677" title="1 of 2 branches missed.">                if (fPlusTo.contains(from.getContent())) {</span>
                     // there is a dependance relation between from and to
                     // search for an existing edge between from and to
-<span class="fc" id="L678">                    Edge ed = dependanceGraph.getEdge(from, to);</span>
-<span class="pc bpc" id="L679" title="1 of 2 branches missed.">                    if (ed == null) {</span>
-<span class="fc" id="L680">                        ed = new Edge(from, to, new TreeSet&lt;ComparableSet&gt;());</span>
-<span class="fc" id="L681">                        dependanceGraph.addEdge(ed);</span>
+<span class="fc" id="L680">                    Edge ed = dependanceGraph.getEdge(from, to);</span>
+<span class="pc bpc" id="L681" title="1 of 2 branches missed.">                    if (ed == null) {</span>
+<span class="fc" id="L682">                        ed = new Edge(from, to, new TreeSet&lt;ComparableSet&gt;());</span>
+<span class="fc" id="L683">                        dependanceGraph.addEdge(ed);</span>
                     }
-<span class="fc" id="L683">                    e.add(ed);</span>
+<span class="fc" id="L685">                    e.add(ed);</span>
                     // check if F is a minimal set closed for dependance relation between from and to
-<span class="fc" id="L685">                    ((TreeSet&lt;ComparableSet&gt;) ed.getContent()).add(newVal);</span>
-<span class="fc" id="L686">                    TreeSet&lt;ComparableSet&gt; valEd = new TreeSet&lt;ComparableSet&gt;((TreeSet&lt;ComparableSet&gt;) ed.getContent());</span>
-<span class="fc bfc" id="L687" title="All 2 branches covered.">                        for (ComparableSet x1 : valEd) {</span>
-<span class="pc bpc" id="L688" title="2 of 4 branches missed.">                            if (x1.containsAll(newVal) &amp;&amp; !newVal.containsAll(x1)) {</span>
-<span class="nc" id="L689">                                ((TreeSet&lt;ComparableSet&gt;) ed.getContent()).remove(x1);</span>
+<span class="fc" id="L687">                    ((TreeSet&lt;ComparableSet&gt;) ed.getContent()).add(newVal);</span>
+<span class="fc" id="L688">                    TreeSet&lt;ComparableSet&gt; valEd = new TreeSet&lt;ComparableSet&gt;((TreeSet&lt;ComparableSet&gt;) ed.getContent());</span>
+<span class="fc bfc" id="L689" title="All 2 branches covered.">                        for (ComparableSet x1 : valEd) {</span>
+<span class="pc bpc" id="L690" title="2 of 4 branches missed.">                            if (x1.containsAll(newVal) &amp;&amp; !newVal.containsAll(x1)) {</span>
+<span class="nc" id="L691">                                ((TreeSet&lt;ComparableSet&gt;) ed.getContent()).remove(x1);</span>
                             }
-<span class="pc bpc" id="L691" title="3 of 4 branches missed.">                            if (!x1.containsAll(newVal) &amp;&amp; newVal.containsAll(x1)) {</span>
-<span class="nc" id="L692">                                ((TreeSet&lt;ComparableSet&gt;) ed.getContent()).remove(newVal);</span>
+<span class="pc bpc" id="L693" title="3 of 4 branches missed.">                            if (!x1.containsAll(newVal) &amp;&amp; newVal.containsAll(x1)) {</span>
+<span class="nc" id="L694">                                ((TreeSet&lt;ComparableSet&gt;) ed.getContent()).remove(newVal);</span>
                             }
-<span class="fc" id="L694">                        }</span>
+<span class="fc" id="L696">                        }</span>
                     }
                 }
-<span class="fc" id="L697">            }</span>
-<span class="fc" id="L698">        }</span>
-<span class="fc" id="L699">        System.out.println(System.currentTimeMillis() - start + &quot;ms&quot;);</span>
-<span class="fc" id="L700">        System.out.print(&quot;Subgraph... &quot;);</span>
-<span class="fc" id="L701">        start = System.currentTimeMillis();</span>
+<span class="fc" id="L699">            }</span>
+<span class="fc" id="L700">        }</span>
+<span class="fc" id="L701">        System.out.println(System.currentTimeMillis() - start + &quot;ms&quot;);</span>
+<span class="fc" id="L702">        System.out.print(&quot;Subgraph... &quot;);</span>
+<span class="fc" id="L703">        start = System.currentTimeMillis();</span>
         // computes the dependance subgraph of the closed set F as the reduction
         // of the dependance graph composed of nodes in S\A and edges of the dependance relation
-<span class="fc" id="L704">        DGraph sub = dependanceGraph.getSubgraphByNodes(n);</span>
-<span class="fc" id="L705">        DGraph delta = sub.getSubgraphByEdges(e);</span>
+<span class="fc" id="L706">        DGraph sub = dependanceGraph.getSubgraphByNodes(n);</span>
+<span class="fc" id="L707">        DGraph delta = sub.getSubgraphByEdges(e);</span>
         // computes the sources of the CFC of the dependance subgraph
         // that corresponds to successors of the closed set F
-<span class="fc" id="L708">        DAGraph cfc = delta.getStronglyConnectedComponent();</span>
-<span class="fc" id="L709">        TreeSet&lt;Node&gt; sccmin = cfc.getSinks();</span>
-<span class="fc" id="L710">        System.out.println(System.currentTimeMillis() - start + &quot;ms&quot;);</span>
-<span class="fc" id="L711">        ArrayList&lt;TreeSet&lt;Comparable&gt;&gt; immSucc = new ArrayList&lt;TreeSet&lt;Comparable&gt;&gt;();</span>
-<span class="fc bfc" id="L712" title="All 2 branches covered.">        for (Node n1 : sccmin) {</span>
-<span class="fc" id="L713">            TreeSet s = new TreeSet(f);</span>
-<span class="fc" id="L714">            TreeSet&lt;Node&gt; toadd = (TreeSet&lt;Node&gt;) n1.getContent();</span>
-<span class="fc bfc" id="L715" title="All 2 branches covered.">            for (Node n2 : toadd) {</span>
-<span class="fc" id="L716">                s.add(n2.getContent());</span>
-<span class="fc" id="L717">            }</span>
-<span class="fc" id="L718">            immSucc.add(s);</span>
-<span class="fc" id="L719">        }</span>
-<span class="fc" id="L720">        return immSucc;</span>
+<span class="fc" id="L710">        DAGraph cfc = delta.getStronglyConnectedComponent();</span>
+<span class="fc" id="L711">        TreeSet&lt;Node&gt; sccmin = cfc.getSinks();</span>
+<span class="fc" id="L712">        System.out.println(System.currentTimeMillis() - start + &quot;ms&quot;);</span>
+<span class="fc" id="L713">        ArrayList&lt;TreeSet&lt;Comparable&gt;&gt; immSucc = new ArrayList&lt;TreeSet&lt;Comparable&gt;&gt;();</span>
+<span class="fc bfc" id="L714" title="All 2 branches covered.">        for (Node n1 : sccmin) {</span>
+<span class="fc" id="L715">            TreeSet s = new TreeSet(f);</span>
+<span class="fc" id="L716">            TreeSet&lt;Node&gt; toadd = (TreeSet&lt;Node&gt;) n1.getContent();</span>
+<span class="fc bfc" id="L717" title="All 2 branches covered.">            for (Node n2 : toadd) {</span>
+<span class="fc" id="L718">                s.add(n2.getContent());</span>
+<span class="fc" id="L719">            }</span>
+<span class="fc" id="L720">            immSucc.add(s);</span>
+<span class="fc" id="L721">        }</span>
+<span class="fc" id="L722">        return immSucc;</span>
     }
 }
 

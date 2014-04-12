@@ -40,6 +40,7 @@ public class Permutation {
      * This component is a permutation of 0..length-1.
      */
     private int length;
+
     /**
      * The transformation represented by this component.
      *
@@ -53,90 +54,99 @@ public class Permutation {
      * ~~~
      */
     private int[] content;
+
     /**
      * Constructs identity of the set 0..n-1.
      *
-     * @param n permutation of the set 0..n-1.
+     * @param   n  permutation of the set 0..n-1.
      */
-<span class="fc" id="L61">    public Permutation(int n) {</span>
-<span class="fc" id="L62">        this.length = n;</span>
-<span class="fc" id="L63">        this.content = new int[n];</span>
-<span class="fc bfc" id="L64" title="All 2 branches covered.">        for (int i = 0; i &lt; n; i++) {</span>
-<span class="fc" id="L65">            this.content[i] = i;</span>
+<span class="fc" id="L63">    public Permutation(int n) {</span>
+<span class="fc" id="L64">        this.length = n;</span>
+<span class="fc" id="L65">        this.content = new int[n];</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">        for (int i = 0; i &lt; n; i++) {</span>
+<span class="fc" id="L67">            this.content[i] = i;</span>
         }
-<span class="fc" id="L67">    }</span>
+<span class="fc" id="L69">    }</span>
+
     /**
      * Returns the transformation coded by this component.
      *
-     * @return the transformation coded by this component.
+     * @return  the transformation coded by this component.
      */
     public int[] getContent() {
-<span class="fc" id="L74">        return this.content;</span>
+<span class="fc" id="L77">        return this.content;</span>
     }
+
     /**
      * Set the transformation coded by this component.
      *
      * Length of this component is update by this method.
      *
-     * @param c the transformation coded in this component.
+     * @param   c  the transformation coded in this component.
      */
     public void setContent(int[] c) {
-<span class="fc" id="L84">        this.content = c;</span>
-<span class="fc" id="L85">        this.length = c.length;</span>
-<span class="fc" id="L86">    }</span>
+<span class="fc" id="L88">        this.content = c;</span>
+<span class="fc" id="L89">        this.length = c.length;</span>
+<span class="fc" id="L90">    }</span>
+
     /**
      * Return length of this component.
      *
-     * @return length of this component.
+     * @return  length of this component.
      */
     public int getLength() {
-<span class="fc" id="L93">        return this.length;</span>
+<span class="fc" id="L98">        return this.length;</span>
     }
+
     /**
      * Set length of this componenet.
      *
-     * @param l length of this component.
+     * @param   l  length of this component.
      *
-     * @return true if update is successful.
+     * @return  true if update is successful.
      */
     public boolean setLength(int l) {
-<span class="pc bpc" id="L103" title="1 of 4 branches missed.">        if ((this.content.length == l) &amp;&amp; (l &lt;= this.getLength())) {</span>
-<span class="fc" id="L104">            this.length = l;</span>
-<span class="fc" id="L105">            return true;</span>
+<span class="pc bpc" id="L109" title="1 of 4 branches missed.">        if ((this.content.length == l) &amp;&amp; (l &lt;= this.getLength())) {</span>
+<span class="fc" id="L110">            this.length = l;</span>
+<span class="fc" id="L111">            return true;</span>
         } else {
-<span class="fc" id="L107">            return false;</span>
+<span class="fc" id="L113">            return false;</span>
         }
     }
+
     /**
      * Returns a string representation of this component.
      *
-     * @return a string representation of this component.
+     * @return  a string representation of this component.
      */
     @Override
     public String toString() {
-<span class="fc" id="L117">        String str = &quot;&quot;;</span>
-<span class="fc bfc" id="L118" title="All 2 branches covered.">        for (int i = 0; i &lt; this.length; i++) {</span>
-<span class="fc" id="L119">            str = str + this.content[i];</span>
+<span class="fc" id="L124">        String str = &quot;&quot;;</span>
+<span class="fc bfc" id="L125" title="All 2 branches covered.">        for (int i = 0; i &lt; this.length; i++) {</span>
+<span class="fc" id="L126">            str = str + this.content[i];</span>
         }
-<span class="fc" id="L121">        return str;</span>
+<span class="fc" id="L128">        return str;</span>
     }
+
     /**
      * Returns true if this component is equal to s.
      *
-     * @param s test if this component is equal to s
-     * @return true if this component is equal to s
+     * @param   s  test if this component is equal to s
+     *
+     * @return  true if this component is equal to s
      */
     public boolean equals(Permutation s) {
-<span class="pc bpc" id="L130" title="1 of 2 branches missed.">        if (!(s.getLength() == this.length)) {</span>
-<span class="nc" id="L131">            return false;</span>
+<span class="pc bpc" id="L139" title="1 of 2 branches missed.">        if (!(s.getLength() == this.length)) {</span>
+<span class="nc" id="L140">            return false;</span>
         } else {
-<span class="fc" id="L133">            boolean tmp = true;</span>
-<span class="fc bfc" id="L134" title="All 2 branches covered.">            for (int i = 0; i &lt; this.length; i++) {</span>
-<span class="fc bfc" id="L135" title="All 4 branches covered.">                tmp = tmp &amp;&amp; (this.content[i] == s.getContent()[i]);</span>
+<span class="fc" id="L142">            boolean tmp = true;</span>
+<span class="fc bfc" id="L143" title="All 2 branches covered.">            for (int i = 0; i &lt; this.length; i++) {</span>
+<span class="fc bfc" id="L144" title="All 4 branches covered.">                tmp = tmp &amp;&amp; (this.content[i] == s.getContent()[i]);</span>
             }
-<span class="fc" id="L137">            return tmp;</span>
+<span class="fc" id="L146">            return tmp;</span>
         }
     }
+
     /**
      * Compute the hash code.
      *
@@ -144,7 +154,7 @@ public class Permutation {
      */
     @Override
     public int hashCode() {
-<span class="fc" id="L147">        return super.hashCode();</span>
+<span class="fc" id="L157">        return super.hashCode();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.5.201403032054</span></div></body></html>
