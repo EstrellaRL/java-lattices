@@ -64,7 +64,7 @@ public class LatticeFactory {
 <span class="fc" id="L64">                    tmp.addEdge(bot, n);</span>
                 }
 <span class="fc" id="L66">            }</span>
-<span class="pc bpc" id="L67" title="1 of 2 branches missed.">            if (tmp.isLattice()) {</span>
+<span class="fc bfc" id="L67" title="All 2 branches covered.">            if (tmp.isLattice()) {</span>
 <span class="fc" id="L68">                done = true;</span>
 <span class="fc" id="L69">                l = tmp;</span>
             }
@@ -279,7 +279,7 @@ public class LatticeFactory {
 <span class="fc" id="L279">                    } else { // y wasn't in convex c</span>
                         // x was in c &amp; y wasn't
 <span class="fc" id="L281">                        Couple cX = (Couple) x.getContent();</span>
-<span class="pc bpc" id="L282" title="1 of 4 branches missed.">                        if (l.majorants(l.getNodeByContent(cX.getLeft())).contains(l.getNodeByContent(y.getContent()))</span>
+<span class="fc bfc" id="L282" title="All 4 branches covered.">                        if (l.majorants(l.getNodeByContent(cX.getLeft())).contains(l.getNodeByContent(y.getContent()))</span>
                                 &amp;&amp; (((Integer) cX.getRight()).intValue() == 1)) {
                             // x &lt; y in l and second component of x is 1.
 <span class="fc" id="L285">                            doubled.addEdge(x, y);</span>
@@ -289,16 +289,16 @@ public class LatticeFactory {
 <span class="fc bfc" id="L289" title="All 2 branches covered.">                    if (y.getContent().getClass() == test.getClass()) { // y was in convex c</span>
                         // x wasn't in c but y was
 <span class="fc" id="L291">                        Couple cY = (Couple) y.getContent();</span>
-<span class="pc bpc" id="L292" title="3 of 4 branches missed.">                        if (l.majorants(l.getNodeByContent(x.getContent())).contains(l.getNodeByContent(cY.getLeft()))</span>
+<span class="fc bfc" id="L292" title="All 4 branches covered.">                        if (l.majorants(l.getNodeByContent(x.getContent())).contains(l.getNodeByContent(cY.getLeft()))</span>
                                 &amp;&amp; (((Integer) cY.getRight()).intValue() == 0)) {
                                 // x &lt; y in l and x &amp; second component of y is 0.
-<span class="nc" id="L295">                                doubled.addEdge(x, y);</span>
+<span class="fc" id="L295">                                doubled.addEdge(x, y);</span>
                             }
 <span class="fc" id="L297">                    } else { // y wasn't in convex c</span>
                         // x wasn't in c nor y
-<span class="pc bpc" id="L299" title="1 of 2 branches missed.">                        if (l.majorants(l.getNodeByContent(x.getContent())).contains(l.getNodeByContent(y.getContent()))) {</span>
+<span class="fc bfc" id="L299" title="All 2 branches covered.">                        if (l.majorants(l.getNodeByContent(x.getContent())).contains(l.getNodeByContent(y.getContent()))) {</span>
                                 // x &lt; y in l and x &amp; second component of y is 0.
-<span class="nc" id="L301">                                doubled.addEdge(x, y);</span>
+<span class="fc" id="L301">                                doubled.addEdge(x, y);</span>
                             }
                     }
                 }
