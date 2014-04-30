@@ -1136,5 +1136,14 @@ public class Context extends ClosureSystem {
 <span class="fc" id="L1136">        }</span>
 <span class="fc" id="L1137">        return csl;</span>
     }
+
+    /**
+     * Returns the lattice of this component.
+     *
+     * @return  The lattice induced by this component
+     */
+    public ConceptLattice lattice() {
+<span class="fc" id="L1146">        return this.conceptLattice(true);</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.0.201403182114</span></div></body></html>
