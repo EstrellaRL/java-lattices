@@ -291,19 +291,19 @@ import dgraph.Node;
 <span class="fc bfc" id="L291" title="All 2 branches covered.">        for (Node x : remainingNodes) {</span>
 <span class="fc" id="L292">            TreeSet&lt;Node&gt; predecessors = graph.getPredecessorNodes(x);</span>
 <span class="fc" id="L293">            predecessors.removeAll(rubbishBin);</span>
-<span class="pc bpc" id="L294" title="1 of 2 branches missed.">            if (predecessors.size() &gt; 1) {</span>
+<span class="fc bfc" id="L294" title="All 2 branches covered.">            if (predecessors.size() &gt; 1) {</span>
                 // Create the closure of x
-<span class="nc" id="L296">                TreeSet set = new TreeSet();</span>
-<span class="nc" id="L297">                set.add(x.getContent());</span>
-<span class="nc" id="L298">                TreeSet closureSet = this.closure(set);</span>
+<span class="fc" id="L296">                TreeSet set = new TreeSet();</span>
+<span class="fc" id="L297">                set.add(x.getContent());</span>
+<span class="fc" id="L298">                TreeSet closureSet = this.closure(set);</span>
                 // Create the closure of predecessors
-<span class="nc" id="L300">                TreeSet&lt;Comparable&gt; pred = new TreeSet&lt;Comparable&gt;();</span>
-<span class="nc bnc" id="L301" title="All 2 branches missed.">                for (Node n : predecessors) {</span>
-<span class="nc" id="L302">                    pred.add((Comparable) n.getContent());</span>
-<span class="nc" id="L303">                }</span>
-<span class="nc" id="L304">                TreeSet&lt;Comparable&gt; closureP = this.closure(pred);</span>
+<span class="fc" id="L300">                TreeSet&lt;Comparable&gt; pred = new TreeSet&lt;Comparable&gt;();</span>
+<span class="fc bfc" id="L301" title="All 2 branches covered.">                for (Node n : predecessors) {</span>
+<span class="fc" id="L302">                    pred.add((Comparable) n.getContent());</span>
+<span class="fc" id="L303">                }</span>
+<span class="fc" id="L304">                TreeSet&lt;Comparable&gt; closureP = this.closure(pred);</span>
                 // Check the equality of two closures
-<span class="nc bnc" id="L306" title="All 4 branches missed.">                if (closureSet.containsAll(closureP) &amp;&amp; closureP.containsAll(closureSet)) {</span>
+<span class="pc bpc" id="L306" title="2 of 4 branches missed.">                if (closureSet.containsAll(closureP) &amp;&amp; closureP.containsAll(closureSet)) {</span>
 <span class="nc" id="L307">                    red.put(x.getContent(), pred);</span>
                 }
             }
