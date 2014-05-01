@@ -1012,10 +1012,10 @@ public class ImplicationalSystem extends ClosureSystem {
                 }
                 // replace the rule if modified
 <span class="fc bfc" id="L1014" title="All 2 branches covered.">                if (modif) {</span>
-<span class="fc bfc" id="L1015" title="All 2 branches covered.">                    if (truth.containsAll(r2.getConclusion())) {</span>
+<span class="pc bpc" id="L1015" title="1 of 2 branches missed.">                    if (truth.containsAll(r2.getConclusion())) {</span>
 <span class="fc" id="L1016">                        this.removeRule(r); // Conclusions of this rule are always true, thus the rule is useless</span>
                     } else {
-<span class="fc" id="L1018">                        this.replaceRule(r, r2);</span>
+<span class="nc" id="L1018">                        this.replaceRule(r, r2);</span>
                     }
                 } else {
 <span class="fc bfc" id="L1021" title="All 2 branches covered.">                    if (truth.containsAll(r.getConclusion())) {</span>

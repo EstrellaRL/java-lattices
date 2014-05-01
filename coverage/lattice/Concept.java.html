@@ -444,23 +444,23 @@ public class Concept extends Node {
      * @return  the dot description of this component in a String.
      */
     public String toDot() {
-<span class="fc" id="L447">        String s = this.getIdentifier() + &quot; [label=\&quot; &quot;;</span>
-<span class="fc" id="L448">        String tmp = &quot;&quot;;</span>
-<span class="pc bpc" id="L449" title="1 of 2 branches missed.">        if (this.hasSetA()) {</span>
-<span class="fc" id="L450">            tmp += this.setA;</span>
+<span class="nc" id="L447">        String s = this.getIdentifier() + &quot; [label=\&quot; &quot;;</span>
+<span class="nc" id="L448">        String tmp = &quot;&quot;;</span>
+<span class="nc bnc" id="L449" title="All 2 branches missed.">        if (this.hasSetA()) {</span>
+<span class="nc" id="L450">            tmp += this.setA;</span>
         }
-<span class="pc bpc" id="L452" title="2 of 4 branches missed.">        if (this.hasSetA() &amp;&amp; this.hasSetB()) {</span>
+<span class="nc bnc" id="L452" title="All 4 branches missed.">        if (this.hasSetA() &amp;&amp; this.hasSetB()) {</span>
 <span class="nc" id="L453">            tmp += &quot;\\n&quot;;</span>
         }
-<span class="pc bpc" id="L455" title="1 of 2 branches missed.">        if (this.hasSetB()) {</span>
+<span class="nc bnc" id="L455" title="All 2 branches missed.">        if (this.hasSetB()) {</span>
 <span class="nc" id="L456">            tmp += this.setB;</span>
         }
-<span class="fc" id="L458">        StringTokenizer st = new StringTokenizer(tmp, &quot;\&quot;&quot;);</span>
-<span class="fc bfc" id="L459" title="All 2 branches covered.">        while (st.hasMoreTokens()) {</span>
-<span class="fc" id="L460">            s += st.nextToken();</span>
+<span class="nc" id="L458">        StringTokenizer st = new StringTokenizer(tmp, &quot;\&quot;&quot;);</span>
+<span class="nc bnc" id="L459" title="All 2 branches missed.">        while (st.hasMoreTokens()) {</span>
+<span class="nc" id="L460">            s += st.nextToken();</span>
         }
-<span class="fc" id="L462">        s += &quot;\&quot;]&quot;;</span>
-<span class="fc" id="L463">        return s;</span>
+<span class="nc" id="L462">        s += &quot;\&quot;]&quot;;</span>
+<span class="nc" id="L463">        return s;</span>
     }
 
     /**

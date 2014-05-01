@@ -141,21 +141,6 @@ public class Node implements Comparable&lt;Object&gt; {
 <span class="fc" id="L141">        return string;</span>
     }
 
-    /**
-     * Returns the dot description of this node in a String.
-     *
-     * @return  the dot description
-     */
-    public String toDot() {
-<span class="fc" id="L150">        String dot = this.identifier + &quot; [label=\&quot;&quot;;</span>
-<span class="fc" id="L151">        StringTokenizer tokenizer = new StringTokenizer(this.toString(), &quot;\&quot;&quot;);</span>
-<span class="fc bfc" id="L152" title="All 2 branches covered.">        while (tokenizer.hasMoreTokens()) {</span>
-<span class="fc" id="L153">            dot += tokenizer.nextToken();</span>
-        }
-<span class="fc" id="L155">        dot += &quot;\&quot;]&quot;;</span>
-<span class="fc" id="L156">        return dot;</span>
-    }
-
     /* --------------- OVERLAPPING METHODS ------------ */
 
     /**
@@ -164,7 +149,7 @@ public class Node implements Comparable&lt;Object&gt; {
      * @return  a clone of this node
      */
     public Node copy() {
-<span class="fc" id="L167">        return new Node(this.content);</span>
+<span class="fc" id="L152">        return new Node(this.content);</span>
     }
 
     /**
@@ -175,11 +160,11 @@ public class Node implements Comparable&lt;Object&gt; {
      * @return  true or false as this node is equal to the specified object.
      */
     public boolean equals(final Object object) {
-<span class="fc bfc" id="L178" title="All 2 branches covered.">        if (!(object instanceof Node)) {</span>
-<span class="fc" id="L179">            return false;</span>
+<span class="fc bfc" id="L163" title="All 2 branches covered.">        if (!(object instanceof Node)) {</span>
+<span class="fc" id="L164">            return false;</span>
         }
-<span class="fc" id="L181">        Node node = (Node) object;</span>
-<span class="fc bfc" id="L182" title="All 2 branches covered.">        return this.identifier == node.identifier;</span>
+<span class="fc" id="L166">        Node node = (Node) object;</span>
+<span class="fc bfc" id="L167" title="All 2 branches covered.">        return this.identifier == node.identifier;</span>
     }
 
     /**
@@ -188,7 +173,7 @@ public class Node implements Comparable&lt;Object&gt; {
      * @return  an integer representing the object
      */
     public int hashCode() {
-<span class="fc" id="L191">        return this.identifier;</span>
+<span class="fc" id="L176">        return this.identifier;</span>
     }
 
    /**
@@ -203,16 +188,16 @@ public class Node implements Comparable&lt;Object&gt; {
     * @return  a negative integer, zero, or a positive integer as this node is less than, equal to, or greater than the specified object.
     */
     public int compareTo(final Object object) {
-<span class="pc bpc" id="L206" title="1 of 2 branches missed.">        if (!(object instanceof Node)) {</span>
-<span class="nc" id="L207">            return -1;</span>
+<span class="pc bpc" id="L191" title="1 of 2 branches missed.">        if (!(object instanceof Node)) {</span>
+<span class="nc" id="L192">            return -1;</span>
         }
-<span class="fc" id="L209">        int id = ((Node) object).identifier;</span>
-<span class="fc bfc" id="L210" title="All 2 branches covered.">        if (this.identifier &gt; id) {</span>
-<span class="fc" id="L211">            return 1;</span>
-<span class="fc bfc" id="L212" title="All 2 branches covered.">        } else if (this.identifier == id) {</span>
-<span class="fc" id="L213">            return 0;</span>
+<span class="fc" id="L194">        int id = ((Node) object).identifier;</span>
+<span class="fc bfc" id="L195" title="All 2 branches covered.">        if (this.identifier &gt; id) {</span>
+<span class="fc" id="L196">            return 1;</span>
+<span class="fc bfc" id="L197" title="All 2 branches covered.">        } else if (this.identifier == id) {</span>
+<span class="fc" id="L198">            return 0;</span>
         } else {
-<span class="fc" id="L215">            return -1;</span>
+<span class="fc" id="L200">            return -1;</span>
         }
     }
 }
