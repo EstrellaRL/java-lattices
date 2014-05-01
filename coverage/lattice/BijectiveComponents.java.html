@@ -199,35 +199,35 @@ public class BijectiveComponents {
 <span class="fc" id="L199">        BufferedWriter file = new BufferedWriter(new FileWriter(directory + &quot;Readme.txt&quot;));</span>
         // saves the inital closure system
 <span class="fc" id="L201">        String nameInit = directory + &quot;InitialClosureSystem.txt&quot;;</span>
-<span class="fc" id="L202">        this.init.toFile(nameInit);</span>
+<span class="fc" id="L202">        this.init.save(nameInit);</span>
 <span class="fc" id="L203">        file.write(&quot;-&gt; Initial closure system saved in &quot; + nameInit + &quot;: \n&quot;);</span>
 <span class="fc" id="L204">        file.write(this.init.toString() + &quot;\n&quot;);</span>
         // saves the closed set lattice
 <span class="fc" id="L206">        String nameLattice = directory + &quot;Lattice.dot&quot;;</span>
-<span class="fc" id="L207">        this.lattice.write(nameLattice);</span>
+<span class="fc" id="L207">        this.lattice.save(nameLattice);</span>
 <span class="fc" id="L208">        file.write(&quot;-&gt; Closed set or concept lattice saved in &quot; + nameLattice + &quot;\n&quot;);</span>
         // saves the reduced lattice
 <span class="fc" id="L210">        String nameReducedLattice = directory + &quot;ReducedLattice.dot&quot;;</span>
-<span class="fc" id="L211">        this.reducedLattice.write(nameReducedLattice);</span>
+<span class="fc" id="L211">        this.reducedLattice.save(nameReducedLattice);</span>
 <span class="fc" id="L212">        file.write(&quot;-&gt; Reduced lattice saved in &quot; + nameReducedLattice + &quot;\n&quot;);</span>
         // saves the reduced table
 <span class="fc" id="L214">        String nameTable = directory + &quot;Table.txt&quot;;</span>
-<span class="fc" id="L215">        this.table.toFile(nameTable);</span>
+<span class="fc" id="L215">        this.table.save(nameTable);</span>
 <span class="fc" id="L216">        file.write(&quot;-&gt; Table of the reduced lattice saved in &quot; + nameTable + &quot;\n&quot;);</span>
 <span class="fc" id="L217">        file.write(this.table.toString() + &quot;\n&quot;);</span>
         // saves the canonical basis
 <span class="fc" id="L219">        String nameCB = directory + &quot;CanonicalBasis.txt&quot;;</span>
-<span class="fc" id="L220">        this.canonicalBasis.toFile(nameCB);</span>
+<span class="fc" id="L220">        this.canonicalBasis.save(nameCB);</span>
 <span class="fc" id="L221">        file.write(&quot;-&gt; Canonical basis saved in &quot; + nameCB + &quot;: \n&quot;);</span>
 <span class="fc" id="L222">        file.write(this.canonicalBasis.toString() + &quot;\n&quot;);</span>
         // saves the canonical direct basis
 <span class="fc" id="L224">        String nameCDB = directory + &quot;CanonicalDirectBasis.txt&quot;;</span>
-<span class="fc" id="L225">        this.canonicalDirectBasis.toFile(nameCDB);</span>
+<span class="fc" id="L225">        this.canonicalDirectBasis.save(nameCDB);</span>
 <span class="fc" id="L226">        file.write(&quot;-&gt; Canonical direct basis of the reduced lattice saved in &quot; + nameCDB + &quot;: \n&quot;);</span>
 <span class="fc" id="L227">        file.write(this.canonicalDirectBasis.toString() + &quot;\n&quot;);</span>
         // saves the dependency graph
 <span class="fc" id="L229">        String nameODGraph = directory + &quot;DependencyGraph.dot&quot;;</span>
-<span class="fc" id="L230">        this.dependencyGraph.write(nameODGraph);</span>
+<span class="fc" id="L230">        this.dependencyGraph.save(nameODGraph);</span>
 <span class="fc" id="L231">        file.write(&quot;-&gt; Dependency Graph  of the reduced lattice saved in &quot; + nameODGraph + &quot; \n&quot;);</span>
         // saves the minimal generators
 <span class="fc" id="L233">        file.write(&quot;-&gt; Minimal generators  of the reduced lattice are &quot; + this.minimalGenerators + &quot;\n&quot;);</span>

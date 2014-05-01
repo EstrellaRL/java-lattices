@@ -14,8 +14,8 @@
  * @version 2014
  */
 
-import java.io.DataOutputStream;
-import java.io.FileOutputStream;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.ArrayList;
@@ -431,21 +431,21 @@ public class DGraph {
     }
 
     /**
-     * Write the description of this component in a file whose name is specified.
+     * Save the description of this component in a file whose name is specified.
      *
      * @param   filename  the name of the file
      *
      * @throws  IOException  When an IOException occurs
      */
-    public void write(final String filename) throws IOException {
+    public void save(final String filename) throws IOException {
 <span class="fc" id="L441">        String extension = &quot;&quot;;</span>
 <span class="fc" id="L442">        int index = filename.lastIndexOf('.');</span>
 <span class="pc bpc" id="L443" title="1 of 2 branches missed.">        if (index &gt; 0) {</span>
 <span class="fc" id="L444">            extension = filename.substring(index + 1);</span>
         }
-<span class="fc" id="L446">        DataOutputStream out = new DataOutputStream(new FileOutputStream(filename));</span>
-<span class="fc" id="L447">        DGraphWriterFactory.get(extension).write(this, out);</span>
-<span class="fc" id="L448">        out.close();</span>
+<span class="fc" id="L446">        BufferedWriter file = new BufferedWriter(new FileWriter(filename));</span>
+<span class="fc" id="L447">        DGraphWriterFactory.get(extension).write(this, file);</span>
+<span class="fc" id="L448">        file.close();</span>
 <span class="fc" id="L449">    }</span>
 
     /* --------------- NODES AND EDGES MODIFICATION METHODS ------------ */

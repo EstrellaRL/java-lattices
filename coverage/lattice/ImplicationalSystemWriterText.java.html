@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ImplicationalSystemWriterText.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Java Lattices</a> &gt; <a href="index.source.html" class="el_package">lattice</a> &gt; <span class="el_source">ImplicationalSystemWriterText.java</span></div><h1>ImplicationalSystemWriterText.java</h1><pre class="source lang-java linenums">package lattice;
+
+/*
+ * ImplicationalSystemWriterText.java
+ *
+ * Copyright: 2013 Karell Bertet, France
+ *
+ * License: http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html CeCILL-B license
+ *
+ * This file is part of lattice, free package. You can redistribute it and/or modify
+ * it under the terms of CeCILL-B license.
+ *
+ * @author Karell Bertet
+ * @version 2014
+ */
+
+import java.io.BufferedWriter;
+import java.io.IOException;
+
+/**
+ * This class defines the way for writing an implicational system as a text file.
+ *
+ * ![ImplicationalSystemWriterText](ImplicationalSystemWriterText.png)
+ *
+ * @uml ImplicationalSystemWriterText.png
+ * !include src/lattice/ImplicationalSystemWriterText.iuml
+ * !include src/lattice/ImplicationalSystemWriter.iuml
+ *
+ * hide members
+ * show ImplicationalSystemWriterText members
+ * class ImplicationalSystemWriterText #LightCyan
+ * title ImplicationalSystemWriterText UML graph
+ */
+<span class="fc" id="L34">public final class ImplicationalSystemWriterText implements ImplicationalSystemWriter {</span>
+    /**
+     * The singleton instance.
+     */
+<span class="fc" id="L38">    private static ImplicationalSystemWriterText instance = null;</span>
+
+    /**
+     * Return the singleton instance of this class.
+     *
+     * @return  the singleton instance
+     */
+    public static ImplicationalSystemWriterText getInstance() {
+<span class="pc bpc" id="L46" title="1 of 2 branches missed.">        if (instance == null) {</span>
+<span class="fc" id="L47">            instance = new ImplicationalSystemWriterText();</span>
+        }
+<span class="fc" id="L49">        return instance;</span>
+    }
+
+    /**
+     * Register this class for writing .txt files.
+     */
+    public static void register() {
+<span class="fc" id="L56">        ImplicationalSystemWriterFactory.register(ImplicationalSystemWriterText.getInstance(), &quot;txt&quot;);</span>
+<span class="fc" id="L57">    }</span>
+
+    /**
+     * Saves this component in a file.
+     *
+     * The following format is used:
+     *
+     * An implicational system can be instancied from and save to a text file in the following format:
+     * A list of elements separated by a space in the first line ;
+     * then, each rule on a line, written like [premise] -&gt; [conclusion]
+     * where elements are separated by a space.
+     *
+     * ~~~
+     * a b c d e
+     * a b -&gt; c d
+     * c d -&gt; e
+     * ~~~
+     *
+     * @param   system  a system to write
+     * @param   file    a file
+     *
+     * @throws  IOException  When an IOException occurs
+     */
+    public void write(ImplicationalSystem system, BufferedWriter file) throws IOException {
+<span class="fc" id="L81">        file.write(system.toString());</span>
+<span class="fc" id="L82">    }</span>
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.0.201403182114</span></div></body></html>
