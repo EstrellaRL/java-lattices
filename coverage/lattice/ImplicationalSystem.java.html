@@ -896,8 +896,8 @@ public class ImplicationalSystem extends ClosureSystem {
 <span class="fc" id="L896">            ImplicationalSystem epsylon = new ImplicationalSystem(this);</span>
 <span class="fc" id="L897">            epsylon.removeRule(r);</span>
 <span class="fc" id="L898">            Rule tmp = new Rule(epsylon.closure(r.getPremise()), r.getConclusion());</span>
-<span class="pc bpc" id="L899" title="1 of 2 branches missed.">            if (!r.equals(tmp)) {</span>
-<span class="nc" id="L900">                this.replaceRule(r, tmp);</span>
+<span class="fc bfc" id="L899" title="All 2 branches covered.">            if (!r.equals(tmp)) {</span>
+<span class="fc" id="L900">                this.replaceRule(r, tmp);</span>
             }
 <span class="fc" id="L902">        }</span>
 <span class="fc" id="L903">        this.makeProper();</span>
