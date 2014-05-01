@@ -16,9 +16,9 @@
 import dgraph.Node;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.Iterator;
@@ -200,67 +200,66 @@ public class Context extends ClosureSystem {
      * Each attribute must be declared on the second line, otherwise, it is not added
      *
      * @param   filename  the name of the file
+     *
+     * @throws  IOException  When an IOException occurs
      */
-    public Context(String filename) {
-<span class="nc" id="L205">        this();</span>
-        try {
-<span class="nc" id="L207">            BufferedReader file = new BufferedReader(new FileReader(filename));</span>
-            // first line : All observations separated by a space
-            // a StringTokenizer is used to divide the line into different observations
-            // considering spaces as separator.
-<span class="nc" id="L211">            StringTokenizer st =  new StringTokenizer(file.readLine());</span>
-<span class="nc" id="L212">            st.nextToken(); // first token corresponds to the string &quot;Observations:&quot;</span>
-<span class="nc bnc" id="L213" title="All 2 branches missed.">            while (st.hasMoreTokens()) {</span>
-<span class="nc" id="L214">                String n = new String(st.nextToken());</span>
-<span class="nc" id="L215">                this.addToObservations(n);</span>
-<span class="nc" id="L216">            }</span>
-            // second line : All attributes separated by a space
-            // a StringTokenizer is used to divide the line into different token,
-            // considering spaces as separator.
-<span class="nc" id="L220">            st =  new StringTokenizer(file.readLine());</span>
-<span class="nc" id="L221">            st.nextToken(); // first token corresponds to the string &quot;Attributes:&quot;</span>
-<span class="nc bnc" id="L222" title="All 2 branches missed.">            while (st.hasMoreTokens()) {</span>
-<span class="nc" id="L223">                String n = new String(st.nextToken());</span>
-<span class="nc" id="L224">                this.addToAttributes(n);</span>
-<span class="nc" id="L225">            }</span>
-            // next lines : All intents of observations, one on each line:
-            // observation : list of attributes
-            // a StringTokenizer is used to divide each intent.
-<span class="nc" id="L229">            String line = file.readLine();</span>
-<span class="nc bnc" id="L230" title="All 4 branches missed.">            while (line != null &amp;&amp; !line.isEmpty()) {</span>
-<span class="nc" id="L231">                st = new StringTokenizer(line);</span>
-<span class="nc" id="L232">                String word = st.nextToken();</span>
-<span class="nc" id="L233">                Comparable o = null;</span>
-                // search of o in observations
-<span class="nc bnc" id="L235" title="All 2 branches missed.">                for (Comparable e : this.getObservations()) {</span>
-<span class="nc bnc" id="L236" title="All 2 branches missed.">                    if (e.equals(word)) {</span>
-<span class="nc" id="L237">                        o = e;</span>
-                    }
-<span class="nc" id="L239">                }</span>
-<span class="nc bnc" id="L240" title="All 2 branches missed.">                if (o != null) {</span>
-<span class="nc" id="L241">                    word = st.nextToken(); // this token corresponds to the sting &quot;:&quot;</span>
-<span class="nc bnc" id="L242" title="All 2 branches missed.">                    while (st.hasMoreTokens()) {</span>
-<span class="nc" id="L243">                        word = st.nextToken();</span>
-<span class="nc" id="L244">                        Comparable a = null;</span>
-                        // search of a in attributes
-<span class="nc bnc" id="L246" title="All 2 branches missed.">                        for (Comparable e : this.getAttributes()) {</span>
-<span class="nc bnc" id="L247" title="All 2 branches missed.">                            if (e.equals(word)) {</span>
-<span class="nc" id="L248">                                a = e;</span>
-                            }
-<span class="nc" id="L250">                        }</span>
-<span class="nc bnc" id="L251" title="All 2 branches missed.">                        if (a != null) {</span>
-<span class="nc" id="L252">                            this.addExtentIntent(o, a);</span>
-                        }
-<span class="nc" id="L254">                    }</span>
+    public Context(String filename) throws IOException {
+<span class="nc" id="L207">        this();</span>
+<span class="nc" id="L208">        BufferedReader file = new BufferedReader(new FileReader(filename));</span>
+        // first line : All observations separated by a space
+        // a StringTokenizer is used to divide the line into different observations
+        // considering spaces as separator.
+<span class="nc" id="L212">        StringTokenizer st =  new StringTokenizer(file.readLine());</span>
+<span class="nc" id="L213">        st.nextToken(); // first token corresponds to the string &quot;Observations:&quot;</span>
+<span class="nc bnc" id="L214" title="All 2 branches missed.">        while (st.hasMoreTokens()) {</span>
+<span class="nc" id="L215">            String n = new String(st.nextToken());</span>
+<span class="nc" id="L216">            this.addToObservations(n);</span>
+<span class="nc" id="L217">        }</span>
+        // second line : All attributes separated by a space
+        // a StringTokenizer is used to divide the line into different token,
+        // considering spaces as separator.
+<span class="nc" id="L221">        st =  new StringTokenizer(file.readLine());</span>
+<span class="nc" id="L222">        st.nextToken(); // first token corresponds to the string &quot;Attributes:&quot;</span>
+<span class="nc bnc" id="L223" title="All 2 branches missed.">        while (st.hasMoreTokens()) {</span>
+<span class="nc" id="L224">            String n = new String(st.nextToken());</span>
+<span class="nc" id="L225">            this.addToAttributes(n);</span>
+<span class="nc" id="L226">        }</span>
+        // next lines : All intents of observations, one on each line:
+        // observation : list of attributes
+        // a StringTokenizer is used to divide each intent.
+<span class="nc" id="L230">        String line = file.readLine();</span>
+<span class="nc bnc" id="L231" title="All 4 branches missed.">        while (line != null &amp;&amp; !line.isEmpty()) {</span>
+<span class="nc" id="L232">            st = new StringTokenizer(line);</span>
+<span class="nc" id="L233">            String word = st.nextToken();</span>
+<span class="nc" id="L234">            Comparable o = null;</span>
+            // search of o in observations
+<span class="nc bnc" id="L236" title="All 2 branches missed.">            for (Comparable e : this.getObservations()) {</span>
+<span class="nc bnc" id="L237" title="All 2 branches missed.">                if (e.equals(word)) {</span>
+<span class="nc" id="L238">                    o = e;</span>
                 }
-<span class="nc" id="L256">                line = file.readLine();</span>
-<span class="nc" id="L257">            }</span>
-<span class="nc" id="L258">            file.close();</span>
-<span class="nc" id="L259">            this.setBitSets();</span>
-<span class="nc" id="L260">        } catch (Exception e) {</span>
-<span class="nc" id="L261">            e.printStackTrace();</span>
-<span class="nc" id="L262">        }</span>
-<span class="nc" id="L263">    }</span>
+<span class="nc" id="L240">            }</span>
+<span class="nc bnc" id="L241" title="All 2 branches missed.">            if (o != null) {</span>
+<span class="nc" id="L242">                word = st.nextToken(); // this token corresponds to the sting &quot;:&quot;</span>
+<span class="nc bnc" id="L243" title="All 2 branches missed.">                while (st.hasMoreTokens()) {</span>
+<span class="nc" id="L244">                    word = st.nextToken();</span>
+<span class="nc" id="L245">                    Comparable a = null;</span>
+                    // search of a in attributes
+<span class="nc bnc" id="L247" title="All 2 branches missed.">                    for (Comparable e : this.getAttributes()) {</span>
+<span class="nc bnc" id="L248" title="All 2 branches missed.">                        if (e.equals(word)) {</span>
+<span class="nc" id="L249">                            a = e;</span>
+                        }
+<span class="nc" id="L251">                    }</span>
+<span class="nc bnc" id="L252" title="All 2 branches missed.">                    if (a != null) {</span>
+<span class="nc" id="L253">                        this.addExtentIntent(o, a);</span>
+                    }
+<span class="nc" id="L255">                }</span>
+            }
+<span class="nc" id="L257">            line = file.readLine();</span>
+<span class="nc" id="L258">        }</span>
+<span class="nc" id="L259">        file.close();</span>
+<span class="nc" id="L260">        this.setBitSets();</span>
+<span class="nc" id="L261">    }</span>
+
     /**
      * Generates a partially random context.
      *
@@ -270,203 +269,46 @@ public class Context extends ClosureSystem {
      * @return randomly generated context
      */
     public static Context random(int nbObs, int nbGrp, int nbAttrPerGrp) {
-<span class="fc" id="L273">        Context ctx = new Context();</span>
+<span class="fc" id="L272">        Context ctx = new Context();</span>
         // Generates Observations.
-<span class="fc bfc" id="L275" title="All 2 branches covered.">        for (int i = 1; i &lt;= nbObs; i++) {</span>
-<span class="fc" id="L276">            ctx.addToObservations(Integer.toString(i));</span>
+<span class="fc bfc" id="L274" title="All 2 branches covered.">        for (int i = 1; i &lt;= nbObs; i++) {</span>
+<span class="fc" id="L275">            ctx.addToObservations(Integer.toString(i));</span>
         }
         // Generates Attributes.
-<span class="fc bfc" id="L279" title="All 2 branches covered.">        for (int i = 1; i &lt;= nbGrp; i++) {</span>
-<span class="fc bfc" id="L280" title="All 2 branches covered.">            for (int j = 1; j &lt;= nbAttrPerGrp; j++) {</span>
-<span class="fc" id="L281">                int q = i;</span>
-<span class="fc" id="L282">                int rem = 0;</span>
-<span class="fc" id="L283">                String name = &quot;&quot;;</span>
+<span class="fc bfc" id="L278" title="All 2 branches covered.">        for (int i = 1; i &lt;= nbGrp; i++) {</span>
+<span class="fc bfc" id="L279" title="All 2 branches covered.">            for (int j = 1; j &lt;= nbAttrPerGrp; j++) {</span>
+<span class="fc" id="L280">                int q = i;</span>
+<span class="fc" id="L281">                int rem = 0;</span>
+<span class="fc" id="L282">                String name = &quot;&quot;;</span>
                 do {
-<span class="fc" id="L285">                    rem = q % 26;</span>
-<span class="fc" id="L286">                    q = q / 26;</span>
-<span class="fc" id="L287">                    name = name + (char) (rem + 65);</span>
-<span class="fc bfc" id="L288" title="All 2 branches covered.">                } while (q != 0);</span>
-<span class="fc" id="L289">                ctx.addToAttributes(name + Integer.toString(j)); // These names are cool ...</span>
+<span class="fc" id="L284">                    rem = q % 26;</span>
+<span class="fc" id="L285">                    q = q / 26;</span>
+<span class="fc" id="L286">                    name = name + (char) (rem + 65);</span>
+<span class="fc bfc" id="L287" title="All 2 branches covered.">                } while (q != 0);</span>
+<span class="fc" id="L288">                ctx.addToAttributes(name + Integer.toString(j)); // These names are cool ...</span>
             }
         }
         // Generates all requested observations.
-<span class="fc" id="L293">        Random r = new Random();</span>
-<span class="fc" id="L294">        int attr = r.nextInt(nbAttrPerGrp) + 1;</span>
-<span class="fc bfc" id="L295" title="All 2 branches covered.">        for (int i = 1; i &lt;= nbObs; i++) { // i : Observation</span>
-<span class="fc bfc" id="L296" title="All 2 branches covered.">            for (int j = 1; j &lt;= nbGrp; j++) { // j : Familly</span>
-<span class="fc" id="L297">                int q = j;</span>
-<span class="fc" id="L298">                int rem = 0;</span>
-<span class="fc" id="L299">                String name = &quot;&quot;;</span>
+<span class="fc" id="L292">        Random r = new Random();</span>
+<span class="fc" id="L293">        int attr = r.nextInt(nbAttrPerGrp) + 1;</span>
+<span class="fc bfc" id="L294" title="All 2 branches covered.">        for (int i = 1; i &lt;= nbObs; i++) { // i : Observation</span>
+<span class="fc bfc" id="L295" title="All 2 branches covered.">            for (int j = 1; j &lt;= nbGrp; j++) { // j : Familly</span>
+<span class="fc" id="L296">                int q = j;</span>
+<span class="fc" id="L297">                int rem = 0;</span>
+<span class="fc" id="L298">                String name = &quot;&quot;;</span>
                 do {
-<span class="fc" id="L301">                    rem = q % 26;</span>
-<span class="fc" id="L302">                    q = q / 26;</span>
-<span class="fc" id="L303">                    name = name + (char) (rem + 65);</span>
-<span class="fc bfc" id="L304" title="All 2 branches covered.">                } while (q != 0);</span>
-<span class="fc" id="L305">               name = name + Integer.toString(attr); // These names are really cool, aren't they ?</span>
-<span class="fc" id="L306">               ctx.addExtentIntent(Integer.toString(i), name);</span>
-<span class="fc" id="L307">               attr = r.nextInt(nbAttrPerGrp) + 1;</span>
+<span class="fc" id="L300">                    rem = q % 26;</span>
+<span class="fc" id="L301">                    q = q / 26;</span>
+<span class="fc" id="L302">                    name = name + (char) (rem + 65);</span>
+<span class="fc bfc" id="L303" title="All 2 branches covered.">                } while (q != 0);</span>
+<span class="fc" id="L304">               name = name + Integer.toString(attr); // These names are really cool, aren't they ?</span>
+<span class="fc" id="L305">               ctx.addExtentIntent(Integer.toString(i), name);</span>
+<span class="fc" id="L306">               attr = r.nextInt(nbAttrPerGrp) + 1;</span>
             }
         }
-<span class="fc" id="L310">        ctx.setBitSets();</span>
-<span class="fc" id="L311">        return ctx;</span>
+<span class="fc" id="L309">        ctx.setBitSets();</span>
+<span class="fc" id="L310">        return ctx;</span>
     }
-
-    /**
-     * This fonction just for read file of Dounia.
-     *
-     * The following format is respected:
-     *
-     * For each observations o
-     * The name of observations separated on a line ;
-     * then, the list of frequence of each attrbutes intent on a line, written like a1 a2 ...
-     *
-     * ~~~
-     * 0002.png
-     * 0 0 0 3 0 0 3 0 0 0 0 0 6 0 5 3 11
-     * 0004.png
-     * 0 0 0 8 0 0 5 0 0 0 0 0 4 0 9 1 8
-     * 0007.png
-     * 0 0 0 3 0 0 4 0 0 0 0 0 27 0 3 4 9
-     * ~~~
-     *
-     * @param   filename         Some comment
-     * @param   thresholdBinary  Some comment
-     */
-    public Context(String filename, int thresholdBinary) {
-<span class="nc" id="L336">        this();</span>
-        try {
-<span class="nc" id="L338">            BufferedReader file = new BufferedReader(new FileReader(filename));</span>
-<span class="nc" id="L339">            String line = file.readLine();</span>
-<span class="nc bnc" id="L340" title="All 4 branches missed.">            while (line != null &amp;&amp; !line.isEmpty()) {</span>
-                // first line : an observation
-<span class="nc" id="L342">                StringTokenizer st = new StringTokenizer(line);</span>
-<span class="nc" id="L343">                String o = new String(st.nextToken());</span>
-<span class="nc" id="L344">                this.addToObservations(o);</span>
-
-                // second line : All attributes separated by a space
-                // a StringTokenizer is used to divide the line into different token,
-                // considering spaces as separator.
-<span class="nc" id="L349">                line = file.readLine();</span>
-<span class="nc" id="L350">                st = new StringTokenizer(line);</span>
-<span class="nc" id="L351">                int idAtt = 0;</span>
-<span class="nc bnc" id="L352" title="All 2 branches missed.">                while (st.hasMoreTokens()) {</span>
-<span class="nc" id="L353">                    idAtt += 1;</span>
-<span class="nc" id="L354">                    int a = Integer.parseInt(st.nextToken());</span>
-<span class="nc bnc" id="L355" title="All 2 branches missed.">                    if (a &gt; thresholdBinary) {</span>
-<span class="nc" id="L356">                        this.addToAttributes(Integer.toString(idAtt));</span>
-<span class="nc" id="L357">                        this.addExtentIntent(o, Integer.toString(idAtt));</span>
-                    }
-<span class="nc" id="L359">                }</span>
-<span class="nc" id="L360">                line = file.readLine();</span>
-<span class="nc" id="L361">            }</span>
-<span class="nc" id="L362">            file.close();</span>
-<span class="nc" id="L363">        } catch (Exception e) {</span>
-<span class="nc" id="L364">            e.printStackTrace();</span>
-<span class="nc" id="L365">        }</span>
-<span class="nc" id="L366">    }</span>
-
-    /**
-     * Read all file in a folder in a context C (files Dounia).
-     *
-     * @param  link             some comment
-     * @param  filesname        some comment
-     * @param  thresholdBinary  some comment
-     */
-    public Context(String link, TreeSet&lt;String&gt; filesname, int thresholdBinary) {
-<span class="nc" id="L376">        this();</span>
-        try {
-<span class="nc bnc" id="L378" title="All 2 branches missed.">            for (String fileName : filesname) {</span>
-<span class="nc" id="L379">                BufferedReader file = new BufferedReader(new FileReader(link + fileName));</span>
-<span class="nc" id="L380">                String line = file.readLine();</span>
-<span class="nc bnc" id="L381" title="All 4 branches missed.">                while (line != null &amp;&amp; !line.isEmpty()) {</span>
-                    // first line : an observation
-<span class="nc" id="L383">                    StringTokenizer st = new StringTokenizer(line);</span>
-<span class="nc" id="L384">                    String o = new String(st.nextToken());</span>
-<span class="nc" id="L385">                    this.addToObservations(o);</span>
-
-                    // second line : All attributes separated by a space
-                    // a StringTokenizer is used to divide the line into different token,
-                // considering spaces as separator.
-<span class="nc" id="L390">                    line = file.readLine();</span>
-<span class="nc" id="L391">                    st = new StringTokenizer(line);</span>
-<span class="nc" id="L392">                    int idAtt = 0;</span>
-<span class="nc bnc" id="L393" title="All 2 branches missed.">                    while (st.hasMoreTokens()) {</span>
-<span class="nc" id="L394">                        idAtt += 1;</span>
-<span class="nc" id="L395">                        int a = Integer.parseInt(st.nextToken());</span>
-<span class="nc bnc" id="L396" title="All 2 branches missed.">                        if (a &gt; thresholdBinary) {</span>
-<span class="nc" id="L397">                            this.addToAttributes(Integer.toString(idAtt));</span>
-<span class="nc" id="L398">                            this.addExtentIntent(o, Integer.toString(idAtt));</span>
-                        }
-<span class="nc" id="L400">                    }</span>
-<span class="nc" id="L401">                    line = file.readLine();</span>
-<span class="nc" id="L402">                }</span>
-<span class="nc" id="L403">                file.close();</span>
-<span class="nc" id="L404">            }</span>
-<span class="nc" id="L405">        } catch (Exception e) {</span>
-<span class="nc" id="L406">            e.printStackTrace();</span>
-<span class="nc" id="L407">        }</span>
-<span class="nc" id="L408">    }</span>
-
-    /**
-     * This fonction just for read files of Van.
-     * The following format is respected:
-     *
-     * The name of observations is the name of files
-     * For each file (observations o)
-     * Each line present an attrbute: id with the frequence of him.
-     *
-     * ~~~
-     * 1000.png
-     * 0 0
-     * 1 0
-     * 2 1
-     * ...
-     * 500 0
-     * ~~~
-     *
-     * @param  linkFilesName    some comment
-     * @param  thresholdBinary  some comment
-     */
-    public Context(TreeSet&lt;String&gt; linkFilesName, int thresholdBinary) {
-<span class="nc" id="L431">        this();</span>
-        try {
-            // Read each file
-<span class="nc bnc" id="L434" title="All 2 branches missed.">            for (String linkFileName : linkFilesName) {</span>
-                // add an observation =&gt; file name
-<span class="nc" id="L436">                StringTokenizer st = new StringTokenizer(linkFileName, File.separator);</span>
-<span class="nc" id="L437">                String fileName = &quot;&quot;;</span>
-<span class="nc bnc" id="L438" title="All 2 branches missed.">                while (st.hasMoreTokens()) {</span>
-<span class="nc" id="L439">                    fileName = st.nextToken();</span>
-                }
-                // remove .bow
-<span class="nc" id="L442">                st = new StringTokenizer(fileName, &quot;.&quot;);</span>
-<span class="nc" id="L443">                String o = st.nextToken() + &quot;.&quot; + st.nextToken();</span>
-<span class="nc" id="L444">                this.addToObservations(o);</span>
-
-                // add attributes
-                // each line is an attribute
-                // space is the sepaarator between id and value of attribute
-<span class="nc" id="L449">                BufferedReader file = new BufferedReader(new FileReader(linkFileName));</span>
-<span class="nc" id="L450">                String line = file.readLine();</span>
-<span class="nc bnc" id="L451" title="All 4 branches missed.">                while (line != null &amp;&amp; !line.isEmpty()) {</span>
-<span class="nc" id="L452">                    st = new StringTokenizer(line);</span>
-<span class="nc" id="L453">                    String id = st.nextToken();</span>
-<span class="nc bnc" id="L454" title="All 2 branches missed.">                    if (st.hasMoreTokens()) {</span>
-<span class="nc" id="L455">                        int value = Integer.parseInt(st.nextToken());</span>
-<span class="nc bnc" id="L456" title="All 2 branches missed.">                        if (value &gt; thresholdBinary) {</span>
-<span class="nc" id="L457">                            this.addToAttributes(id);</span>
-<span class="nc" id="L458">                            this.addExtentIntent(o, id);</span>
-                        }
-                    }
-<span class="nc" id="L461">                    line = file.readLine();</span>
-<span class="nc" id="L462">                }</span>
-<span class="nc" id="L463">                file.close();</span>
-<span class="nc" id="L464">            }</span>
-<span class="nc" id="L465">        } catch (Exception e) {</span>
-<span class="nc" id="L466">            e.printStackTrace();</span>
-<span class="nc" id="L467">        }</span>
-<span class="nc" id="L468">    }</span>
-
 
     /* --------------- HANDLING METHODS FOR ATTRIBUTES AND OBSERVATIONS ------------ */
 
@@ -476,7 +318,7 @@ public class Context extends ClosureSystem {
     * @return  the set of attributes of this component
     */
     public TreeSet&lt;Comparable&gt; getAttributes() {
-<span class="fc" id="L479">        return this.attributes;</span>
+<span class="fc" id="L321">        return this.attributes;</span>
     }
 
     /**
@@ -487,7 +329,7 @@ public class Context extends ClosureSystem {
      * @return  true if the attribute belongs to this component
      */
     public boolean containsAttribute(Comparable att) {
-<span class="fc" id="L490">        return this.attributes.contains(att);</span>
+<span class="fc" id="L332">        return this.attributes.contains(att);</span>
     }
 
     /**
@@ -498,7 +340,7 @@ public class Context extends ClosureSystem {
      * @return  true if all attributes belong to this component
      */
     public boolean containsAllAttributes(TreeSet&lt;Comparable&gt; set) {
-<span class="fc" id="L501">        return this.attributes.containsAll(set);</span>
+<span class="fc" id="L343">        return this.attributes.containsAll(set);</span>
     }
 
     /**
@@ -509,12 +351,12 @@ public class Context extends ClosureSystem {
      * @return  true if the attribute was successfully added
      */
     public boolean addToAttributes(Comparable att) {
-<span class="fc bfc" id="L512" title="All 2 branches covered.">        if (!this.containsAttribute(att)) {</span>
-<span class="fc" id="L513">            this.extent.put(att, new TreeSet&lt;Comparable&gt;());</span>
+<span class="fc bfc" id="L354" title="All 2 branches covered.">        if (!this.containsAttribute(att)) {</span>
+<span class="fc" id="L355">            this.extent.put(att, new TreeSet&lt;Comparable&gt;());</span>
         }
-<span class="fc" id="L515">        boolean ok = this.attributes.add(att);</span>
-<span class="fc" id="L516">        this.setBitSets();</span>
-<span class="fc" id="L517">        return ok;</span>
+<span class="fc" id="L357">        boolean ok = this.attributes.add(att);</span>
+<span class="fc" id="L358">        this.setBitSets();</span>
+<span class="fc" id="L359">        return ok;</span>
     }
 
     /**
@@ -525,14 +367,14 @@ public class Context extends ClosureSystem {
      * @return  true if all attributes were successfully added
      */
     public boolean addAllToAttributes(TreeSet&lt;Comparable&gt; set) {
-<span class="fc" id="L528">        boolean all = true;</span>
-<span class="fc bfc" id="L529" title="All 2 branches covered.">        for (Comparable att : set) {</span>
-<span class="fc bfc" id="L530" title="All 2 branches covered.">            if (!this.addToAttributes(att)) {</span>
-<span class="fc" id="L531">                all = false;</span>
+<span class="fc" id="L370">        boolean all = true;</span>
+<span class="fc bfc" id="L371" title="All 2 branches covered.">        for (Comparable att : set) {</span>
+<span class="fc bfc" id="L372" title="All 2 branches covered.">            if (!this.addToAttributes(att)) {</span>
+<span class="fc" id="L373">                all = false;</span>
             }
-<span class="fc" id="L533">        }</span>
-<span class="fc" id="L534">        this.setBitSets();</span>
-<span class="fc" id="L535">        return all;</span>
+<span class="fc" id="L375">        }</span>
+<span class="fc" id="L376">        this.setBitSets();</span>
+<span class="fc" id="L377">        return all;</span>
     }
 
     /**
@@ -544,13 +386,13 @@ public class Context extends ClosureSystem {
      * @return  true if the attribute was successfully removed
      */
     public boolean removeFromAttributes(Comparable att) {
-<span class="fc" id="L547">        this.extent.remove(att);</span>
-<span class="fc bfc" id="L548" title="All 2 branches covered.">        for (Comparable o : this.getObservations()) {</span>
-<span class="fc" id="L549">            this.intent.get(o).remove(att);</span>
-<span class="fc" id="L550">        }</span>
-<span class="fc" id="L551">        boolean ok = this.attributes.remove(att);</span>
-<span class="fc" id="L552">        this.setBitSets();</span>
-<span class="fc" id="L553">        return ok;</span>
+<span class="fc" id="L389">        this.extent.remove(att);</span>
+<span class="fc bfc" id="L390" title="All 2 branches covered.">        for (Comparable o : this.getObservations()) {</span>
+<span class="fc" id="L391">            this.intent.get(o).remove(att);</span>
+<span class="fc" id="L392">        }</span>
+<span class="fc" id="L393">        boolean ok = this.attributes.remove(att);</span>
+<span class="fc" id="L394">        this.setBitSets();</span>
+<span class="fc" id="L395">        return ok;</span>
     }
 
    /**
@@ -559,7 +401,7 @@ public class Context extends ClosureSystem {
     * @return  the set of observations
     */
     public TreeSet&lt;Comparable&gt; getObservations() {
-<span class="fc" id="L562">        return this.observations;</span>
+<span class="fc" id="L404">        return this.observations;</span>
     }
 
     /**
@@ -570,7 +412,7 @@ public class Context extends ClosureSystem {
      * @return  true if the observation belongs to this component
      */
     public boolean containsObservation(Comparable obs) {
-<span class="fc" id="L573">        return this.observations.contains(obs);</span>
+<span class="fc" id="L415">        return this.observations.contains(obs);</span>
     }
 
     /**
@@ -581,7 +423,7 @@ public class Context extends ClosureSystem {
      * @return  true if all the observations are in this component
      */
     public boolean containsAllObservations(TreeSet&lt;Comparable&gt; set) {
-<span class="fc" id="L584">        return this.observations.containsAll(set);</span>
+<span class="fc" id="L426">        return this.observations.containsAll(set);</span>
     }
 
     /**
@@ -592,12 +434,12 @@ public class Context extends ClosureSystem {
      * @return  true if the observation was successfully added
      */
     public boolean addToObservations(Comparable obs) {
-<span class="fc bfc" id="L595" title="All 2 branches covered.">        if (!this.containsObservation(obs)) {</span>
-<span class="fc" id="L596">            this.intent.put(obs, new TreeSet&lt;Comparable&gt;());</span>
+<span class="fc bfc" id="L437" title="All 2 branches covered.">        if (!this.containsObservation(obs)) {</span>
+<span class="fc" id="L438">            this.intent.put(obs, new TreeSet&lt;Comparable&gt;());</span>
         }
-<span class="fc" id="L598">        boolean ok = this.observations.add(obs);</span>
-<span class="fc" id="L599">        this.setBitSets();</span>
-<span class="fc" id="L600">        return ok;</span>
+<span class="fc" id="L440">        boolean ok = this.observations.add(obs);</span>
+<span class="fc" id="L441">        this.setBitSets();</span>
+<span class="fc" id="L442">        return ok;</span>
     }
 
     /**
@@ -608,14 +450,14 @@ public class Context extends ClosureSystem {
      * @return  true if all observations were successfully added
      */
     public boolean addAllToObservations(TreeSet&lt;Comparable&gt; set) {
-<span class="fc" id="L611">        boolean all = true;</span>
-<span class="fc bfc" id="L612" title="All 2 branches covered.">        for (Comparable obs : set) {</span>
-<span class="fc bfc" id="L613" title="All 2 branches covered.">            if (!this.addToObservations(obs)) {</span>
-<span class="fc" id="L614">                all = false;</span>
+<span class="fc" id="L453">        boolean all = true;</span>
+<span class="fc bfc" id="L454" title="All 2 branches covered.">        for (Comparable obs : set) {</span>
+<span class="fc bfc" id="L455" title="All 2 branches covered.">            if (!this.addToObservations(obs)) {</span>
+<span class="fc" id="L456">                all = false;</span>
             }
-<span class="fc" id="L616">        }</span>
-<span class="fc" id="L617">        this.setBitSets();</span>
-<span class="fc" id="L618">        return all;</span>
+<span class="fc" id="L458">        }</span>
+<span class="fc" id="L459">        this.setBitSets();</span>
+<span class="fc" id="L460">        return all;</span>
     }
 
     /**
@@ -627,13 +469,13 @@ public class Context extends ClosureSystem {
      * @return  true if the observation was removed
      */
     public boolean removeFromObservations(Comparable obs) {
-<span class="fc" id="L630">        this.intent.remove(obs);</span>
-<span class="fc bfc" id="L631" title="All 2 branches covered.">        for (Comparable att : this.getAttributes()) {</span>
-<span class="fc" id="L632">            this.extent.get(att).remove(obs);</span>
-<span class="fc" id="L633">        }</span>
-<span class="fc" id="L634">        boolean ok = this.observations.remove(obs);</span>
-<span class="fc" id="L635">        this.setBitSets();</span>
-<span class="fc" id="L636">        return ok;</span>
+<span class="fc" id="L472">        this.intent.remove(obs);</span>
+<span class="fc bfc" id="L473" title="All 2 branches covered.">        for (Comparable att : this.getAttributes()) {</span>
+<span class="fc" id="L474">            this.extent.get(att).remove(obs);</span>
+<span class="fc" id="L475">        }</span>
+<span class="fc" id="L476">        boolean ok = this.observations.remove(obs);</span>
+<span class="fc" id="L477">        this.setBitSets();</span>
+<span class="fc" id="L478">        return ok;</span>
     }
 
     /**
@@ -641,53 +483,53 @@ public class Context extends ClosureSystem {
      * WARNING: this must be called each time your dataset change
      */
     public void setBitSets() {
-<span class="fc" id="L644">        this.setMaps();</span>
-<span class="fc" id="L645">        this.setBitSetsIntentExtent();</span>
-<span class="fc" id="L646">    }</span>
+<span class="fc" id="L486">        this.setMaps();</span>
+<span class="fc" id="L487">        this.setBitSetsIntentExtent();</span>
+<span class="fc" id="L488">    }</span>
 
     /**
      * Set the mapping structure for the bitset optimization.
      */
     private void setMaps() {
-<span class="fc" id="L652">        this.arrayAttributes = new ArrayList();</span>
-<span class="fc" id="L653">        this.arrayObservations = new ArrayList();</span>
-<span class="fc" id="L654">        Iterator&lt;Comparable&gt; i = this.attributes.iterator();</span>
-<span class="fc bfc" id="L655" title="All 2 branches covered.">        while (i.hasNext()) {</span>
-<span class="fc" id="L656">            this.arrayAttributes.add(i.next());</span>
+<span class="fc" id="L494">        this.arrayAttributes = new ArrayList();</span>
+<span class="fc" id="L495">        this.arrayObservations = new ArrayList();</span>
+<span class="fc" id="L496">        Iterator&lt;Comparable&gt; i = this.attributes.iterator();</span>
+<span class="fc bfc" id="L497" title="All 2 branches covered.">        while (i.hasNext()) {</span>
+<span class="fc" id="L498">            this.arrayAttributes.add(i.next());</span>
         }
-<span class="fc" id="L658">        i = this.observations.iterator();</span>
-<span class="fc bfc" id="L659" title="All 2 branches covered.">        while (i.hasNext()) {</span>
-<span class="fc" id="L660">            this.arrayObservations.add(i.next());</span>
+<span class="fc" id="L500">        i = this.observations.iterator();</span>
+<span class="fc bfc" id="L501" title="All 2 branches covered.">        while (i.hasNext()) {</span>
+<span class="fc" id="L502">            this.arrayObservations.add(i.next());</span>
         }
-<span class="fc" id="L662">    }</span>
+<span class="fc" id="L504">    }</span>
 
     /**
      * Set the extent and intent structures for the bitset optimization.
      */
     private void setBitSetsIntentExtent() {
-<span class="fc" id="L668">        this.bitsetIntent = new TreeMap();</span>
-<span class="fc" id="L669">        this.bitsetExtent = new TreeMap();</span>
-<span class="fc" id="L670">        Iterator&lt;Comparable&gt; i = this.attributes.iterator();</span>
-<span class="fc" id="L671">        BitSet b = new BitSet(this.observations.size());</span>
-<span class="fc bfc" id="L672" title="All 2 branches covered.">        while (i.hasNext()) {</span>
-<span class="fc" id="L673">            Comparable att = i.next();</span>
-<span class="fc bfc" id="L674" title="All 2 branches covered.">            for (Comparable c : this.extent.get(att)) {</span>
-<span class="fc" id="L675">                b.set(this.arrayObservations.indexOf(c));</span>
-<span class="fc" id="L676">            }</span>
-<span class="fc" id="L677">            this.bitsetExtent.put(att, (BitSet) b.clone());</span>
-<span class="fc" id="L678">            b.clear();</span>
-<span class="fc" id="L679">        }</span>
-<span class="fc" id="L680">        i = this.observations.iterator();</span>
-<span class="fc" id="L681">        b = new BitSet(this.attributes.size());</span>
-<span class="fc bfc" id="L682" title="All 2 branches covered.">        while (i.hasNext()) {</span>
-<span class="fc" id="L683">            Comparable obs = i.next();</span>
-<span class="fc bfc" id="L684" title="All 2 branches covered.">            for (Comparable c : this.intent.get(obs)) {</span>
-<span class="fc" id="L685">                b.set(this.arrayAttributes.indexOf(c));</span>
-<span class="fc" id="L686">            }</span>
-<span class="fc" id="L687">            this.bitsetIntent.put(obs, (BitSet) b.clone());</span>
-<span class="fc" id="L688">            b.clear();</span>
-<span class="fc" id="L689">        }</span>
-<span class="fc" id="L690">    }</span>
+<span class="fc" id="L510">        this.bitsetIntent = new TreeMap();</span>
+<span class="fc" id="L511">        this.bitsetExtent = new TreeMap();</span>
+<span class="fc" id="L512">        Iterator&lt;Comparable&gt; i = this.attributes.iterator();</span>
+<span class="fc" id="L513">        BitSet b = new BitSet(this.observations.size());</span>
+<span class="fc bfc" id="L514" title="All 2 branches covered.">        while (i.hasNext()) {</span>
+<span class="fc" id="L515">            Comparable att = i.next();</span>
+<span class="fc bfc" id="L516" title="All 2 branches covered.">            for (Comparable c : this.extent.get(att)) {</span>
+<span class="fc" id="L517">                b.set(this.arrayObservations.indexOf(c));</span>
+<span class="fc" id="L518">            }</span>
+<span class="fc" id="L519">            this.bitsetExtent.put(att, (BitSet) b.clone());</span>
+<span class="fc" id="L520">            b.clear();</span>
+<span class="fc" id="L521">        }</span>
+<span class="fc" id="L522">        i = this.observations.iterator();</span>
+<span class="fc" id="L523">        b = new BitSet(this.attributes.size());</span>
+<span class="fc bfc" id="L524" title="All 2 branches covered.">        while (i.hasNext()) {</span>
+<span class="fc" id="L525">            Comparable obs = i.next();</span>
+<span class="fc bfc" id="L526" title="All 2 branches covered.">            for (Comparable c : this.intent.get(obs)) {</span>
+<span class="fc" id="L527">                b.set(this.arrayAttributes.indexOf(c));</span>
+<span class="fc" id="L528">            }</span>
+<span class="fc" id="L529">            this.bitsetIntent.put(obs, (BitSet) b.clone());</span>
+<span class="fc" id="L530">            b.clear();</span>
+<span class="fc" id="L531">        }</span>
+<span class="fc" id="L532">    }</span>
 
     /* --------------- HANDLING METHODS FOR INTENT AND EXTENT ------------ */
 
@@ -699,10 +541,10 @@ public class Context extends ClosureSystem {
      * @return  the set of attributes
      */
     public TreeSet&lt;Comparable&gt; getIntent(Comparable obs) {
-<span class="pc bpc" id="L702" title="1 of 2 branches missed.">        if (this.containsObservation(obs)) {</span>
-<span class="fc" id="L703">            return this.intent.get(obs);</span>
+<span class="pc bpc" id="L544" title="1 of 2 branches missed.">        if (this.containsObservation(obs)) {</span>
+<span class="fc" id="L545">            return this.intent.get(obs);</span>
         } else {
-<span class="nc" id="L705">            return new TreeSet();</span>
+<span class="nc" id="L547">            return new TreeSet();</span>
         }
     }
 
@@ -714,11 +556,11 @@ public class Context extends ClosureSystem {
      * @return  the set of observations
      */
     public TreeSet&lt;Comparable&gt; getIntent(TreeSet&lt;Comparable&gt; set) {
-<span class="fc" id="L717">        TreeSet&lt;Comparable&gt; resIntent = new TreeSet(this.getAttributes());</span>
-<span class="fc bfc" id="L718" title="All 2 branches covered.">        for (Comparable obs : set) {</span>
-<span class="fc" id="L719">            resIntent.retainAll(this.getIntent(obs));</span>
-<span class="fc" id="L720">        }</span>
-<span class="fc" id="L721">        return resIntent;</span>
+<span class="fc" id="L559">        TreeSet&lt;Comparable&gt; resIntent = new TreeSet(this.getAttributes());</span>
+<span class="fc bfc" id="L560" title="All 2 branches covered.">        for (Comparable obs : set) {</span>
+<span class="fc" id="L561">            resIntent.retainAll(this.getIntent(obs));</span>
+<span class="fc" id="L562">        }</span>
+<span class="fc" id="L563">        return resIntent;</span>
     }
 
     /**
@@ -729,17 +571,17 @@ public class Context extends ClosureSystem {
      * @return  the number of attributes
      */
     public int getIntentNb(TreeSet&lt;Comparable&gt; set) {
-<span class="fc" id="L732">        int size = this.getAttributes().size();</span>
-<span class="fc" id="L733">        BitSet obsIntent = new BitSet(size);</span>
-<span class="fc" id="L734">        obsIntent.set(0, size);</span>
-<span class="fc bfc" id="L735" title="All 2 branches covered.">        for (Comparable obs : set) {</span>
+<span class="fc" id="L574">        int size = this.getAttributes().size();</span>
+<span class="fc" id="L575">        BitSet obsIntent = new BitSet(size);</span>
+<span class="fc" id="L576">        obsIntent.set(0, size);</span>
+<span class="fc bfc" id="L577" title="All 2 branches covered.">        for (Comparable obs : set) {</span>
             try {
-<span class="fc" id="L737">                obsIntent.and(this.bitsetIntent.get(obs));</span>
-<span class="nc" id="L738">            } catch (NullPointerException e) {</span>
-<span class="nc" id="L739">                return 0;</span>
-<span class="fc" id="L740">            }</span>
-<span class="fc" id="L741">        }</span>
-<span class="fc" id="L742">        return obsIntent.cardinality();</span>
+<span class="fc" id="L579">                obsIntent.and(this.bitsetIntent.get(obs));</span>
+<span class="nc" id="L580">            } catch (NullPointerException e) {</span>
+<span class="nc" id="L581">                return 0;</span>
+<span class="fc" id="L582">            }</span>
+<span class="fc" id="L583">        }</span>
+<span class="fc" id="L584">        return obsIntent.cardinality();</span>
     }
 
     /**
@@ -751,10 +593,10 @@ public class Context extends ClosureSystem {
      * @return  true if the attribute is an intent of the observation
      */
     public boolean containAsIntent(Comparable obs, Comparable att) {
-<span class="nc bnc" id="L754" title="All 4 branches missed.">        if (this.containsObservation(obs) &amp;&amp; this.containsAttribute(att)) {</span>
-<span class="nc" id="L755">            return this.intent.get(obs).contains(att);</span>
+<span class="nc bnc" id="L596" title="All 4 branches missed.">        if (this.containsObservation(obs) &amp;&amp; this.containsAttribute(att)) {</span>
+<span class="nc" id="L597">            return this.intent.get(obs).contains(att);</span>
         } else {
-<span class="nc" id="L757">            return false;</span>
+<span class="nc" id="L599">            return false;</span>
         }
     }
 
@@ -766,10 +608,10 @@ public class Context extends ClosureSystem {
      * @return  the set of observations
      */
     public TreeSet&lt;Comparable&gt; getExtent(Comparable att) {
-<span class="pc bpc" id="L769" title="1 of 2 branches missed.">        if (this.containsAttribute(att)) {</span>
-<span class="fc" id="L770">            return this.extent.get(att);</span>
+<span class="pc bpc" id="L611" title="1 of 2 branches missed.">        if (this.containsAttribute(att)) {</span>
+<span class="fc" id="L612">            return this.extent.get(att);</span>
         } else {
-<span class="nc" id="L772">            return new TreeSet();</span>
+<span class="nc" id="L614">            return new TreeSet();</span>
         }
     }
 
@@ -781,11 +623,11 @@ public class Context extends ClosureSystem {
      * @return  the set of observations
      */
     public TreeSet&lt;Comparable&gt; getExtent(TreeSet&lt;Comparable&gt; set) {
-<span class="fc" id="L784">        TreeSet&lt;Comparable&gt; attExtent = new TreeSet(this.getObservations());</span>
-<span class="fc bfc" id="L785" title="All 2 branches covered.">        for (Comparable att : set) {</span>
-<span class="fc" id="L786">            attExtent.retainAll(this.getExtent(att));</span>
-<span class="fc" id="L787">        }</span>
-<span class="fc" id="L788">        return attExtent;</span>
+<span class="fc" id="L626">        TreeSet&lt;Comparable&gt; attExtent = new TreeSet(this.getObservations());</span>
+<span class="fc bfc" id="L627" title="All 2 branches covered.">        for (Comparable att : set) {</span>
+<span class="fc" id="L628">            attExtent.retainAll(this.getExtent(att));</span>
+<span class="fc" id="L629">        }</span>
+<span class="fc" id="L630">        return attExtent;</span>
     }
 
     /**
@@ -796,17 +638,17 @@ public class Context extends ClosureSystem {
      * @return  the number of observations
      */
     public int getExtentNb(TreeSet&lt;Comparable&gt; set) {
-<span class="fc" id="L799">        int size = this.getObservations().size();</span>
-<span class="fc" id="L800">        BitSet attExtent = new BitSet(size);</span>
-<span class="fc" id="L801">        attExtent.set(0, size);</span>
-<span class="fc bfc" id="L802" title="All 2 branches covered.">        for (Comparable att : set) {</span>
+<span class="fc" id="L641">        int size = this.getObservations().size();</span>
+<span class="fc" id="L642">        BitSet attExtent = new BitSet(size);</span>
+<span class="fc" id="L643">        attExtent.set(0, size);</span>
+<span class="fc bfc" id="L644" title="All 2 branches covered.">        for (Comparable att : set) {</span>
             try {
-<span class="fc" id="L804">                attExtent.and(this.bitsetExtent.get(att));</span>
-<span class="nc" id="L805">            } catch (NullPointerException e) {</span>
-<span class="nc" id="L806">                return 0;</span>
-<span class="fc" id="L807">            }</span>
-<span class="fc" id="L808">        }</span>
-<span class="fc" id="L809">        return attExtent.cardinality();</span>
+<span class="fc" id="L646">                attExtent.and(this.bitsetExtent.get(att));</span>
+<span class="nc" id="L647">            } catch (NullPointerException e) {</span>
+<span class="nc" id="L648">                return 0;</span>
+<span class="fc" id="L649">            }</span>
+<span class="fc" id="L650">        }</span>
+<span class="fc" id="L651">        return attExtent.cardinality();</span>
     }
 
     /**
@@ -818,10 +660,10 @@ public class Context extends ClosureSystem {
      * @return  true if the proposition is true
      */
     public boolean containAsExtent(Comparable att, Comparable obs) {
-<span class="nc bnc" id="L821" title="All 4 branches missed.">        if (this.containsObservation(obs) &amp;&amp; this.containsAttribute(att)) {</span>
-<span class="nc" id="L822">            return this.extent.get(att).contains(obs);</span>
+<span class="nc bnc" id="L663" title="All 4 branches missed.">        if (this.containsObservation(obs) &amp;&amp; this.containsAttribute(att)) {</span>
+<span class="nc" id="L664">            return this.extent.get(att).contains(obs);</span>
         } else {
-<span class="nc" id="L824">            return false;</span>
+<span class="nc" id="L666">            return false;</span>
         }
     }
 
@@ -837,12 +679,12 @@ public class Context extends ClosureSystem {
      * @return  true if both were added
      */
     public boolean addExtentIntent(Comparable obs, Comparable att) {
-<span class="pc bpc" id="L840" title="2 of 4 branches missed.">        if (this.containsObservation(obs) &amp;&amp; this.containsAttribute(att)) {</span>
-<span class="pc bpc" id="L841" title="2 of 4 branches missed.">            boolean ok = this.intent.get(obs).add(att) &amp;&amp; this.extent.get(att).add(obs);</span>
-<span class="fc" id="L842">            this.setBitSets();</span>
-<span class="fc" id="L843">            return ok;</span>
+<span class="pc bpc" id="L682" title="2 of 4 branches missed.">        if (this.containsObservation(obs) &amp;&amp; this.containsAttribute(att)) {</span>
+<span class="pc bpc" id="L683" title="2 of 4 branches missed.">            boolean ok = this.intent.get(obs).add(att) &amp;&amp; this.extent.get(att).add(obs);</span>
+<span class="fc" id="L684">            this.setBitSets();</span>
+<span class="fc" id="L685">            return ok;</span>
         } else {
-<span class="nc" id="L845">            return false;</span>
+<span class="nc" id="L687">            return false;</span>
         }
     }
 
@@ -858,12 +700,12 @@ public class Context extends ClosureSystem {
      * @return  true if both were removed
      */
     public boolean removeExtentIntent(Comparable obs, Comparable att) {
-<span class="nc bnc" id="L861" title="All 4 branches missed.">        if (this.containsObservation(obs) &amp;&amp; this.containsAttribute(att)) {</span>
-<span class="nc bnc" id="L862" title="All 4 branches missed.">            boolean ok = this.intent.get(obs).remove(att) &amp;&amp; this.extent.get(att).remove(obs);</span>
-<span class="nc" id="L863">            this.setBitSets();</span>
-<span class="nc" id="L864">            return ok;</span>
+<span class="nc bnc" id="L703" title="All 4 branches missed.">        if (this.containsObservation(obs) &amp;&amp; this.containsAttribute(att)) {</span>
+<span class="nc bnc" id="L704" title="All 4 branches missed.">            boolean ok = this.intent.get(obs).remove(att) &amp;&amp; this.extent.get(att).remove(obs);</span>
+<span class="nc" id="L705">            this.setBitSets();</span>
+<span class="nc" id="L706">            return ok;</span>
         } else {
-<span class="nc" id="L866">            return false;</span>
+<span class="nc" id="L708">            return false;</span>
         }
     }
 
@@ -890,52 +732,52 @@ public class Context extends ClosureSystem {
      */
     @Override
     public String toString() {
-<span class="fc" id="L893">        StringBuffer string = new StringBuffer();</span>
-<span class="fc" id="L894">        string.append(&quot;Observations: &quot;);</span>
-<span class="pc bpc" id="L895" title="1 of 2 branches missed.">        for (Comparable o : this.observations) {</span>
+<span class="fc" id="L735">        StringBuffer string = new StringBuffer();</span>
+<span class="fc" id="L736">        string.append(&quot;Observations: &quot;);</span>
+<span class="pc bpc" id="L737" title="1 of 2 branches missed.">        for (Comparable o : this.observations) {</span>
             // first line : All observations separated by a space
             // a StringTokenizer is used to delete spaces in the
             // string description of each observation
-<span class="nc" id="L899">            StringTokenizer st = new StringTokenizer(o.toString());</span>
-<span class="nc bnc" id="L900" title="All 2 branches missed.">            while (st.hasMoreTokens()) {</span>
-<span class="nc" id="L901">                string.append(st.nextToken());</span>
+<span class="nc" id="L741">            StringTokenizer st = new StringTokenizer(o.toString());</span>
+<span class="nc bnc" id="L742" title="All 2 branches missed.">            while (st.hasMoreTokens()) {</span>
+<span class="nc" id="L743">                string.append(st.nextToken());</span>
             }
-<span class="nc" id="L903">            string.append(&quot; &quot;);</span>
-<span class="nc" id="L904">        }</span>
+<span class="nc" id="L745">            string.append(&quot; &quot;);</span>
+<span class="nc" id="L746">        }</span>
 
-<span class="fc" id="L906">        string.append(&quot;\nAttributes: &quot;);</span>
-<span class="pc bpc" id="L907" title="1 of 2 branches missed.">        for (Comparable a : this.attributes) {</span>
+<span class="fc" id="L748">        string.append(&quot;\nAttributes: &quot;);</span>
+<span class="pc bpc" id="L749" title="1 of 2 branches missed.">        for (Comparable a : this.attributes) {</span>
             // second line : All attributes separated by a space
             // a StringTokenizer is used to delete spaces in the
             // string description of each observation
-<span class="nc" id="L911">            StringTokenizer st = new StringTokenizer(a.toString());</span>
-<span class="nc bnc" id="L912" title="All 2 branches missed.">            while (st.hasMoreTokens()) {</span>
-<span class="nc" id="L913">                string.append(st.nextToken());</span>
+<span class="nc" id="L753">            StringTokenizer st = new StringTokenizer(a.toString());</span>
+<span class="nc bnc" id="L754" title="All 2 branches missed.">            while (st.hasMoreTokens()) {</span>
+<span class="nc" id="L755">                string.append(st.nextToken());</span>
             }
-<span class="nc" id="L915">            string.append(&quot; &quot;);</span>
-<span class="nc" id="L916">        }</span>
+<span class="nc" id="L757">            string.append(&quot; &quot;);</span>
+<span class="nc" id="L758">        }</span>
 
         // next lines : All intents of observations, one on each line:
         // observation : list of attributes
         // a StringTokenizer is used to delete spaces in the
         // string description of each observation and attributes
-<span class="fc" id="L922">        string.append(&quot;\n&quot;);</span>
-<span class="pc bpc" id="L923" title="1 of 2 branches missed.">        for (Comparable o : this.observations) {</span>
-<span class="nc" id="L924">            StringTokenizer st = new StringTokenizer(o.toString());</span>
-<span class="nc bnc" id="L925" title="All 2 branches missed.">            while (st.hasMoreTokens()) {</span>
-<span class="nc" id="L926">                string.append(st.nextToken());</span>
+<span class="fc" id="L764">        string.append(&quot;\n&quot;);</span>
+<span class="pc bpc" id="L765" title="1 of 2 branches missed.">        for (Comparable o : this.observations) {</span>
+<span class="nc" id="L766">            StringTokenizer st = new StringTokenizer(o.toString());</span>
+<span class="nc bnc" id="L767" title="All 2 branches missed.">            while (st.hasMoreTokens()) {</span>
+<span class="nc" id="L768">                string.append(st.nextToken());</span>
             }
-<span class="nc" id="L928">            string.append(&quot; : &quot;);</span>
-<span class="nc bnc" id="L929" title="All 2 branches missed.">            for (Comparable a : this.getIntent(o)) {</span>
-<span class="nc" id="L930">                st = new StringTokenizer(a.toString());</span>
-<span class="nc bnc" id="L931" title="All 2 branches missed.">                while (st.hasMoreTokens()) {</span>
-<span class="nc" id="L932">                    string.append(st.nextToken());</span>
+<span class="nc" id="L770">            string.append(&quot; : &quot;);</span>
+<span class="nc bnc" id="L771" title="All 2 branches missed.">            for (Comparable a : this.getIntent(o)) {</span>
+<span class="nc" id="L772">                st = new StringTokenizer(a.toString());</span>
+<span class="nc bnc" id="L773" title="All 2 branches missed.">                while (st.hasMoreTokens()) {</span>
+<span class="nc" id="L774">                    string.append(st.nextToken());</span>
                 }
-<span class="nc" id="L934">                string.append(&quot; &quot;);</span>
-<span class="nc" id="L935">            }</span>
-<span class="nc" id="L936">            string.append(&quot;\n&quot;);</span>
-<span class="nc" id="L937">        }</span>
-<span class="fc" id="L938">        return string.toString();</span>
+<span class="nc" id="L776">                string.append(&quot; &quot;);</span>
+<span class="nc" id="L777">            }</span>
+<span class="nc" id="L778">            string.append(&quot;\n&quot;);</span>
+<span class="nc" id="L779">        }</span>
+<span class="fc" id="L780">        return string.toString();</span>
     }
 
     /**
@@ -957,16 +799,14 @@ public class Context extends ClosureSystem {
      * ~~~
      *
      * @param   filename  the name of the file
+     *
+     * @throws  IOException  When an IOException occurs
      */
-    public void toFile(String filename)    {
-        try {
-<span class="fc" id="L963">            BufferedWriter file = new BufferedWriter(new FileWriter(filename));</span>
-<span class="fc" id="L964">            file.write(this.toString());</span>
-<span class="fc" id="L965">            file.close();</span>
-<span class="nc" id="L966">        } catch (Exception e) {</span>
-<span class="nc" id="L967">            e.printStackTrace();</span>
-<span class="fc" id="L968">        }</span>
-<span class="fc" id="L969">    }</span>
+    public void toFile(String filename) throws IOException {
+<span class="fc" id="L806">        BufferedWriter file = new BufferedWriter(new FileWriter(filename));</span>
+<span class="fc" id="L807">        file.write(this.toString());</span>
+<span class="fc" id="L808">        file.close();</span>
+<span class="fc" id="L809">    }</span>
 
     /**
      * Removes from this component reducible attributes.
@@ -978,12 +818,12 @@ public class Context extends ClosureSystem {
      */
     public TreeMap&lt;Comparable, TreeSet&lt;Comparable&gt;&gt; attributesReduction() {
         // compute the reducible elements
-<span class="nc" id="L981">        TreeMap red = this.getReducibleElements();</span>
+<span class="nc" id="L821">        TreeMap red = this.getReducibleElements();</span>
         // remove the reducible elements from the attributes set
-<span class="nc bnc" id="L983" title="All 2 branches missed.">        for (Object att : red.keySet()) {</span>
-<span class="nc" id="L984">            this.removeFromAttributes((Comparable) att);</span>
-<span class="nc" id="L985">        }</span>
-<span class="nc" id="L986">        return red;</span>
+<span class="nc bnc" id="L823" title="All 2 branches missed.">        for (Object att : red.keySet()) {</span>
+<span class="nc" id="L824">            this.removeFromAttributes((Comparable) att);</span>
+<span class="nc" id="L825">        }</span>
+<span class="nc" id="L826">        return red;</span>
     }
 
     /**
@@ -997,14 +837,14 @@ public class Context extends ClosureSystem {
      */
     public TreeMap&lt;Comparable, TreeSet&lt;Comparable&gt;&gt; observationsReduction() {
         // compute the reducible elements of the reverse context
-<span class="nc" id="L1000">        this.reverse();</span>
-<span class="nc" id="L1001">        TreeMap red = this.getReducibleElements();</span>
-<span class="nc" id="L1002">        this.reverse();</span>
+<span class="nc" id="L840">        this.reverse();</span>
+<span class="nc" id="L841">        TreeMap red = this.getReducibleElements();</span>
+<span class="nc" id="L842">        this.reverse();</span>
         // remove the reducible elements from the observations set
-<span class="nc bnc" id="L1004" title="All 2 branches missed.">        for (Object att : red.keySet()) {</span>
-<span class="nc" id="L1005">            this.removeFromObservations((Comparable) att);</span>
-<span class="nc" id="L1006">        }</span>
-<span class="nc" id="L1007">        return red;</span>
+<span class="nc bnc" id="L844" title="All 2 branches missed.">        for (Object att : red.keySet()) {</span>
+<span class="nc" id="L845">            this.removeFromObservations((Comparable) att);</span>
+<span class="nc" id="L846">        }</span>
+<span class="nc" id="L847">        return red;</span>
     }
 
     /**
@@ -1016,9 +856,9 @@ public class Context extends ClosureSystem {
      * @return  the set of reducibles removed attributes and observations with their equivalent elements
      */
     public TreeMap&lt;Comparable, TreeSet&lt;Comparable&gt;&gt; reduction() {
-<span class="nc" id="L1019">        TreeMap&lt;Comparable, TreeSet&lt;Comparable&gt;&gt; red = this.attributesReduction();</span>
-<span class="nc" id="L1020">        red.putAll(this.observationsReduction());</span>
-<span class="nc" id="L1021">        return red;</span>
+<span class="nc" id="L859">        TreeMap&lt;Comparable, TreeSet&lt;Comparable&gt;&gt; red = this.attributesReduction();</span>
+<span class="nc" id="L860">        red.putAll(this.observationsReduction());</span>
+<span class="nc" id="L861">        return red;</span>
     }
 
     /**
@@ -1026,13 +866,13 @@ public class Context extends ClosureSystem {
      * attributes. Intent and extent are exchanged in the same way.
      */
     public void reverse() {
-<span class="fc" id="L1029">        TreeSet&lt;Comparable&gt; tmp = this.attributes;</span>
-<span class="fc" id="L1030">        this.attributes = this.observations;</span>
-<span class="fc" id="L1031">        this.observations = tmp;</span>
-<span class="fc" id="L1032">        TreeMap&lt;Comparable, TreeSet&lt;Comparable&gt;&gt; sauv = this.intent;</span>
-<span class="fc" id="L1033">        this.intent = this.extent;</span>
-<span class="fc" id="L1034">        this.extent = sauv;</span>
-<span class="fc" id="L1035">    }</span>
+<span class="fc" id="L869">        TreeSet&lt;Comparable&gt; tmp = this.attributes;</span>
+<span class="fc" id="L870">        this.attributes = this.observations;</span>
+<span class="fc" id="L871">        this.observations = tmp;</span>
+<span class="fc" id="L872">        TreeMap&lt;Comparable, TreeSet&lt;Comparable&gt;&gt; sauv = this.intent;</span>
+<span class="fc" id="L873">        this.intent = this.extent;</span>
+<span class="fc" id="L874">        this.extent = sauv;</span>
+<span class="fc" id="L875">    }</span>
 
     /**
      * Return a new reversed Context.
@@ -1040,10 +880,10 @@ public class Context extends ClosureSystem {
      * @return  a new reversed Context
      */
     public Context getReverseContext() {
-<span class="fc" id="L1043">        Context context = new Context(this);</span>
-<span class="fc" id="L1044">        context.reverse();</span>
-<span class="fc" id="L1045">        context.setBitSets();</span>
-<span class="fc" id="L1046">        return context;</span>
+<span class="fc" id="L883">        Context context = new Context(this);</span>
+<span class="fc" id="L884">        context.reverse();</span>
+<span class="fc" id="L885">        context.setBitSets();</span>
+<span class="fc" id="L886">        return context;</span>
     }
 
     /* --------------- IMPLEMENTATION OF CLOSURE SYSTEM ABSTRACT METHODS ------------ */
@@ -1058,7 +898,7 @@ public class Context extends ClosureSystem {
      */
     @Override
     public TreeSet&lt;Comparable&gt; getSet() {
-<span class="fc" id="L1061">        return this.attributes;</span>
+<span class="fc" id="L901">        return this.attributes;</span>
     }
 
     /**
@@ -1075,7 +915,7 @@ public class Context extends ClosureSystem {
      */
     @Override
     public TreeSet&lt;Comparable&gt; closure(TreeSet&lt;Comparable&gt; set) {
-<span class="fc" id="L1078">        return this.getIntent(this.getExtent(set));</span>
+<span class="fc" id="L918">        return this.getIntent(this.getExtent(set));</span>
     }
 
     /**
@@ -1086,15 +926,15 @@ public class Context extends ClosureSystem {
      * @return  the set of union of observations
      */
       public TreeSet&lt;Comparable&gt; getExtentUnion(TreeSet&lt;Comparable&gt; set) {
-<span class="nc" id="L1089">        TreeSet&lt;Comparable&gt; ext = new TreeSet();</span>
-<span class="nc bnc" id="L1090" title="All 2 branches missed.">        for (Comparable att : set) {</span>
-<span class="nc bnc" id="L1091" title="All 2 branches missed.">            for (Comparable obs : this.getExtent(att)) {</span>
-<span class="nc bnc" id="L1092" title="All 4 branches missed.">                if (this.containAsExtent(att, obs) &amp;&amp; !ext.contains(obs)) {</span>
-<span class="nc" id="L1093">                    ext.add(obs);</span>
+<span class="nc" id="L929">        TreeSet&lt;Comparable&gt; ext = new TreeSet();</span>
+<span class="nc bnc" id="L930" title="All 2 branches missed.">        for (Comparable att : set) {</span>
+<span class="nc bnc" id="L931" title="All 2 branches missed.">            for (Comparable obs : this.getExtent(att)) {</span>
+<span class="nc bnc" id="L932" title="All 4 branches missed.">                if (this.containAsExtent(att, obs) &amp;&amp; !ext.contains(obs)) {</span>
+<span class="nc" id="L933">                    ext.add(obs);</span>
                 }
-<span class="nc" id="L1095">            }</span>
-<span class="nc" id="L1096">        }</span>
-<span class="nc" id="L1097">        return ext;</span>
+<span class="nc" id="L935">            }</span>
+<span class="nc" id="L936">        }</span>
+<span class="nc" id="L937">        return ext;</span>
     }
 
     /**
@@ -1109,7 +949,7 @@ public class Context extends ClosureSystem {
      * @return  the closure of the set for this component
      */
     public ComparableSet inverseClosure(ComparableSet set) {
-<span class="nc" id="L1112">        return new ComparableSet(this.getExtent(this.getIntent((TreeSet) set)));</span>
+<span class="nc" id="L952">        return new ComparableSet(this.getExtent(this.getIntent((TreeSet) set)));</span>
     }
 
     /**
@@ -1128,13 +968,13 @@ public class Context extends ClosureSystem {
      * @return  The concept lattice induced by this component
      */
     public ConceptLattice conceptLattice(boolean  diagram) {
-<span class="fc" id="L1131">        ConceptLattice csl = this.closedSetLattice(diagram);</span>
+<span class="fc" id="L971">        ConceptLattice csl = this.closedSetLattice(diagram);</span>
         // TreeMap&lt;Concept, Concept&gt; nodes = new TreeMap&lt;Concept, Concept&gt;();
-<span class="fc bfc" id="L1133" title="All 2 branches covered.">        for (Node n : csl.getNodes()) {</span>
-<span class="fc" id="L1134">             Concept cl = (Concept) n;</span>
-<span class="fc" id="L1135">             cl.putSetB(new ComparableSet(this.getExtent(cl.getSetA())));</span>
-<span class="fc" id="L1136">        }</span>
-<span class="fc" id="L1137">        return csl;</span>
+<span class="fc bfc" id="L973" title="All 2 branches covered.">        for (Node n : csl.getNodes()) {</span>
+<span class="fc" id="L974">             Concept cl = (Concept) n;</span>
+<span class="fc" id="L975">             cl.putSetB(new ComparableSet(this.getExtent(cl.getSetA())));</span>
+<span class="fc" id="L976">        }</span>
+<span class="fc" id="L977">        return csl;</span>
     }
 
     /**
@@ -1143,7 +983,7 @@ public class Context extends ClosureSystem {
      * @return  The lattice induced by this component
      */
     public ConceptLattice lattice() {
-<span class="fc" id="L1146">        return this.conceptLattice(true);</span>
+<span class="fc" id="L986">        return this.conceptLattice(true);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.0.201403182114</span></div></body></html>

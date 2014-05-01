@@ -18,6 +18,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
@@ -83,24 +84,24 @@ public class ImplicationalSystem extends ClosureSystem {
     /**
      * Constructs a new empty component.
      */
-<span class="fc" id="L86">    public ImplicationalSystem() {</span>
-<span class="fc" id="L87">        this.sigma = new TreeSet&lt;Rule&gt;();</span>
-<span class="fc" id="L88">        this.set = new TreeSet&lt;Comparable&gt;();</span>
-<span class="fc" id="L89">    }</span>
+<span class="fc" id="L87">    public ImplicationalSystem() {</span>
+<span class="fc" id="L88">        this.sigma = new TreeSet&lt;Rule&gt;();</span>
+<span class="fc" id="L89">        this.set = new TreeSet&lt;Comparable&gt;();</span>
+<span class="fc" id="L90">    }</span>
 
     /**
      * Constructs this component from the specified set of rules `sigma`.
      *
      * @param   sigma  the set of rules.
      */
-<span class="fc" id="L96">    public ImplicationalSystem(Collection&lt;Rule&gt; sigma) {</span>
-<span class="fc" id="L97">        this.sigma = new TreeSet&lt;Rule&gt;(sigma);</span>
-<span class="fc" id="L98">        this.set = new TreeSet&lt;Comparable&gt;();</span>
-<span class="fc bfc" id="L99" title="All 2 branches covered.">        for (Rule r : this.sigma) {</span>
-<span class="fc" id="L100">            set.addAll(r.getPremise());</span>
-<span class="fc" id="L101">            set.addAll(r.getConclusion());</span>
-<span class="fc" id="L102">        }</span>
-<span class="fc" id="L103">    }</span>
+<span class="fc" id="L97">    public ImplicationalSystem(Collection&lt;Rule&gt; sigma) {</span>
+<span class="fc" id="L98">        this.sigma = new TreeSet&lt;Rule&gt;(sigma);</span>
+<span class="fc" id="L99">        this.set = new TreeSet&lt;Comparable&gt;();</span>
+<span class="fc bfc" id="L100" title="All 2 branches covered.">        for (Rule r : this.sigma) {</span>
+<span class="fc" id="L101">            set.addAll(r.getPremise());</span>
+<span class="fc" id="L102">            set.addAll(r.getConclusion());</span>
+<span class="fc" id="L103">        }</span>
+<span class="fc" id="L104">    }</span>
 
     /**
      * Constructs this component as a copy of the specified IS `s`.
@@ -109,10 +110,10 @@ public class ImplicationalSystem extends ClosureSystem {
      *
      * @param   s  the implicational system to be copied
      */
-<span class="fc" id="L112">    public ImplicationalSystem(ImplicationalSystem s) {</span>
-<span class="fc" id="L113">        this.sigma = new TreeSet&lt;Rule&gt;(s.getRules());</span>
-<span class="fc" id="L114">        this.set = new TreeSet&lt;Comparable&gt;(s.getSet());</span>
-<span class="fc" id="L115">    }</span>
+<span class="fc" id="L113">    public ImplicationalSystem(ImplicationalSystem s) {</span>
+<span class="fc" id="L114">        this.sigma = new TreeSet&lt;Rule&gt;(s.getRules());</span>
+<span class="fc" id="L115">        this.set = new TreeSet&lt;Comparable&gt;(s.getSet());</span>
+<span class="fc" id="L116">    }</span>
 
     /**
      * Constructs this component from the specified file.
@@ -134,56 +135,56 @@ public class ImplicationalSystem extends ClosureSystem {
      * Each rule must have a non empty concusion, otherwise, it is not added in the component
      *
      * @param   filename  the name of the file
+     *
+     * @throws  IOException  When an IOException occurs
      */
-<span class="fc" id="L138">    public ImplicationalSystem(String filename) {</span>
-        try {
-<span class="fc" id="L140">            this.sigma = new TreeSet&lt;Rule&gt;();</span>
-<span class="fc" id="L141">            this.set = new TreeSet&lt;Comparable&gt;();</span>
-<span class="fc" id="L142">            BufferedReader file = new BufferedReader(new FileReader(filename));</span>
-            // first line : All elements of S separated by a space
-            // a StringTokenizer is used to divide the line into different token,
-            // considering spaces as separator.
-<span class="fc" id="L146">            StringTokenizer st =  new StringTokenizer(file.readLine());</span>
-<span class="fc bfc" id="L147" title="All 2 branches covered.">            while (st.hasMoreTokens()) {</span>
-<span class="fc" id="L148">                String n = new String(st.nextToken());</span>
-<span class="fc" id="L149">                this.addElement(n);</span>
-<span class="fc" id="L150">            }</span>
-            // next lines : [elements of the premise separated by a space] -&gt; [elements of the conclusion separated by a space]
-            // a StringTokenizer is used to divide each rule.
-<span class="fc" id="L153">            String line = file.readLine();</span>
-<span class="pc bpc" id="L154" title="1 of 4 branches missed.">            while (!(line == null) &amp;&amp; !line.isEmpty()) {</span>
-<span class="fc" id="L155">                st = new StringTokenizer(line);</span>
-<span class="fc" id="L156">                Rule r = new Rule();</span>
-<span class="fc" id="L157">                boolean prem = true;</span>
-<span class="fc bfc" id="L158" title="All 2 branches covered.">                while (st.hasMoreTokens()) {</span>
-<span class="fc" id="L159">                    String word = st.nextToken();</span>
-<span class="fc bfc" id="L160" title="All 2 branches covered.">                    if (word.equals(&quot;-&gt;&quot;)) {</span>
-<span class="fc" id="L161">                        prem = false;</span>
-                    } else {
-<span class="fc" id="L163">                        String x = null;</span>
-                        // search of x in S
-<span class="fc bfc" id="L165" title="All 2 branches covered.">                        for (Comparable e : this.set) {</span>
-<span class="fc bfc" id="L166" title="All 2 branches covered.">                            if (((String) e).equals(word)) {</span>
-<span class="fc" id="L167">                                x = (String) e;</span>
-                            }
-<span class="fc" id="L169">                        }</span>
-<span class="pc bpc" id="L170" title="1 of 2 branches missed.">                        if (x != null) {</span>
-<span class="fc bfc" id="L171" title="All 2 branches covered.">                            if (prem) {</span>
-<span class="fc" id="L172">                                r.addToPremise(x);</span>
-                            } else {
-<span class="fc" id="L174">                            r.addToConclusion(x);</span>
-                            }
+<span class="fc" id="L141">    public ImplicationalSystem(String filename) throws IOException {</span>
+<span class="fc" id="L142">        this.sigma = new TreeSet&lt;Rule&gt;();</span>
+<span class="fc" id="L143">        this.set = new TreeSet&lt;Comparable&gt;();</span>
+<span class="fc" id="L144">        BufferedReader file = new BufferedReader(new FileReader(filename));</span>
+        // first line : All elements of S separated by a space
+        // a StringTokenizer is used to divide the line into different token,
+        // considering spaces as separator.
+<span class="fc" id="L148">        StringTokenizer st =  new StringTokenizer(file.readLine());</span>
+<span class="fc bfc" id="L149" title="All 2 branches covered.">        while (st.hasMoreTokens()) {</span>
+<span class="fc" id="L150">            String n = new String(st.nextToken());</span>
+<span class="fc" id="L151">            this.addElement(n);</span>
+<span class="fc" id="L152">        }</span>
+        // next lines : [elements of the premise separated by a space] -&gt; [elements of the conclusion separated by a space]
+        // a StringTokenizer is used to divide each rule.
+<span class="fc" id="L155">        String line = file.readLine();</span>
+<span class="pc bpc" id="L156" title="1 of 4 branches missed.">        while (!(line == null) &amp;&amp; !line.isEmpty()) {</span>
+<span class="fc" id="L157">            st = new StringTokenizer(line);</span>
+<span class="fc" id="L158">            Rule r = new Rule();</span>
+<span class="fc" id="L159">            boolean prem = true;</span>
+<span class="fc bfc" id="L160" title="All 2 branches covered.">            while (st.hasMoreTokens()) {</span>
+<span class="fc" id="L161">                String word = st.nextToken();</span>
+<span class="fc bfc" id="L162" title="All 2 branches covered.">                if (word.equals(&quot;-&gt;&quot;)) {</span>
+<span class="fc" id="L163">                    prem = false;</span>
+                } else {
+<span class="fc" id="L165">                    String x = null;</span>
+                    // search of x in S
+<span class="fc bfc" id="L167" title="All 2 branches covered.">                    for (Comparable e : this.set) {</span>
+<span class="fc bfc" id="L168" title="All 2 branches covered.">                        if (((String) e).equals(word)) {</span>
+<span class="fc" id="L169">                            x = (String) e;</span>
+                        }
+<span class="fc" id="L171">                    }</span>
+<span class="pc bpc" id="L172" title="1 of 2 branches missed.">                    if (x != null) {</span>
+<span class="fc bfc" id="L173" title="All 2 branches covered.">                        if (prem) {</span>
+<span class="fc" id="L174">                            r.addToPremise(x);</span>
+                        } else {
+<span class="fc" id="L176">                        r.addToConclusion(x);</span>
                         }
                     }
-<span class="fc" id="L178">                }</span>
-<span class="pc bpc" id="L179" title="1 of 2 branches missed.">                if (!r.getConclusion().isEmpty()) {</span>
-<span class="fc" id="L180">                    this.addRule(r);</span>
                 }
-<span class="fc" id="L182">                line = file.readLine();</span>
-<span class="fc" id="L183">            }</span>
-<span class="fc" id="L184">            file.close();</span>
-<span class="pc" id="L185">        } catch (Exception e) { e.printStackTrace(); }</span>
-<span class="fc" id="L186">    }</span>
+<span class="fc" id="L180">            }</span>
+<span class="pc bpc" id="L181" title="1 of 2 branches missed.">            if (!r.getConclusion().isEmpty()) {</span>
+<span class="fc" id="L182">                this.addRule(r);</span>
+            }
+<span class="fc" id="L184">            line = file.readLine();</span>
+<span class="fc" id="L185">        }</span>
+<span class="fc" id="L186">        file.close();</span>
+<span class="fc" id="L187">    }</span>
 
     /**
      * Generates a random ImplicationalSystem with a specified number of nodes and rules.
@@ -194,35 +195,35 @@ public class ImplicationalSystem extends ClosureSystem {
      * @return  a random implicational system with a specified number of nodes and rules.
      */
     public static ImplicationalSystem random(int nbS, int nbR) {
-<span class="fc" id="L197">        ImplicationalSystem sigma = new ImplicationalSystem();</span>
+<span class="fc" id="L198">        ImplicationalSystem sigma = new ImplicationalSystem();</span>
         // addition of elements
-<span class="fc bfc" id="L199" title="All 2 branches covered.">        for (int i = 0; i &lt; nbS; i++) {</span>
-<span class="fc" id="L200">            sigma.addElement(new Integer(i));</span>
+<span class="fc bfc" id="L200" title="All 2 branches covered.">        for (int i = 0; i &lt; nbS; i++) {</span>
+<span class="fc" id="L201">            sigma.addElement(new Integer(i));</span>
         }
         // addition of rules
         //for (int i = 0; i &lt; nbR; i++) { One could get twice the same rule ...
-<span class="fc bfc" id="L204" title="All 2 branches covered.">        while (sigma.getRules().size() &lt; nbR) {</span>
-<span class="fc" id="L205">            ComparableSet conclusion = new ComparableSet();</span>
-<span class="fc" id="L206">            int choice = (int) Math.rint(nbS * Math.random());</span>
-<span class="fc" id="L207">            int j = 1;</span>
-<span class="fc bfc" id="L208" title="All 2 branches covered.">            for (Comparable c : sigma.getSet()) {</span>
-<span class="fc bfc" id="L209" title="All 2 branches covered.">                if (j == choice) {</span>
-<span class="fc" id="L210">                    conclusion.add(c);</span>
+<span class="fc bfc" id="L205" title="All 2 branches covered.">        while (sigma.getRules().size() &lt; nbR) {</span>
+<span class="fc" id="L206">            ComparableSet conclusion = new ComparableSet();</span>
+<span class="fc" id="L207">            int choice = (int) Math.rint(nbS * Math.random());</span>
+<span class="fc" id="L208">            int j = 1;</span>
+<span class="fc bfc" id="L209" title="All 2 branches covered.">            for (Comparable c : sigma.getSet()) {</span>
+<span class="fc bfc" id="L210" title="All 2 branches covered.">                if (j == choice) {</span>
+<span class="fc" id="L211">                    conclusion.add(c);</span>
                 }
-<span class="fc" id="L212">                j++;</span>
-<span class="fc" id="L213">            }</span>
-<span class="fc" id="L214">            ComparableSet premisse = new ComparableSet();</span>
-<span class="fc bfc" id="L215" title="All 2 branches covered.">            for (Comparable c : sigma.getSet()) {</span>
-<span class="fc" id="L216">                choice = (int) Math.rint(nbS * Math.random());</span>
-<span class="fc bfc" id="L217" title="All 2 branches covered.">                if (choice &lt; nbS / 5) {</span>
-<span class="fc" id="L218">                    premisse.add(c);</span>
+<span class="fc" id="L213">                j++;</span>
+<span class="fc" id="L214">            }</span>
+<span class="fc" id="L215">            ComparableSet premisse = new ComparableSet();</span>
+<span class="fc bfc" id="L216" title="All 2 branches covered.">            for (Comparable c : sigma.getSet()) {</span>
+<span class="fc" id="L217">                choice = (int) Math.rint(nbS * Math.random());</span>
+<span class="fc bfc" id="L218" title="All 2 branches covered.">                if (choice &lt; nbS / 5) {</span>
+<span class="fc" id="L219">                    premisse.add(c);</span>
                 }
-<span class="fc" id="L220">            }</span>
+<span class="fc" id="L221">            }</span>
             //if (!premisse.isEmpty()) {
-<span class="fc" id="L222">                sigma.addRule(new Rule(premisse, conclusion));</span>
+<span class="fc" id="L223">                sigma.addRule(new Rule(premisse, conclusion));</span>
             //}
-<span class="fc" id="L224">        }</span>
-<span class="fc" id="L225">        return sigma;</span>
+<span class="fc" id="L225">        }</span>
+<span class="fc" id="L226">        return sigma;</span>
     }
 
     /* ------------- ACCESSORS METHODS ------------------ */
@@ -233,7 +234,7 @@ public class ImplicationalSystem extends ClosureSystem {
      * @return  the set of rules of this component.
      */
     public TreeSet&lt;Rule&gt; getRules() {
-<span class="fc" id="L236">        return this.sigma;</span>
+<span class="fc" id="L237">        return this.sigma;</span>
     }
 
     /**
@@ -242,7 +243,7 @@ public class ImplicationalSystem extends ClosureSystem {
      * @return  the elements space of this component.
      */
     public TreeSet&lt;Comparable&gt; getSet() {
-<span class="fc" id="L245">        return this.set;</span>
+<span class="fc" id="L246">        return this.set;</span>
     }
 
     /**
@@ -251,7 +252,7 @@ public class ImplicationalSystem extends ClosureSystem {
      * @return  the number of elements in the elements space of this component.
      */
     public int nbElements() {
-<span class="fc" id="L254">        return this.set.size();</span>
+<span class="fc" id="L255">        return this.set.size();</span>
     }
 
     /**
@@ -260,7 +261,7 @@ public class ImplicationalSystem extends ClosureSystem {
      * @return  the number of rules of this component.
      */
     public int nbRules() {
-<span class="fc" id="L263">        return this.sigma.size();</span>
+<span class="fc" id="L264">        return this.sigma.size();</span>
     }
 
     /* ------------- MODIFICATION METHODS ------------------ */
@@ -273,7 +274,7 @@ public class ImplicationalSystem extends ClosureSystem {
      * @return  true if the element has been added to `S`
      */
     public boolean addElement(Comparable e) {
-<span class="fc" id="L276">        return set.add(e);</span>
+<span class="fc" id="L277">        return set.add(e);</span>
     }
 
     /**
@@ -284,13 +285,13 @@ public class ImplicationalSystem extends ClosureSystem {
      * @return  true if the element has been added to `S`
      */
     public boolean addAllElements(TreeSet&lt;Comparable&gt; x) {
-<span class="fc" id="L287">        boolean all = true;</span>
-<span class="fc bfc" id="L288" title="All 2 branches covered.">        for (Comparable e : x) {</span>
-<span class="pc bpc" id="L289" title="1 of 2 branches missed.">            if (!set.add(e)) {</span>
-<span class="nc" id="L290">                all = false;</span>
+<span class="fc" id="L288">        boolean all = true;</span>
+<span class="fc bfc" id="L289" title="All 2 branches covered.">        for (Comparable e : x) {</span>
+<span class="pc bpc" id="L290" title="1 of 2 branches missed.">            if (!set.add(e)) {</span>
+<span class="nc" id="L291">                all = false;</span>
             }
-<span class="fc" id="L292">        }</span>
-<span class="fc" id="L293">        return all;</span>
+<span class="fc" id="L293">        }</span>
+<span class="fc" id="L294">        return all;</span>
     }
 
     /**
@@ -301,24 +302,24 @@ public class ImplicationalSystem extends ClosureSystem {
      * @return true if the element has been added to `S`
      */
     public boolean deleteElement(Comparable e) {
-<span class="pc bpc" id="L304" title="1 of 2 branches missed.">        if (set.contains(e)) {</span>
-<span class="fc" id="L305">            set.remove(e);</span>
-<span class="fc" id="L306">            ImplicationalSystem sauv = new ImplicationalSystem(this);</span>
-<span class="fc bfc" id="L307" title="All 2 branches covered.">            for (Rule r: sauv.sigma) {</span>
-<span class="fc" id="L308">                Rule newR = new Rule(r.getPremise(), r.getConclusion());</span>
-<span class="fc" id="L309">                newR.removeFromPremise(e);</span>
-<span class="fc" id="L310">                newR.removeFromConclusion(e);</span>
-<span class="fc bfc" id="L311" title="All 2 branches covered.">                if (!r.equals(newR)) {</span>
-<span class="pc bpc" id="L312" title="1 of 2 branches missed.">                    if (newR.getConclusion().size() != 0) {</span>
-<span class="nc" id="L313">                        this.replaceRule(r, newR);</span>
+<span class="pc bpc" id="L305" title="1 of 2 branches missed.">        if (set.contains(e)) {</span>
+<span class="fc" id="L306">            set.remove(e);</span>
+<span class="fc" id="L307">            ImplicationalSystem sauv = new ImplicationalSystem(this);</span>
+<span class="fc bfc" id="L308" title="All 2 branches covered.">            for (Rule r: sauv.sigma) {</span>
+<span class="fc" id="L309">                Rule newR = new Rule(r.getPremise(), r.getConclusion());</span>
+<span class="fc" id="L310">                newR.removeFromPremise(e);</span>
+<span class="fc" id="L311">                newR.removeFromConclusion(e);</span>
+<span class="fc bfc" id="L312" title="All 2 branches covered.">                if (!r.equals(newR)) {</span>
+<span class="pc bpc" id="L313" title="1 of 2 branches missed.">                    if (newR.getConclusion().size() != 0) {</span>
+<span class="nc" id="L314">                        this.replaceRule(r, newR);</span>
                     } else {
-<span class="fc" id="L315">                        this.removeRule(r);</span>
+<span class="fc" id="L316">                        this.removeRule(r);</span>
                     }
                 }
-<span class="fc" id="L318">            }</span>
-<span class="fc" id="L319">            return true;</span>
+<span class="fc" id="L319">            }</span>
+<span class="fc" id="L320">            return true;</span>
         }
-<span class="nc" id="L321">        return false;</span>
+<span class="nc" id="L322">        return false;</span>
     }
 
     /**
@@ -329,17 +330,17 @@ public class ImplicationalSystem extends ClosureSystem {
      * @return  true if `S` contains all the elements of the rule
      */
     public boolean checkRuleElements(Rule r) {
-<span class="fc bfc" id="L332" title="All 2 branches covered.">        for (Object e : r.getPremise()) {</span>
-<span class="pc bpc" id="L333" title="1 of 2 branches missed.">            if (!set.contains(e)) {</span>
-<span class="nc" id="L334">                return false;</span>
+<span class="fc bfc" id="L333" title="All 2 branches covered.">        for (Object e : r.getPremise()) {</span>
+<span class="pc bpc" id="L334" title="1 of 2 branches missed.">            if (!set.contains(e)) {</span>
+<span class="nc" id="L335">                return false;</span>
             }
-<span class="fc" id="L336">        }</span>
-<span class="fc bfc" id="L337" title="All 2 branches covered.">        for (Object e : r.getConclusion()) {</span>
-<span class="pc bpc" id="L338" title="1 of 2 branches missed.">            if (!set.contains(e)) {</span>
-<span class="nc" id="L339">                return false;</span>
+<span class="fc" id="L337">        }</span>
+<span class="fc bfc" id="L338" title="All 2 branches covered.">        for (Object e : r.getConclusion()) {</span>
+<span class="pc bpc" id="L339" title="1 of 2 branches missed.">            if (!set.contains(e)) {</span>
+<span class="nc" id="L340">                return false;</span>
             }
-<span class="fc" id="L341">        }</span>
-<span class="fc" id="L342">        return true;</span>
+<span class="fc" id="L342">        }</span>
+<span class="fc" id="L343">        return true;</span>
     }
 
     /**
@@ -352,7 +353,7 @@ public class ImplicationalSystem extends ClosureSystem {
      * @return true if `sigma` contains the rule
      */
     public boolean containsRule(Rule r) {
-<span class="fc" id="L355">        return this.sigma.contains(r);</span>
+<span class="fc" id="L356">        return this.sigma.contains(r);</span>
     }
 
     /**
@@ -363,10 +364,10 @@ public class ImplicationalSystem extends ClosureSystem {
      * @return  true the rule has been added to if `sigma`
      */
     public boolean addRule(Rule r) {
-<span class="pc bpc" id="L366" title="1 of 4 branches missed.">        if (!this.containsRule(r) &amp;&amp; this.checkRuleElements(r)) {</span>
-<span class="fc" id="L367">            return this.sigma.add(r);</span>
+<span class="pc bpc" id="L367" title="1 of 4 branches missed.">        if (!this.containsRule(r) &amp;&amp; this.checkRuleElements(r)) {</span>
+<span class="fc" id="L368">            return this.sigma.add(r);</span>
         }
-<span class="fc" id="L369">        return false;</span>
+<span class="fc" id="L370">        return false;</span>
     }
 
     /**
@@ -377,7 +378,7 @@ public class ImplicationalSystem extends ClosureSystem {
      * @return  true if the rule has been removed
      */
     public boolean removeRule(Rule r) {
-<span class="fc" id="L380">        return this.sigma.remove(r);</span>
+<span class="fc" id="L381">        return this.sigma.remove(r);</span>
     }
 
     /**
@@ -389,7 +390,7 @@ public class ImplicationalSystem extends ClosureSystem {
      * @return  true the rule has been replaced
      */
     public boolean replaceRule(Rule r1, Rule r2) {
-<span class="pc bpc" id="L392" title="2 of 4 branches missed.">        return (this.removeRule(r1) &amp;&amp; this.addRule(r2));</span>
+<span class="pc bpc" id="L393" title="2 of 4 branches missed.">        return (this.removeRule(r1) &amp;&amp; this.addRule(r2));</span>
     }
 
     /*-----------  SAVING METHODS -------------------- */
@@ -413,24 +414,24 @@ public class ImplicationalSystem extends ClosureSystem {
      * @return  a string representation of this component.
      */
     public String toString() {
-<span class="fc" id="L416">        StringBuffer s = new StringBuffer();</span>
+<span class="fc" id="L417">        StringBuffer s = new StringBuffer();</span>
         // first line : All elements of S separated by a space
         // a StringTokenizer is used to delete spaces in the
         // string description of each element of S
-<span class="fc bfc" id="L420" title="All 2 branches covered.">        for (Comparable e : this.set) {</span>
-<span class="fc" id="L421">            StringTokenizer st = new StringTokenizer(e.toString());</span>
-<span class="fc bfc" id="L422" title="All 2 branches covered.">            while (st.hasMoreTokens()) {</span>
-<span class="fc" id="L423">                s.append(st.nextToken());</span>
+<span class="fc bfc" id="L421" title="All 2 branches covered.">        for (Comparable e : this.set) {</span>
+<span class="fc" id="L422">            StringTokenizer st = new StringTokenizer(e.toString());</span>
+<span class="fc bfc" id="L423" title="All 2 branches covered.">            while (st.hasMoreTokens()) {</span>
+<span class="fc" id="L424">                s.append(st.nextToken());</span>
             }
-<span class="fc" id="L425">            s.append(&quot; &quot;);</span>
-<span class="fc" id="L426">        }</span>
-<span class="fc" id="L427">        s.append(&quot;\n&quot;);</span>
+<span class="fc" id="L426">            s.append(&quot; &quot;);</span>
+<span class="fc" id="L427">        }</span>
+<span class="fc" id="L428">        s.append(&quot;\n&quot;);</span>
         // next lines : a rule on each line, described by:
         // [elements of the premise separated by a space] -&gt; [elements of the conclusion separated by a space]
-<span class="fc bfc" id="L430" title="All 2 branches covered.">        for (Rule r : this.sigma) {</span>
-<span class="fc" id="L431">            s.append(r.toString()).append(&quot;\n&quot;);</span>
-<span class="fc" id="L432">        }</span>
-<span class="fc" id="L433">        return s.toString();</span>
+<span class="fc bfc" id="L431" title="All 2 branches covered.">        for (Rule r : this.sigma) {</span>
+<span class="fc" id="L432">            s.append(r.toString()).append(&quot;\n&quot;);</span>
+<span class="fc" id="L433">        }</span>
+<span class="fc" id="L434">        return s.toString();</span>
     }
 
     /**
@@ -450,14 +451,14 @@ public class ImplicationalSystem extends ClosureSystem {
      * ~~~
      *
      * @param   filename  the name of the file
+     *
+     * @throws  IOException  When an IOException occurs
      */
-    public void toFile(String filename) {
-        try {
-<span class="fc" id="L456">            BufferedWriter file = new BufferedWriter(new FileWriter(filename));</span>
-<span class="fc" id="L457">            file.write(this.toString());</span>
-<span class="fc" id="L458">            file.close();</span>
-<span class="pc" id="L459">        } catch (Exception e) { e.printStackTrace(); }</span>
-<span class="fc" id="L460">    }</span>
+    public void toFile(String filename) throws IOException {
+<span class="fc" id="L458">        BufferedWriter file = new BufferedWriter(new FileWriter(filename));</span>
+<span class="fc" id="L459">        file.write(this.toString());</span>
+<span class="fc" id="L460">        file.close();</span>
+<span class="fc" id="L461">    }</span>
 
     /*-----------  PROPERTIES TEST METHODS -------------------- */
 
@@ -469,12 +470,12 @@ public class ImplicationalSystem extends ClosureSystem {
      * @return  true if and only if this component is a proper implicational system.
      */
     public boolean isProper() {
-<span class="fc bfc" id="L472" title="All 2 branches covered.">        for (Rule r : this.sigma) {</span>
-<span class="pc bpc" id="L473" title="1 of 2 branches missed.">            if (r.getPremise().contains(r.getConclusion())) {</span>
-<span class="nc" id="L474">                return false;</span>
+<span class="fc bfc" id="L473" title="All 2 branches covered.">        for (Rule r : this.sigma) {</span>
+<span class="pc bpc" id="L474" title="1 of 2 branches missed.">            if (r.getPremise().contains(r.getConclusion())) {</span>
+<span class="nc" id="L475">                return false;</span>
             }
-<span class="fc" id="L476">        }</span>
-<span class="fc" id="L477">        return true;</span>
+<span class="fc" id="L477">        }</span>
+<span class="fc" id="L478">        return true;</span>
     }
 
     /**
@@ -485,12 +486,12 @@ public class ImplicationalSystem extends ClosureSystem {
      * @return  true if this component is an unary ImplicationalSystem.
      */
     public boolean isUnary() {
-<span class="fc bfc" id="L488" title="All 2 branches covered.">        for (Rule r : this.sigma) {</span>
-<span class="pc bpc" id="L489" title="1 of 2 branches missed.">            if (r.getConclusion().size() &gt; 1) {</span>
-<span class="nc" id="L490">                return false;</span>
+<span class="fc bfc" id="L489" title="All 2 branches covered.">        for (Rule r : this.sigma) {</span>
+<span class="pc bpc" id="L490" title="1 of 2 branches missed.">            if (r.getConclusion().size() &gt; 1) {</span>
+<span class="nc" id="L491">                return false;</span>
             }
-<span class="fc" id="L492">        }</span>
-<span class="fc" id="L493">        return true;</span>
+<span class="fc" id="L493">        }</span>
+<span class="fc" id="L494">        return true;</span>
     }
 
     /**
@@ -501,14 +502,14 @@ public class ImplicationalSystem extends ClosureSystem {
      * @return  true if this component is a compact ImplicationalSystem.
      */
     public boolean isCompact() {
-<span class="fc bfc" id="L504" title="All 2 branches covered.">        for (Rule r1 : this.sigma) {</span>
-<span class="fc bfc" id="L505" title="All 2 branches covered.">            for (Rule r2: this.sigma) {</span>
-<span class="pc bpc" id="L506" title="1 of 4 branches missed.">                if (!r1.equals(r2) &amp;&amp; (r1.getPremise().equals(r2.getPremise()))) {</span>
-<span class="nc" id="L507">                    return false;</span>
+<span class="fc bfc" id="L505" title="All 2 branches covered.">        for (Rule r1 : this.sigma) {</span>
+<span class="fc bfc" id="L506" title="All 2 branches covered.">            for (Rule r2: this.sigma) {</span>
+<span class="pc bpc" id="L507" title="1 of 4 branches missed.">                if (!r1.equals(r2) &amp;&amp; (r1.getPremise().equals(r2.getPremise()))) {</span>
+<span class="nc" id="L508">                    return false;</span>
                 }
-<span class="fc" id="L509">            }</span>
-<span class="fc" id="L510">        }</span>
-<span class="fc" id="L511">        return true;</span>
+<span class="fc" id="L510">            }</span>
+<span class="fc" id="L511">        }</span>
+<span class="fc" id="L512">        return true;</span>
     }
 
     /**
@@ -519,12 +520,12 @@ public class ImplicationalSystem extends ClosureSystem {
      * @return  true if conclusion of rules of this component are closed.
      */
     public boolean isRightMaximal() {
-<span class="fc bfc" id="L522" title="All 2 branches covered.">        for (Rule r : this.sigma) {</span>
-<span class="pc bpc" id="L523" title="1 of 2 branches missed.">            if (!r.getConclusion().containsAll(this.closure(r.getConclusion()))) {</span>
-<span class="nc" id="L524">                return false;</span>
+<span class="fc bfc" id="L523" title="All 2 branches covered.">        for (Rule r : this.sigma) {</span>
+<span class="pc bpc" id="L524" title="1 of 2 branches missed.">            if (!r.getConclusion().containsAll(this.closure(r.getConclusion()))) {</span>
+<span class="nc" id="L525">                return false;</span>
             }
-<span class="fc" id="L526">        }</span>
-<span class="fc" id="L527">        return true;</span>
+<span class="fc" id="L527">        }</span>
+<span class="fc" id="L528">        return true;</span>
     }
 
     /**
@@ -535,14 +536,14 @@ public class ImplicationalSystem extends ClosureSystem {
      * @return  true if this component is left minimal.
      */
     public boolean isLeftMinimal() {
-<span class="fc bfc" id="L538" title="All 2 branches covered.">        for (Rule r1 : this.sigma) {</span>
-<span class="fc bfc" id="L539" title="All 2 branches covered.">            for (Rule r2 : this.sigma) {</span>
-<span class="pc bpc" id="L540" title="1 of 6 branches missed.">                if (!r1.equals(r2) &amp;&amp; r1.getPremise().containsAll(r2.getPremise()) &amp;&amp; r1.getConclusion().equals(r2.getConclusion())) {</span>
-<span class="nc" id="L541">                    return false;</span>
+<span class="fc bfc" id="L539" title="All 2 branches covered.">        for (Rule r1 : this.sigma) {</span>
+<span class="fc bfc" id="L540" title="All 2 branches covered.">            for (Rule r2 : this.sigma) {</span>
+<span class="pc bpc" id="L541" title="1 of 6 branches missed.">                if (!r1.equals(r2) &amp;&amp; r1.getPremise().containsAll(r2.getPremise()) &amp;&amp; r1.getConclusion().equals(r2.getConclusion())) {</span>
+<span class="nc" id="L542">                    return false;</span>
                 }
-<span class="fc" id="L543">            }</span>
-<span class="fc" id="L544">        }</span>
-<span class="fc" id="L545">        return true;</span>
+<span class="fc" id="L544">            }</span>
+<span class="fc" id="L545">        }</span>
+<span class="fc" id="L546">        return true;</span>
     }
 
     /**
@@ -555,18 +556,18 @@ public class ImplicationalSystem extends ClosureSystem {
      * @return  true if this component is direct.
      */
     public boolean isDirect() {
-<span class="fc bfc" id="L558" title="All 2 branches covered.">        for (Rule r1 : this.sigma) {</span>
-<span class="fc" id="L559">            TreeSet&lt;Comparable&gt; onePass = new TreeSet(r1.getPremise());</span>
-<span class="fc bfc" id="L560" title="All 2 branches covered.">            for (Rule r2 : this.sigma) {</span>
-<span class="fc bfc" id="L561" title="All 2 branches covered.">                if (r1.getPremise().containsAll(r2.getPremise())) {</span>
-<span class="fc" id="L562">                    onePass.addAll(r2.getConclusion());</span>
+<span class="fc bfc" id="L559" title="All 2 branches covered.">        for (Rule r1 : this.sigma) {</span>
+<span class="fc" id="L560">            TreeSet&lt;Comparable&gt; onePass = new TreeSet(r1.getPremise());</span>
+<span class="fc bfc" id="L561" title="All 2 branches covered.">            for (Rule r2 : this.sigma) {</span>
+<span class="fc bfc" id="L562" title="All 2 branches covered.">                if (r1.getPremise().containsAll(r2.getPremise())) {</span>
+<span class="fc" id="L563">                    onePass.addAll(r2.getConclusion());</span>
                 }
-<span class="fc" id="L564">            }</span>
-<span class="pc bpc" id="L565" title="1 of 2 branches missed.">            if (!onePass.equals(this.closure(r1.getPremise()))) {</span>
-<span class="nc" id="L566">                return false;</span>
+<span class="fc" id="L565">            }</span>
+<span class="pc bpc" id="L566" title="1 of 2 branches missed.">            if (!onePass.equals(this.closure(r1.getPremise()))) {</span>
+<span class="nc" id="L567">                return false;</span>
             }
-<span class="fc" id="L568">        }</span>
-<span class="fc" id="L569">        return true;</span>
+<span class="fc" id="L569">        }</span>
+<span class="fc" id="L570">        return true;</span>
     }
 
     /**
@@ -579,18 +580,18 @@ public class ImplicationalSystem extends ClosureSystem {
      * @return  true if this component is minimum.
      */
     public boolean isMinimum() {
-<span class="fc" id="L582">        ImplicationalSystem tmp = new ImplicationalSystem(this);</span>
-<span class="fc" id="L583">        tmp.makeRightMaximal();</span>
-<span class="fc bfc" id="L584" title="All 2 branches covered.">        for (Rule r : sigma) {</span>
-<span class="fc" id="L585">            ImplicationalSystem epsylon = new ImplicationalSystem(tmp);</span>
-<span class="fc" id="L586">            epsylon.removeRule(r);</span>
-<span class="fc" id="L587">            TreeSet&lt;Comparable&gt; clThis = this.closure(r.getPremise());</span>
-<span class="fc" id="L588">            TreeSet&lt;Comparable&gt; clEpsilon = epsylon.closure(r.getPremise());</span>
-<span class="pc bpc" id="L589" title="1 of 2 branches missed.">            if (clThis.equals(clEpsilon)) {</span>
-<span class="nc" id="L590">                return false;</span>
+<span class="fc" id="L583">        ImplicationalSystem tmp = new ImplicationalSystem(this);</span>
+<span class="fc" id="L584">        tmp.makeRightMaximal();</span>
+<span class="fc bfc" id="L585" title="All 2 branches covered.">        for (Rule r : sigma) {</span>
+<span class="fc" id="L586">            ImplicationalSystem epsylon = new ImplicationalSystem(tmp);</span>
+<span class="fc" id="L587">            epsylon.removeRule(r);</span>
+<span class="fc" id="L588">            TreeSet&lt;Comparable&gt; clThis = this.closure(r.getPremise());</span>
+<span class="fc" id="L589">            TreeSet&lt;Comparable&gt; clEpsilon = epsylon.closure(r.getPremise());</span>
+<span class="pc bpc" id="L590" title="1 of 2 branches missed.">            if (clThis.equals(clEpsilon)) {</span>
+<span class="nc" id="L591">                return false;</span>
             }
-<span class="fc" id="L592">        }</span>
-<span class="fc" id="L593">        return true;</span>
+<span class="fc" id="L593">        }</span>
+<span class="fc" id="L594">        return true;</span>
     }
 
     /**
@@ -604,9 +605,9 @@ public class ImplicationalSystem extends ClosureSystem {
      * @return  true if this component is equal to its canonical direct basis.
      */
     public boolean isCanonicalDirectBasis() {
-<span class="fc" id="L607">        ImplicationalSystem cdb = new ImplicationalSystem(this);</span>
-<span class="fc" id="L608">        cdb.makeCanonicalDirectBasis();</span>
-<span class="pc bpc" id="L609" title="2 of 4 branches missed.">        return (this.isIncludedIn(cdb) &amp;&amp; cdb.isIncludedIn(this));</span>
+<span class="fc" id="L608">        ImplicationalSystem cdb = new ImplicationalSystem(this);</span>
+<span class="fc" id="L609">        cdb.makeCanonicalDirectBasis();</span>
+<span class="pc bpc" id="L610" title="2 of 4 branches missed.">        return (this.isIncludedIn(cdb) &amp;&amp; cdb.isIncludedIn(this));</span>
     }
 
     /**
@@ -620,9 +621,9 @@ public class ImplicationalSystem extends ClosureSystem {
      * @return  true if this component is equal to its canonical basis.
      */
     public boolean isCanonicalBasis() {
-<span class="fc" id="L623">        ImplicationalSystem cb = new ImplicationalSystem(this);</span>
-<span class="fc" id="L624">        cb.makeCanonicalBasis();</span>
-<span class="pc bpc" id="L625" title="2 of 4 branches missed.">        return (this.isIncludedIn(cb) &amp;&amp; cb.isIncludedIn(this));</span>
+<span class="fc" id="L624">        ImplicationalSystem cb = new ImplicationalSystem(this);</span>
+<span class="fc" id="L625">        cb.makeCanonicalBasis();</span>
+<span class="pc bpc" id="L626" title="2 of 4 branches missed.">        return (this.isIncludedIn(cb) &amp;&amp; cb.isIncludedIn(this));</span>
     }
 
     /**
@@ -633,17 +634,17 @@ public class ImplicationalSystem extends ClosureSystem {
      * @return  true if really include in this componenet.
      */
     public boolean isIncludedIn(ImplicationalSystem is) {
-<span class="fc" id="L636">        ImplicationalSystem tmp = new ImplicationalSystem(this);</span>
-<span class="fc" id="L637">        tmp.makeProper();</span>
-<span class="fc" id="L638">        tmp.makeUnary();</span>
-<span class="fc" id="L639">        is.makeProper();</span>
-<span class="fc" id="L640">        is.makeUnary();</span>
-<span class="fc bfc" id="L641" title="All 2 branches covered.">        for (Rule r : tmp.sigma) {</span>
-<span class="pc bpc" id="L642" title="1 of 2 branches missed.">            if (!is.containsRule(r)) {</span>
-<span class="nc" id="L643">                return false;</span>
+<span class="fc" id="L637">        ImplicationalSystem tmp = new ImplicationalSystem(this);</span>
+<span class="fc" id="L638">        tmp.makeProper();</span>
+<span class="fc" id="L639">        tmp.makeUnary();</span>
+<span class="fc" id="L640">        is.makeProper();</span>
+<span class="fc" id="L641">        is.makeUnary();</span>
+<span class="fc bfc" id="L642" title="All 2 branches covered.">        for (Rule r : tmp.sigma) {</span>
+<span class="pc bpc" id="L643" title="1 of 2 branches missed.">            if (!is.containsRule(r)) {</span>
+<span class="nc" id="L644">                return false;</span>
             }
-<span class="fc" id="L645">        }</span>
-<span class="fc" id="L646">        return true;</span>
+<span class="fc" id="L646">        }</span>
+<span class="fc" id="L647">        return true;</span>
     }
 
     /*-----------  PROPERTIES MODIFICATION METHODS -------------------- */
@@ -659,25 +660,25 @@ public class ImplicationalSystem extends ClosureSystem {
      * @return  the difference between the number of rules of this component before and after this treatment
      */
     public int makeProper() {
-<span class="fc" id="L662">        ImplicationalSystem sauv = new ImplicationalSystem(this);</span>
-<span class="fc bfc" id="L663" title="All 2 branches covered.">        for (Rule r : sauv.sigma) {</span>
+<span class="fc" id="L663">        ImplicationalSystem sauv = new ImplicationalSystem(this);</span>
+<span class="fc bfc" id="L664" title="All 2 branches covered.">        for (Rule r : sauv.sigma) {</span>
             // deletes elements of conclusion which are in the premise
-<span class="fc" id="L665">            Rule newR = new Rule(r.getPremise(), r.getConclusion());</span>
-<span class="fc bfc" id="L666" title="All 2 branches covered.">            for (Object e : r.getConclusion()) {</span>
-<span class="fc bfc" id="L667" title="All 2 branches covered.">                if (newR.getPremise().contains(e)) {</span>
-<span class="fc" id="L668">                    newR.removeFromConclusion(e);</span>
+<span class="fc" id="L666">            Rule newR = new Rule(r.getPremise(), r.getConclusion());</span>
+<span class="fc bfc" id="L667" title="All 2 branches covered.">            for (Object e : r.getConclusion()) {</span>
+<span class="fc bfc" id="L668" title="All 2 branches covered.">                if (newR.getPremise().contains(e)) {</span>
+<span class="fc" id="L669">                    newR.removeFromConclusion(e);</span>
                 }
-<span class="fc" id="L670">            }</span>
+<span class="fc" id="L671">            }</span>
             // replace the rule by the new rule is it has been modified
-<span class="fc bfc" id="L672" title="All 2 branches covered.">            if (!r.equals(newR)) {</span>
-<span class="fc" id="L673">                this.replaceRule(r, newR);</span>
+<span class="fc bfc" id="L673" title="All 2 branches covered.">            if (!r.equals(newR)) {</span>
+<span class="fc" id="L674">                this.replaceRule(r, newR);</span>
             }
             // delete rule with an empty conclusion
-<span class="fc bfc" id="L676" title="All 2 branches covered.">            if (newR.getConclusion().isEmpty()) {</span>
-<span class="fc" id="L677">                this.removeRule(newR);</span>
+<span class="fc bfc" id="L677" title="All 2 branches covered.">            if (newR.getConclusion().isEmpty()) {</span>
+<span class="fc" id="L678">                this.removeRule(newR);</span>
             }
-<span class="fc" id="L679">        }</span>
-<span class="fc" id="L680">        return sauv.nbRules() - this.nbRules();</span>
+<span class="fc" id="L680">        }</span>
+<span class="fc" id="L681">        return sauv.nbRules() - this.nbRules();</span>
     }
 
     /**
@@ -693,21 +694,21 @@ public class ImplicationalSystem extends ClosureSystem {
      * @return  the difference between the number of rules of this component before and after this treatment
      */
     public int makeUnary() {
-<span class="fc" id="L696">        ImplicationalSystem sauv = new ImplicationalSystem(this);</span>
-<span class="fc bfc" id="L697" title="All 2 branches covered.">        for (Rule r : sauv.sigma) {</span>
-<span class="fc bfc" id="L698" title="All 2 branches covered.">            if (r.getConclusion().size() &gt; 1) {</span>
-<span class="fc" id="L699">                this.removeRule(r);</span>
-<span class="fc" id="L700">                TreeSet&lt;Comparable&gt; conclusion = r.getConclusion();</span>
-<span class="fc" id="L701">                TreeSet&lt;Comparable&gt; premise = r.getPremise();</span>
-<span class="fc bfc" id="L702" title="All 2 branches covered.">                for (Comparable e : conclusion) {</span>
-<span class="fc" id="L703">                    TreeSet&lt;Comparable&gt; newC = new TreeSet();</span>
-<span class="fc" id="L704">                    newC.add(e);</span>
-<span class="fc" id="L705">                    Rule nr = new Rule(premise, newC);</span>
-<span class="fc" id="L706">                    this.addRule(nr);</span>
-<span class="fc" id="L707">                }</span>
+<span class="fc" id="L697">        ImplicationalSystem sauv = new ImplicationalSystem(this);</span>
+<span class="fc bfc" id="L698" title="All 2 branches covered.">        for (Rule r : sauv.sigma) {</span>
+<span class="fc bfc" id="L699" title="All 2 branches covered.">            if (r.getConclusion().size() &gt; 1) {</span>
+<span class="fc" id="L700">                this.removeRule(r);</span>
+<span class="fc" id="L701">                TreeSet&lt;Comparable&gt; conclusion = r.getConclusion();</span>
+<span class="fc" id="L702">                TreeSet&lt;Comparable&gt; premise = r.getPremise();</span>
+<span class="fc bfc" id="L703" title="All 2 branches covered.">                for (Comparable e : conclusion) {</span>
+<span class="fc" id="L704">                    TreeSet&lt;Comparable&gt; newC = new TreeSet();</span>
+<span class="fc" id="L705">                    newC.add(e);</span>
+<span class="fc" id="L706">                    Rule nr = new Rule(premise, newC);</span>
+<span class="fc" id="L707">                    this.addRule(nr);</span>
+<span class="fc" id="L708">                }</span>
             }
-<span class="fc" id="L709">        }</span>
-<span class="fc" id="L710">        return sauv.nbRules() - this.nbRules();</span>
+<span class="fc" id="L710">        }</span>
+<span class="fc" id="L711">        return sauv.nbRules() - this.nbRules();</span>
     }
 
     /**
@@ -718,26 +719,26 @@ public class ImplicationalSystem extends ClosureSystem {
      * @return  the difference between the number of rules of this component before and after this treatment
      */
     public int makeCompact() {
-<span class="fc" id="L721">        ImplicationalSystem sauv = new ImplicationalSystem(this);</span>
-<span class="fc bfc" id="L722" title="All 2 branches covered.">        for (Rule r1 : sauv.sigma) {</span>
-<span class="fc bfc" id="L723" title="All 2 branches covered.">            if (this.containsRule(r1)) {</span>
-<span class="fc" id="L724">                ComparableSet newConc = new ComparableSet();</span>
-<span class="fc bfc" id="L725" title="All 2 branches covered.">                for (Rule r2 : sauv.sigma) {</span>
-<span class="fc bfc" id="L726" title="All 6 branches covered.">                    if (this.containsRule(r2) &amp;&amp; !r1.equals(r2) &amp;&amp; (r1.getPremise().equals(r2.getPremise()))) {</span>
-<span class="fc" id="L727">                        newConc.addAll(r2.getConclusion());</span>
-<span class="fc" id="L728">                        boolean res = this.sigma.remove(r2);</span>
+<span class="fc" id="L722">        ImplicationalSystem sauv = new ImplicationalSystem(this);</span>
+<span class="fc bfc" id="L723" title="All 2 branches covered.">        for (Rule r1 : sauv.sigma) {</span>
+<span class="fc bfc" id="L724" title="All 2 branches covered.">            if (this.containsRule(r1)) {</span>
+<span class="fc" id="L725">                ComparableSet newConc = new ComparableSet();</span>
+<span class="fc bfc" id="L726" title="All 2 branches covered.">                for (Rule r2 : sauv.sigma) {</span>
+<span class="fc bfc" id="L727" title="All 6 branches covered.">                    if (this.containsRule(r2) &amp;&amp; !r1.equals(r2) &amp;&amp; (r1.getPremise().equals(r2.getPremise()))) {</span>
+<span class="fc" id="L728">                        newConc.addAll(r2.getConclusion());</span>
+<span class="fc" id="L729">                        boolean res = this.sigma.remove(r2);</span>
                     }
-<span class="fc" id="L730">                }</span>
-<span class="fc bfc" id="L731" title="All 2 branches covered.">                if (newConc.size() &gt; 0) {</span>
-<span class="fc" id="L732">                    newConc.addAll(r1.getConclusion());</span>
-<span class="fc" id="L733">                    Rule newR = new Rule(r1.getPremise(), newConc);</span>
-<span class="pc bpc" id="L734" title="1 of 2 branches missed.">                    if (!r1.equals(newR)) {</span>
-<span class="fc" id="L735">                        this.replaceRule(r1, newR);</span>
+<span class="fc" id="L731">                }</span>
+<span class="fc bfc" id="L732" title="All 2 branches covered.">                if (newConc.size() &gt; 0) {</span>
+<span class="fc" id="L733">                    newConc.addAll(r1.getConclusion());</span>
+<span class="fc" id="L734">                    Rule newR = new Rule(r1.getPremise(), newConc);</span>
+<span class="pc bpc" id="L735" title="1 of 2 branches missed.">                    if (!r1.equals(newR)) {</span>
+<span class="fc" id="L736">                        this.replaceRule(r1, newR);</span>
                     }
                 }
             }
-<span class="fc" id="L739">        }</span>
-<span class="fc" id="L740">        return sauv.nbRules() - this.nbRules();</span>
+<span class="fc" id="L740">        }</span>
+<span class="fc" id="L741">        return sauv.nbRules() - this.nbRules();</span>
     }
 
     /**
@@ -749,16 +750,16 @@ public class ImplicationalSystem extends ClosureSystem {
      * @return  the difference between the number of rules of this component before and after this treatment
      */
     public int makeRightMaximal() {
-<span class="fc" id="L752">        int s = this.nbRules();</span>
-<span class="fc" id="L753">        this.makeCompact();</span>
-<span class="fc" id="L754">        ImplicationalSystem sauv = new ImplicationalSystem(this);</span>
-<span class="fc bfc" id="L755" title="All 2 branches covered.">        for (Rule r : sauv.sigma) {</span>
-<span class="fc" id="L756">            Rule newR = new Rule(r.getPremise(), this.closure(r.getPremise()));</span>
-<span class="fc bfc" id="L757" title="All 2 branches covered.">            if (!r.equals(newR)) {</span>
-<span class="fc" id="L758">                this.replaceRule(r, newR);</span>
+<span class="fc" id="L753">        int s = this.nbRules();</span>
+<span class="fc" id="L754">        this.makeCompact();</span>
+<span class="fc" id="L755">        ImplicationalSystem sauv = new ImplicationalSystem(this);</span>
+<span class="fc bfc" id="L756" title="All 2 branches covered.">        for (Rule r : sauv.sigma) {</span>
+<span class="fc" id="L757">            Rule newR = new Rule(r.getPremise(), this.closure(r.getPremise()));</span>
+<span class="fc bfc" id="L758" title="All 2 branches covered.">            if (!r.equals(newR)) {</span>
+<span class="fc" id="L759">                this.replaceRule(r, newR);</span>
             }
-<span class="fc" id="L760">        }</span>
-<span class="fc" id="L761">        return s - this.nbRules();</span>
+<span class="fc" id="L761">        }</span>
+<span class="fc" id="L762">        return s - this.nbRules();</span>
     }
 
     /**
@@ -772,19 +773,19 @@ public class ImplicationalSystem extends ClosureSystem {
      * @return  the difference between the number of rules of this component before and after this treatment
      */
     public int makeLeftMinimal() {
-<span class="fc" id="L775">        this.makeUnary();</span>
-<span class="fc" id="L776">        ImplicationalSystem sauv = new ImplicationalSystem(this);</span>
-<span class="fc bfc" id="L777" title="All 2 branches covered.">        for (Rule r1 : sauv.sigma) {</span>
-<span class="fc bfc" id="L778" title="All 2 branches covered.">            for (Rule r2 : sauv.sigma) {</span>
-<span class="fc bfc" id="L779" title="All 2 branches covered.">                if (!r1.equals(r2)) {</span>
-<span class="fc bfc" id="L780" title="All 4 branches covered.">                    if ((r2.getPremise().containsAll(r1.getPremise())) &amp;&amp; (r1.getConclusion().equals(r2.getConclusion()))) {</span>
-<span class="fc" id="L781">                        this.sigma.remove(r2);</span>
+<span class="fc" id="L776">        this.makeUnary();</span>
+<span class="fc" id="L777">        ImplicationalSystem sauv = new ImplicationalSystem(this);</span>
+<span class="fc bfc" id="L778" title="All 2 branches covered.">        for (Rule r1 : sauv.sigma) {</span>
+<span class="fc bfc" id="L779" title="All 2 branches covered.">            for (Rule r2 : sauv.sigma) {</span>
+<span class="fc bfc" id="L780" title="All 2 branches covered.">                if (!r1.equals(r2)) {</span>
+<span class="fc bfc" id="L781" title="All 4 branches covered.">                    if ((r2.getPremise().containsAll(r1.getPremise())) &amp;&amp; (r1.getConclusion().equals(r2.getConclusion()))) {</span>
+<span class="fc" id="L782">                        this.sigma.remove(r2);</span>
                     }
                 }
-<span class="fc" id="L784">            }</span>
-<span class="fc" id="L785">        }</span>
-<span class="fc" id="L786">        this.makeCompact();</span>
-<span class="fc" id="L787">        return sauv.nbRules() - this.nbRules();</span>
+<span class="fc" id="L785">            }</span>
+<span class="fc" id="L786">        }</span>
+<span class="fc" id="L787">        this.makeCompact();</span>
+<span class="fc" id="L788">        return sauv.nbRules() - this.nbRules();</span>
     }
 
     /**
@@ -802,35 +803,35 @@ public class ImplicationalSystem extends ClosureSystem {
      * @return  the difference between the number of rules of this component before and after this treatment
      */
     public int makeDirect() {
-<span class="fc" id="L805">        this.makeUnary();</span>
-<span class="fc" id="L806">        this.makeProper();</span>
-<span class="fc" id="L807">        int s = this.nbRules();</span>
-<span class="fc" id="L808">        boolean ok = true;</span>
-<span class="fc bfc" id="L809" title="All 2 branches covered.">        while (ok) {</span>
-<span class="fc" id="L810">            ImplicationalSystem sauv = new ImplicationalSystem(this);</span>
-<span class="fc bfc" id="L811" title="All 2 branches covered.">            for (Rule r1 : sauv.sigma) {</span>
-<span class="fc bfc" id="L812" title="All 2 branches covered.">                for (Rule r2 : sauv.sigma) {</span>
-<span class="fc bfc" id="L813" title="All 4 branches covered.">                    if (!r1.equals(r2) &amp;&amp; !r1.getPremise().containsAll(r2.getConclusion())) {</span>
-<span class="fc" id="L814">                        ComparableSet  c = new ComparableSet(r2.getPremise());</span>
-<span class="fc" id="L815">                        c.removeAll(r1.getConclusion());</span>
-<span class="fc" id="L816">                        c.addAll(r1.getPremise());</span>
-<span class="fc bfc" id="L817" title="All 2 branches covered.">                        if (!c.containsAll(r2.getPremise())) {</span>
-<span class="fc" id="L818">                            Rule newR  = new Rule(c, r2.getConclusion());</span>
+<span class="fc" id="L806">        this.makeUnary();</span>
+<span class="fc" id="L807">        this.makeProper();</span>
+<span class="fc" id="L808">        int s = this.nbRules();</span>
+<span class="fc" id="L809">        boolean ok = true;</span>
+<span class="fc bfc" id="L810" title="All 2 branches covered.">        while (ok) {</span>
+<span class="fc" id="L811">            ImplicationalSystem sauv = new ImplicationalSystem(this);</span>
+<span class="fc bfc" id="L812" title="All 2 branches covered.">            for (Rule r1 : sauv.sigma) {</span>
+<span class="fc bfc" id="L813" title="All 2 branches covered.">                for (Rule r2 : sauv.sigma) {</span>
+<span class="fc bfc" id="L814" title="All 4 branches covered.">                    if (!r1.equals(r2) &amp;&amp; !r1.getPremise().containsAll(r2.getConclusion())) {</span>
+<span class="fc" id="L815">                        ComparableSet  c = new ComparableSet(r2.getPremise());</span>
+<span class="fc" id="L816">                        c.removeAll(r1.getConclusion());</span>
+<span class="fc" id="L817">                        c.addAll(r1.getPremise());</span>
+<span class="fc bfc" id="L818" title="All 2 branches covered.">                        if (!c.containsAll(r2.getPremise())) {</span>
+<span class="fc" id="L819">                            Rule newR  = new Rule(c, r2.getConclusion());</span>
                             // new_r.addAllToPremise (r1.getPremise());
                             // new_r.addAllToPremise (r2.getPremise());
                             // new_r.removeAllFromPremise(r1.getConclusion());
                             // new_r.addAllToConclusion(r2.getConclusion() );
-<span class="fc" id="L823">                            this.addRule(newR);</span>
+<span class="fc" id="L824">                            this.addRule(newR);</span>
                         }
                     }
-<span class="fc" id="L826">                }</span>
-<span class="fc" id="L827">            }</span>
-<span class="fc bfc" id="L828" title="All 2 branches covered.">            if (this.nbRules() == sauv.nbRules()) {</span>
-<span class="fc" id="L829">                ok = false;</span>
+<span class="fc" id="L827">                }</span>
+<span class="fc" id="L828">            }</span>
+<span class="fc bfc" id="L829" title="All 2 branches covered.">            if (this.nbRules() == sauv.nbRules()) {</span>
+<span class="fc" id="L830">                ok = false;</span>
             }
-<span class="fc" id="L831">        }</span>
-<span class="fc" id="L832">        this.makeCompact();</span>
-<span class="fc" id="L833">        return s - this.nbRules();</span>
+<span class="fc" id="L832">        }</span>
+<span class="fc" id="L833">        this.makeCompact();</span>
+<span class="fc" id="L834">        return s - this.nbRules();</span>
     }
 
     /**
@@ -845,16 +846,16 @@ public class ImplicationalSystem extends ClosureSystem {
      * @return  the difference between the number of rules of this component before and after this treatment
      */
     public int makeMinimum() {
-<span class="fc" id="L848">        this.makeRightMaximal();</span>
-<span class="fc" id="L849">        ImplicationalSystem sauv = new ImplicationalSystem(this);</span>
-<span class="fc bfc" id="L850" title="All 2 branches covered.">        for (Rule r : sauv.sigma) {</span>
-<span class="fc" id="L851">            ImplicationalSystem epsylon = new ImplicationalSystem(this);</span>
-<span class="fc" id="L852">            epsylon.removeRule(r);</span>
-<span class="fc bfc" id="L853" title="All 2 branches covered.">            if (epsylon.closure(r.getPremise()).equals(this.closure(r.getPremise()))) {</span>
-<span class="fc" id="L854">                this.removeRule(r);</span>
+<span class="fc" id="L849">        this.makeRightMaximal();</span>
+<span class="fc" id="L850">        ImplicationalSystem sauv = new ImplicationalSystem(this);</span>
+<span class="fc bfc" id="L851" title="All 2 branches covered.">        for (Rule r : sauv.sigma) {</span>
+<span class="fc" id="L852">            ImplicationalSystem epsylon = new ImplicationalSystem(this);</span>
+<span class="fc" id="L853">            epsylon.removeRule(r);</span>
+<span class="fc bfc" id="L854" title="All 2 branches covered.">            if (epsylon.closure(r.getPremise()).equals(this.closure(r.getPremise()))) {</span>
+<span class="fc" id="L855">                this.removeRule(r);</span>
             }
-<span class="fc" id="L856">        }</span>
-<span class="fc" id="L857">        return sauv.nbRules() - this.nbRules();</span>
+<span class="fc" id="L857">        }</span>
+<span class="fc" id="L858">        return sauv.nbRules() - this.nbRules();</span>
     }
 
     /**
@@ -869,13 +870,13 @@ public class ImplicationalSystem extends ClosureSystem {
      * @return  the difference between the number of rules of this component before and after this treatment
      */
     public int makeCanonicalDirectBasis() {
-<span class="fc" id="L872">        int s = this.nbRules();</span>
-<span class="fc" id="L873">        this.makeProper();</span>
-<span class="fc" id="L874">        this.makeLeftMinimal();</span>
-<span class="fc" id="L875">        this.makeDirect();</span>
-<span class="fc" id="L876">        this.makeLeftMinimal();</span>
-<span class="fc" id="L877">        this.makeCompact();</span>
-<span class="fc" id="L878">        return s - this.nbRules();</span>
+<span class="fc" id="L873">        int s = this.nbRules();</span>
+<span class="fc" id="L874">        this.makeProper();</span>
+<span class="fc" id="L875">        this.makeLeftMinimal();</span>
+<span class="fc" id="L876">        this.makeDirect();</span>
+<span class="fc" id="L877">        this.makeLeftMinimal();</span>
+<span class="fc" id="L878">        this.makeCompact();</span>
+<span class="fc" id="L879">        return s - this.nbRules();</span>
     }
 
     /**
@@ -889,18 +890,18 @@ public class ImplicationalSystem extends ClosureSystem {
      * @return  the difference between the number of rules of this component before and after this treatment
      */
     public int makeCanonicalBasis() {
-<span class="fc" id="L892">        this.makeMinimum();</span>
-<span class="fc" id="L893">        ImplicationalSystem sauv = new ImplicationalSystem(this);</span>
-<span class="fc bfc" id="L894" title="All 2 branches covered.">        for (Rule r : sauv.sigma) {</span>
-<span class="fc" id="L895">            ImplicationalSystem epsylon = new ImplicationalSystem(this);</span>
-<span class="fc" id="L896">            epsylon.removeRule(r);</span>
-<span class="fc" id="L897">            Rule tmp = new Rule(epsylon.closure(r.getPremise()), r.getConclusion());</span>
-<span class="fc bfc" id="L898" title="All 2 branches covered.">            if (!r.equals(tmp)) {</span>
-<span class="fc" id="L899">                this.replaceRule(r, tmp);</span>
+<span class="fc" id="L893">        this.makeMinimum();</span>
+<span class="fc" id="L894">        ImplicationalSystem sauv = new ImplicationalSystem(this);</span>
+<span class="fc bfc" id="L895" title="All 2 branches covered.">        for (Rule r : sauv.sigma) {</span>
+<span class="fc" id="L896">            ImplicationalSystem epsylon = new ImplicationalSystem(this);</span>
+<span class="fc" id="L897">            epsylon.removeRule(r);</span>
+<span class="fc" id="L898">            Rule tmp = new Rule(epsylon.closure(r.getPremise()), r.getConclusion());</span>
+<span class="pc bpc" id="L899" title="1 of 2 branches missed.">            if (!r.equals(tmp)) {</span>
+<span class="nc" id="L900">                this.replaceRule(r, tmp);</span>
             }
-<span class="fc" id="L901">        }</span>
-<span class="fc" id="L902">        this.makeProper();</span>
-<span class="fc" id="L903">        return sauv.nbRules() - this.nbRules();</span>
+<span class="fc" id="L902">        }</span>
+<span class="fc" id="L903">        this.makeProper();</span>
+<span class="fc" id="L904">        return sauv.nbRules() - this.nbRules();</span>
     }
 
     /* --------------- METHODS BASED ON GRAPH ------------ */
@@ -916,34 +917,34 @@ public class ImplicationalSystem extends ClosureSystem {
      * @return  the representative graph of this component.
      */
     public DGraph representativeGraph() {
-<span class="fc" id="L919">        ImplicationalSystem tmp = new ImplicationalSystem(this);</span>
-<span class="fc" id="L920">        tmp.makeUnary();</span>
+<span class="fc" id="L920">        ImplicationalSystem tmp = new ImplicationalSystem(this);</span>
+<span class="fc" id="L921">        tmp.makeUnary();</span>
         // nodes of the graph are elements not belonging to X
-<span class="fc" id="L922">        DGraph pred = new DGraph();</span>
-<span class="fc" id="L923">        TreeMap&lt;Comparable, Node&gt; nodeCreated = new TreeMap&lt;Comparable, Node&gt;();</span>
-<span class="fc bfc" id="L924" title="All 2 branches covered.">        for (Comparable x : tmp.getSet()) {</span>
-<span class="fc" id="L925">            Node n = new Node(x);</span>
-<span class="fc" id="L926">            pred.addNode(n);</span>
-<span class="fc" id="L927">            nodeCreated.put(x, n);</span>
-<span class="fc" id="L928">        }</span>
+<span class="fc" id="L923">        DGraph pred = new DGraph();</span>
+<span class="fc" id="L924">        TreeMap&lt;Comparable, Node&gt; nodeCreated = new TreeMap&lt;Comparable, Node&gt;();</span>
+<span class="fc bfc" id="L925" title="All 2 branches covered.">        for (Comparable x : tmp.getSet()) {</span>
+<span class="fc" id="L926">            Node n = new Node(x);</span>
+<span class="fc" id="L927">            pred.addNode(n);</span>
+<span class="fc" id="L928">            nodeCreated.put(x, n);</span>
+<span class="fc" id="L929">        }</span>
         // an edge is added from b to a when there exists a rule X+a -&gt; b or a -&gt; b
-<span class="fc bfc" id="L930" title="All 2 branches covered.">        for (Rule r : tmp.getRules()) {</span>
-<span class="fc bfc" id="L931" title="All 2 branches covered.">            for (Comparable a : r.getPremise()) {</span>
-<span class="fc" id="L932">                ComparableSet diff = new ComparableSet(r.getPremise());</span>
-<span class="fc" id="L933">                diff.remove(a);</span>
-<span class="fc" id="L934">                Node from = nodeCreated.get(r.getConclusion().first());</span>
-<span class="fc" id="L935">                Node to = nodeCreated.get(a);</span>
+<span class="fc bfc" id="L931" title="All 2 branches covered.">        for (Rule r : tmp.getRules()) {</span>
+<span class="fc bfc" id="L932" title="All 2 branches covered.">            for (Comparable a : r.getPremise()) {</span>
+<span class="fc" id="L933">                ComparableSet diff = new ComparableSet(r.getPremise());</span>
+<span class="fc" id="L934">                diff.remove(a);</span>
+<span class="fc" id="L935">                Node from = nodeCreated.get(r.getConclusion().first());</span>
+<span class="fc" id="L936">                Node to = nodeCreated.get(a);</span>
                 Edge ed;
-<span class="pc bpc" id="L937" title="1 of 2 branches missed.">                if (pred.containsEdge(from, to)) {</span>
-<span class="nc" id="L938">                    ed = pred.getEdge(from, to);</span>
+<span class="pc bpc" id="L938" title="1 of 2 branches missed.">                if (pred.containsEdge(from, to)) {</span>
+<span class="nc" id="L939">                    ed = pred.getEdge(from, to);</span>
                 } else {
-<span class="fc" id="L940">                    ed = new Edge(from, to, new TreeSet&lt;ComparableSet&gt;());</span>
-<span class="fc" id="L941">                    pred.addEdge(ed);</span>
+<span class="fc" id="L941">                    ed = new Edge(from, to, new TreeSet&lt;ComparableSet&gt;());</span>
+<span class="fc" id="L942">                    pred.addEdge(ed);</span>
                 }
-<span class="fc" id="L943">                ((TreeSet&lt;ComparableSet&gt;) ed.getContent()).add(diff);</span>
-<span class="fc" id="L944">            }</span>
-<span class="fc" id="L945">        }</span>
-<span class="fc" id="L946">        return pred;</span>
+<span class="fc" id="L944">                ((TreeSet&lt;ComparableSet&gt;) ed.getContent()).add(diff);</span>
+<span class="fc" id="L945">            }</span>
+<span class="fc" id="L946">        }</span>
+<span class="fc" id="L947">        return pred;</span>
     }
 
     /**
@@ -960,10 +961,10 @@ public class ImplicationalSystem extends ClosureSystem {
      * @return  the dependency graph of this component.
      */
     public DGraph dependencyGraph() {
-<span class="fc" id="L963">        ImplicationalSystem bcd = new ImplicationalSystem(this);</span>
-<span class="fc" id="L964">        bcd.makeCanonicalDirectBasis();</span>
-<span class="fc" id="L965">        bcd.makeUnary();</span>
-<span class="fc" id="L966">        return bcd.representativeGraph();</span>
+<span class="fc" id="L964">        ImplicationalSystem bcd = new ImplicationalSystem(this);</span>
+<span class="fc" id="L965">        bcd.makeCanonicalDirectBasis();</span>
+<span class="fc" id="L966">        bcd.makeUnary();</span>
+<span class="fc" id="L967">        return bcd.representativeGraph();</span>
     }
 
     /**
@@ -977,55 +978,55 @@ public class ImplicationalSystem extends ClosureSystem {
      */
     public TreeMap&lt;Comparable, TreeSet&lt;Comparable&gt;&gt; reduction() {
         // compute the reducible elements
-<span class="fc" id="L980">        TreeMap red = this.getReducibleElements();</span>
+<span class="fc" id="L981">        TreeMap red = this.getReducibleElements();</span>
         // collect elements implied by nothing
-<span class="fc" id="L982">        TreeSet&lt;Comparable&gt; truth = this.closure(new TreeSet&lt;Comparable&gt;());</span>
+<span class="fc" id="L983">        TreeSet&lt;Comparable&gt; truth = this.closure(new TreeSet&lt;Comparable&gt;());</span>
         // modify each rule
-<span class="fc bfc" id="L984" title="All 2 branches covered.">        for (Object x : red.keySet()) {</span>
-<span class="fc" id="L985">            TreeSet&lt;Rule&gt; rules = this.getRules();</span>
-<span class="fc" id="L986">            rules = (TreeSet&lt;Rule&gt;) rules.clone();</span>
-<span class="fc bfc" id="L987" title="All 2 branches covered.">            for (Rule r : rules) {</span>
-<span class="fc" id="L988">                Rule r2 = new Rule();</span>
-<span class="fc" id="L989">                boolean modif = false;</span>
+<span class="fc bfc" id="L985" title="All 2 branches covered.">        for (Object x : red.keySet()) {</span>
+<span class="fc" id="L986">            TreeSet&lt;Rule&gt; rules = this.getRules();</span>
+<span class="fc" id="L987">            rules = (TreeSet&lt;Rule&gt;) rules.clone();</span>
+<span class="fc bfc" id="L988" title="All 2 branches covered.">            for (Rule r : rules) {</span>
+<span class="fc" id="L989">                Rule r2 = new Rule();</span>
+<span class="fc" id="L990">                boolean modif = false;</span>
                 // replace the reducible element by its equivalent in the premise
-<span class="fc" id="L991">                TreeSet premise = r.getPremise();</span>
-<span class="fc" id="L992">                premise = (TreeSet) premise.clone();</span>
-<span class="pc bpc" id="L993" title="1 of 2 branches missed.">                if (premise.contains(x)) {</span>
-<span class="nc" id="L994">                    premise.remove(x);</span>
-<span class="nc" id="L995">                    premise.addAll((TreeSet) red.get(x));</span>
-<span class="nc" id="L996">                    r2.addAllToPremise(premise);</span>
-<span class="nc" id="L997">                    modif = true;</span>
+<span class="fc" id="L992">                TreeSet premise = r.getPremise();</span>
+<span class="fc" id="L993">                premise = (TreeSet) premise.clone();</span>
+<span class="pc bpc" id="L994" title="1 of 2 branches missed.">                if (premise.contains(x)) {</span>
+<span class="nc" id="L995">                    premise.remove(x);</span>
+<span class="nc" id="L996">                    premise.addAll((TreeSet) red.get(x));</span>
+<span class="nc" id="L997">                    r2.addAllToPremise(premise);</span>
+<span class="nc" id="L998">                    modif = true;</span>
                 } else {
-<span class="fc" id="L999">                    r2.addAllToPremise(premise);</span>
+<span class="fc" id="L1000">                    r2.addAllToPremise(premise);</span>
                 }
                 // replace the reducible element by its equivalent in the conclusion
-<span class="fc" id="L1002">                TreeSet conclusion = r.getConclusion();</span>
-<span class="fc" id="L1003">                conclusion = (TreeSet) conclusion.clone();</span>
-<span class="fc bfc" id="L1004" title="All 2 branches covered.">                if (conclusion.contains(x)) {</span>
-<span class="fc" id="L1005">                    conclusion.remove(x);</span>
-<span class="fc" id="L1006">                    conclusion.addAll((TreeSet) red.get(x));</span>
-<span class="fc" id="L1007">                    r2.addAllToConclusion(conclusion);</span>
-<span class="fc" id="L1008">                    modif = true;</span>
+<span class="fc" id="L1003">                TreeSet conclusion = r.getConclusion();</span>
+<span class="fc" id="L1004">                conclusion = (TreeSet) conclusion.clone();</span>
+<span class="fc bfc" id="L1005" title="All 2 branches covered.">                if (conclusion.contains(x)) {</span>
+<span class="fc" id="L1006">                    conclusion.remove(x);</span>
+<span class="fc" id="L1007">                    conclusion.addAll((TreeSet) red.get(x));</span>
+<span class="fc" id="L1008">                    r2.addAllToConclusion(conclusion);</span>
+<span class="fc" id="L1009">                    modif = true;</span>
                 } else {
-<span class="fc" id="L1010">                    r2.addAllToConclusion(conclusion);</span>
+<span class="fc" id="L1011">                    r2.addAllToConclusion(conclusion);</span>
                 }
                 // replace the rule if modified
-<span class="fc bfc" id="L1013" title="All 2 branches covered.">                if (modif) {</span>
-<span class="pc bpc" id="L1014" title="1 of 2 branches missed.">                    if (truth.containsAll(r2.getConclusion())) {</span>
-<span class="fc" id="L1015">                        this.removeRule(r); // Conclusions of this rule are always true, thus the rule is useless</span>
+<span class="fc bfc" id="L1014" title="All 2 branches covered.">                if (modif) {</span>
+<span class="pc bpc" id="L1015" title="1 of 2 branches missed.">                    if (truth.containsAll(r2.getConclusion())) {</span>
+<span class="fc" id="L1016">                        this.removeRule(r); // Conclusions of this rule are always true, thus the rule is useless</span>
                     } else {
-<span class="nc" id="L1017">                        this.replaceRule(r, r2);</span>
+<span class="nc" id="L1018">                        this.replaceRule(r, r2);</span>
                     }
                 } else {
-<span class="fc bfc" id="L1020" title="All 2 branches covered.">                    if (truth.containsAll(r.getConclusion())) {</span>
-<span class="fc" id="L1021">                        this.removeRule(r); // Conclusions of this rule are always true, thus the rule is useless</span>
+<span class="fc bfc" id="L1021" title="All 2 branches covered.">                    if (truth.containsAll(r.getConclusion())) {</span>
+<span class="fc" id="L1022">                        this.removeRule(r); // Conclusions of this rule are always true, thus the rule is useless</span>
                     }
                 }
-<span class="fc" id="L1024">            }</span>
+<span class="fc" id="L1025">            }</span>
             // remove the reducible elements from the elements set
-<span class="fc" id="L1026">            this.deleteElement((Comparable) x);</span>
-<span class="fc" id="L1027">        }</span>
-<span class="fc" id="L1028">        return red;</span>
+<span class="fc" id="L1027">            this.deleteElement((Comparable) x);</span>
+<span class="fc" id="L1028">        }</span>
+<span class="fc" id="L1029">        return red;</span>
     }
     /**
      * Return true if this component is reduced.
@@ -1034,8 +1035,8 @@ public class ImplicationalSystem extends ClosureSystem {
      */
     public boolean isReduced() {
         // Copy this component not to modify it
-<span class="fc" id="L1037">        ImplicationalSystem tmp = new ImplicationalSystem(this);</span>
-<span class="fc" id="L1038">        return tmp.reduction().isEmpty();</span>
+<span class="fc" id="L1038">        ImplicationalSystem tmp = new ImplicationalSystem(this);</span>
+<span class="fc" id="L1039">        return tmp.reduction().isEmpty();</span>
     }
 
     /* --------------- IMPLEMENTATION OF CLOSURESYSTEM ABSTRACT METHODS ------------ */
@@ -1059,18 +1060,18 @@ public class ImplicationalSystem extends ClosureSystem {
      * @return  the closure of X for this component
      */
     public TreeSet&lt;Comparable&gt; closure(TreeSet&lt;Comparable&gt; x) {
-<span class="fc" id="L1062">        TreeSet&lt;Comparable&gt; oldES = new TreeSet&lt;Comparable&gt;();</span>
+<span class="fc" id="L1063">        TreeSet&lt;Comparable&gt; oldES = new TreeSet&lt;Comparable&gt;();</span>
         // all the attributes are in their own closure
-<span class="fc" id="L1064">        TreeSet&lt;Comparable&gt; newES = new TreeSet&lt;Comparable&gt;(x);</span>
+<span class="fc" id="L1065">        TreeSet&lt;Comparable&gt; newES = new TreeSet&lt;Comparable&gt;(x);</span>
         do {
-<span class="fc" id="L1066">            oldES.addAll(newES);</span>
-<span class="fc bfc" id="L1067" title="All 2 branches covered.">            for (Rule r : this.sigma) {</span>
-<span class="pc bpc" id="L1068" title="1 of 4 branches missed.">                if (newES.containsAll(r.getPremise()) || r.getPremise().isEmpty()) {</span>
-<span class="fc" id="L1069">                    newES.addAll(r.getConclusion());</span>
+<span class="fc" id="L1067">            oldES.addAll(newES);</span>
+<span class="fc bfc" id="L1068" title="All 2 branches covered.">            for (Rule r : this.sigma) {</span>
+<span class="pc bpc" id="L1069" title="1 of 4 branches missed.">                if (newES.containsAll(r.getPremise()) || r.getPremise().isEmpty()) {</span>
+<span class="fc" id="L1070">                    newES.addAll(r.getConclusion());</span>
                 }
-<span class="fc" id="L1071">            }</span>
-<span class="fc bfc" id="L1072" title="All 2 branches covered.">        } while (!(oldES.equals(newES)));</span>
-<span class="fc" id="L1073">        return newES;</span>
+<span class="fc" id="L1072">            }</span>
+<span class="fc bfc" id="L1073" title="All 2 branches covered.">        } while (!(oldES.equals(newES)));</span>
+<span class="fc" id="L1074">        return newES;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.0.201403182114</span></div></body></html>

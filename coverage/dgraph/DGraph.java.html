@@ -16,6 +16,7 @@
 
 import java.io.DataOutputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.ArrayList;
 import java.util.TreeMap;
@@ -81,11 +82,11 @@ public class DGraph {
     /**
      * Constructs a new directed graph with an empty set of node.
      */
-<span class="fc" id="L84">    public DGraph() {</span>
-<span class="fc" id="L85">        this.nodes = new TreeSet&lt;Node&gt;();</span>
-<span class="fc" id="L86">        this.successors = new TreeMap&lt;Node, TreeSet&lt;Edge&gt;&gt;();</span>
-<span class="fc" id="L87">        this.predecessors = new TreeMap&lt;Node, TreeSet&lt;Edge&gt;&gt;();</span>
-<span class="fc" id="L88">    }</span>
+<span class="fc" id="L85">    public DGraph() {</span>
+<span class="fc" id="L86">        this.nodes = new TreeSet&lt;Node&gt;();</span>
+<span class="fc" id="L87">        this.successors = new TreeMap&lt;Node, TreeSet&lt;Edge&gt;&gt;();</span>
+<span class="fc" id="L88">        this.predecessors = new TreeMap&lt;Node, TreeSet&lt;Edge&gt;&gt;();</span>
+<span class="fc" id="L89">    }</span>
 
     /**
      * Constructs a new directed graph from the specified set of nodes.
@@ -94,32 +95,32 @@ public class DGraph {
      *
      * @param   set  the set of nodes
      */
-<span class="fc" id="L97">    public DGraph(final Set&lt;Node&gt; set) {</span>
-<span class="fc" id="L98">        this.nodes = new TreeSet&lt;Node&gt;(set);</span>
-<span class="fc" id="L99">        this.successors = new TreeMap&lt;Node, TreeSet&lt;Edge&gt;&gt;();</span>
-<span class="fc bfc" id="L100" title="All 2 branches covered.">        for (Node node : this.nodes) {</span>
-<span class="fc" id="L101">            this.successors.put(node, new TreeSet&lt;Edge&gt;());</span>
-<span class="fc" id="L102">        }</span>
-<span class="fc" id="L103">        this.predecessors = new TreeMap&lt;Node, TreeSet&lt;Edge&gt;&gt;();</span>
-<span class="fc bfc" id="L104" title="All 2 branches covered.">        for (Node node : this.nodes) {</span>
-<span class="fc" id="L105">            this.predecessors.put(node, new TreeSet&lt;Edge&gt;());</span>
-<span class="fc" id="L106">        }</span>
-<span class="fc" id="L107">    }</span>
+<span class="fc" id="L98">    public DGraph(final Set&lt;Node&gt; set) {</span>
+<span class="fc" id="L99">        this.nodes = new TreeSet&lt;Node&gt;(set);</span>
+<span class="fc" id="L100">        this.successors = new TreeMap&lt;Node, TreeSet&lt;Edge&gt;&gt;();</span>
+<span class="fc bfc" id="L101" title="All 2 branches covered.">        for (Node node : this.nodes) {</span>
+<span class="fc" id="L102">            this.successors.put(node, new TreeSet&lt;Edge&gt;());</span>
+<span class="fc" id="L103">        }</span>
+<span class="fc" id="L104">        this.predecessors = new TreeMap&lt;Node, TreeSet&lt;Edge&gt;&gt;();</span>
+<span class="fc bfc" id="L105" title="All 2 branches covered.">        for (Node node : this.nodes) {</span>
+<span class="fc" id="L106">            this.predecessors.put(node, new TreeSet&lt;Edge&gt;());</span>
+<span class="fc" id="L107">        }</span>
+<span class="fc" id="L108">    }</span>
 
     /**
      * Constructs this component as a copy of the specified directed graph.
      *
      * @param   graph  the directed graph to be copied
      */
-<span class="fc" id="L114">    public DGraph(final DGraph graph) {</span>
-<span class="fc" id="L115">        this.nodes = new TreeSet&lt;Node&gt;(graph.nodes);</span>
-<span class="fc" id="L116">        this.successors = new TreeMap&lt;Node, TreeSet&lt;Edge&gt;&gt;();</span>
-<span class="fc" id="L117">        this.predecessors = new TreeMap&lt;Node, TreeSet&lt;Edge&gt;&gt;();</span>
-<span class="fc bfc" id="L118" title="All 2 branches covered.">        for (Node node : graph.nodes) {</span>
-<span class="fc" id="L119">            this.successors.put(node, new TreeSet&lt;Edge&gt;(graph.successors.get(node)));</span>
-<span class="fc" id="L120">            this.predecessors.put(node, new TreeSet&lt;Edge&gt;(graph.predecessors.get(node)));</span>
-<span class="fc" id="L121">        }</span>
-<span class="fc" id="L122">    }</span>
+<span class="fc" id="L115">    public DGraph(final DGraph graph) {</span>
+<span class="fc" id="L116">        this.nodes = new TreeSet&lt;Node&gt;(graph.nodes);</span>
+<span class="fc" id="L117">        this.successors = new TreeMap&lt;Node, TreeSet&lt;Edge&gt;&gt;();</span>
+<span class="fc" id="L118">        this.predecessors = new TreeMap&lt;Node, TreeSet&lt;Edge&gt;&gt;();</span>
+<span class="fc bfc" id="L119" title="All 2 branches covered.">        for (Node node : graph.nodes) {</span>
+<span class="fc" id="L120">            this.successors.put(node, new TreeSet&lt;Edge&gt;(graph.successors.get(node)));</span>
+<span class="fc" id="L121">            this.predecessors.put(node, new TreeSet&lt;Edge&gt;(graph.predecessors.get(node)));</span>
+<span class="fc" id="L122">        }</span>
+<span class="fc" id="L123">    }</span>
 
     /* ----------- STATIC GENERATION METHODS ------------- */
 
@@ -132,21 +133,21 @@ public class DGraph {
      * @return  a random graph
      */
     public static DGraph random(int size, double threshold) {
-<span class="fc" id="L135">        DGraph graph = new DGraph();</span>
+<span class="fc" id="L136">        DGraph graph = new DGraph();</span>
         // addition of nodes
-<span class="fc bfc" id="L137" title="All 2 branches covered.">        for (int i = 1; i &lt;= size; i++) {</span>
-<span class="fc" id="L138">            Node node = new Node(new Integer(i));</span>
-<span class="fc" id="L139">            graph.addNode(node);</span>
+<span class="fc bfc" id="L138" title="All 2 branches covered.">        for (int i = 1; i &lt;= size; i++) {</span>
+<span class="fc" id="L139">            Node node = new Node(new Integer(i));</span>
+<span class="fc" id="L140">            graph.addNode(node);</span>
         }
         // addition of edges
-<span class="fc bfc" id="L142" title="All 2 branches covered.">        for (Node from : graph.nodes) {</span>
-<span class="fc bfc" id="L143" title="All 2 branches covered.">            for (Node to : graph.nodes) {</span>
-<span class="fc bfc" id="L144" title="All 2 branches covered.">                if (Math.random() &lt; threshold) {</span>
-<span class="fc" id="L145">                    graph.addEdge(from, to);</span>
+<span class="fc bfc" id="L143" title="All 2 branches covered.">        for (Node from : graph.nodes) {</span>
+<span class="fc bfc" id="L144" title="All 2 branches covered.">            for (Node to : graph.nodes) {</span>
+<span class="fc bfc" id="L145" title="All 2 branches covered.">                if (Math.random() &lt; threshold) {</span>
+<span class="fc" id="L146">                    graph.addEdge(from, to);</span>
                 }
-<span class="fc" id="L147">            }</span>
-<span class="fc" id="L148">        }</span>
-<span class="fc" id="L149">        return graph;</span>
+<span class="fc" id="L148">            }</span>
+<span class="fc" id="L149">        }</span>
+<span class="fc" id="L150">        return graph;</span>
     }
 
     /**
@@ -157,7 +158,7 @@ public class DGraph {
      * @return  a random graph
      */
     public static DGraph random(int size) {
-<span class="nc" id="L160">        return random(size, 0.5);</span>
+<span class="nc" id="L161">        return random(size, 0.5);</span>
     }
 
     /* --------------- ACCESSOR AND OVERLAPPING METHODS ------------ */
@@ -168,17 +169,17 @@ public class DGraph {
      * @return  the copy of this
      */
     public DGraph copy() {
-<span class="fc" id="L171">        DGraph copy = new DGraph();</span>
-<span class="fc" id="L172">        TreeMap&lt;Node, Node&gt; map = new TreeMap&lt;Node, Node&gt;();</span>
-<span class="fc bfc" id="L173" title="All 2 branches covered.">        for (Node node : this.nodes) {</span>
-<span class="fc" id="L174">            Node nodeCopy = node.copy();</span>
-<span class="fc" id="L175">            map.put(node, nodeCopy);</span>
-<span class="fc" id="L176">            copy.addNode(nodeCopy);</span>
-<span class="fc" id="L177">        }</span>
-<span class="fc bfc" id="L178" title="All 2 branches covered.">        for (Edge edge : this.getEdges()) {</span>
-<span class="fc" id="L179">            copy.addEdge(new Edge(map.get(edge.getFrom()), map.get(edge.getTo()), edge.getContent()));</span>
-<span class="fc" id="L180">        }</span>
-<span class="fc" id="L181">        return copy;</span>
+<span class="fc" id="L172">        DGraph copy = new DGraph();</span>
+<span class="fc" id="L173">        TreeMap&lt;Node, Node&gt; map = new TreeMap&lt;Node, Node&gt;();</span>
+<span class="fc bfc" id="L174" title="All 2 branches covered.">        for (Node node : this.nodes) {</span>
+<span class="fc" id="L175">            Node nodeCopy = node.copy();</span>
+<span class="fc" id="L176">            map.put(node, nodeCopy);</span>
+<span class="fc" id="L177">            copy.addNode(nodeCopy);</span>
+<span class="fc" id="L178">        }</span>
+<span class="fc bfc" id="L179" title="All 2 branches covered.">        for (Edge edge : this.getEdges()) {</span>
+<span class="fc" id="L180">            copy.addEdge(new Edge(map.get(edge.getFrom()), map.get(edge.getTo()), edge.getContent()));</span>
+<span class="fc" id="L181">        }</span>
+<span class="fc" id="L182">        return copy;</span>
     }
 
     /**
@@ -187,7 +188,7 @@ public class DGraph {
      * @return  the set of nodes
      */
     public SortedSet&lt;Node&gt; getNodes() {
-<span class="fc" id="L190">        return Collections.unmodifiableSortedSet((SortedSet&lt;Node&gt;) this.nodes);</span>
+<span class="fc" id="L191">        return Collections.unmodifiableSortedSet((SortedSet&lt;Node&gt;) this.nodes);</span>
     }
 
     /**
@@ -198,8 +199,8 @@ public class DGraph {
      * @return  this for chaining
      */
     protected DGraph setNodes(final TreeSet&lt;Node&gt; nodes) {
-<span class="fc" id="L201">        this.nodes = nodes;</span>
-<span class="fc" id="L202">        return this;</span>
+<span class="fc" id="L202">        this.nodes = nodes;</span>
+<span class="fc" id="L203">        return this;</span>
     }
 
     /**
@@ -208,7 +209,7 @@ public class DGraph {
      * @return  the map
      */
     protected TreeMap&lt;Node, TreeSet&lt;Edge&gt;&gt; getSuccessors() {
-<span class="fc" id="L211">        return this.successors;</span>
+<span class="fc" id="L212">        return this.successors;</span>
     }
 
     /**
@@ -219,8 +220,8 @@ public class DGraph {
      * @return  this for chaining
      */
     protected DGraph setSuccessors(final TreeMap&lt;Node, TreeSet&lt;Edge&gt;&gt; successors) {
-<span class="fc" id="L222">        this.successors = successors;</span>
-<span class="fc" id="L223">        return this;</span>
+<span class="fc" id="L223">        this.successors = successors;</span>
+<span class="fc" id="L224">        return this;</span>
     }
 
     /**
@@ -229,7 +230,7 @@ public class DGraph {
      * @return  the map
      */
     protected TreeMap&lt;Node, TreeSet&lt;Edge&gt;&gt; getPredecessors() {
-<span class="fc" id="L232">        return this.predecessors;</span>
+<span class="fc" id="L233">        return this.predecessors;</span>
     }
 
     /**
@@ -240,8 +241,8 @@ public class DGraph {
      * @return  this for chaining
      */
     protected DGraph setPredecessors(final TreeMap&lt;Node, TreeSet&lt;Edge&gt;&gt; predecessors) {
-<span class="fc" id="L243">        this.predecessors = predecessors;</span>
-<span class="fc" id="L244">        return this;</span>
+<span class="fc" id="L244">        this.predecessors = predecessors;</span>
+<span class="fc" id="L245">        return this;</span>
     }
 
     /**
@@ -250,11 +251,11 @@ public class DGraph {
      * @return  the set of edges
      */
     public SortedSet&lt;Edge&gt; getEdges() {
-<span class="fc" id="L253">        TreeSet&lt;Edge&gt; edges = new TreeSet&lt;Edge&gt;();</span>
-<span class="fc bfc" id="L254" title="All 2 branches covered.">        for (Node node : this.nodes) {</span>
-<span class="fc" id="L255">            edges.addAll(this.successors.get(node));</span>
-<span class="fc" id="L256">        }</span>
-<span class="fc" id="L257">        return edges;</span>
+<span class="fc" id="L254">        TreeSet&lt;Edge&gt; edges = new TreeSet&lt;Edge&gt;();</span>
+<span class="fc bfc" id="L255" title="All 2 branches covered.">        for (Node node : this.nodes) {</span>
+<span class="fc" id="L256">            edges.addAll(this.successors.get(node));</span>
+<span class="fc" id="L257">        }</span>
+<span class="fc" id="L258">        return edges;</span>
     }
 
     /**
@@ -265,7 +266,7 @@ public class DGraph {
      * @return  the set of edges
      */
     public SortedSet&lt;Edge&gt; getSuccessorEdges(final Node node) {
-<span class="fc" id="L268">        return Collections.unmodifiableSortedSet((SortedSet&lt;Edge&gt;) this.successors.get(node));</span>
+<span class="fc" id="L269">        return Collections.unmodifiableSortedSet((SortedSet&lt;Edge&gt;) this.successors.get(node));</span>
     }
 
     /**
@@ -276,7 +277,7 @@ public class DGraph {
      * @return  the set of edges
      */
     public SortedSet&lt;Edge&gt; getPredecessorEdges(final Node node) {
-<span class="fc" id="L279">        return Collections.unmodifiableSortedSet((SortedSet&lt;Edge&gt;) this.predecessors.get(node));</span>
+<span class="fc" id="L280">        return Collections.unmodifiableSortedSet((SortedSet&lt;Edge&gt;) this.predecessors.get(node));</span>
     }
 
     /**
@@ -287,11 +288,11 @@ public class DGraph {
      * @return  the set of nodes
      */
     public TreeSet&lt;Node&gt; getSuccessorNodes(final Node node) {
-<span class="fc" id="L290">       TreeSet&lt;Node&gt; successors = new TreeSet&lt;Node&gt;();</span>
-<span class="fc bfc" id="L291" title="All 2 branches covered.">       for (Edge edge : this.successors.get(node)) {</span>
-<span class="fc" id="L292">           successors.add(edge.getTo());</span>
-<span class="fc" id="L293">       }</span>
-<span class="fc" id="L294">       return successors;</span>
+<span class="fc" id="L291">       TreeSet&lt;Node&gt; successors = new TreeSet&lt;Node&gt;();</span>
+<span class="fc bfc" id="L292" title="All 2 branches covered.">       for (Edge edge : this.successors.get(node)) {</span>
+<span class="fc" id="L293">           successors.add(edge.getTo());</span>
+<span class="fc" id="L294">       }</span>
+<span class="fc" id="L295">       return successors;</span>
     }
 
     /**
@@ -302,11 +303,11 @@ public class DGraph {
      * @return  the set of nodes
      */
     public TreeSet&lt;Node&gt; getPredecessorNodes(final Node node) {
-<span class="fc" id="L305">        TreeSet&lt;Node&gt; predecessors = new TreeSet&lt;Node&gt;();</span>
-<span class="fc bfc" id="L306" title="All 2 branches covered.">        for (Edge edge : this.predecessors.get(node)) {</span>
-<span class="fc" id="L307">            predecessors.add(edge.getFrom());</span>
-<span class="fc" id="L308">        }</span>
-<span class="fc" id="L309">        return predecessors;</span>
+<span class="fc" id="L306">        TreeSet&lt;Node&gt; predecessors = new TreeSet&lt;Node&gt;();</span>
+<span class="fc bfc" id="L307" title="All 2 branches covered.">        for (Edge edge : this.predecessors.get(node)) {</span>
+<span class="fc" id="L308">            predecessors.add(edge.getFrom());</span>
+<span class="fc" id="L309">        }</span>
+<span class="fc" id="L310">        return predecessors;</span>
     }
 
     /**
@@ -318,14 +319,14 @@ public class DGraph {
      * @return  the found edge or null
      */
     public Edge getEdge(final Node from, final Node to) {
-<span class="fc bfc" id="L321" title="All 2 branches covered.">        if (this.containsEdge(from, to)) {</span>
-<span class="pc bpc" id="L322" title="1 of 2 branches missed.">            for (Edge edge : this.successors.get(from)) {</span>
-<span class="fc bfc" id="L323" title="All 2 branches covered.">                if (edge.getTo().equals(to)) {</span>
-<span class="fc" id="L324">                    return edge;</span>
+<span class="fc bfc" id="L322" title="All 2 branches covered.">        if (this.containsEdge(from, to)) {</span>
+<span class="pc bpc" id="L323" title="1 of 2 branches missed.">            for (Edge edge : this.successors.get(from)) {</span>
+<span class="fc bfc" id="L324" title="All 2 branches covered.">                if (edge.getTo().equals(to)) {</span>
+<span class="fc" id="L325">                    return edge;</span>
                 }
-<span class="fc" id="L326">            }</span>
+<span class="fc" id="L327">            }</span>
         }
-<span class="fc" id="L328">        return null;</span>
+<span class="fc" id="L329">        return null;</span>
     }
 
     /**
@@ -336,12 +337,12 @@ public class DGraph {
      * @return  the found node or null
      */
      public Node getNode(final Object search) {
-<span class="fc bfc" id="L339" title="All 2 branches covered.">        for (Node node : this.nodes) {</span>
-<span class="fc bfc" id="L340" title="All 2 branches covered.">            if (node.equals(search)) {</span>
-<span class="fc" id="L341">                return node;</span>
+<span class="fc bfc" id="L340" title="All 2 branches covered.">        for (Node node : this.nodes) {</span>
+<span class="fc bfc" id="L341" title="All 2 branches covered.">            if (node.equals(search)) {</span>
+<span class="fc" id="L342">                return node;</span>
             }
-<span class="fc" id="L343">        }</span>
-<span class="fc" id="L344">        return null;</span>
+<span class="fc" id="L344">        }</span>
+<span class="fc" id="L345">        return null;</span>
     }
 
     /**
@@ -354,12 +355,12 @@ public class DGraph {
      * @todo  this method is not efficient. Do we remove it or add an index on Dgraph using content field?
      */
     public Node getNodeByContent(final Object content) {
-<span class="fc bfc" id="L357" title="All 2 branches covered.">        for (Node node : this.nodes) {</span>
-<span class="fc bfc" id="L358" title="All 2 branches covered.">            if (node.getContent().equals(content)) {</span>
-<span class="fc" id="L359">                return node;</span>
+<span class="fc bfc" id="L358" title="All 2 branches covered.">        for (Node node : this.nodes) {</span>
+<span class="fc bfc" id="L359" title="All 2 branches covered.">            if (node.getContent().equals(content)) {</span>
+<span class="fc" id="L360">                return node;</span>
             }
-<span class="fc" id="L361">        }</span>
-<span class="fc" id="L362">        return null;</span>
+<span class="fc" id="L362">        }</span>
+<span class="fc" id="L363">        return null;</span>
     }
 
     /**
@@ -370,12 +371,12 @@ public class DGraph {
      * @return  the found node or null
      */
     public Node getNodeByIdentifier(int identifier) {
-<span class="fc bfc" id="L373" title="All 2 branches covered.">        for (Node node : this.nodes) {</span>
-<span class="fc bfc" id="L374" title="All 2 branches covered.">            if (node.getIdentifier() == identifier) {</span>
-<span class="fc" id="L375">                return node;</span>
+<span class="fc bfc" id="L374" title="All 2 branches covered.">        for (Node node : this.nodes) {</span>
+<span class="fc bfc" id="L375" title="All 2 branches covered.">            if (node.getIdentifier() == identifier) {</span>
+<span class="fc" id="L376">                return node;</span>
             }
-<span class="fc" id="L377">        }</span>
-<span class="fc" id="L378">        return null;</span>
+<span class="fc" id="L378">        }</span>
+<span class="fc" id="L379">        return null;</span>
     }
 
     /**
@@ -384,7 +385,7 @@ public class DGraph {
      * @return  the number of nodes
      */
     public int sizeNodes() {
-<span class="fc" id="L387">        return this.nodes.size();</span>
+<span class="fc" id="L388">        return this.nodes.size();</span>
     }
 
     /**
@@ -393,11 +394,11 @@ public class DGraph {
      * @return  the number of edges
      */
     public int sizeEdges() {
-<span class="fc" id="L396">        int size = 0;</span>
-<span class="fc bfc" id="L397" title="All 2 branches covered.">        for (Node node : this.nodes) {</span>
-<span class="fc" id="L398">            size += this.successors.get(node).size();</span>
-<span class="fc" id="L399">        }</span>
-<span class="fc" id="L400">        return size;</span>
+<span class="fc" id="L397">        int size = 0;</span>
+<span class="fc bfc" id="L398" title="All 2 branches covered.">        for (Node node : this.nodes) {</span>
+<span class="fc" id="L399">            size += this.successors.get(node).size();</span>
+<span class="fc" id="L400">        }</span>
+<span class="fc" id="L401">        return size;</span>
     }
 
     /**
@@ -406,47 +407,45 @@ public class DGraph {
      * @return  the string representation
      */
     public String toString() {
-<span class="fc" id="L409">        StringBuffer nodes  = new StringBuffer();</span>
-<span class="fc" id="L410">        nodes.append(this.sizeNodes()).append(&quot; Nodes: {&quot;);</span>
-<span class="fc" id="L411">        StringBuffer edges = new StringBuffer();</span>
-<span class="fc" id="L412">        edges.append(this.sizeEdges()).append(&quot; Edges: {&quot;);</span>
-<span class="fc bfc" id="L413" title="All 2 branches covered.">        for (Node from : this.nodes) {</span>
-<span class="fc" id="L414">            nodes.append(from.toString() + &quot;,&quot;);</span>
-<span class="fc" id="L415">        }</span>
-<span class="fc bfc" id="L416" title="All 2 branches covered.">        for (Edge ed : this.getEdges()) {</span>
-<span class="fc" id="L417">            edges.append(ed.toString() + &quot;,&quot;);</span>
-<span class="fc" id="L418">        }</span>
-<span class="fc" id="L419">        nodes.append(&quot;}\n&quot;).append(edges).append(&quot;}\n&quot;);</span>
-<span class="fc" id="L420">        return nodes.toString();</span>
+<span class="fc" id="L410">        StringBuffer nodes  = new StringBuffer();</span>
+<span class="fc" id="L411">        nodes.append(this.sizeNodes()).append(&quot; Nodes: {&quot;);</span>
+<span class="fc" id="L412">        StringBuffer edges = new StringBuffer();</span>
+<span class="fc" id="L413">        edges.append(this.sizeEdges()).append(&quot; Edges: {&quot;);</span>
+<span class="fc bfc" id="L414" title="All 2 branches covered.">        for (Node from : this.nodes) {</span>
+<span class="fc" id="L415">            nodes.append(from.toString() + &quot;,&quot;);</span>
+<span class="fc" id="L416">        }</span>
+<span class="fc bfc" id="L417" title="All 2 branches covered.">        for (Edge ed : this.getEdges()) {</span>
+<span class="fc" id="L418">            edges.append(ed.toString() + &quot;,&quot;);</span>
+<span class="fc" id="L419">        }</span>
+<span class="fc" id="L420">        nodes.append(&quot;}\n&quot;).append(edges).append(&quot;}\n&quot;);</span>
+<span class="fc" id="L421">        return nodes.toString();</span>
     }
 
     /**
      * Write the dot description of this component in a file  which name is specified.
      *
      * @param   filename  the name of the file
+     *
+     * @throws  IOException  When an IOException occurs
      */
-    public void writeDot(final String filename) {
-        try {
-<span class="fc" id="L430">            FileOutputStream fich = new FileOutputStream(filename);</span>
-<span class="fc" id="L431">            DataOutputStream out = new DataOutputStream(fich);</span>
-<span class="fc" id="L432">            out.writeBytes(&quot;digraph G {\n&quot;);</span>
-<span class="fc" id="L433">            out.writeBytes(&quot;Graph [rankdir=BT]\n&quot;);</span>
-<span class="fc" id="L434">            StringBuffer nodes  = new StringBuffer();</span>
-<span class="fc" id="L435">            StringBuffer edges = new StringBuffer();</span>
-<span class="fc bfc" id="L436" title="All 2 branches covered.">            for (Node from : this.nodes) {</span>
-<span class="fc" id="L437">                nodes.append(from.toDot()).append(&quot;\n&quot;);</span>
-<span class="fc" id="L438">            }</span>
-<span class="fc bfc" id="L439" title="All 2 branches covered.">            for (Edge edge : this.getEdges()) {</span>
-<span class="fc" id="L440">                edges.append(edge.toDot()).append(&quot;\n&quot;);</span>
-<span class="fc" id="L441">            }</span>
-<span class="fc" id="L442">            out.writeBytes(nodes.toString());</span>
-<span class="fc" id="L443">            out.writeBytes(edges.toString());</span>
-<span class="fc" id="L444">            out.writeBytes(&quot;}&quot;);</span>
-<span class="fc" id="L445">            out.close();</span>
-<span class="nc" id="L446">        } catch (Exception exception) {</span>
-<span class="nc" id="L447">            exception.printStackTrace();</span>
-<span class="fc" id="L448">        }</span>
-<span class="fc" id="L449">    }</span>
+    public void writeDot(final String filename) throws IOException {
+<span class="fc" id="L432">        FileOutputStream fich = new FileOutputStream(filename);</span>
+<span class="fc" id="L433">        DataOutputStream out = new DataOutputStream(fich);</span>
+<span class="fc" id="L434">        out.writeBytes(&quot;digraph G {\n&quot;);</span>
+<span class="fc" id="L435">        out.writeBytes(&quot;Graph [rankdir=BT]\n&quot;);</span>
+<span class="fc" id="L436">        StringBuffer nodes  = new StringBuffer();</span>
+<span class="fc" id="L437">        StringBuffer edges = new StringBuffer();</span>
+<span class="fc bfc" id="L438" title="All 2 branches covered.">        for (Node from : this.nodes) {</span>
+<span class="fc" id="L439">            nodes.append(from.toDot()).append(&quot;\n&quot;);</span>
+<span class="fc" id="L440">        }</span>
+<span class="fc bfc" id="L441" title="All 2 branches covered.">        for (Edge edge : this.getEdges()) {</span>
+<span class="fc" id="L442">            edges.append(edge.toDot()).append(&quot;\n&quot;);</span>
+<span class="fc" id="L443">        }</span>
+<span class="fc" id="L444">        out.writeBytes(nodes.toString());</span>
+<span class="fc" id="L445">        out.writeBytes(edges.toString());</span>
+<span class="fc" id="L446">        out.writeBytes(&quot;}&quot;);</span>
+<span class="fc" id="L447">        out.close();</span>
+<span class="fc" id="L448">    }</span>
 
     /* --------------- NODES AND EDGES MODIFICATION METHODS ------------ */
 
@@ -458,7 +457,7 @@ public class DGraph {
      * @return  true if the node has been successfully inserted
      */
     public boolean containsNode(final Node node) {
-<span class="fc" id="L461">        return this.nodes.contains(node);</span>
+<span class="fc" id="L460">        return this.nodes.contains(node);</span>
     }
 
     /**
@@ -469,13 +468,13 @@ public class DGraph {
      * @return  true if the node has been successfully inserted
      */
     public boolean addNode(final Node node) {
-<span class="fc bfc" id="L472" title="All 2 branches covered.">        if (!this.containsNode(node)) {</span>
-<span class="fc" id="L473">            this.nodes.add(node);</span>
-<span class="fc" id="L474">            this.successors.put(node, new TreeSet&lt;Edge&gt;());</span>
-<span class="fc" id="L475">            this.predecessors.put(node, new TreeSet&lt;Edge&gt;());</span>
-<span class="fc" id="L476">            return true;</span>
+<span class="fc bfc" id="L471" title="All 2 branches covered.">        if (!this.containsNode(node)) {</span>
+<span class="fc" id="L472">            this.nodes.add(node);</span>
+<span class="fc" id="L473">            this.successors.put(node, new TreeSet&lt;Edge&gt;());</span>
+<span class="fc" id="L474">            this.predecessors.put(node, new TreeSet&lt;Edge&gt;());</span>
+<span class="fc" id="L475">            return true;</span>
         }
-<span class="fc" id="L478">        return false;</span>
+<span class="fc" id="L477">        return false;</span>
     }
 
     /**
@@ -486,34 +485,34 @@ public class DGraph {
      * @return  true if the node was successfully removed
      */
     public boolean removeNode(final Node node) {
-<span class="fc bfc" id="L489" title="All 2 branches covered.">        if (this.containsNode(node)) {</span>
+<span class="fc bfc" id="L488" title="All 2 branches covered.">        if (this.containsNode(node)) {</span>
             // Remove the edges (node,to) with key node in successors, and key to in predecessors
-<span class="fc bfc" id="L491" title="All 2 branches covered.">            for (Edge successor : this.successors.get(node)) {</span>
-<span class="pc bpc" id="L492" title="1 of 2 branches missed.">                if (successor.getTo().compareTo(node) != 0) {</span>
-<span class="fc bfc" id="L493" title="All 2 branches covered.">                     for (Edge predecessor : this.predecessors.get(successor.getTo())) {</span>
-<span class="pc bpc" id="L494" title="1 of 2 branches missed.">                        if (predecessor.getFrom().compareTo(node) == 0) {</span>
-<span class="fc" id="L495">                            this.predecessors.get(successor.getTo()).remove(predecessor);</span>
+<span class="fc bfc" id="L490" title="All 2 branches covered.">            for (Edge successor : this.successors.get(node)) {</span>
+<span class="pc bpc" id="L491" title="1 of 2 branches missed.">                if (successor.getTo().compareTo(node) != 0) {</span>
+<span class="fc bfc" id="L492" title="All 2 branches covered.">                     for (Edge predecessor : this.predecessors.get(successor.getTo())) {</span>
+<span class="pc bpc" id="L493" title="1 of 2 branches missed.">                        if (predecessor.getFrom().compareTo(node) == 0) {</span>
+<span class="fc" id="L494">                            this.predecessors.get(successor.getTo()).remove(predecessor);</span>
                         }
-<span class="fc" id="L497">                    }</span>
+<span class="fc" id="L496">                    }</span>
                 }
-<span class="fc" id="L499">                this.successors.remove(node);</span>
-<span class="fc" id="L500">            }</span>
+<span class="fc" id="L498">                this.successors.remove(node);</span>
+<span class="fc" id="L499">            }</span>
             // Remove the edges (from,node) with key node in predecessors, and key from in successors
-<span class="pc bpc" id="L502" title="1 of 2 branches missed.">            for (Edge predecessor : this.predecessors.get(node)) {</span>
-<span class="nc bnc" id="L503" title="All 2 branches missed.">                if (predecessor.getFrom().compareTo(node) != 0) {</span>
-<span class="nc bnc" id="L504" title="All 2 branches missed.">                     for (Edge successor : this.successors.get(predecessor.getFrom())) {</span>
-<span class="nc bnc" id="L505" title="All 2 branches missed.">                        if (successor.getTo().compareTo(node) == 0) {</span>
-<span class="nc" id="L506">                            this.successors.get(predecessor.getFrom()).remove(successor);</span>
+<span class="pc bpc" id="L501" title="1 of 2 branches missed.">            for (Edge predecessor : this.predecessors.get(node)) {</span>
+<span class="nc bnc" id="L502" title="All 2 branches missed.">                if (predecessor.getFrom().compareTo(node) != 0) {</span>
+<span class="nc bnc" id="L503" title="All 2 branches missed.">                     for (Edge successor : this.successors.get(predecessor.getFrom())) {</span>
+<span class="nc bnc" id="L504" title="All 2 branches missed.">                        if (successor.getTo().compareTo(node) == 0) {</span>
+<span class="nc" id="L505">                            this.successors.get(predecessor.getFrom()).remove(successor);</span>
                         }
-<span class="nc" id="L508">                    }</span>
+<span class="nc" id="L507">                    }</span>
                 }
-<span class="nc" id="L510">                this.predecessors.remove(node);</span>
-<span class="nc" id="L511">            }</span>
+<span class="nc" id="L509">                this.predecessors.remove(node);</span>
+<span class="nc" id="L510">            }</span>
             // Remove node
-<span class="fc" id="L513">            this.nodes.remove(node);</span>
-<span class="fc" id="L514">            return true;</span>
+<span class="fc" id="L512">            this.nodes.remove(node);</span>
+<span class="fc" id="L513">            return true;</span>
         }
-<span class="fc" id="L516">        return false;</span>
+<span class="fc" id="L515">        return false;</span>
     }
 
     /**
@@ -524,13 +523,13 @@ public class DGraph {
      * @return  true if all nodes were removed
      */
     public boolean removeNodes(final Set&lt;Node&gt; nodes) {
-<span class="fc" id="L527">        boolean all = true;</span>
-<span class="fc bfc" id="L528" title="All 2 branches covered.">        for (Node node : nodes) {</span>
-<span class="fc bfc" id="L529" title="All 2 branches covered.">            if (!this.removeNode(node)) {</span>
-<span class="fc" id="L530">                all = false;</span>
+<span class="fc" id="L526">        boolean all = true;</span>
+<span class="fc bfc" id="L527" title="All 2 branches covered.">        for (Node node : nodes) {</span>
+<span class="fc bfc" id="L528" title="All 2 branches covered.">            if (!this.removeNode(node)) {</span>
+<span class="fc" id="L529">                all = false;</span>
             }
-<span class="fc" id="L532">        }</span>
-<span class="fc" id="L533">        return all;</span>
+<span class="fc" id="L531">        }</span>
+<span class="fc" id="L532">        return all;</span>
     }
 
     /**
@@ -542,7 +541,7 @@ public class DGraph {
      * @return  true if the edge is contained by this component
      */
     public boolean containsEdge(final Node from, final Node to) {
-<span class="pc bpc" id="L545" title="2 of 8 branches missed.">        return this.containsNode(from)</span>
+<span class="pc bpc" id="L544" title="2 of 8 branches missed.">        return this.containsNode(from)</span>
             &amp;&amp; this.containsNode(to)
             &amp;&amp; this.getSuccessorNodes(from).contains(to)
             &amp;&amp; this.getPredecessorNodes(to).contains(from);
@@ -556,7 +555,7 @@ public class DGraph {
      * @return  true if the edge is contained by this component
      */
     public boolean containsEdge(final Edge edge) {
-<span class="fc" id="L559">        return this.containsEdge(edge.getFrom(), edge.getTo());</span>
+<span class="fc" id="L558">        return this.containsEdge(edge.getFrom(), edge.getTo());</span>
     }
 
     /**
@@ -573,13 +572,13 @@ public class DGraph {
      * @return  true if the edge was successfully added
      */
     public boolean addEdge(final Node from, final Node to, final Object content) {
-<span class="pc bpc" id="L576" title="2 of 4 branches missed.">        if (this.containsNode(from) &amp;&amp; this.containsNode(to)) {</span>
-<span class="fc" id="L577">            Edge edge = new Edge(from, to, content);</span>
-<span class="fc" id="L578">            this.successors.get(from).add(edge);</span>
-<span class="fc" id="L579">            this.predecessors.get(to).add(edge);</span>
-<span class="fc" id="L580">            return true;</span>
+<span class="pc bpc" id="L575" title="2 of 4 branches missed.">        if (this.containsNode(from) &amp;&amp; this.containsNode(to)) {</span>
+<span class="fc" id="L576">            Edge edge = new Edge(from, to, content);</span>
+<span class="fc" id="L577">            this.successors.get(from).add(edge);</span>
+<span class="fc" id="L578">            this.predecessors.get(to).add(edge);</span>
+<span class="fc" id="L579">            return true;</span>
         }
-<span class="nc" id="L582">        return false;</span>
+<span class="nc" id="L581">        return false;</span>
     }
 
     /**
@@ -595,7 +594,7 @@ public class DGraph {
      * @return  true if the edge was successfully added
      */
     public boolean addEdge(final Node from, final Node to) {
-<span class="fc" id="L598">        return this.addEdge(from, to, null);</span>
+<span class="fc" id="L597">        return this.addEdge(from, to, null);</span>
     }
 
     /**
@@ -610,12 +609,12 @@ public class DGraph {
      * @return  true if the edge was added
      */
     public boolean addEdge(final Edge edge) {
-<span class="pc bpc" id="L613" title="1 of 4 branches missed.">        if (this.containsNode(edge.getFrom()) &amp;&amp; this.containsNode(edge.getTo())) {</span>
-<span class="fc" id="L614">            this.successors.get(edge.getFrom()).add(edge);</span>
-<span class="fc" id="L615">            this.predecessors.get(edge.getTo()).add(edge);</span>
-<span class="fc" id="L616">            return true;</span>
+<span class="pc bpc" id="L612" title="1 of 4 branches missed.">        if (this.containsNode(edge.getFrom()) &amp;&amp; this.containsNode(edge.getTo())) {</span>
+<span class="fc" id="L613">            this.successors.get(edge.getFrom()).add(edge);</span>
+<span class="fc" id="L614">            this.predecessors.get(edge.getTo()).add(edge);</span>
+<span class="fc" id="L615">            return true;</span>
         }
-<span class="fc" id="L618">        return false;</span>
+<span class="fc" id="L617">        return false;</span>
     }
 
     /**
@@ -630,13 +629,13 @@ public class DGraph {
      * @return  true if the edge was removed
      */
     public boolean removeEdge(final Node from, final Node to) {
-<span class="pc bpc" id="L633" title="1 of 2 branches missed.">         if (this.containsEdge(from, to)) {</span>
-<span class="fc" id="L634">            Edge edge = new Edge(from, to);</span>
-<span class="fc" id="L635">            this.successors.get(from).remove(edge);</span>
-<span class="fc" id="L636">            this.predecessors.get(to).remove(edge);</span>
-<span class="fc" id="L637">            return true;</span>
+<span class="pc bpc" id="L632" title="1 of 2 branches missed.">         if (this.containsEdge(from, to)) {</span>
+<span class="fc" id="L633">            Edge edge = new Edge(from, to);</span>
+<span class="fc" id="L634">            this.successors.get(from).remove(edge);</span>
+<span class="fc" id="L635">            this.predecessors.get(to).remove(edge);</span>
+<span class="fc" id="L636">            return true;</span>
             }
-<span class="nc" id="L639">        return false;</span>
+<span class="nc" id="L638">        return false;</span>
     }
 
     /**
@@ -648,12 +647,12 @@ public class DGraph {
      * @return  true if the edge was removed
      */
     public boolean removeEdge(final Edge edge) {
-<span class="pc bpc" id="L651" title="1 of 2 branches missed.">         if (this.containsEdge(edge)) {</span>
-<span class="fc" id="L652">            this.successors.get(edge.getFrom()).remove(edge);</span>
-<span class="fc" id="L653">            this.predecessors.get(edge.getTo()).remove(edge);</span>
-<span class="fc" id="L654">            return true;</span>
+<span class="pc bpc" id="L650" title="1 of 2 branches missed.">         if (this.containsEdge(edge)) {</span>
+<span class="fc" id="L651">            this.successors.get(edge.getFrom()).remove(edge);</span>
+<span class="fc" id="L652">            this.predecessors.get(edge.getTo()).remove(edge);</span>
+<span class="fc" id="L653">            return true;</span>
         }
-<span class="nc" id="L656">        return false;</span>
+<span class="nc" id="L655">        return false;</span>
     }
 
     /* --------------- ACYCLIC CHECKING METHODS ------------ */
@@ -664,8 +663,8 @@ public class DGraph {
      * @return  true if the component is acyclic
      */
     public boolean isAcyclic() {
-<span class="fc" id="L667">        ArrayList&lt;Node&gt; nodes = this.topologicalSort();</span>
-<span class="fc bfc" id="L668" title="All 2 branches covered.">        return (nodes.size() == this.sizeNodes());</span>
+<span class="fc" id="L666">        ArrayList&lt;Node&gt; nodes = this.topologicalSort();</span>
+<span class="fc bfc" id="L667" title="All 2 branches covered.">        return (nodes.size() == this.sizeNodes());</span>
     }
 
     /**
@@ -679,26 +678,26 @@ public class DGraph {
      * @return  the nodes
      */
     public ArrayList&lt;Node&gt; topologicalSort() {
-<span class="fc" id="L682">        TreeSet&lt;Node&gt; sinks = this.getSinks();</span>
+<span class="fc" id="L681">        TreeSet&lt;Node&gt; sinks = this.getSinks();</span>
         // initialize a map with the number of predecessors (value) for each node (key);
-<span class="fc" id="L684">        TreeMap&lt;Node, Integer&gt; size = new TreeMap&lt;Node, Integer&gt;();</span>
-<span class="fc bfc" id="L685" title="All 2 branches covered.">        for (Node node : this.nodes) {</span>
-<span class="fc" id="L686">            size.put(node, new Integer(this.getPredecessorNodes(node).size()));</span>
-<span class="fc" id="L687">        }</span>
-<span class="fc" id="L688">        ArrayList&lt;Node&gt; sort = new ArrayList&lt;Node&gt;();</span>
-<span class="fc bfc" id="L689" title="All 2 branches covered.">        while (!sinks.isEmpty()) {</span>
-<span class="fc" id="L690">            Node node = sinks.pollFirst();</span>
-<span class="fc" id="L691">            sort.add(node);</span>
+<span class="fc" id="L683">        TreeMap&lt;Node, Integer&gt; size = new TreeMap&lt;Node, Integer&gt;();</span>
+<span class="fc bfc" id="L684" title="All 2 branches covered.">        for (Node node : this.nodes) {</span>
+<span class="fc" id="L685">            size.put(node, new Integer(this.getPredecessorNodes(node).size()));</span>
+<span class="fc" id="L686">        }</span>
+<span class="fc" id="L687">        ArrayList&lt;Node&gt; sort = new ArrayList&lt;Node&gt;();</span>
+<span class="fc bfc" id="L688" title="All 2 branches covered.">        while (!sinks.isEmpty()) {</span>
+<span class="fc" id="L689">            Node node = sinks.pollFirst();</span>
+<span class="fc" id="L690">            sort.add(node);</span>
             // updating of the set min by considering the successors of node
-<span class="fc bfc" id="L693" title="All 2 branches covered.">            for (Node successor : this.getSuccessorNodes(node)) {</span>
-<span class="fc" id="L694">                int newSize = size.get(successor).intValue() - 1;</span>
-<span class="fc" id="L695">                size.put(successor, new Integer(newSize));</span>
-<span class="fc bfc" id="L696" title="All 2 branches covered.">                if (newSize == 0) {</span>
-<span class="fc" id="L697">                    sinks.add(successor);</span>
+<span class="fc bfc" id="L692" title="All 2 branches covered.">            for (Node successor : this.getSuccessorNodes(node)) {</span>
+<span class="fc" id="L693">                int newSize = size.get(successor).intValue() - 1;</span>
+<span class="fc" id="L694">                size.put(successor, new Integer(newSize));</span>
+<span class="fc bfc" id="L695" title="All 2 branches covered.">                if (newSize == 0) {</span>
+<span class="fc" id="L696">                    sinks.add(successor);</span>
                 }
-<span class="fc" id="L699">            }</span>
-<span class="fc" id="L700">        }</span>
-<span class="fc" id="L701">        return sort;</span>
+<span class="fc" id="L698">            }</span>
+<span class="fc" id="L699">        }</span>
+<span class="fc" id="L700">        return sort;</span>
     }
 
     /* --------------- GRAPH HANDLING METHODS ------------ */
@@ -709,13 +708,13 @@ public class DGraph {
     * @return  the sinks
     */
     public TreeSet&lt;Node&gt; getSinks() {
-<span class="fc" id="L712">        TreeSet&lt;Node&gt; sinks = new TreeSet&lt;Node&gt;();</span>
-<span class="fc bfc" id="L713" title="All 2 branches covered.">        for (Node node : this.nodes) {</span>
-<span class="fc bfc" id="L714" title="All 2 branches covered.">            if (this.predecessors.get(node).isEmpty()) {</span>
-<span class="fc" id="L715">                sinks.add(node);</span>
+<span class="fc" id="L711">        TreeSet&lt;Node&gt; sinks = new TreeSet&lt;Node&gt;();</span>
+<span class="fc bfc" id="L712" title="All 2 branches covered.">        for (Node node : this.nodes) {</span>
+<span class="fc bfc" id="L713" title="All 2 branches covered.">            if (this.predecessors.get(node).isEmpty()) {</span>
+<span class="fc" id="L714">                sinks.add(node);</span>
             }
-<span class="fc" id="L717">        }</span>
-<span class="fc" id="L718">        return sinks;</span>
+<span class="fc" id="L716">        }</span>
+<span class="fc" id="L717">        return sinks;</span>
     }
 
    /**
@@ -724,13 +723,13 @@ public class DGraph {
     * @return  the wells
     */
     public TreeSet&lt;Node&gt; getWells() {
-<span class="fc" id="L727">        TreeSet&lt;Node&gt; wells = new TreeSet&lt;Node&gt;();</span>
-<span class="fc bfc" id="L728" title="All 2 branches covered.">        for (Node node : this.nodes) {</span>
-<span class="fc bfc" id="L729" title="All 2 branches covered.">            if (this.successors.get(node).isEmpty()) {</span>
-<span class="fc" id="L730">                wells.add(node);</span>
+<span class="fc" id="L726">        TreeSet&lt;Node&gt; wells = new TreeSet&lt;Node&gt;();</span>
+<span class="fc bfc" id="L727" title="All 2 branches covered.">        for (Node node : this.nodes) {</span>
+<span class="fc bfc" id="L728" title="All 2 branches covered.">            if (this.successors.get(node).isEmpty()) {</span>
+<span class="fc" id="L729">                wells.add(node);</span>
             }
-<span class="fc" id="L732">        }</span>
-<span class="fc" id="L733">        return wells;</span>
+<span class="fc" id="L731">        }</span>
+<span class="fc" id="L732">        return wells;</span>
     }
 
     /**
@@ -743,20 +742,20 @@ public class DGraph {
      * @return  The subgraph
      */
     public DGraph getSubgraphByNodes(final Set&lt;Node&gt; nodes) {
-<span class="fc" id="L746">        DGraph graph = new DGraph();</span>
+<span class="fc" id="L745">        DGraph graph = new DGraph();</span>
         // addition of nodes in the subgraph
-<span class="fc bfc" id="L748" title="All 2 branches covered.">        for (Node node : nodes) {</span>
-<span class="pc bpc" id="L749" title="1 of 2 branches missed.">            if (this.containsNode(node)) {</span>
-<span class="fc" id="L750">                graph.addNode(node);</span>
+<span class="fc bfc" id="L747" title="All 2 branches covered.">        for (Node node : nodes) {</span>
+<span class="pc bpc" id="L748" title="1 of 2 branches missed.">            if (this.containsNode(node)) {</span>
+<span class="fc" id="L749">                graph.addNode(node);</span>
             }
-<span class="fc" id="L752">        }</span>
+<span class="fc" id="L751">        }</span>
         // addition of edges in the subgraph
-<span class="fc bfc" id="L754" title="All 2 branches covered.">        for (Edge edge : this.getEdges()) {</span>
-<span class="fc bfc" id="L755" title="All 2 branches covered.">            if (graph.containsNode(edge.getTo())) {</span>
-<span class="fc" id="L756">                graph.addEdge(edge);</span>
+<span class="fc bfc" id="L753" title="All 2 branches covered.">        for (Edge edge : this.getEdges()) {</span>
+<span class="fc bfc" id="L754" title="All 2 branches covered.">            if (graph.containsNode(edge.getTo())) {</span>
+<span class="fc" id="L755">                graph.addEdge(edge);</span>
             }
-<span class="fc" id="L758">        }</span>
-<span class="fc" id="L759">        return graph;</span>
+<span class="fc" id="L757">        }</span>
+<span class="fc" id="L758">        return graph;</span>
     }
 
     /**
@@ -770,18 +769,18 @@ public class DGraph {
      * @return  The subgraph
      */
     public DGraph getSubgraphByEdges(final Set&lt;Edge&gt; edges) {
-<span class="fc" id="L773">        DGraph graph = new DGraph();</span>
+<span class="fc" id="L772">        DGraph graph = new DGraph();</span>
         // addition of all nodes in the subgraph
-<span class="fc bfc" id="L775" title="All 2 branches covered.">        for (Node node : this.nodes) {</span>
-<span class="fc" id="L776">            graph.addNode(node);</span>
-<span class="fc" id="L777">        }</span>
+<span class="fc bfc" id="L774" title="All 2 branches covered.">        for (Node node : this.nodes) {</span>
+<span class="fc" id="L775">            graph.addNode(node);</span>
+<span class="fc" id="L776">        }</span>
         // addition of specified edges in the subgraph
-<span class="fc bfc" id="L779" title="All 2 branches covered.">        for (Edge edge : edges) {</span>
-<span class="pc bpc" id="L780" title="1 of 2 branches missed.">            if (this.containsEdge(edge)) {</span>
-<span class="fc" id="L781">                graph.addEdge(edge);</span>
+<span class="fc bfc" id="L778" title="All 2 branches covered.">        for (Edge edge : edges) {</span>
+<span class="pc bpc" id="L779" title="1 of 2 branches missed.">            if (this.containsEdge(edge)) {</span>
+<span class="fc" id="L780">                graph.addEdge(edge);</span>
             }
-<span class="fc" id="L783">        }</span>
-<span class="fc" id="L784">        return graph;</span>
+<span class="fc" id="L782">        }</span>
+<span class="fc" id="L783">        return graph;</span>
     }
 
     /**
@@ -791,18 +790,18 @@ public class DGraph {
      * there is no edges between the nodes in this component.
      */
     public void complementary() {
-<span class="fc bfc" id="L794" title="All 2 branches covered.">        for (Node from : this.nodes) {</span>
-<span class="fc" id="L795">            TreeSet&lt;Node&gt; newSuccessors = new TreeSet&lt;Node&gt;(this.nodes);</span>
-<span class="fc" id="L796">            newSuccessors.removeAll(this.getSuccessorNodes(from));</span>
-<span class="fc" id="L797">            TreeSet&lt;Node&gt; oldSuccessors = new TreeSet&lt;Node&gt;(this.getSuccessorNodes(from));</span>
-<span class="fc bfc" id="L798" title="All 2 branches covered.">            for (Node to : oldSuccessors) {</span>
-<span class="fc" id="L799">                this.removeEdge(from, to);</span>
-<span class="fc" id="L800">            }</span>
-<span class="fc bfc" id="L801" title="All 2 branches covered.">            for (Node to : newSuccessors) {</span>
-<span class="fc" id="L802">                this.addEdge(from, to);</span>
-<span class="fc" id="L803">            }</span>
-<span class="fc" id="L804">        }</span>
-<span class="fc" id="L805">    }</span>
+<span class="fc bfc" id="L793" title="All 2 branches covered.">        for (Node from : this.nodes) {</span>
+<span class="fc" id="L794">            TreeSet&lt;Node&gt; newSuccessors = new TreeSet&lt;Node&gt;(this.nodes);</span>
+<span class="fc" id="L795">            newSuccessors.removeAll(this.getSuccessorNodes(from));</span>
+<span class="fc" id="L796">            TreeSet&lt;Node&gt; oldSuccessors = new TreeSet&lt;Node&gt;(this.getSuccessorNodes(from));</span>
+<span class="fc bfc" id="L797" title="All 2 branches covered.">            for (Node to : oldSuccessors) {</span>
+<span class="fc" id="L798">                this.removeEdge(from, to);</span>
+<span class="fc" id="L799">            }</span>
+<span class="fc bfc" id="L800" title="All 2 branches covered.">            for (Node to : newSuccessors) {</span>
+<span class="fc" id="L801">                this.addEdge(from, to);</span>
+<span class="fc" id="L802">            }</span>
+<span class="fc" id="L803">        }</span>
+<span class="fc" id="L804">    }</span>
 
     /* --------------- GRAPH TREATMENT METHODS ------------ */
 
@@ -812,14 +811,14 @@ public class DGraph {
      * @return the number of removed edges
      */
     public int reflexiveReduction() {
-<span class="fc" id="L815">        int size = 0;</span>
-<span class="fc bfc" id="L816" title="All 2 branches covered.">        for (Node node : this.nodes) {</span>
-<span class="fc bfc" id="L817" title="All 2 branches covered.">            if (this.containsEdge(node, node)) {</span>
-<span class="fc" id="L818">                size++;</span>
-<span class="fc" id="L819">                this.removeEdge(node, node);</span>
+<span class="fc" id="L814">        int size = 0;</span>
+<span class="fc bfc" id="L815" title="All 2 branches covered.">        for (Node node : this.nodes) {</span>
+<span class="fc bfc" id="L816" title="All 2 branches covered.">            if (this.containsEdge(node, node)) {</span>
+<span class="fc" id="L817">                size++;</span>
+<span class="fc" id="L818">                this.removeEdge(node, node);</span>
             }
-<span class="fc" id="L821">        }</span>
-<span class="fc" id="L822">        return size;</span>
+<span class="fc" id="L820">        }</span>
+<span class="fc" id="L821">        return size;</span>
     }
 
     /**
@@ -828,14 +827,14 @@ public class DGraph {
      * @return  the number of added edges
      */
     public int reflexiveClosure() {
-<span class="fc" id="L831">        int size = 0;</span>
-<span class="fc bfc" id="L832" title="All 2 branches covered.">        for (Node node : this.nodes) {</span>
-<span class="fc bfc" id="L833" title="All 2 branches covered.">            if (!this.containsEdge(node, node)) {</span>
-<span class="fc" id="L834">                size++;</span>
-<span class="fc" id="L835">                this.addEdge(node, node);</span>
+<span class="fc" id="L830">        int size = 0;</span>
+<span class="fc bfc" id="L831" title="All 2 branches covered.">        for (Node node : this.nodes) {</span>
+<span class="fc bfc" id="L832" title="All 2 branches covered.">            if (!this.containsEdge(node, node)) {</span>
+<span class="fc" id="L833">                size++;</span>
+<span class="fc" id="L834">                this.addEdge(node, node);</span>
             }
-<span class="fc" id="L837">        }</span>
-<span class="fc" id="L838">        return size;</span>
+<span class="fc" id="L836">        }</span>
+<span class="fc" id="L837">        return size;</span>
     }
 
     /**
@@ -852,33 +851,33 @@ public class DGraph {
      * @return  the number of added edges
      */
     public int transitiveClosure() {
-<span class="fc" id="L855">        int size = 0;</span>
+<span class="fc" id="L854">        int size = 0;</span>
         // mark each node to false
-<span class="fc" id="L857">        TreeMap&lt;Node, Boolean&gt; mark = new TreeMap&lt;Node, Boolean&gt;();</span>
-<span class="fc bfc" id="L858" title="All 2 branches covered.">        for (Node node : this.nodes) {</span>
-<span class="fc" id="L859">            mark.put(node, new Boolean(false));</span>
-<span class="fc" id="L860">        }</span>
+<span class="fc" id="L856">        TreeMap&lt;Node, Boolean&gt; mark = new TreeMap&lt;Node, Boolean&gt;();</span>
+<span class="fc bfc" id="L857" title="All 2 branches covered.">        for (Node node : this.nodes) {</span>
+<span class="fc" id="L858">            mark.put(node, new Boolean(false));</span>
+<span class="fc" id="L859">        }</span>
         // treatment of nodes
-<span class="fc bfc" id="L862" title="All 2 branches covered.">        for (Node x : this.nodes) {</span>
-<span class="fc" id="L863">            ArrayList&lt;Node&gt; list = new ArrayList&lt;Node&gt;();</span>
-<span class="fc" id="L864">            list.add(x);</span>
-<span class="fc bfc" id="L865" title="All 2 branches covered.">            while (!list.isEmpty()) {</span>
-<span class="fc" id="L866">                Node y = list.remove(0);</span>
-<span class="fc bfc" id="L867" title="All 2 branches covered.">                for (Node z : this.getSuccessorNodes(y)) {</span>
+<span class="fc bfc" id="L861" title="All 2 branches covered.">        for (Node x : this.nodes) {</span>
+<span class="fc" id="L862">            ArrayList&lt;Node&gt; list = new ArrayList&lt;Node&gt;();</span>
+<span class="fc" id="L863">            list.add(x);</span>
+<span class="fc bfc" id="L864" title="All 2 branches covered.">            while (!list.isEmpty()) {</span>
+<span class="fc" id="L865">                Node y = list.remove(0);</span>
+<span class="fc bfc" id="L866" title="All 2 branches covered.">                for (Node z : this.getSuccessorNodes(y)) {</span>
                     // treatment of y when not marked
-<span class="fc bfc" id="L869" title="All 2 branches covered.">                    if (!mark.get(z).booleanValue()) {</span>
-<span class="fc" id="L870">                        mark.put(z, new Boolean(true));</span>
-<span class="fc" id="L871">                        this.addEdge(x, z);</span>
-<span class="fc" id="L872">                        size++;</span>
-<span class="fc" id="L873">                        list.add(z);</span>
+<span class="fc bfc" id="L868" title="All 2 branches covered.">                    if (!mark.get(z).booleanValue()) {</span>
+<span class="fc" id="L869">                        mark.put(z, new Boolean(true));</span>
+<span class="fc" id="L870">                        this.addEdge(x, z);</span>
+<span class="fc" id="L871">                        size++;</span>
+<span class="fc" id="L872">                        list.add(z);</span>
                     }
-<span class="fc" id="L875">                }</span>
-<span class="fc" id="L876">            }</span>
-<span class="fc bfc" id="L877" title="All 2 branches covered.">            for (Node y : this.getSuccessorNodes(x)) {</span>
-<span class="fc" id="L878">                mark.put(y, new Boolean(false));</span>
-<span class="fc" id="L879">            }</span>
-<span class="fc" id="L880">        }</span>
-<span class="fc" id="L881">        return size;</span>
+<span class="fc" id="L874">                }</span>
+<span class="fc" id="L875">            }</span>
+<span class="fc bfc" id="L876" title="All 2 branches covered.">            for (Node y : this.getSuccessorNodes(x)) {</span>
+<span class="fc" id="L877">                mark.put(y, new Boolean(false));</span>
+<span class="fc" id="L878">            }</span>
+<span class="fc" id="L879">        }</span>
+<span class="fc" id="L880">        return size;</span>
     }
 
      /**
@@ -895,36 +894,36 @@ public class DGraph {
       * @todo  Do we change that to iterators?
       */
      public ArrayList&lt;Node&gt;[] depthFirstSearch(Node source, TreeSet&lt;Node&gt; visited, ArrayList&lt;Node&gt; sort) {
-<span class="fc" id="L898">        ArrayList&lt;Node&gt; first = new ArrayList&lt;Node&gt;();</span>
-<span class="fc" id="L899">        ArrayList&lt;Node&gt; last = new ArrayList&lt;Node&gt;();</span>
-<span class="fc" id="L900">        first.add(source);</span>
-<span class="fc" id="L901">        visited.add(source);</span>
-<span class="fc" id="L902">        ArrayList&lt;Node&gt;[] arrayVisited = new ArrayList[2];</span>
-<span class="fc bfc" id="L903" title="All 2 branches covered.">        if (sort != null) {</span>
+<span class="fc" id="L897">        ArrayList&lt;Node&gt; first = new ArrayList&lt;Node&gt;();</span>
+<span class="fc" id="L898">        ArrayList&lt;Node&gt; last = new ArrayList&lt;Node&gt;();</span>
+<span class="fc" id="L899">        first.add(source);</span>
+<span class="fc" id="L900">        visited.add(source);</span>
+<span class="fc" id="L901">        ArrayList&lt;Node&gt;[] arrayVisited = new ArrayList[2];</span>
+<span class="fc bfc" id="L902" title="All 2 branches covered.">        if (sort != null) {</span>
             // search according to a sort
-<span class="fc bfc" id="L905" title="All 2 branches covered.">            for (Node node : sort) {</span>
-<span class="fc bfc" id="L906" title="All 4 branches covered.">                if (this.getSuccessorNodes(source).contains(node) &amp;&amp; !visited.contains(node)) {</span>
-<span class="fc" id="L907">                    arrayVisited = this.depthFirstSearch(node, visited, sort);</span>
-<span class="fc" id="L908">                    visited.addAll(arrayVisited[0]);</span>
-<span class="fc" id="L909">                    first.addAll(arrayVisited[0]);</span>
-<span class="fc" id="L910">                    last.addAll(arrayVisited[1]);</span>
+<span class="fc bfc" id="L904" title="All 2 branches covered.">            for (Node node : sort) {</span>
+<span class="fc bfc" id="L905" title="All 4 branches covered.">                if (this.getSuccessorNodes(source).contains(node) &amp;&amp; !visited.contains(node)) {</span>
+<span class="fc" id="L906">                    arrayVisited = this.depthFirstSearch(node, visited, sort);</span>
+<span class="fc" id="L907">                    visited.addAll(arrayVisited[0]);</span>
+<span class="fc" id="L908">                    first.addAll(arrayVisited[0]);</span>
+<span class="fc" id="L909">                    last.addAll(arrayVisited[1]);</span>
                 }
-<span class="fc" id="L912">            }</span>
+<span class="fc" id="L911">            }</span>
         } else {
             // classical search
-<span class="fc bfc" id="L915" title="All 2 branches covered.">            for (Node node : this.getSuccessorNodes(source)) {</span>
-<span class="fc bfc" id="L916" title="All 2 branches covered.">                if (!visited.contains(node)) {</span>
-<span class="fc" id="L917">                    arrayVisited = this.depthFirstSearch(node, visited, sort);</span>
-<span class="fc" id="L918">                    visited.addAll(arrayVisited[0]);</span>
-<span class="fc" id="L919">                    first.addAll(arrayVisited[0]);</span>
-<span class="fc" id="L920">                    last.addAll(arrayVisited[1]);</span>
+<span class="fc bfc" id="L914" title="All 2 branches covered.">            for (Node node : this.getSuccessorNodes(source)) {</span>
+<span class="fc bfc" id="L915" title="All 2 branches covered.">                if (!visited.contains(node)) {</span>
+<span class="fc" id="L916">                    arrayVisited = this.depthFirstSearch(node, visited, sort);</span>
+<span class="fc" id="L917">                    visited.addAll(arrayVisited[0]);</span>
+<span class="fc" id="L918">                    first.addAll(arrayVisited[0]);</span>
+<span class="fc" id="L919">                    last.addAll(arrayVisited[1]);</span>
                 }
-<span class="fc" id="L922">            }</span>
+<span class="fc" id="L921">            }</span>
         }
-<span class="fc" id="L924">        last.add(source);</span>
-<span class="fc" id="L925">        arrayVisited[0] = first;</span>
-<span class="fc" id="L926">        arrayVisited[1] = last;</span>
-<span class="fc" id="L927">        return arrayVisited;</span>
+<span class="fc" id="L923">        last.add(source);</span>
+<span class="fc" id="L924">        arrayVisited[0] = first;</span>
+<span class="fc" id="L925">        arrayVisited[1] = last;</span>
+<span class="fc" id="L926">        return arrayVisited;</span>
     }
 
      /**
@@ -934,21 +933,21 @@ public class DGraph {
       * @return  The array
       */
     public ArrayList&lt;Node&gt;[] depthFirstSearch() {
-<span class="fc" id="L937">        TreeSet&lt;Node&gt; visited = new TreeSet&lt;Node&gt;();</span>
-<span class="fc" id="L938">        ArrayList&lt;Node&gt;[] arrayVisited = new ArrayList[2];</span>
-<span class="fc" id="L939">        ArrayList first = new ArrayList();</span>
-<span class="fc" id="L940">        ArrayList last = new ArrayList();</span>
-<span class="fc bfc" id="L941" title="All 2 branches covered.">        for (Node node : this.nodes) {</span>
-<span class="fc bfc" id="L942" title="All 2 branches covered.">            if (!visited.contains(node)) {</span>
-<span class="fc" id="L943">                arrayVisited = this.depthFirstSearch(node, visited, null);</span>
-<span class="fc" id="L944">                visited.addAll(arrayVisited[0]);</span>
-<span class="fc" id="L945">                first.addAll(arrayVisited[0]);</span>
-<span class="fc" id="L946">                last.addAll(arrayVisited[1]);</span>
+<span class="fc" id="L936">        TreeSet&lt;Node&gt; visited = new TreeSet&lt;Node&gt;();</span>
+<span class="fc" id="L937">        ArrayList&lt;Node&gt;[] arrayVisited = new ArrayList[2];</span>
+<span class="fc" id="L938">        ArrayList first = new ArrayList();</span>
+<span class="fc" id="L939">        ArrayList last = new ArrayList();</span>
+<span class="fc bfc" id="L940" title="All 2 branches covered.">        for (Node node : this.nodes) {</span>
+<span class="fc bfc" id="L941" title="All 2 branches covered.">            if (!visited.contains(node)) {</span>
+<span class="fc" id="L942">                arrayVisited = this.depthFirstSearch(node, visited, null);</span>
+<span class="fc" id="L943">                visited.addAll(arrayVisited[0]);</span>
+<span class="fc" id="L944">                first.addAll(arrayVisited[0]);</span>
+<span class="fc" id="L945">                last.addAll(arrayVisited[1]);</span>
              }
-<span class="fc" id="L948">        }</span>
-<span class="fc" id="L949">        arrayVisited[0] = first;</span>
-<span class="fc" id="L950">        arrayVisited[1] = last;</span>
-<span class="fc" id="L951">        return arrayVisited;</span>
+<span class="fc" id="L947">        }</span>
+<span class="fc" id="L948">        arrayVisited[0] = first;</span>
+<span class="fc" id="L949">        arrayVisited[1] = last;</span>
+<span class="fc" id="L950">        return arrayVisited;</span>
     }
 
     /**
@@ -957,12 +956,12 @@ public class DGraph {
      * by its successor set.
      */
     public void transpose() {
-<span class="fc" id="L960">        DGraph tmp = new DGraph(this);</span>
-<span class="fc bfc" id="L961" title="All 2 branches covered.">        for (Edge edge : tmp.getEdges()) {</span>
-<span class="fc" id="L962">             this.removeEdge(edge);</span>
-<span class="fc" id="L963">             this.addEdge(new Edge(edge.getTo(), edge.getFrom(), edge.getContent()));</span>
-<span class="fc" id="L964">        }</span>
-<span class="fc" id="L965">    }</span>
+<span class="fc" id="L959">        DGraph tmp = new DGraph(this);</span>
+<span class="fc bfc" id="L960" title="All 2 branches covered.">        for (Edge edge : tmp.getEdges()) {</span>
+<span class="fc" id="L961">             this.removeEdge(edge);</span>
+<span class="fc" id="L962">             this.addEdge(new Edge(edge.getTo(), edge.getFrom(), edge.getContent()));</span>
+<span class="fc" id="L963">        }</span>
+<span class="fc" id="L964">    }</span>
 
     /**
      * Returns the directed acyclic graph where each node corresponds to a
@@ -974,45 +973,45 @@ public class DGraph {
      * @return  The directed acyclic graph
      */
     public DAGraph getStronglyConnectedComponent() {
-<span class="fc" id="L977">        DAGraph cc = new DAGraph();</span>
+<span class="fc" id="L976">        DAGraph cc = new DAGraph();</span>
         // first depth first search
-<span class="fc" id="L979">        DGraph tmp = new DGraph(this);</span>
-<span class="fc" id="L980">        tmp.transitiveClosure();</span>
-<span class="fc" id="L981">        ArrayList&lt;Node&gt; last = tmp.depthFirstSearch()[1];</span>
+<span class="fc" id="L978">        DGraph tmp = new DGraph(this);</span>
+<span class="fc" id="L979">        tmp.transitiveClosure();</span>
+<span class="fc" id="L980">        ArrayList&lt;Node&gt; last = tmp.depthFirstSearch()[1];</span>
         // transposition of the graph
-<span class="fc" id="L983">        DGraph transposedGraph = new DGraph(this);</span>
-<span class="fc" id="L984">        transposedGraph.transpose();</span>
+<span class="fc" id="L982">        DGraph transposedGraph = new DGraph(this);</span>
+<span class="fc" id="L983">        transposedGraph.transpose();</span>
         // sort nodes according to the reverse last sort
-<span class="fc" id="L986">        ArrayList&lt;Node&gt; sort = new ArrayList();</span>
-<span class="fc" id="L987">        Object [] array = last.toArray();</span>
-<span class="fc bfc" id="L988" title="All 2 branches covered.">        for (int i = array.length - 1; i &gt;= 0; i--) {</span>
-<span class="fc" id="L989">            sort.add((Node) array[i]);</span>
+<span class="fc" id="L985">        ArrayList&lt;Node&gt; sort = new ArrayList();</span>
+<span class="fc" id="L986">        Object [] array = last.toArray();</span>
+<span class="fc bfc" id="L987" title="All 2 branches covered.">        for (int i = array.length - 1; i &gt;= 0; i--) {</span>
+<span class="fc" id="L988">            sort.add((Node) array[i]);</span>
         }
         // second depth first search according to sort
-<span class="fc" id="L992">        TreeSet&lt;Node&gt; visited = new TreeSet();</span>
-<span class="fc bfc" id="L993" title="All 2 branches covered.">        for (Node n : sort) {</span>
-<span class="fc bfc" id="L994" title="All 2 branches covered.">            if (!visited.contains(n)) {</span>
-<span class="fc" id="L995">                last = transposedGraph.depthFirstSearch(n, visited, sort)[1];</span>
-<span class="fc" id="L996">                visited.addAll(last);</span>
-<span class="fc" id="L997">                TreeSet sCC = new TreeSet(last);</span>
+<span class="fc" id="L991">        TreeSet&lt;Node&gt; visited = new TreeSet();</span>
+<span class="fc bfc" id="L992" title="All 2 branches covered.">        for (Node n : sort) {</span>
+<span class="fc bfc" id="L993" title="All 2 branches covered.">            if (!visited.contains(n)) {</span>
+<span class="fc" id="L994">                last = transposedGraph.depthFirstSearch(n, visited, sort)[1];</span>
+<span class="fc" id="L995">                visited.addAll(last);</span>
+<span class="fc" id="L996">                TreeSet sCC = new TreeSet(last);</span>
                 // a strongly connected component is generated
-<span class="fc" id="L999">                cc.addNode(new Node(sCC));    // addition of</span>
+<span class="fc" id="L998">                cc.addNode(new Node(sCC));    // addition of</span>
             }
-<span class="fc" id="L1001">        }</span>
+<span class="fc" id="L1000">        }</span>
         // edges between strongly connected component
-<span class="fc bfc" id="L1003" title="All 2 branches covered.">        for (Node ccFrom : cc.getNodes()) {</span>
-<span class="fc bfc" id="L1004" title="All 2 branches covered.">            for (Node ccTo : cc.getNodes()) {</span>
-<span class="fc bfc" id="L1005" title="All 2 branches covered.">                for (Node from : (TreeSet&lt;Node&gt;) ccFrom.getContent()) {</span>
-<span class="fc bfc" id="L1006" title="All 2 branches covered.">                    for (Node to : ((TreeSet&lt;Node&gt;) ccTo.getContent())) {</span>
-<span class="fc bfc" id="L1007" title="All 2 branches covered.">                        if (tmp.getSuccessorNodes(from).contains(to)) {</span>
-<span class="fc" id="L1008">                            cc.addEdge(ccFrom, ccTo);</span>
+<span class="fc bfc" id="L1002" title="All 2 branches covered.">        for (Node ccFrom : cc.getNodes()) {</span>
+<span class="fc bfc" id="L1003" title="All 2 branches covered.">            for (Node ccTo : cc.getNodes()) {</span>
+<span class="fc bfc" id="L1004" title="All 2 branches covered.">                for (Node from : (TreeSet&lt;Node&gt;) ccFrom.getContent()) {</span>
+<span class="fc bfc" id="L1005" title="All 2 branches covered.">                    for (Node to : ((TreeSet&lt;Node&gt;) ccTo.getContent())) {</span>
+<span class="fc bfc" id="L1006" title="All 2 branches covered.">                        if (tmp.getSuccessorNodes(from).contains(to)) {</span>
+<span class="fc" id="L1007">                            cc.addEdge(ccFrom, ccTo);</span>
                         }
-<span class="fc" id="L1010">                    }</span>
-<span class="fc" id="L1011">                }</span>
-<span class="fc" id="L1012">            }</span>
-<span class="fc" id="L1013">        }</span>
-<span class="fc" id="L1014">        cc.reflexiveReduction();</span>
-<span class="fc" id="L1015">        return cc;</span>
+<span class="fc" id="L1009">                    }</span>
+<span class="fc" id="L1010">                }</span>
+<span class="fc" id="L1011">            }</span>
+<span class="fc" id="L1012">        }</span>
+<span class="fc" id="L1013">        cc.reflexiveReduction();</span>
+<span class="fc" id="L1014">        return cc;</span>
     }
 }
 
