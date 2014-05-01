@@ -118,18 +118,10 @@ public class BijectiveComponents {
      * Generates all the bijective components included in this component
      * issued from the initial closure system `init`.
      *
-     * The closed set lattice is generated when the closure system is an implicational system,
-     * and obtained by
+     * The closed set lattice is generated and obtained by
      *
      * ~~~Java
-     * this.init.closedSetLattice(true);
-     * ~~~
-     *
-     * The concept lattice is generated when the closure system is a context, and obtained by
-     * by
-     *
-     * ~~~Java
-     * this.init.conceptLattice(true);
+     * this.init.lattice();
      * ~~~
      *
      * The reduced lattice is obtained by
@@ -171,17 +163,17 @@ public class BijectiveComponents {
      * @return  time of computation
      */
     public long initialize() {
-<span class="fc" id="L174">        long debut = new Date().getTime();</span>
-<span class="fc" id="L175">        this.lattice = this.init.lattice();</span>
-<span class="fc" id="L176">        this.reducedLattice = this.lattice.getIrreduciblesReduction();</span>
-<span class="fc" id="L177">        this.table = this.lattice.getTable();</span>
-<span class="fc" id="L178">        this.dependencyGraph = this.lattice.getDependencyGraph();</span>
-<span class="fc" id="L179">        this.minimalGenerators = this.lattice.getMinimalGenerators();</span>
-<span class="fc" id="L180">        this.canonicalDirectBasis = this.lattice.getCanonicalDirectBasis();</span>
-<span class="fc" id="L181">        this.canonicalBasis = new ImplicationalSystem(this.canonicalDirectBasis);</span>
-<span class="fc" id="L182">        this.canonicalBasis.makeCanonicalBasis();</span>
-<span class="fc" id="L183">        long fin = new Date().getTime();</span>
-<span class="fc" id="L184">        return fin - debut;</span>
+<span class="fc" id="L166">        long debut = new Date().getTime();</span>
+<span class="fc" id="L167">        this.lattice = this.init.lattice();</span>
+<span class="fc" id="L168">        this.reducedLattice = this.lattice.getIrreduciblesReduction();</span>
+<span class="fc" id="L169">        this.table = this.lattice.getTable();</span>
+<span class="fc" id="L170">        this.dependencyGraph = this.lattice.getDependencyGraph();</span>
+<span class="fc" id="L171">        this.minimalGenerators = this.lattice.getMinimalGenerators();</span>
+<span class="fc" id="L172">        this.canonicalDirectBasis = this.lattice.getCanonicalDirectBasis();</span>
+<span class="fc" id="L173">        this.canonicalBasis = new ImplicationalSystem(this.canonicalDirectBasis);</span>
+<span class="fc" id="L174">        this.canonicalBasis.makeCanonicalBasis();</span>
+<span class="fc" id="L175">        long fin = new Date().getTime();</span>
+<span class="fc" id="L176">        return fin - debut;</span>
     }
 
    /**
@@ -197,48 +189,48 @@ public class BijectiveComponents {
     public void save(String directory, String name) {
         try {
             // create the directory
-<span class="fc" id="L200">            directory = directory + File.separator + name + &quot;BijectiveComponents&quot; + File.separator;</span>
-<span class="fc" id="L201">            File f = new File(directory);</span>
-<span class="fc" id="L202">            f.mkdir();</span>
-<span class="fc" id="L203">            directory += name;</span>
-<span class="fc" id="L204">            BufferedWriter file = new BufferedWriter(new FileWriter(directory + &quot;Readme.txt&quot;));</span>
+<span class="fc" id="L192">            directory = directory + File.separator + name + &quot;BijectiveComponents&quot; + File.separator;</span>
+<span class="fc" id="L193">            File f = new File(directory);</span>
+<span class="fc" id="L194">            f.mkdir();</span>
+<span class="fc" id="L195">            directory += name;</span>
+<span class="fc" id="L196">            BufferedWriter file = new BufferedWriter(new FileWriter(directory + &quot;Readme.txt&quot;));</span>
             // saves the inital closure system
-<span class="fc" id="L206">            String nameInit = directory + &quot;InitialClosureSystem.txt&quot;;</span>
-<span class="fc" id="L207">            this.init.toFile(nameInit);</span>
-<span class="fc" id="L208">            file.write(&quot;-&gt; Initial closure system saved in &quot; + nameInit + &quot;: \n&quot;);</span>
-<span class="fc" id="L209">            file.write(this.init.toString() + &quot;\n&quot;);</span>
+<span class="fc" id="L198">            String nameInit = directory + &quot;InitialClosureSystem.txt&quot;;</span>
+<span class="fc" id="L199">            this.init.toFile(nameInit);</span>
+<span class="fc" id="L200">            file.write(&quot;-&gt; Initial closure system saved in &quot; + nameInit + &quot;: \n&quot;);</span>
+<span class="fc" id="L201">            file.write(this.init.toString() + &quot;\n&quot;);</span>
             // saves the closed set lattice
-<span class="fc" id="L211">            String nameLattice = directory + &quot;Lattice.dot&quot;;</span>
-<span class="fc" id="L212">            this.lattice.writeDot(nameLattice);</span>
-<span class="fc" id="L213">            file.write(&quot;-&gt; Closed set or concept lattice saved in &quot; + nameLattice + &quot;\n&quot;);</span>
+<span class="fc" id="L203">            String nameLattice = directory + &quot;Lattice.dot&quot;;</span>
+<span class="fc" id="L204">            this.lattice.writeDot(nameLattice);</span>
+<span class="fc" id="L205">            file.write(&quot;-&gt; Closed set or concept lattice saved in &quot; + nameLattice + &quot;\n&quot;);</span>
             // saves the reduced lattice
-<span class="fc" id="L215">            String nameReducedLattice = directory + &quot;ReducedLattice.dot&quot;;</span>
-<span class="fc" id="L216">            this.reducedLattice.writeDot(nameReducedLattice);</span>
-<span class="fc" id="L217">            file.write(&quot;-&gt; Reduced lattice saved in &quot; + nameReducedLattice + &quot;\n&quot;);</span>
+<span class="fc" id="L207">            String nameReducedLattice = directory + &quot;ReducedLattice.dot&quot;;</span>
+<span class="fc" id="L208">            this.reducedLattice.writeDot(nameReducedLattice);</span>
+<span class="fc" id="L209">            file.write(&quot;-&gt; Reduced lattice saved in &quot; + nameReducedLattice + &quot;\n&quot;);</span>
             // saves the reduced table
-<span class="fc" id="L219">            String nameTable = directory + &quot;Table.txt&quot;;</span>
-<span class="fc" id="L220">            this.table.toFile(nameTable);</span>
-<span class="fc" id="L221">            file.write(&quot;-&gt; Table of the reduced lattice saved in &quot; + nameTable + &quot;\n&quot;);</span>
-<span class="fc" id="L222">            file.write(this.table.toString() + &quot;\n&quot;);</span>
+<span class="fc" id="L211">            String nameTable = directory + &quot;Table.txt&quot;;</span>
+<span class="fc" id="L212">            this.table.toFile(nameTable);</span>
+<span class="fc" id="L213">            file.write(&quot;-&gt; Table of the reduced lattice saved in &quot; + nameTable + &quot;\n&quot;);</span>
+<span class="fc" id="L214">            file.write(this.table.toString() + &quot;\n&quot;);</span>
             // saves the canonical basis
-<span class="fc" id="L224">            String nameCB = directory + &quot;CanonicalBasis.txt&quot;;</span>
-<span class="fc" id="L225">            this.canonicalBasis.toFile(nameCB);</span>
-<span class="fc" id="L226">            file.write(&quot;-&gt; Canonical basis saved in &quot; + nameCB + &quot;: \n&quot;);</span>
-<span class="fc" id="L227">            file.write(this.canonicalBasis.toString() + &quot;\n&quot;);</span>
+<span class="fc" id="L216">            String nameCB = directory + &quot;CanonicalBasis.txt&quot;;</span>
+<span class="fc" id="L217">            this.canonicalBasis.toFile(nameCB);</span>
+<span class="fc" id="L218">            file.write(&quot;-&gt; Canonical basis saved in &quot; + nameCB + &quot;: \n&quot;);</span>
+<span class="fc" id="L219">            file.write(this.canonicalBasis.toString() + &quot;\n&quot;);</span>
             // saves the canonical direct basis
-<span class="fc" id="L229">            String nameCDB = directory + &quot;CanonicalDirectBasis.txt&quot;;</span>
-<span class="fc" id="L230">            this.canonicalDirectBasis.toFile(nameCDB);</span>
-<span class="fc" id="L231">            file.write(&quot;-&gt; Canonical direct basis of the reduced lattice saved in &quot; + nameCDB + &quot;: \n&quot;);</span>
-<span class="fc" id="L232">            file.write(this.canonicalDirectBasis.toString() + &quot;\n&quot;);</span>
+<span class="fc" id="L221">            String nameCDB = directory + &quot;CanonicalDirectBasis.txt&quot;;</span>
+<span class="fc" id="L222">            this.canonicalDirectBasis.toFile(nameCDB);</span>
+<span class="fc" id="L223">            file.write(&quot;-&gt; Canonical direct basis of the reduced lattice saved in &quot; + nameCDB + &quot;: \n&quot;);</span>
+<span class="fc" id="L224">            file.write(this.canonicalDirectBasis.toString() + &quot;\n&quot;);</span>
             // saves the dependency graph
-<span class="fc" id="L234">            String nameODGraph = directory + &quot;DependencyGraph.dot&quot;;</span>
-<span class="fc" id="L235">            this.dependencyGraph.writeDot(nameODGraph);</span>
-<span class="fc" id="L236">            file.write(&quot;-&gt; Dependency Graph  of the reduced lattice saved in &quot; + nameODGraph + &quot; \n&quot;);</span>
+<span class="fc" id="L226">            String nameODGraph = directory + &quot;DependencyGraph.dot&quot;;</span>
+<span class="fc" id="L227">            this.dependencyGraph.writeDot(nameODGraph);</span>
+<span class="fc" id="L228">            file.write(&quot;-&gt; Dependency Graph  of the reduced lattice saved in &quot; + nameODGraph + &quot; \n&quot;);</span>
             // saves the minimal generators
-<span class="fc" id="L238">            file.write(&quot;-&gt; Minimal generators  of the reduced lattice are &quot; + this.minimalGenerators + &quot;\n&quot;);</span>
-<span class="fc" id="L239">            file.close();</span>
-<span class="pc" id="L240">        } catch (Exception e) { e.printStackTrace(); }</span>
-<span class="fc" id="L241">    }</span>
+<span class="fc" id="L230">            file.write(&quot;-&gt; Minimal generators  of the reduced lattice are &quot; + this.minimalGenerators + &quot;\n&quot;);</span>
+<span class="fc" id="L231">            file.close();</span>
+<span class="pc" id="L232">        } catch (Exception e) { e.printStackTrace(); }</span>
+<span class="fc" id="L233">    }</span>
 
     /**
      * Returns the Init of this component.
@@ -246,7 +238,7 @@ public class BijectiveComponents {
      * @return  init of this component
      */
     public ClosureSystem getInit() {
-<span class="fc" id="L249">        return init;</span>
+<span class="fc" id="L241">        return init;</span>
     }
 
     /**
@@ -255,8 +247,8 @@ public class BijectiveComponents {
      * @param   init  used to define field of this component
      */
     protected void setInit(ClosureSystem init) {
-<span class="fc" id="L258">        this.init = init;</span>
-<span class="fc" id="L259">    }</span>
+<span class="fc" id="L250">        this.init = init;</span>
+<span class="fc" id="L251">    }</span>
 
     /**
      * Returns the lattice of this component.
@@ -264,7 +256,7 @@ public class BijectiveComponents {
      * @return  lattice of this component
      */
     public ConceptLattice getLattice() {
-<span class="fc" id="L267">        return lattice;</span>
+<span class="fc" id="L259">        return lattice;</span>
     }
 
     /**
@@ -273,8 +265,8 @@ public class BijectiveComponents {
      * @param   lattice  used to define field of this component
      */
     protected void setLattice(ConceptLattice lattice) {
-<span class="fc" id="L276">        this.lattice = lattice;</span>
-<span class="fc" id="L277">    }</span>
+<span class="fc" id="L268">        this.lattice = lattice;</span>
+<span class="fc" id="L269">    }</span>
 
     /**
      * Returns the reduced lattice of this component.
@@ -282,7 +274,7 @@ public class BijectiveComponents {
      * @return  reduced lattice of this component
      */
     public Lattice getReducedLattice() {
-<span class="fc" id="L285">        return reducedLattice;</span>
+<span class="fc" id="L277">        return reducedLattice;</span>
     }
 
     /**
@@ -291,8 +283,8 @@ public class BijectiveComponents {
      * @param  reducedLattice  used to define field of this component
      */
     protected void setReducedLattice(Lattice reducedLattice) {
-<span class="fc" id="L294">        this.reducedLattice = reducedLattice;</span>
-<span class="fc" id="L295">    }</span>
+<span class="fc" id="L286">        this.reducedLattice = reducedLattice;</span>
+<span class="fc" id="L287">    }</span>
 
     /**
      * Returns the dependency graph of this component.
@@ -300,7 +292,7 @@ public class BijectiveComponents {
      * @return  dependancyGraph  dependency graph of this component
      */
     public DGraph getDependencyGraph() {
-<span class="fc" id="L303">        return dependencyGraph;</span>
+<span class="fc" id="L295">        return dependencyGraph;</span>
     }
 
     /**
@@ -309,8 +301,8 @@ public class BijectiveComponents {
      * @param   dependencyGraph  used to define field of this component
      */
     protected void setDependencyGraph(DGraph dependencyGraph) {
-<span class="fc" id="L312">        this.dependencyGraph = dependencyGraph;</span>
-<span class="fc" id="L313">    }</span>
+<span class="fc" id="L304">        this.dependencyGraph = dependencyGraph;</span>
+<span class="fc" id="L305">    }</span>
 
     /**
      * Returns the minimal generators of this component.
@@ -318,7 +310,7 @@ public class BijectiveComponents {
      * @return  minimal generators of this component
      */
     public TreeSet&lt;ComparableSet&gt; getMinimalGenerators() {
-<span class="fc" id="L321">        return minimalGenerators;</span>
+<span class="fc" id="L313">        return minimalGenerators;</span>
     }
 
     /**
@@ -327,8 +319,8 @@ public class BijectiveComponents {
      * @param   minimalGenerators  used to define field of this component
      */
     protected void setMinimalGenerators(TreeSet&lt;ComparableSet&gt; minimalGenerators) {
-<span class="fc" id="L330">        this.minimalGenerators = minimalGenerators;</span>
-<span class="fc" id="L331">    }</span>
+<span class="fc" id="L322">        this.minimalGenerators = minimalGenerators;</span>
+<span class="fc" id="L323">    }</span>
 
     /**
      * Returns the canonical direct basis of this component.
@@ -336,7 +328,7 @@ public class BijectiveComponents {
      * @return  the canonical direct basis of this component
      */
     public ImplicationalSystem getCanonicalDirectBasis() {
-<span class="fc" id="L339">        return canonicalDirectBasis;</span>
+<span class="fc" id="L331">        return canonicalDirectBasis;</span>
     }
 
     /**
@@ -345,8 +337,8 @@ public class BijectiveComponents {
      * @param   canonicalDirectBasis  used to define field of this component
      */
     protected void setCanonicalDirectBasis(ImplicationalSystem canonicalDirectBasis) {
-<span class="fc" id="L348">        this.canonicalDirectBasis = canonicalDirectBasis;</span>
-<span class="fc" id="L349">    }</span>
+<span class="fc" id="L340">        this.canonicalDirectBasis = canonicalDirectBasis;</span>
+<span class="fc" id="L341">    }</span>
 
     /**
      * Returns the canonical basis of this component.
@@ -354,7 +346,7 @@ public class BijectiveComponents {
      * @return  the canonical basis of this component
      */
     public ImplicationalSystem getCanonicalBasis() {
-<span class="fc" id="L357">        return canonicalBasis;</span>
+<span class="fc" id="L349">        return canonicalBasis;</span>
     }
 
     /**
@@ -363,8 +355,8 @@ public class BijectiveComponents {
      * @param   canonicalBasis  used to define field of this component
      */
     protected void setCanonicalBasis(ImplicationalSystem canonicalBasis) {
-<span class="fc" id="L366">        this.canonicalBasis = canonicalBasis;</span>
-<span class="fc" id="L367">    }</span>
+<span class="fc" id="L358">        this.canonicalBasis = canonicalBasis;</span>
+<span class="fc" id="L359">    }</span>
 
     /**
      * Returns the Table of this component.
@@ -372,7 +364,7 @@ public class BijectiveComponents {
      * @return  table of this component
      */
     public Context getTable() {
-<span class="fc" id="L375">        return table;</span>
+<span class="fc" id="L367">        return table;</span>
     }
     /**
      * Set the Table of this component.
@@ -380,8 +372,8 @@ public class BijectiveComponents {
      * @param   table  used to define field of this component
      */
     protected void setTable(Context table) {
-<span class="fc" id="L383">        this.table = table;</span>
-<span class="fc" id="L384">    }</span>
+<span class="fc" id="L375">        this.table = table;</span>
+<span class="fc" id="L376">    }</span>
 
 /** Returns the informativ generic basis
  * public IS getApproximativBasis () {
