@@ -18,6 +18,9 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.Vector;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import dgraph.DAGraph;
 import dgraph.DGraph;
 import dgraph.Edge;
@@ -60,6 +63,14 @@ import dgraph.Node;
  * title ConceptLattice UML graph
  */
 public class ConceptLattice extends Lattice {
+    /*
+     * Register dot writer
+     */
+    static {
+<span class="pc bpc" id="L70" title="1 of 2 branches missed.">        if (ConceptLatticeWriterFactory.get(&quot;dot&quot;) == null) {</span>
+<span class="fc" id="L71">            ConceptLatticeWriterDot.register();</span>
+        }
+<span class="fc" id="L73">    }</span>
 
     /* ------------- CONSTRUCTORS ------------------ */
 
@@ -67,8 +78,8 @@ public class ConceptLattice extends Lattice {
      * Constructs this component with an empty set of nodes.
      */
     public ConceptLattice() {
-<span class="fc" id="L70">        super();</span>
-<span class="fc" id="L71">    }</span>
+<span class="fc" id="L81">        super();</span>
+<span class="fc" id="L82">    }</span>
 
     /**
      * Constructs this component with the specified set of concepts,
@@ -77,8 +88,8 @@ public class ConceptLattice extends Lattice {
      * @param   set  the set of nodes
      */
     public ConceptLattice(TreeSet&lt;Concept&gt; set) {
-<span class="fc" id="L80">        super((TreeSet) set);</span>
-<span class="fc" id="L81">    }</span>
+<span class="fc" id="L91">        super((TreeSet) set);</span>
+<span class="fc" id="L92">    }</span>
 
     /**
      * Constructs this component as a shallow copy of the specified lattice.
@@ -89,13 +100,13 @@ public class ConceptLattice extends Lattice {
      * @param   lattice  the lattice to be copied
      */
     public ConceptLattice(Lattice lattice) {
-<span class="fc" id="L92">        super(lattice);</span>
-<span class="fc bfc" id="L93" title="All 2 branches covered.">        if (!this.isConceptLattice()) {</span>
-<span class="fc" id="L94">            this.setNodes(new TreeSet&lt;Node&gt;());</span>
-<span class="fc" id="L95">            this.setSuccessors(new TreeMap&lt;Node, TreeSet&lt;Edge&gt;&gt;());</span>
-<span class="fc" id="L96">            this.setPredecessors(new TreeMap&lt;Node, TreeSet&lt;Edge&gt;&gt;());</span>
+<span class="fc" id="L103">        super(lattice);</span>
+<span class="fc bfc" id="L104" title="All 2 branches covered.">        if (!this.isConceptLattice()) {</span>
+<span class="fc" id="L105">            this.setNodes(new TreeSet&lt;Node&gt;());</span>
+<span class="fc" id="L106">            this.setSuccessors(new TreeMap&lt;Node, TreeSet&lt;Edge&gt;&gt;());</span>
+<span class="fc" id="L107">            this.setPredecessors(new TreeMap&lt;Node, TreeSet&lt;Edge&gt;&gt;());</span>
         }
-<span class="fc" id="L98">    }</span>
+<span class="fc" id="L109">    }</span>
 
     /* ------------- OVERLAPPING METHODS ------------------ */
 
@@ -112,10 +123,10 @@ public class ConceptLattice extends Lattice {
      * @todo  Comment the return
      */
     public boolean addNode(Node n) {
-<span class="pc bpc" id="L115" title="1 of 2 branches missed.">        if (n instanceof Concept) {</span>
-<span class="fc" id="L116">            return super.addNode(n);</span>
+<span class="pc bpc" id="L126" title="1 of 2 branches missed.">        if (n instanceof Concept) {</span>
+<span class="fc" id="L127">            return super.addNode(n);</span>
         } else {
-<span class="nc" id="L118">            return false;</span>
+<span class="nc" id="L129">            return false;</span>
         }
     }
 
@@ -135,10 +146,10 @@ public class ConceptLattice extends Lattice {
      * @todo  Comment the return
      */
     public boolean addEdge(Node from, Node to) {
-<span class="pc bpc" id="L138" title="2 of 4 branches missed.">        if ((to instanceof Concept) &amp;&amp; (from instanceof Concept)) {</span>
-<span class="fc" id="L139">            return super.addEdge(from, to);</span>
+<span class="pc bpc" id="L149" title="2 of 4 branches missed.">        if ((to instanceof Concept) &amp;&amp; (from instanceof Concept)) {</span>
+<span class="fc" id="L150">            return super.addEdge(from, to);</span>
         } else {
-<span class="nc" id="L141">            return false;</span>
+<span class="nc" id="L152">            return false;</span>
         }
     }
 
@@ -152,12 +163,12 @@ public class ConceptLattice extends Lattice {
      * @todo  Comment the return
      */
     public boolean containsConcepts() {
-<span class="fc bfc" id="L155" title="All 2 branches covered.">        for (Node n : this.getNodes()) {</span>
-<span class="fc bfc" id="L156" title="All 2 branches covered.">            if (!(n instanceof Concept)) {</span>
-<span class="fc" id="L157">                return false;</span>
+<span class="fc bfc" id="L166" title="All 2 branches covered.">        for (Node n : this.getNodes()) {</span>
+<span class="fc bfc" id="L167" title="All 2 branches covered.">            if (!(n instanceof Concept)) {</span>
+<span class="fc" id="L168">                return false;</span>
             }
-<span class="fc" id="L159">        }</span>
-<span class="fc" id="L160">        return true;</span>
+<span class="fc" id="L170">        }</span>
+<span class="fc" id="L171">        return true;</span>
     }
 
     /**
@@ -168,13 +179,13 @@ public class ConceptLattice extends Lattice {
      * @todo  Comment the return
      */
     public boolean isConceptLattice() {
-<span class="pc bpc" id="L171" title="1 of 2 branches missed.">        if (!this.isLattice()) {</span>
-<span class="nc" id="L172">            return false;</span>
+<span class="pc bpc" id="L182" title="1 of 2 branches missed.">        if (!this.isLattice()) {</span>
+<span class="nc" id="L183">            return false;</span>
         }
-<span class="fc bfc" id="L174" title="All 2 branches covered.">        if (!this.containsConcepts()) {</span>
-<span class="fc" id="L175">            return false;</span>
+<span class="fc bfc" id="L185" title="All 2 branches covered.">        if (!this.containsConcepts()) {</span>
+<span class="fc" id="L186">            return false;</span>
         }
-<span class="fc" id="L177">        return true;</span>
+<span class="fc" id="L188">        return true;</span>
     }
 
     /**
@@ -185,15 +196,15 @@ public class ConceptLattice extends Lattice {
      * @todo  Comment the return
      */
     public boolean containsAllSetA() {
-<span class="pc bpc" id="L188" title="1 of 2 branches missed.">        if (!this.containsConcepts()) {</span>
-<span class="nc" id="L189">            return false;</span>
+<span class="pc bpc" id="L199" title="1 of 2 branches missed.">        if (!this.containsConcepts()) {</span>
+<span class="nc" id="L200">            return false;</span>
         }
-<span class="fc bfc" id="L191" title="All 2 branches covered.">        for (Node n : this.getNodes()) {</span>
-<span class="pc bpc" id="L192" title="1 of 2 branches missed.">            if (!((Concept) n).hasSetA()) {</span>
-<span class="nc" id="L193">                return false;</span>
+<span class="fc bfc" id="L202" title="All 2 branches covered.">        for (Node n : this.getNodes()) {</span>
+<span class="pc bpc" id="L203" title="1 of 2 branches missed.">            if (!((Concept) n).hasSetA()) {</span>
+<span class="nc" id="L204">                return false;</span>
             }
-<span class="fc" id="L195">        }</span>
-<span class="fc" id="L196">        return true;</span>
+<span class="fc" id="L206">        }</span>
+<span class="fc" id="L207">        return true;</span>
     }
 
     /**
@@ -204,15 +215,15 @@ public class ConceptLattice extends Lattice {
      * @todo  Comment the return
      */
     public boolean containsAllSetB() {
-<span class="pc bpc" id="L207" title="1 of 2 branches missed.">        if (!this.containsConcepts()) {</span>
-<span class="nc" id="L208">            return false;</span>
+<span class="pc bpc" id="L218" title="1 of 2 branches missed.">        if (!this.containsConcepts()) {</span>
+<span class="nc" id="L219">            return false;</span>
         }
-<span class="fc bfc" id="L210" title="All 2 branches covered.">        for (Node n : this.getNodes()) {</span>
-<span class="fc bfc" id="L211" title="All 2 branches covered.">            if (!((Concept) n).hasSetB()) {</span>
-<span class="fc" id="L212">                return false;</span>
+<span class="fc bfc" id="L221" title="All 2 branches covered.">        for (Node n : this.getNodes()) {</span>
+<span class="fc bfc" id="L222" title="All 2 branches covered.">            if (!((Concept) n).hasSetB()) {</span>
+<span class="fc" id="L223">                return false;</span>
             }
-<span class="fc" id="L214">        }</span>
-<span class="fc" id="L215">        return true;</span>
+<span class="fc" id="L225">        }</span>
+<span class="fc" id="L226">        return true;</span>
     }
 
     /**
@@ -222,18 +233,18 @@ public class ConceptLattice extends Lattice {
      */
     @Override
     public ConceptLattice copy() {
-<span class="fc" id="L225">        ConceptLattice conceptLattice = new ConceptLattice();</span>
-<span class="fc" id="L226">        TreeMap&lt;Concept, Concept&gt; copy = new TreeMap&lt;Concept, Concept&gt;();</span>
-<span class="fc bfc" id="L227" title="All 2 branches covered.">        for (Node n : this.getNodes()) {</span>
-<span class="fc" id="L228">            Concept c = (Concept) n;</span>
-<span class="fc" id="L229">            Concept c2 = c.copy();</span>
-<span class="fc" id="L230">            copy.put(c, c2);</span>
-<span class="fc" id="L231">            conceptLattice.addNode(c2);</span>
-<span class="fc" id="L232">        }</span>
-<span class="fc bfc" id="L233" title="All 2 branches covered.">        for (Edge ed : this.getEdges()) {</span>
-<span class="fc" id="L234">            conceptLattice.addEdge(new Edge(copy.get(ed.getFrom()), copy.get(ed.getTo()), ed.getContent()));</span>
-<span class="fc" id="L235">        }</span>
-<span class="fc" id="L236">        return conceptLattice;</span>
+<span class="fc" id="L236">        ConceptLattice conceptLattice = new ConceptLattice();</span>
+<span class="fc" id="L237">        TreeMap&lt;Concept, Concept&gt; copy = new TreeMap&lt;Concept, Concept&gt;();</span>
+<span class="fc bfc" id="L238" title="All 2 branches covered.">        for (Node n : this.getNodes()) {</span>
+<span class="fc" id="L239">            Concept c = (Concept) n;</span>
+<span class="fc" id="L240">            Concept c2 = c.copy();</span>
+<span class="fc" id="L241">            copy.put(c, c2);</span>
+<span class="fc" id="L242">            conceptLattice.addNode(c2);</span>
+<span class="fc" id="L243">        }</span>
+<span class="fc bfc" id="L244" title="All 2 branches covered.">        for (Edge ed : this.getEdges()) {</span>
+<span class="fc" id="L245">            conceptLattice.addEdge(new Edge(copy.get(ed.getFrom()), copy.get(ed.getTo()), ed.getContent()));</span>
+<span class="fc" id="L246">        }</span>
+<span class="fc" id="L247">        return conceptLattice;</span>
     }
 
 
@@ -247,14 +258,14 @@ public class ConceptLattice extends Lattice {
      * @todo  Comment the return
      */
     public boolean removeAllSetA() {
-<span class="pc bpc" id="L250" title="1 of 2 branches missed.">        if (!this.containsConcepts()) {</span>
-<span class="nc" id="L251">            return false;</span>
+<span class="pc bpc" id="L261" title="1 of 2 branches missed.">        if (!this.containsConcepts()) {</span>
+<span class="nc" id="L262">            return false;</span>
         }
-<span class="pc bpc" id="L253" title="1 of 2 branches missed.">        for (Node n : this.getNodes()) {</span>
-<span class="nc" id="L254">             Concept c = (Concept) n;</span>
-<span class="nc" id="L255">             c.putSetA(null);</span>
-<span class="nc" id="L256">        }</span>
-<span class="fc" id="L257">        return true;</span>
+<span class="pc bpc" id="L264" title="1 of 2 branches missed.">        for (Node n : this.getNodes()) {</span>
+<span class="nc" id="L265">             Concept c = (Concept) n;</span>
+<span class="nc" id="L266">             c.putSetA(null);</span>
+<span class="nc" id="L267">        }</span>
+<span class="fc" id="L268">        return true;</span>
     }
 
     /**
@@ -265,14 +276,14 @@ public class ConceptLattice extends Lattice {
      * @todo  Comment the return
      */
     public boolean removeAllSetB() {
-<span class="pc bpc" id="L268" title="1 of 2 branches missed.">        if (!this.containsConcepts()) {</span>
-<span class="nc" id="L269">            return false;</span>
+<span class="pc bpc" id="L279" title="1 of 2 branches missed.">        if (!this.containsConcepts()) {</span>
+<span class="nc" id="L280">            return false;</span>
         }
-<span class="pc bpc" id="L271" title="1 of 2 branches missed.">        for (Node n : this.getNodes()) {</span>
-<span class="nc" id="L272">             Concept c = (Concept) n;</span>
-<span class="nc" id="L273">             c.putSetB(null);</span>
-<span class="nc" id="L274">        }</span>
-<span class="fc" id="L275">        return true;</span>
+<span class="pc bpc" id="L282" title="1 of 2 branches missed.">        for (Node n : this.getNodes()) {</span>
+<span class="nc" id="L283">             Concept c = (Concept) n;</span>
+<span class="nc" id="L284">             c.putSetB(null);</span>
+<span class="nc" id="L285">        }</span>
+<span class="fc" id="L286">        return true;</span>
     }
 
     /**
@@ -283,19 +294,19 @@ public class ConceptLattice extends Lattice {
      * @todo  Comment the return
      */
     public boolean initializeSetAForJoin() {
-<span class="pc bpc" id="L286" title="1 of 2 branches missed.">        if (!this.containsConcepts()) {</span>
-<span class="nc" id="L287">            return false;</span>
+<span class="pc bpc" id="L297" title="1 of 2 branches missed.">        if (!this.containsConcepts()) {</span>
+<span class="nc" id="L298">            return false;</span>
         }
-<span class="fc" id="L289">        TreeSet&lt;Node&gt; joinIrr = this.joinIrreducibles();</span>
-<span class="pc bpc" id="L290" title="1 of 2 branches missed.">        for (Node n : this.getNodes()) {</span>
-<span class="nc" id="L291">            Concept c = (Concept) n;</span>
-<span class="nc bnc" id="L292" title="All 4 branches missed.">            if (!c.hasSetA() &amp;&amp; joinIrr.contains(c)) {</span>
-<span class="nc" id="L293">                ComparableSet setX = new ComparableSet();</span>
-<span class="nc" id="L294">                setX.add(new Integer(c.getIdentifier()));</span>
-<span class="nc" id="L295">                c.putSetA(setX);</span>
+<span class="fc" id="L300">        TreeSet&lt;Node&gt; joinIrr = this.joinIrreducibles();</span>
+<span class="pc bpc" id="L301" title="1 of 2 branches missed.">        for (Node n : this.getNodes()) {</span>
+<span class="nc" id="L302">            Concept c = (Concept) n;</span>
+<span class="nc bnc" id="L303" title="All 4 branches missed.">            if (!c.hasSetA() &amp;&amp; joinIrr.contains(c)) {</span>
+<span class="nc" id="L304">                ComparableSet setX = new ComparableSet();</span>
+<span class="nc" id="L305">                setX.add(new Integer(c.getIdentifier()));</span>
+<span class="nc" id="L306">                c.putSetA(setX);</span>
             }
-<span class="nc" id="L297">        }</span>
-<span class="fc" id="L298">        return true;</span>
+<span class="nc" id="L308">        }</span>
+<span class="fc" id="L309">        return true;</span>
    }
 
     /**
@@ -306,19 +317,19 @@ public class ConceptLattice extends Lattice {
      * @todo  Comment the return
      */
     public boolean initializeSetBForMeet() {
-<span class="pc bpc" id="L309" title="1 of 2 branches missed.">        if (!this.containsConcepts()) {</span>
-<span class="nc" id="L310">            return false;</span>
+<span class="pc bpc" id="L320" title="1 of 2 branches missed.">        if (!this.containsConcepts()) {</span>
+<span class="nc" id="L321">            return false;</span>
         }
-<span class="fc" id="L312">        TreeSet&lt;Node&gt; meetIrr = this.meetIrreducibles();</span>
-<span class="pc bpc" id="L313" title="1 of 2 branches missed.">        for (Node n : this.getNodes()) {</span>
-<span class="nc" id="L314">             Concept c = (Concept) n;</span>
-<span class="nc bnc" id="L315" title="All 4 branches missed.">             if (!c.hasSetB() &amp;&amp; meetIrr.contains(c)) {</span>
-<span class="nc" id="L316">                ComparableSet setX = new ComparableSet();</span>
-<span class="nc" id="L317">                setX.add(new Integer(c.getIdentifier()));</span>
-<span class="nc" id="L318">                c.putSetB(setX);</span>
+<span class="fc" id="L323">        TreeSet&lt;Node&gt; meetIrr = this.meetIrreducibles();</span>
+<span class="pc bpc" id="L324" title="1 of 2 branches missed.">        for (Node n : this.getNodes()) {</span>
+<span class="nc" id="L325">             Concept c = (Concept) n;</span>
+<span class="nc bnc" id="L326" title="All 4 branches missed.">             if (!c.hasSetB() &amp;&amp; meetIrr.contains(c)) {</span>
+<span class="nc" id="L327">                ComparableSet setX = new ComparableSet();</span>
+<span class="nc" id="L328">                setX.add(new Integer(c.getIdentifier()));</span>
+<span class="nc" id="L329">                c.putSetB(setX);</span>
              }
-<span class="nc" id="L320">         }</span>
-<span class="fc" id="L321">        return true;</span>
+<span class="nc" id="L331">         }</span>
+<span class="fc" id="L332">        return true;</span>
     }
 
     /* --------------- INCLUSION REDUCTION METHODS ------------ */
@@ -334,43 +345,43 @@ public class ConceptLattice extends Lattice {
      * @todo  Comment the return
      */
     public boolean makeInclusionReduction() {
-<span class="pc bpc" id="L337" title="1 of 2 branches missed.">        if (!this.containsConcepts()) {</span>
-<span class="nc" id="L338">            return false;</span>
+<span class="pc bpc" id="L348" title="1 of 2 branches missed.">        if (!this.containsConcepts()) {</span>
+<span class="nc" id="L349">            return false;</span>
         }
-<span class="fc" id="L340">        boolean setA = this.containsAllSetA();</span>
-<span class="fc" id="L341">        boolean setB = this.containsAllSetB();</span>
-<span class="pc bpc" id="L342" title="3 of 4 branches missed.">        if (!setA &amp;&amp; !setB) {</span>
-<span class="nc" id="L343">            return false;</span>
+<span class="fc" id="L351">        boolean setA = this.containsAllSetA();</span>
+<span class="fc" id="L352">        boolean setB = this.containsAllSetB();</span>
+<span class="pc bpc" id="L353" title="3 of 4 branches missed.">        if (!setA &amp;&amp; !setB) {</span>
+<span class="nc" id="L354">            return false;</span>
         }
         // makes setA inclusion reduction
-<span class="pc bpc" id="L346" title="1 of 2 branches missed.">        if (setA) {</span>
+<span class="pc bpc" id="L357" title="1 of 2 branches missed.">        if (setA) {</span>
             // computation of an inverse topological sort
-<span class="fc" id="L348">            this.transpose();</span>
-<span class="fc" id="L349">            ArrayList&lt;Node&gt; sort = this.topologicalSort();</span>
-<span class="fc" id="L350">            this.transpose();</span>
+<span class="fc" id="L359">            this.transpose();</span>
+<span class="fc" id="L360">            ArrayList&lt;Node&gt; sort = this.topologicalSort();</span>
+<span class="fc" id="L361">            this.transpose();</span>
             // reduction of set A
-<span class="fc bfc" id="L352" title="All 2 branches covered.">            for (Node to : sort) {</span>
-<span class="fc" id="L353">                Concept cto = (Concept) to;</span>
-<span class="fc bfc" id="L354" title="All 2 branches covered.">                for (Node from : this.getPredecessorNodes(to))  {</span>
-<span class="fc" id="L355">                    Concept cfrom = (Concept) from;</span>
-<span class="fc" id="L356">                    cto.getSetA().removeAll(cfrom.getSetA());</span>
-<span class="fc" id="L357">                }</span>
-<span class="fc" id="L358">            }</span>
+<span class="fc bfc" id="L363" title="All 2 branches covered.">            for (Node to : sort) {</span>
+<span class="fc" id="L364">                Concept cto = (Concept) to;</span>
+<span class="fc bfc" id="L365" title="All 2 branches covered.">                for (Node from : this.getPredecessorNodes(to))  {</span>
+<span class="fc" id="L366">                    Concept cfrom = (Concept) from;</span>
+<span class="fc" id="L367">                    cto.getSetA().removeAll(cfrom.getSetA());</span>
+<span class="fc" id="L368">                }</span>
+<span class="fc" id="L369">            }</span>
         }
         // makes setB inclusion reduction
-<span class="fc bfc" id="L361" title="All 2 branches covered.">        if (setB) {</span>
+<span class="fc bfc" id="L372" title="All 2 branches covered.">        if (setB) {</span>
             // computation of a topological sort
-<span class="fc" id="L363">            ArrayList&lt;Node&gt; sort = this.topologicalSort();</span>
+<span class="fc" id="L374">            ArrayList&lt;Node&gt; sort = this.topologicalSort();</span>
             // reduction of set B
-<span class="fc bfc" id="L365" title="All 2 branches covered.">            for (Node to : sort) {</span>
-<span class="fc" id="L366">                Concept cto  = (Concept) to;</span>
-<span class="fc bfc" id="L367" title="All 2 branches covered.">                for (Node from : this.getSuccessorNodes(to))  {</span>
-<span class="fc" id="L368">                    Concept cfrom = (Concept) from;</span>
-<span class="fc" id="L369">                    cto.getSetB().removeAll(cfrom.getSetB());</span>
-<span class="fc" id="L370">                }</span>
-<span class="fc" id="L371">            }</span>
+<span class="fc bfc" id="L376" title="All 2 branches covered.">            for (Node to : sort) {</span>
+<span class="fc" id="L377">                Concept cto  = (Concept) to;</span>
+<span class="fc bfc" id="L378" title="All 2 branches covered.">                for (Node from : this.getSuccessorNodes(to))  {</span>
+<span class="fc" id="L379">                    Concept cfrom = (Concept) from;</span>
+<span class="fc" id="L380">                    cto.getSetB().removeAll(cfrom.getSetB());</span>
+<span class="fc" id="L381">                }</span>
+<span class="fc" id="L382">            }</span>
         }
-<span class="fc" id="L373">        return true;</span>
+<span class="fc" id="L384">        return true;</span>
     }
 
     /**
@@ -385,22 +396,22 @@ public class ConceptLattice extends Lattice {
      */
     public boolean makeIrreduciblesReduction() {
         // make inclusion reduction
-<span class="pc bpc" id="L388" title="1 of 2 branches missed.">        if (this.makeInclusionReduction()) {</span>
+<span class="pc bpc" id="L399" title="1 of 2 branches missed.">        if (this.makeInclusionReduction()) {</span>
             // check if not set A reduced concepts are join irreducibles
             // and if not set B reduced concepts are meet irreducibles
-<span class="fc" id="L391">            TreeSet&lt;Node&gt; joinIrr = this.joinIrreducibles();</span>
-<span class="fc" id="L392">            TreeSet&lt;Node&gt; meetIrr = this.meetIrreducibles();</span>
-<span class="fc bfc" id="L393" title="All 2 branches covered.">            for (Node n : this.getNodes()) {</span>
-<span class="fc" id="L394">                Concept c = (Concept) n;</span>
-<span class="pc bpc" id="L395" title="1 of 6 branches missed.">                if (c.hasSetA() &amp;&amp; !c.getSetA().isEmpty() &amp;&amp; !joinIrr.contains(c)) {</span>
-<span class="fc" id="L396">                    c.putSetA(new ComparableSet());</span>
+<span class="fc" id="L402">            TreeSet&lt;Node&gt; joinIrr = this.joinIrreducibles();</span>
+<span class="fc" id="L403">            TreeSet&lt;Node&gt; meetIrr = this.meetIrreducibles();</span>
+<span class="fc bfc" id="L404" title="All 2 branches covered.">            for (Node n : this.getNodes()) {</span>
+<span class="fc" id="L405">                Concept c = (Concept) n;</span>
+<span class="pc bpc" id="L406" title="1 of 6 branches missed.">                if (c.hasSetA() &amp;&amp; !c.getSetA().isEmpty() &amp;&amp; !joinIrr.contains(c)) {</span>
+<span class="fc" id="L407">                    c.putSetA(new ComparableSet());</span>
                 }
-<span class="fc bfc" id="L398" title="All 6 branches covered.">                if (c.hasSetB() &amp;&amp; !c.getSetB().isEmpty() &amp;&amp; !meetIrr.contains(c)) {</span>
-<span class="fc" id="L399">                    c.putSetB(new ComparableSet());</span>
+<span class="fc bfc" id="L409" title="All 6 branches covered.">                if (c.hasSetB() &amp;&amp; !c.getSetB().isEmpty() &amp;&amp; !meetIrr.contains(c)) {</span>
+<span class="fc" id="L410">                    c.putSetB(new ComparableSet());</span>
                 }
-<span class="fc" id="L401">            }</span>
+<span class="fc" id="L412">            }</span>
         }
-<span class="fc" id="L403">        return true;</span>
+<span class="fc" id="L414">        return true;</span>
     }
 
     /**
@@ -412,21 +423,21 @@ public class ConceptLattice extends Lattice {
      * @todo  Change comment
      */
     public boolean makeEdgeValuation() {
-<span class="pc bpc" id="L415" title="1 of 2 branches missed.">        if (!this.containsConcepts()) {</span>
-<span class="nc" id="L416">            return false;</span>
+<span class="pc bpc" id="L426" title="1 of 2 branches missed.">        if (!this.containsConcepts()) {</span>
+<span class="nc" id="L427">            return false;</span>
         }
-<span class="pc bpc" id="L418" title="1 of 2 branches missed.">        for (Node n1 : this.getNodes()) {</span>
-<span class="nc bnc" id="L419" title="All 2 branches missed.">            for (Edge ed : this.getSuccessorEdges(n1)) {</span>
-<span class="nc bnc" id="L420" title="All 2 branches missed.">                if (!ed.hasContent()) {</span>
-<span class="nc" id="L421">                    Node n2 = ed.getTo();</span>
-<span class="nc" id="L422">                    TreeSet diff = new TreeSet();</span>
-<span class="nc" id="L423">                    diff.addAll(((Concept) n2).getSetA());</span>
-<span class="nc" id="L424">                    diff.removeAll(((Concept) n1).getSetA());</span>
-<span class="nc" id="L425">                    ed.setContent(diff);</span>
+<span class="pc bpc" id="L429" title="1 of 2 branches missed.">        for (Node n1 : this.getNodes()) {</span>
+<span class="nc bnc" id="L430" title="All 2 branches missed.">            for (Edge ed : this.getSuccessorEdges(n1)) {</span>
+<span class="nc bnc" id="L431" title="All 2 branches missed.">                if (!ed.hasContent()) {</span>
+<span class="nc" id="L432">                    Node n2 = ed.getTo();</span>
+<span class="nc" id="L433">                    TreeSet diff = new TreeSet();</span>
+<span class="nc" id="L434">                    diff.addAll(((Concept) n2).getSetA());</span>
+<span class="nc" id="L435">                    diff.removeAll(((Concept) n1).getSetA());</span>
+<span class="nc" id="L436">                    ed.setContent(diff);</span>
                 }
-<span class="nc" id="L427">            }</span>
-<span class="nc" id="L428">        }</span>
-<span class="fc" id="L429">        return true;</span>
+<span class="nc" id="L438">            }</span>
+<span class="nc" id="L439">        }</span>
+<span class="fc" id="L440">        return true;</span>
     }
 
     /* --------------- LATTICE GENERATION METHODS ------------ */
@@ -440,40 +451,40 @@ public class ConceptLattice extends Lattice {
      * @return  a lattice
      */
     public Lattice getJoinReduction() {
-<span class="pc bpc" id="L443" title="1 of 2 branches missed.">        if (!this.containsConcepts()) {</span>
-<span class="nc" id="L444">            return null;</span>
+<span class="pc bpc" id="L454" title="1 of 2 branches missed.">        if (!this.containsConcepts()) {</span>
+<span class="nc" id="L455">            return null;</span>
         }
-<span class="pc bpc" id="L446" title="1 of 2 branches missed.">        if (!this.containsAllSetA()) {</span>
-<span class="nc" id="L447">            return null;</span>
+<span class="pc bpc" id="L457" title="1 of 2 branches missed.">        if (!this.containsAllSetA()) {</span>
+<span class="nc" id="L458">            return null;</span>
         }
-<span class="fc" id="L449">        Lattice lattice = new Lattice();</span>
+<span class="fc" id="L460">        Lattice lattice = new Lattice();</span>
         //ConceptLattice csl = new ConceptLattice (this);
-<span class="fc" id="L451">        ConceptLattice csl = this.copy();</span>
-<span class="fc" id="L452">        csl.makeIrreduciblesReduction();</span>
-<span class="fc" id="L453">        TreeSet&lt;Node&gt; joinIrr = csl.joinIrreducibles();</span>
+<span class="fc" id="L462">        ConceptLattice csl = this.copy();</span>
+<span class="fc" id="L463">        csl.makeIrreduciblesReduction();</span>
+<span class="fc" id="L464">        TreeSet&lt;Node&gt; joinIrr = csl.joinIrreducibles();</span>
         // addition to lattice of a comparable issued from each reduced closed set
-<span class="fc" id="L455">        TreeMap&lt;Node, Node&gt; reduced = new TreeMap&lt;Node, Node&gt;();</span>
-<span class="fc bfc" id="L456" title="All 2 branches covered.">        for (Node n : csl.getNodes()) {</span>
-<span class="fc" id="L457">            Concept c = (Concept) n;</span>
-            Node nred;
-<span class="pc bpc" id="L459" title="1 of 4 branches missed.">            if (c.hasSetA() &amp;&amp; joinIrr.contains(n)) {</span>
-<span class="fc" id="L460">                nred = new Node(c.getSetA().first());</span>
-            } else {
-<span class="fc" id="L462">                nred = new Node();</span>
-            }
-<span class="fc" id="L464">            reduced.put(n, nred);</span>
-<span class="fc" id="L465">        }</span>
-        // addtion of nodes to lattice
+<span class="fc" id="L466">        TreeMap&lt;Node, Node&gt; reduced = new TreeMap&lt;Node, Node&gt;();</span>
 <span class="fc bfc" id="L467" title="All 2 branches covered.">        for (Node n : csl.getNodes()) {</span>
-<span class="fc" id="L468">            lattice.addNode(reduced.get(n));</span>
-<span class="fc" id="L469">        }</span>
+<span class="fc" id="L468">            Concept c = (Concept) n;</span>
+            Node nred;
+<span class="pc bpc" id="L470" title="1 of 4 branches missed.">            if (c.hasSetA() &amp;&amp; joinIrr.contains(n)) {</span>
+<span class="fc" id="L471">                nred = new Node(c.getSetA().first());</span>
+            } else {
+<span class="fc" id="L473">                nred = new Node();</span>
+            }
+<span class="fc" id="L475">            reduced.put(n, nred);</span>
+<span class="fc" id="L476">        }</span>
+        // addtion of nodes to lattice
+<span class="fc bfc" id="L478" title="All 2 branches covered.">        for (Node n : csl.getNodes()) {</span>
+<span class="fc" id="L479">            lattice.addNode(reduced.get(n));</span>
+<span class="fc" id="L480">        }</span>
         // addtion of edges to lattice
-<span class="fc bfc" id="L471" title="All 2 branches covered.">        for (Node from : csl.getNodes()) {</span>
-<span class="fc bfc" id="L472" title="All 2 branches covered.">            for (Node to : csl.getSuccessorNodes(from)) {</span>
-<span class="fc" id="L473">                lattice.addEdge(reduced.get(from), reduced.get(to));</span>
-<span class="fc" id="L474">            }</span>
-<span class="fc" id="L475">        }</span>
-<span class="fc" id="L476">        return lattice;</span>
+<span class="fc bfc" id="L482" title="All 2 branches covered.">        for (Node from : csl.getNodes()) {</span>
+<span class="fc bfc" id="L483" title="All 2 branches covered.">            for (Node to : csl.getSuccessorNodes(from)) {</span>
+<span class="fc" id="L484">                lattice.addEdge(reduced.get(from), reduced.get(to));</span>
+<span class="fc" id="L485">            }</span>
+<span class="fc" id="L486">        }</span>
+<span class="fc" id="L487">        return lattice;</span>
     }
 
     /**
@@ -485,42 +496,42 @@ public class ConceptLattice extends Lattice {
      * @return  a lattice
      */
     public Lattice getMeetReduction() {
-<span class="pc bpc" id="L488" title="1 of 2 branches missed.">        if (!this.containsConcepts()) {</span>
-<span class="nc" id="L489">            return null;</span>
+<span class="pc bpc" id="L499" title="1 of 2 branches missed.">        if (!this.containsConcepts()) {</span>
+<span class="nc" id="L500">            return null;</span>
         }
-<span class="pc bpc" id="L491" title="1 of 2 branches missed.">        if (!this.containsAllSetB()) {</span>
-<span class="nc" id="L492">            return null;</span>
+<span class="pc bpc" id="L502" title="1 of 2 branches missed.">        if (!this.containsAllSetB()) {</span>
+<span class="nc" id="L503">            return null;</span>
         }
-<span class="fc" id="L494">        Lattice lattice = new Lattice();</span>
-<span class="pc bpc" id="L495" title="1 of 2 branches missed.">        if (!this.containsConcepts()) {</span>
-<span class="nc" id="L496">            return lattice;</span>
+<span class="fc" id="L505">        Lattice lattice = new Lattice();</span>
+<span class="pc bpc" id="L506" title="1 of 2 branches missed.">        if (!this.containsConcepts()) {</span>
+<span class="nc" id="L507">            return lattice;</span>
         }
         //ConceptLattice csl = new ConceptLattice (this);
-<span class="fc" id="L499">        ConceptLattice csl = this.copy();</span>
-<span class="fc" id="L500">        csl.makeIrreduciblesReduction();</span>
-<span class="fc" id="L501">        TreeSet&lt;Node&gt; meetIrr = csl.meetIrreducibles();</span>
+<span class="fc" id="L510">        ConceptLattice csl = this.copy();</span>
+<span class="fc" id="L511">        csl.makeIrreduciblesReduction();</span>
+<span class="fc" id="L512">        TreeSet&lt;Node&gt; meetIrr = csl.meetIrreducibles();</span>
         // addition to lattice of a comparable issued from each reduced closed set
-<span class="fc" id="L503">        TreeMap&lt;Node, Node&gt; reduced = new TreeMap&lt;Node, Node&gt;();</span>
-<span class="fc bfc" id="L504" title="All 2 branches covered.">        for (Node n : csl.getNodes()) {</span>
-<span class="fc" id="L505">            Concept c = (Concept) n;</span>
+<span class="fc" id="L514">        TreeMap&lt;Node, Node&gt; reduced = new TreeMap&lt;Node, Node&gt;();</span>
+<span class="fc bfc" id="L515" title="All 2 branches covered.">        for (Node n : csl.getNodes()) {</span>
+<span class="fc" id="L516">            Concept c = (Concept) n;</span>
             Node nred;
-<span class="pc bpc" id="L507" title="1 of 4 branches missed.">            if (c.hasSetB() &amp;&amp; meetIrr.contains(n)) {</span>
-<span class="fc" id="L508">                nred = new Node(c.getSetB().first());</span>
+<span class="pc bpc" id="L518" title="1 of 4 branches missed.">            if (c.hasSetB() &amp;&amp; meetIrr.contains(n)) {</span>
+<span class="fc" id="L519">                nred = new Node(c.getSetB().first());</span>
             } else {
-<span class="fc" id="L510">                nred = new Node();</span>
+<span class="fc" id="L521">                nred = new Node();</span>
             }
-<span class="fc" id="L512">            reduced.put(n, nred);</span>
-<span class="fc" id="L513">        }</span>
-<span class="fc bfc" id="L514" title="All 2 branches covered.">        for (Node n : csl.getNodes()) {</span>
-<span class="fc" id="L515">            lattice.addNode(reduced.get(n));</span>
-<span class="fc" id="L516">        }</span>
+<span class="fc" id="L523">            reduced.put(n, nred);</span>
+<span class="fc" id="L524">        }</span>
+<span class="fc bfc" id="L525" title="All 2 branches covered.">        for (Node n : csl.getNodes()) {</span>
+<span class="fc" id="L526">            lattice.addNode(reduced.get(n));</span>
+<span class="fc" id="L527">        }</span>
         // addtion of edges to lattice
-<span class="fc bfc" id="L518" title="All 2 branches covered.">        for (Node from : csl.getNodes()) {</span>
-<span class="fc bfc" id="L519" title="All 2 branches covered.">            for (Node to : csl.getSuccessorNodes(from)) {</span>
-<span class="fc" id="L520">                lattice.addEdge(reduced.get(from), reduced.get(to));</span>
-<span class="fc" id="L521">            }</span>
-<span class="fc" id="L522">        }</span>
-<span class="fc" id="L523">        return lattice;</span>
+<span class="fc bfc" id="L529" title="All 2 branches covered.">        for (Node from : csl.getNodes()) {</span>
+<span class="fc bfc" id="L530" title="All 2 branches covered.">            for (Node to : csl.getSuccessorNodes(from)) {</span>
+<span class="fc" id="L531">                lattice.addEdge(reduced.get(from), reduced.get(to));</span>
+<span class="fc" id="L532">            }</span>
+<span class="fc" id="L533">        }</span>
+<span class="fc" id="L534">        return lattice;</span>
     }
 
     /**
@@ -535,49 +546,49 @@ public class ConceptLattice extends Lattice {
      * @return  a lattice
      */
     public Lattice getIrreduciblesReduction() {
-<span class="fc" id="L538">        Lattice lattice = new Lattice();</span>
-<span class="pc bpc" id="L539" title="1 of 2 branches missed.">        if (!this.containsConcepts()) {</span>
-<span class="nc" id="L540">            return lattice;</span>
+<span class="fc" id="L549">        Lattice lattice = new Lattice();</span>
+<span class="pc bpc" id="L550" title="1 of 2 branches missed.">        if (!this.containsConcepts()) {</span>
+<span class="nc" id="L551">            return lattice;</span>
         }
         //ConceptLattice csl = new ConceptLattice (this);
-<span class="fc" id="L543">        ConceptLattice csl = this.copy();</span>
-<span class="fc" id="L544">        csl.makeIrreduciblesReduction();</span>
-<span class="fc" id="L545">        TreeSet&lt;Node&gt; joinIrr = csl.joinIrreducibles();</span>
-<span class="fc" id="L546">        TreeSet&lt;Node&gt; meetIrr = csl.meetIrreducibles();</span>
+<span class="fc" id="L554">        ConceptLattice csl = this.copy();</span>
+<span class="fc" id="L555">        csl.makeIrreduciblesReduction();</span>
+<span class="fc" id="L556">        TreeSet&lt;Node&gt; joinIrr = csl.joinIrreducibles();</span>
+<span class="fc" id="L557">        TreeSet&lt;Node&gt; meetIrr = csl.meetIrreducibles();</span>
         // addition to lattice of a comparable issued from each reduced closed set
-<span class="fc" id="L548">        TreeMap&lt;Node, Node&gt; reduced = new TreeMap&lt;Node, Node&gt;();</span>
-<span class="fc bfc" id="L549" title="All 2 branches covered.">        for (Node n : csl.getNodes()) {</span>
-<span class="fc" id="L550">            Concept c = (Concept) n;</span>
+<span class="fc" id="L559">        TreeMap&lt;Node, Node&gt; reduced = new TreeMap&lt;Node, Node&gt;();</span>
+<span class="fc bfc" id="L560" title="All 2 branches covered.">        for (Node n : csl.getNodes()) {</span>
+<span class="fc" id="L561">            Concept c = (Concept) n;</span>
             // create a new Node with two indexed elements: the first of set A and the first of set B
-<span class="pc bpc" id="L552" title="2 of 8 branches missed.">            if (c.hasSetA() &amp;&amp; c.hasSetB() &amp;&amp; meetIrr.contains(c) &amp;&amp; joinIrr.contains(c)) {</span>
-<span class="nc" id="L553">                TreeSet&lt;Comparable&gt; content = new TreeSet&lt;Comparable&gt;();</span>
-<span class="nc" id="L554">                content.add(c.getSetA().first());</span>
-<span class="nc" id="L555">                content.add(c.getSetB().first());</span>
-<span class="nc" id="L556">                Node nred = new Node(content);</span>
-<span class="nc" id="L557">                reduced.put(n, nred);</span>
-<span class="pc bpc" id="L558" title="1 of 4 branches missed.">            } else if (c.hasSetA() &amp;&amp; joinIrr.contains(n)) {</span>
+<span class="pc bpc" id="L563" title="2 of 8 branches missed.">            if (c.hasSetA() &amp;&amp; c.hasSetB() &amp;&amp; meetIrr.contains(c) &amp;&amp; joinIrr.contains(c)) {</span>
+<span class="nc" id="L564">                TreeSet&lt;Comparable&gt; content = new TreeSet&lt;Comparable&gt;();</span>
+<span class="nc" id="L565">                content.add(c.getSetA().first());</span>
+<span class="nc" id="L566">                content.add(c.getSetB().first());</span>
+<span class="nc" id="L567">                Node nred = new Node(content);</span>
+<span class="nc" id="L568">                reduced.put(n, nred);</span>
+<span class="pc bpc" id="L569" title="1 of 4 branches missed.">            } else if (c.hasSetA() &amp;&amp; joinIrr.contains(n)) {</span>
                 // create a new Node with the first element of set A
-<span class="fc" id="L560">                Node nred = new Node(((Concept) n).getSetA().first());</span>
-<span class="fc" id="L561">                reduced.put(n, nred);</span>
-<span class="fc bfc" id="L562" title="All 4 branches covered.">            } else if (c.hasSetB() &amp;&amp; meetIrr.contains(n)) {</span>
+<span class="fc" id="L571">                Node nred = new Node(((Concept) n).getSetA().first());</span>
+<span class="fc" id="L572">                reduced.put(n, nred);</span>
+<span class="fc bfc" id="L573" title="All 4 branches covered.">            } else if (c.hasSetB() &amp;&amp; meetIrr.contains(n)) {</span>
                 // create a new Node with the first element of set A
-<span class="fc" id="L564">                Node nred = new Node(((Concept) n).getSetB().first());</span>
-<span class="fc" id="L565">                reduced.put(n, nred);</span>
-<span class="fc" id="L566">            } else {</span>
-<span class="fc" id="L567">                reduced.put(n, new Node());</span>
+<span class="fc" id="L575">                Node nred = new Node(((Concept) n).getSetB().first());</span>
+<span class="fc" id="L576">                reduced.put(n, nred);</span>
+<span class="fc" id="L577">            } else {</span>
+<span class="fc" id="L578">                reduced.put(n, new Node());</span>
             }
-<span class="fc" id="L569">        }</span>
+<span class="fc" id="L580">        }</span>
         // addtion of nodes to lattice
-<span class="fc bfc" id="L571" title="All 2 branches covered.">        for (Node n : csl.getNodes()) {</span>
-<span class="fc" id="L572">            lattice.addNode(reduced.get(n));</span>
-<span class="fc" id="L573">        }</span>
+<span class="fc bfc" id="L582" title="All 2 branches covered.">        for (Node n : csl.getNodes()) {</span>
+<span class="fc" id="L583">            lattice.addNode(reduced.get(n));</span>
+<span class="fc" id="L584">        }</span>
         // addtion of edges to lattice
-<span class="fc bfc" id="L575" title="All 2 branches covered.">        for (Node from : csl.getNodes()) {</span>
-<span class="fc bfc" id="L576" title="All 2 branches covered.">            for (Node to : csl.getSuccessorNodes(from)) {</span>
-<span class="fc" id="L577">                lattice.addEdge(reduced.get(from), reduced.get(to));</span>
-<span class="fc" id="L578">            }</span>
-<span class="fc" id="L579">        }</span>
-<span class="fc" id="L580">        return lattice;</span>
+<span class="fc bfc" id="L586" title="All 2 branches covered.">        for (Node from : csl.getNodes()) {</span>
+<span class="fc bfc" id="L587" title="All 2 branches covered.">            for (Node to : csl.getSuccessorNodes(from)) {</span>
+<span class="fc" id="L588">                lattice.addEdge(reduced.get(from), reduced.get(to));</span>
+<span class="fc" id="L589">            }</span>
+<span class="fc" id="L590">        }</span>
+<span class="fc" id="L591">        return lattice;</span>
     }
 
     /**
@@ -592,46 +603,46 @@ public class ConceptLattice extends Lattice {
      * @return  the concept lattice
      */
     public static ConceptLattice idealLattice(DAGraph dag) {
-<span class="pc bpc" id="L595" title="1 of 2 branches missed.">        if (!dag.isAcyclic()) {</span>
-<span class="nc" id="L596">            return null;</span>
+<span class="pc bpc" id="L606" title="1 of 2 branches missed.">        if (!dag.isAcyclic()) {</span>
+<span class="nc" id="L607">            return null;</span>
         }
         // initialize the poset of ideals with the emptyset
-<span class="fc" id="L599">        ConceptLattice conceptLattice = new ConceptLattice();</span>
-<span class="fc" id="L600">        int id = 1;</span>
-<span class="fc" id="L601">        conceptLattice.addNode(new Concept(true, false));</span>
+<span class="fc" id="L610">        ConceptLattice conceptLattice = new ConceptLattice();</span>
+<span class="fc" id="L611">        int id = 1;</span>
+<span class="fc" id="L612">        conceptLattice.addNode(new Concept(true, false));</span>
         // travel on graph according to a topological sort
-<span class="fc" id="L603">        DAGraph graph = new DAGraph(dag);</span>
-<span class="fc" id="L604">        graph.transitiveClosure();</span>
+<span class="fc" id="L614">        DAGraph graph = new DAGraph(dag);</span>
+<span class="fc" id="L615">        graph.transitiveClosure();</span>
         // treatment of nodes according to a topological sort
-<span class="fc" id="L606">        ArrayList&lt;Node&gt; sort = graph.topologicalSort();</span>
-<span class="fc bfc" id="L607" title="All 2 branches covered.">        for (Node x : sort) {</span>
+<span class="fc" id="L617">        ArrayList&lt;Node&gt; sort = graph.topologicalSort();</span>
+<span class="fc bfc" id="L618" title="All 2 branches covered.">        for (Node x : sort) {</span>
             // computation of Jx
-<span class="fc" id="L609">            TreeSet&lt;Node&gt; jxmoins = new TreeSet&lt;Node&gt;(graph.getPredecessorNodes(x));</span>
+<span class="fc" id="L620">            TreeSet&lt;Node&gt; jxmoins = new TreeSet&lt;Node&gt;(graph.getPredecessorNodes(x));</span>
             // storage of new ideals in a set
-<span class="fc" id="L611">            TreeSet&lt;Concept&gt; toAdd = new TreeSet&lt;Concept&gt;();</span>
-<span class="fc bfc" id="L612" title="All 2 branches covered.">            for (Node j1 : conceptLattice.getNodes()) {</span>
-<span class="fc bfc" id="L613" title="All 2 branches covered.">                if (((Concept) j1).containsAllInA(jxmoins)) {</span>
-<span class="fc" id="L614">                     Concept newJ = new Concept(true, false);</span>
-<span class="fc" id="L615">                     newJ.addAllToA(((TreeSet) ((Concept) j1).getSetA()));</span>
-<span class="fc" id="L616">                     newJ.addToA(x);</span>
-<span class="fc" id="L617">                     toAdd.add(newJ);</span>
+<span class="fc" id="L622">            TreeSet&lt;Concept&gt; toAdd = new TreeSet&lt;Concept&gt;();</span>
+<span class="fc bfc" id="L623" title="All 2 branches covered.">            for (Node j1 : conceptLattice.getNodes()) {</span>
+<span class="fc bfc" id="L624" title="All 2 branches covered.">                if (((Concept) j1).containsAllInA(jxmoins)) {</span>
+<span class="fc" id="L625">                     Concept newJ = new Concept(true, false);</span>
+<span class="fc" id="L626">                     newJ.addAllToA(((TreeSet) ((Concept) j1).getSetA()));</span>
+<span class="fc" id="L627">                     newJ.addToA(x);</span>
+<span class="fc" id="L628">                     toAdd.add(newJ);</span>
                 }
-<span class="fc" id="L619">            }</span>
+<span class="fc" id="L630">            }</span>
             // addition of the new ideals in conceptLattice
-<span class="fc bfc" id="L621" title="All 2 branches covered.">            for (Concept newJ : toAdd) {</span>
-<span class="fc" id="L622">                conceptLattice.addNode(newJ);</span>
-<span class="fc" id="L623">            }</span>
-<span class="fc" id="L624">        }</span>
+<span class="fc bfc" id="L632" title="All 2 branches covered.">            for (Concept newJ : toAdd) {</span>
+<span class="fc" id="L633">                conceptLattice.addNode(newJ);</span>
+<span class="fc" id="L634">            }</span>
+<span class="fc" id="L635">        }</span>
         // computation of the inclusion relaton
-<span class="fc bfc" id="L626" title="All 2 branches covered.">        for (Node node1 : conceptLattice.getNodes()) {</span>
-<span class="fc bfc" id="L627" title="All 2 branches covered.">            for (Node node2 : conceptLattice.getNodes()) {</span>
-<span class="fc bfc" id="L628" title="All 2 branches covered.">                if (((Concept) node1).containsAllInA(((Concept) node2).getSetA())) {</span>
-<span class="fc" id="L629">                    conceptLattice.addEdge(node2, node1);</span>
+<span class="fc bfc" id="L637" title="All 2 branches covered.">        for (Node node1 : conceptLattice.getNodes()) {</span>
+<span class="fc bfc" id="L638" title="All 2 branches covered.">            for (Node node2 : conceptLattice.getNodes()) {</span>
+<span class="fc bfc" id="L639" title="All 2 branches covered.">                if (((Concept) node1).containsAllInA(((Concept) node2).getSetA())) {</span>
+<span class="fc" id="L640">                    conceptLattice.addEdge(node2, node1);</span>
                 }
-<span class="fc" id="L631">            }</span>
-<span class="fc" id="L632">        }</span>
-<span class="fc" id="L633">        conceptLattice.transitiveReduction();</span>
-<span class="fc" id="L634">        return conceptLattice;</span>
+<span class="fc" id="L642">            }</span>
+<span class="fc" id="L643">        }</span>
+<span class="fc" id="L644">        conceptLattice.transitiveReduction();</span>
+<span class="fc" id="L645">        return conceptLattice;</span>
     }
 
     /* -------- STATIC CLOSEDSET LATTICE GENERATION FROM AN ImplicationalSystem OR A CONTEXT ------------------ */
@@ -651,23 +662,23 @@ public class ConceptLattice extends Lattice {
      * @return  a concept lattice
      */
     public static ConceptLattice completeLattice(ClosureSystem init) {
-<span class="fc" id="L654">        ConceptLattice lattice = new ConceptLattice();</span>
+<span class="fc" id="L665">        ConceptLattice lattice = new ConceptLattice();</span>
         // compute all the closed set with allClosures
-<span class="fc" id="L656">        Vector&lt;Concept&gt; allclosure = init.allClosures();</span>
-<span class="fc bfc" id="L657" title="All 2 branches covered.">        for (Concept cl : allclosure) {</span>
-<span class="fc" id="L658">            lattice.addNode(cl);</span>
-<span class="fc" id="L659">        }</span>
+<span class="fc" id="L667">        Vector&lt;Concept&gt; allclosure = init.allClosures();</span>
+<span class="fc bfc" id="L668" title="All 2 branches covered.">        for (Concept cl : allclosure) {</span>
+<span class="fc" id="L669">            lattice.addNode(cl);</span>
+<span class="fc" id="L670">        }</span>
 
         // an edge corresponds to an inclusion between two closed sets
-<span class="fc bfc" id="L662" title="All 2 branches covered.">        for (Node from : lattice.getNodes()) {</span>
-<span class="fc bfc" id="L663" title="All 2 branches covered.">            for (Node to : lattice.getNodes()) {</span>
-<span class="fc bfc" id="L664" title="All 2 branches covered.">                if (((Concept) to).containsAllInA(((Concept) from).getSetA())) {</span>
-<span class="fc" id="L665">                   lattice.addEdge(from, to);</span>
+<span class="fc bfc" id="L673" title="All 2 branches covered.">        for (Node from : lattice.getNodes()) {</span>
+<span class="fc bfc" id="L674" title="All 2 branches covered.">            for (Node to : lattice.getNodes()) {</span>
+<span class="fc bfc" id="L675" title="All 2 branches covered.">                if (((Concept) to).containsAllInA(((Concept) from).getSetA())) {</span>
+<span class="fc" id="L676">                   lattice.addEdge(from, to);</span>
                 }
-<span class="fc" id="L667">            }</span>
-<span class="fc" id="L668">        }</span>
+<span class="fc" id="L678">            }</span>
+<span class="fc" id="L679">        }</span>
         // Hasse diagram is computed
-<span class="fc" id="L670">        return lattice;</span>
+<span class="fc" id="L681">        return lattice;</span>
     }
 
     /**
@@ -692,20 +703,20 @@ public class ConceptLattice extends Lattice {
      * @return  a concept lattice
      */
     public static ConceptLattice diagramLattice(ClosureSystem init) {
-<span class="fc" id="L695">        ConceptLattice lattice = new ConceptLattice();</span>
+<span class="fc" id="L706">        ConceptLattice lattice = new ConceptLattice();</span>
         //if (Diagram) {
             // computes the dependance graph of the closure system
             // addition of nodes in the precedence graph
-<span class="fc" id="L699">            DGraph graph = new DGraph();</span>
-<span class="fc bfc" id="L700" title="All 2 branches covered.">            for (Comparable c : init.getSet()) {</span>
-<span class="fc" id="L701">                graph.addNode(new Node(c));</span>
-<span class="fc" id="L702">            }</span>
-<span class="fc" id="L703">            lattice.setDependencyGraph(graph);</span>
+<span class="fc" id="L710">            DGraph graph = new DGraph();</span>
+<span class="fc bfc" id="L711" title="All 2 branches covered.">            for (Comparable c : init.getSet()) {</span>
+<span class="fc" id="L712">                graph.addNode(new Node(c));</span>
+<span class="fc" id="L713">            }</span>
+<span class="fc" id="L714">            lattice.setDependencyGraph(graph);</span>
             // intialize the close set lattice with botom element
-<span class="fc" id="L705">            Concept bot = new Concept(init.closure(new ComparableSet()), false);</span>
-<span class="fc" id="L706">            lattice.addNode(bot);</span>
+<span class="fc" id="L716">            Concept bot = new Concept(init.closure(new ComparableSet()), false);</span>
+<span class="fc" id="L717">            lattice.addNode(bot);</span>
             // recursive genaration from the botom element with diagramLattice
-<span class="fc" id="L708">            lattice.recursiveDiagramLattice(bot, init);</span>
+<span class="fc" id="L719">            lattice.recursiveDiagramLattice(bot, init);</span>
             // minimalisation of edge's content to get only inclusion-minimal valuation for each edge
             /**for (Edge ed : lattice.dependanceGraph.getEdges()) {
                 TreeSet&lt;ComparableSet&gt; valEd = new TreeSet&lt;ComparableSet&gt;(((TreeSet&lt;ComparableSet&gt;)ed.getContent()));
@@ -714,7 +725,7 @@ public class ConceptLattice extends Lattice {
                         if (X1.containsAll(X2) &amp;&amp; !X2.containsAll(X1))
                             ((TreeSet&lt;ComparableSet&gt;)ed.getContent()).remove(X1);
             }**/
-<span class="fc" id="L717">        return lattice;</span>
+<span class="fc" id="L728">        return lattice;</span>
     }
 
     /**
@@ -735,20 +746,20 @@ public class ConceptLattice extends Lattice {
      * @param   init  a closure system
      */
     public void recursiveDiagramLattice(Concept n, ClosureSystem init) {
-<span class="fc" id="L738">        Vector&lt;TreeSet&lt;Comparable&gt;&gt; immSucc = this.immediateSuccessors(n, init);</span>
-<span class="fc bfc" id="L739" title="All 2 branches covered.">        for (TreeSet&lt;Comparable&gt; setX : immSucc) {</span>
-<span class="fc" id="L740">            Concept c = new Concept(new TreeSet(setX), false);</span>
-<span class="fc" id="L741">            Concept ns = (Concept) this.getNode(c);</span>
-<span class="fc bfc" id="L742" title="All 2 branches covered.">            if (ns != null)  {</span>
+<span class="fc" id="L749">        Vector&lt;TreeSet&lt;Comparable&gt;&gt; immSucc = this.immediateSuccessors(n, init);</span>
+<span class="fc bfc" id="L750" title="All 2 branches covered.">        for (TreeSet&lt;Comparable&gt; setX : immSucc) {</span>
+<span class="fc" id="L751">            Concept c = new Concept(new TreeSet(setX), false);</span>
+<span class="fc" id="L752">            Concept ns = (Concept) this.getNode(c);</span>
+<span class="fc bfc" id="L753" title="All 2 branches covered.">            if (ns != null)  {</span>
                 // when ns already exists, addition of a new edge
-<span class="fc" id="L744">                this.addEdge(n, ns);</span>
+<span class="fc" id="L755">                this.addEdge(n, ns);</span>
             } else { // when ns don't already exists, addition of a new node and recursive treatment
-<span class="fc" id="L746">                this.addNode(c);</span>
-<span class="fc" id="L747">                this.addEdge(n, c);</span>
-<span class="fc" id="L748">                this.recursiveDiagramLattice(c, init);</span>
+<span class="fc" id="L757">                this.addNode(c);</span>
+<span class="fc" id="L758">                this.addEdge(n, c);</span>
+<span class="fc" id="L759">                this.recursiveDiagramLattice(c, init);</span>
             }
-<span class="fc" id="L750">        }</span>
-<span class="fc" id="L751">    }</span>
+<span class="fc" id="L761">        }</span>
+<span class="fc" id="L762">    }</span>
 
     /**
      * Returns the list of immediate successors of a given node of the lattice.
@@ -775,104 +786,127 @@ public class ConceptLattice extends Lattice {
      */
     public Vector&lt;TreeSet&lt;Comparable&gt;&gt; immediateSuccessors(Node n, ClosureSystem init) {
         // Initialization of the dependance graph when not initialized by method recursiveDiagramLattice
-<span class="fc bfc" id="L778" title="All 2 branches covered.">        if (!this.hasDependencyGraph()) {</span>
-<span class="fc" id="L779">            DGraph graph = new DGraph();</span>
-<span class="fc bfc" id="L780" title="All 2 branches covered.">            for (Comparable c : init.getSet()) {</span>
-<span class="fc" id="L781">                graph.addNode(new Node(c));</span>
-<span class="fc" id="L782">            }</span>
-<span class="fc" id="L783">            this.setDependencyGraph(graph);</span>
+<span class="fc bfc" id="L789" title="All 2 branches covered.">        if (!this.hasDependencyGraph()) {</span>
+<span class="fc" id="L790">            DGraph graph = new DGraph();</span>
+<span class="fc bfc" id="L791" title="All 2 branches covered.">            for (Comparable c : init.getSet()) {</span>
+<span class="fc" id="L792">                graph.addNode(new Node(c));</span>
+<span class="fc" id="L793">            }</span>
+<span class="fc" id="L794">            this.setDependencyGraph(graph);</span>
         }
         // computes newVal, the subset to be used to valuate every new dependance relation
         // newVal = F\predecessors of F in the precedence graph of the closure system
         // For a non reduced closure system, the precedence graph is not acyclic,
         // and therefore strongly connected components have to be used.
-<span class="fc" id="L789">        ComparableSet setF = new ComparableSet(((Concept) n).getSetA());</span>
-<span class="fc" id="L790">        DGraph prec = init.precedenceGraph();</span>
-<span class="fc" id="L791">        DAGraph acyclPrec = prec.getStronglyConnectedComponent();</span>
-<span class="fc" id="L792">        ComparableSet newVal = new ComparableSet();</span>
-<span class="fc" id="L793">        newVal.addAll(setF);</span>
-<span class="fc bfc" id="L794" title="All 2 branches covered.">        for (Object x : setF)  {</span>
+<span class="fc" id="L800">        ComparableSet setF = new ComparableSet(((Concept) n).getSetA());</span>
+<span class="fc" id="L801">        DGraph prec = init.precedenceGraph();</span>
+<span class="fc" id="L802">        DAGraph acyclPrec = prec.getStronglyConnectedComponent();</span>
+<span class="fc" id="L803">        ComparableSet newVal = new ComparableSet();</span>
+<span class="fc" id="L804">        newVal.addAll(setF);</span>
+<span class="fc bfc" id="L805" title="All 2 branches covered.">        for (Object x : setF)  {</span>
             // computes nx, the strongly connected component containing x
-<span class="fc" id="L796">            Node nx = null;</span>
-<span class="fc bfc" id="L797" title="All 2 branches covered.">            for (Node cc : acyclPrec.getNodes()) {</span>
-<span class="fc" id="L798">                TreeSet&lt;Node&gt; setCC = (TreeSet&lt;Node&gt;) cc.getContent();</span>
-<span class="fc bfc" id="L799" title="All 2 branches covered.">                for (Node y : setCC) {</span>
-<span class="fc bfc" id="L800" title="All 2 branches covered.">                    if (x.equals(y.getContent())) {</span>
-<span class="fc" id="L801">                        nx = cc;</span>
-                    }
-<span class="fc" id="L803">                }</span>
-<span class="fc" id="L804">            }</span>
-            // computes the minorants of nx in the acyclic graph
-<span class="fc" id="L806">            TreeSet&lt;Node&gt; ccMinNx = acyclPrec.minorants(nx);</span>
-            // removes from newVal every minorants of nx
-<span class="fc bfc" id="L808" title="All 2 branches covered.">            for (Node cc : ccMinNx) {</span>
+<span class="fc" id="L807">            Node nx = null;</span>
+<span class="fc bfc" id="L808" title="All 2 branches covered.">            for (Node cc : acyclPrec.getNodes()) {</span>
 <span class="fc" id="L809">                TreeSet&lt;Node&gt; setCC = (TreeSet&lt;Node&gt;) cc.getContent();</span>
 <span class="fc bfc" id="L810" title="All 2 branches covered.">                for (Node y : setCC) {</span>
-<span class="fc" id="L811">                    newVal.remove(y.getContent());</span>
-<span class="fc" id="L812">                }</span>
-<span class="fc" id="L813">            }</span>
-<span class="fc" id="L814">        }</span>
+<span class="fc bfc" id="L811" title="All 2 branches covered.">                    if (x.equals(y.getContent())) {</span>
+<span class="fc" id="L812">                        nx = cc;</span>
+                    }
+<span class="fc" id="L814">                }</span>
+<span class="fc" id="L815">            }</span>
+            // computes the minorants of nx in the acyclic graph
+<span class="fc" id="L817">            TreeSet&lt;Node&gt; ccMinNx = acyclPrec.minorants(nx);</span>
+            // removes from newVal every minorants of nx
+<span class="fc bfc" id="L819" title="All 2 branches covered.">            for (Node cc : ccMinNx) {</span>
+<span class="fc" id="L820">                TreeSet&lt;Node&gt; setCC = (TreeSet&lt;Node&gt;) cc.getContent();</span>
+<span class="fc bfc" id="L821" title="All 2 branches covered.">                for (Node y : setCC) {</span>
+<span class="fc" id="L822">                    newVal.remove(y.getContent());</span>
+<span class="fc" id="L823">                }</span>
+<span class="fc" id="L824">            }</span>
+<span class="fc" id="L825">        }</span>
         // computes the node belonging in S\F
-<span class="fc" id="L816">        TreeSet&lt;Node&gt; nodes = new TreeSet&lt;Node&gt;();</span>
-<span class="fc bfc" id="L817" title="All 2 branches covered.">        for (Node in : this.getDependencyGraph().getNodes()) {</span>
-<span class="fc bfc" id="L818" title="All 2 branches covered.">            if (!setF.contains(in.getContent())) {</span>
-<span class="fc" id="L819">                nodes.add(in);</span>
+<span class="fc" id="L827">        TreeSet&lt;Node&gt; nodes = new TreeSet&lt;Node&gt;();</span>
+<span class="fc bfc" id="L828" title="All 2 branches covered.">        for (Node in : this.getDependencyGraph().getNodes()) {</span>
+<span class="fc bfc" id="L829" title="All 2 branches covered.">            if (!setF.contains(in.getContent())) {</span>
+<span class="fc" id="L830">                nodes.add(in);</span>
             }
-<span class="fc" id="L821">        }</span>
+<span class="fc" id="L832">        }</span>
         // computes the dependance relation between nodes in S\F
         // and valuated this relation by the subset of S\F
-<span class="fc" id="L824">        TreeSet&lt;Edge&gt; edges = new TreeSet&lt;Edge&gt;();</span>
-<span class="fc bfc" id="L825" title="All 2 branches covered.">        for (Node from : nodes) {</span>
-<span class="fc bfc" id="L826" title="All 2 branches covered.">            for (Node to : nodes) {</span>
-<span class="fc bfc" id="L827" title="All 2 branches covered.">                if (!from.equals(to)) {</span>
+<span class="fc" id="L835">        TreeSet&lt;Edge&gt; edges = new TreeSet&lt;Edge&gt;();</span>
+<span class="fc bfc" id="L836" title="All 2 branches covered.">        for (Node from : nodes) {</span>
+<span class="fc bfc" id="L837" title="All 2 branches covered.">            for (Node to : nodes) {</span>
+<span class="fc bfc" id="L838" title="All 2 branches covered.">                if (!from.equals(to)) {</span>
                     // check if from is in dependance relation with to
                     // i.e. &quot;from&quot; belongs to the closure of &quot;F+to&quot;
-<span class="fc" id="L830">                    ComparableSet fPlusTo = new ComparableSet(setF);</span>
-<span class="fc" id="L831">                    fPlusTo.add(to.getContent());</span>
-<span class="fc" id="L832">                    fPlusTo = new ComparableSet(init.closure(fPlusTo));</span>
-<span class="fc bfc" id="L833" title="All 2 branches covered.">                    if (fPlusTo.contains(from.getContent())) {</span>
+<span class="fc" id="L841">                    ComparableSet fPlusTo = new ComparableSet(setF);</span>
+<span class="fc" id="L842">                    fPlusTo.add(to.getContent());</span>
+<span class="fc" id="L843">                    fPlusTo = new ComparableSet(init.closure(fPlusTo));</span>
+<span class="fc bfc" id="L844" title="All 2 branches covered.">                    if (fPlusTo.contains(from.getContent())) {</span>
                         // there is a dependance relation between from and to
                         // search for an existing edge between from and to
-<span class="fc" id="L836">                        Edge ed = this.getDependencyGraph().getEdge(from, to);</span>
-<span class="fc bfc" id="L837" title="All 2 branches covered.">                        if (ed == null) {</span>
-<span class="fc" id="L838">                            ed = new Edge(from, to, new TreeSet&lt;ComparableSet&gt;());</span>
-<span class="fc" id="L839">                            this.getDependencyGraph().addEdge(ed);</span>
+<span class="fc" id="L847">                        Edge ed = this.getDependencyGraph().getEdge(from, to);</span>
+<span class="fc bfc" id="L848" title="All 2 branches covered.">                        if (ed == null) {</span>
+<span class="fc" id="L849">                            ed = new Edge(from, to, new TreeSet&lt;ComparableSet&gt;());</span>
+<span class="fc" id="L850">                            this.getDependencyGraph().addEdge(ed);</span>
                         }
-<span class="fc" id="L841">                        edges.add(ed);</span>
+<span class="fc" id="L852">                        edges.add(ed);</span>
                         // check if F is a minimal set closed for dependance relation between from and to
-<span class="fc" id="L843">                        ((TreeSet&lt;ComparableSet&gt;) ed.getContent()).add(newVal);</span>
-<span class="fc" id="L844">                        TreeSet&lt;ComparableSet&gt; valEd = new TreeSet&lt;ComparableSet&gt;((TreeSet&lt;ComparableSet&gt;) ed.getContent());</span>
-<span class="fc bfc" id="L845" title="All 2 branches covered.">                        for (ComparableSet x1 : valEd) {</span>
-<span class="fc bfc" id="L846" title="All 4 branches covered.">                            if (x1.containsAll(newVal) &amp;&amp; !newVal.containsAll(x1)) {</span>
-<span class="fc" id="L847">                                ((TreeSet&lt;ComparableSet&gt;) ed.getContent()).remove(x1);</span>
+<span class="fc" id="L854">                        ((TreeSet&lt;ComparableSet&gt;) ed.getContent()).add(newVal);</span>
+<span class="fc" id="L855">                        TreeSet&lt;ComparableSet&gt; valEd = new TreeSet&lt;ComparableSet&gt;((TreeSet&lt;ComparableSet&gt;) ed.getContent());</span>
+<span class="fc bfc" id="L856" title="All 2 branches covered.">                        for (ComparableSet x1 : valEd) {</span>
+<span class="fc bfc" id="L857" title="All 4 branches covered.">                            if (x1.containsAll(newVal) &amp;&amp; !newVal.containsAll(x1)) {</span>
+<span class="fc" id="L858">                                ((TreeSet&lt;ComparableSet&gt;) ed.getContent()).remove(x1);</span>
                             }
-<span class="fc bfc" id="L849" title="All 4 branches covered.">                            if (!x1.containsAll(newVal) &amp;&amp; newVal.containsAll(x1)) {</span>
-<span class="fc" id="L850">                                ((TreeSet&lt;ComparableSet&gt;) ed.getContent()).remove(newVal);</span>
+<span class="fc bfc" id="L860" title="All 4 branches covered.">                            if (!x1.containsAll(newVal) &amp;&amp; newVal.containsAll(x1)) {</span>
+<span class="fc" id="L861">                                ((TreeSet&lt;ComparableSet&gt;) ed.getContent()).remove(newVal);</span>
                             }
-<span class="fc" id="L852">                        }</span>
+<span class="fc" id="L863">                        }</span>
                     }
                 }
-<span class="fc" id="L855">            }</span>
-<span class="fc" id="L856">        }</span>
+<span class="fc" id="L866">            }</span>
+<span class="fc" id="L867">        }</span>
         // computes the dependance subgraph of the closed set F as the reduction
         // of the dependance graph composed of nodes in S\A and edges of the dependance relation
-<span class="fc" id="L859">        DGraph sub = this.getDependencyGraph().getSubgraphByNodes(nodes);</span>
-<span class="fc" id="L860">        DGraph delta = sub.getSubgraphByEdges(edges);</span>
+<span class="fc" id="L870">        DGraph sub = this.getDependencyGraph().getSubgraphByNodes(nodes);</span>
+<span class="fc" id="L871">        DGraph delta = sub.getSubgraphByEdges(edges);</span>
         // computes the sources of the CFC of the dependance subgraph
         // that corresponds to successors of the closed set F
-<span class="fc" id="L863">        DAGraph cfc = delta.getStronglyConnectedComponent();</span>
-<span class="fc" id="L864">        TreeSet&lt;Node&gt; sccMin = cfc.getSinks();</span>
-<span class="fc" id="L865">        Vector&lt;TreeSet&lt;Comparable&gt;&gt; immSucc = new Vector&lt;TreeSet&lt;Comparable&gt;&gt;();</span>
-<span class="fc bfc" id="L866" title="All 2 branches covered.">        for (Node n1 : sccMin) {</span>
-<span class="fc" id="L867">            TreeSet s = new TreeSet(setF);</span>
-<span class="fc" id="L868">            TreeSet&lt;Node&gt; toadd = (TreeSet&lt;Node&gt;) n1.getContent();</span>
-<span class="fc bfc" id="L869" title="All 2 branches covered.">            for (Node n2 : toadd) {</span>
-<span class="fc" id="L870">                s.add(n2.getContent());</span>
-<span class="fc" id="L871">            }</span>
-<span class="fc" id="L872">            immSucc.add(s);</span>
-<span class="fc" id="L873">        }</span>
-<span class="fc" id="L874">       return immSucc;</span>
+<span class="fc" id="L874">        DAGraph cfc = delta.getStronglyConnectedComponent();</span>
+<span class="fc" id="L875">        TreeSet&lt;Node&gt; sccMin = cfc.getSinks();</span>
+<span class="fc" id="L876">        Vector&lt;TreeSet&lt;Comparable&gt;&gt; immSucc = new Vector&lt;TreeSet&lt;Comparable&gt;&gt;();</span>
+<span class="fc bfc" id="L877" title="All 2 branches covered.">        for (Node n1 : sccMin) {</span>
+<span class="fc" id="L878">            TreeSet s = new TreeSet(setF);</span>
+<span class="fc" id="L879">            TreeSet&lt;Node&gt; toadd = (TreeSet&lt;Node&gt;) n1.getContent();</span>
+<span class="fc bfc" id="L880" title="All 2 branches covered.">            for (Node n2 : toadd) {</span>
+<span class="fc" id="L881">                s.add(n2.getContent());</span>
+<span class="fc" id="L882">            }</span>
+<span class="fc" id="L883">            immSucc.add(s);</span>
+<span class="fc" id="L884">        }</span>
+<span class="fc" id="L885">       return immSucc;</span>
     }
+
+    /**
+     * Save the description of this component in a file whose name is specified.
+     *
+     * @param   filename  the name of the file
+     *
+     * @throws  IOException  When an IOException occurs
+     */
+    public void save(final String filename) throws IOException {
+<span class="fc" id="L896">        String extension = &quot;&quot;;</span>
+<span class="fc" id="L897">        int index = filename.lastIndexOf('.');</span>
+<span class="pc bpc" id="L898" title="1 of 2 branches missed.">        if (index &gt; 0) {</span>
+<span class="fc" id="L899">            extension = filename.substring(index + 1);</span>
+        }
+<span class="fc" id="L901">        ConceptLatticeWriter writer = ConceptLatticeWriterFactory.get(extension);</span>
+<span class="pc bpc" id="L902" title="1 of 2 branches missed.">        if (writer == null) {</span>
+<span class="nc" id="L903">            super.save(filename);</span>
+        } else {
+<span class="fc" id="L905">            BufferedWriter file = new BufferedWriter(new FileWriter(filename));</span>
+<span class="fc" id="L906">            writer.write(this, file);</span>
+<span class="fc" id="L907">            file.close();</span>
+        }
+<span class="fc" id="L909">    }</span>
 }
 
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.0.201403182114</span></div></body></html>

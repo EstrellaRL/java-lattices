@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ConceptLatticeWriterDot.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Java Lattices</a> &gt; <a href="index.source.html" class="el_package">lattice</a> &gt; <span class="el_source">ConceptLatticeWriterDot.java</span></div><h1>ConceptLatticeWriterDot.java</h1><pre class="source lang-java linenums">package lattice;
+
+/*
+ * ConceptLatticeWriterDot.java
+ *
+ * Copyright: 2013 Karell Bertet, France
+ *
+ * License: http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html CeCILL-B license
+ *
+ * This file is part of lattice, free package. You can redistribute it and/or modify
+ * it under the terms of CeCILL-B license.
+ *
+ * @author Karell Bertet
+ * @version 2014
+ */
+
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.util.StringTokenizer;
+import dgraph.Edge;
+import dgraph.Node;
+
+/**
+ * This class defines the way for writing a concept lattice as a dot file.
+ *
+ * ![ConceptLatticeWriterDot](ConceptLatticeWriterDot.png)
+ *
+ * @uml ConceptLatticeWriterDot.png
+ * !include src/lattice/ConceptLatticeWriterDot.iuml
+ * !include src/lattice/ConceptLatticeWriter.iuml
+ *
+ * hide members
+ * show ConceptLatticeWriterDot members
+ * class ConceptLatticeWriterDot #LightCyan
+ * title ConceptLatticeWriterDot UML graph
+ */
+<span class="fc" id="L37">public final class ConceptLatticeWriterDot implements ConceptLatticeWriter {</span>
+    /**
+     * The singleton instance.
+     */
+<span class="fc" id="L41">    private static ConceptLatticeWriterDot instance = null;</span>
+
+    /**
+     * Return the singleton instance of this class.
+     *
+     * @return  the singleton instance
+     */
+    public static ConceptLatticeWriterDot getInstance() {
+<span class="pc bpc" id="L49" title="1 of 2 branches missed.">        if (instance == null) {</span>
+<span class="fc" id="L50">            instance = new ConceptLatticeWriterDot();</span>
+        }
+<span class="fc" id="L52">        return instance;</span>
+    }
+
+    /**
+     * Register this class for writing .dot files.
+     */
+    public static void register() {
+<span class="fc" id="L59">        ConceptLatticeWriterFactory.register(ConceptLatticeWriterDot.getInstance(), &quot;dot&quot;);</span>
+<span class="fc" id="L60">    }</span>
+
+    /**
+     * Write a graph to a output stream.
+     *
+     * @param   lattice  a concept lattice to write
+     * @param   file     a file
+     *
+     * @throws  IOException  When an IOException occurs
+     */
+    public void write(ConceptLattice lattice, BufferedWriter file) throws IOException {
+<span class="fc" id="L71">        file.write(&quot;digraph G {\n&quot;);</span>
+<span class="fc" id="L72">        file.write(&quot;Graph [rankdir=BT]\n&quot;);</span>
+<span class="fc" id="L73">        StringBuffer nodes  = new StringBuffer();</span>
+<span class="fc" id="L74">        StringBuffer edges = new StringBuffer();</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">        for (Node node : lattice.getNodes()) {</span>
+<span class="fc" id="L76">            Concept concept = (Concept) node;</span>
+<span class="fc" id="L77">            String dot = concept.getIdentifier() + &quot; [label=\&quot; &quot;;</span>
+<span class="fc" id="L78">            String tmp = &quot;&quot;;</span>
+<span class="pc bpc" id="L79" title="1 of 2 branches missed.">            if (concept.hasSetA()) {</span>
+<span class="fc" id="L80">                tmp += concept.getSetA();</span>
+            }
+<span class="pc bpc" id="L82" title="2 of 4 branches missed.">            if (concept.hasSetA() &amp;&amp; concept.hasSetB()) {</span>
+<span class="nc" id="L83">                tmp += &quot;\\n&quot;;</span>
+            }
+<span class="pc bpc" id="L85" title="1 of 2 branches missed.">            if (concept.hasSetB()) {</span>
+<span class="nc" id="L86">                tmp += concept.getSetB();</span>
+            }
+<span class="fc" id="L88">            StringTokenizer st = new StringTokenizer(tmp, &quot;\&quot;&quot;);</span>
+<span class="fc bfc" id="L89" title="All 2 branches covered.">            while (st.hasMoreTokens()) {</span>
+<span class="fc" id="L90">                dot += st.nextToken();</span>
+            }
+<span class="fc" id="L92">            dot += &quot;\&quot;]&quot;;</span>
+<span class="fc" id="L93">            nodes.append(dot).append(&quot;\n&quot;);</span>
+<span class="fc" id="L94">        }</span>
+<span class="pc bpc" id="L95" title="1 of 2 branches missed.">        for (Edge edge : lattice.getEdges()) {</span>
+<span class="nc" id="L96">            String dot = edge.getFrom().getIdentifier() + &quot;-&gt;&quot; + edge.getTo().getIdentifier();</span>
+<span class="nc bnc" id="L97" title="All 2 branches missed.">            if (edge.hasContent()) {</span>
+<span class="nc" id="L98">                dot = dot + &quot; [&quot; + &quot;label=\&quot;&quot;;</span>
+<span class="nc" id="L99">                StringTokenizer tokenizer = new StringTokenizer(edge.getContent().toString(), &quot;\&quot;&quot;);</span>
+<span class="nc bnc" id="L100" title="All 2 branches missed.">                while (tokenizer.hasMoreTokens()) {</span>
+<span class="nc" id="L101">                    dot += tokenizer.nextToken();</span>
+                }
+<span class="nc" id="L103">                dot = dot + &quot;\&quot;]&quot;;</span>
+            }
+<span class="nc" id="L105">            edges.append(dot).append(&quot;\n&quot;);</span>
+<span class="nc" id="L106">        }</span>
+<span class="fc" id="L107">        file.write(nodes.toString());</span>
+<span class="fc" id="L108">        file.write(edges.toString());</span>
+<span class="fc" id="L109">        file.write(&quot;}&quot;);</span>
+<span class="fc" id="L110">    }</span>
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.0.201403182114</span></div></body></html>
