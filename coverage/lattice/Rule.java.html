@@ -227,31 +227,12 @@ public class Rule implements Comparable {
     }
 
     /**
-     * Returns a String representation of this component to be saved in a file.
-     *
-     * Element in a set are separated by a space
-     *
-     * @return  a string made of premises followed by -&gt; and the conclusions.
-     */
-    public String toFile() {
-<span class="fc" id="L237">        String res = &quot;&quot;;</span>
-<span class="fc bfc" id="L238" title="All 2 branches covered.">        for (Object e : this.premise) {</span>
-<span class="fc" id="L239">            res += e.toString();</span>
-<span class="fc" id="L240">        }</span>
-<span class="fc" id="L241">        res += &quot;-&gt; &quot;;</span>
-<span class="fc bfc" id="L242" title="All 2 branches covered.">        for (Object e : this.conclusion) {</span>
-<span class="fc" id="L243">            res += e.toString();</span>
-<span class="fc" id="L244">        }</span>
-<span class="fc" id="L245">        return res;</span>
-    }
-
-    /**
      * Returns the hash code of this component.
      *
      * @return  hash code of this component
      */
     public int hashCode() {
-<span class="fc" id="L254">        return super.hashCode();</span>
+<span class="fc" id="L235">        return super.hashCode();</span>
     }
 
     /**
@@ -262,11 +243,11 @@ public class Rule implements Comparable {
      * @return  true or false as this componant is equals to the specified object.
      */
     public boolean equals(Object o) {
-<span class="pc bpc" id="L265" title="1 of 2 branches missed.">        if (!(o instanceof Rule)) {</span>
-<span class="nc" id="L266">            return false;</span>
+<span class="fc bfc" id="L246" title="All 2 branches covered.">        if (!(o instanceof Rule)) {</span>
+<span class="fc" id="L247">            return false;</span>
         }
-<span class="fc" id="L268">        Rule r = (Rule) o;</span>
-<span class="fc bfc" id="L269" title="All 4 branches covered.">        return (this.getPremise().equals(r.getPremise()) &amp;&amp; this.getConclusion().equals(r.getConclusion()));</span>
+<span class="fc" id="L249">        Rule r = (Rule) o;</span>
+<span class="fc bfc" id="L250" title="All 4 branches covered.">        return (this.getPremise().equals(r.getPremise()) &amp;&amp; this.getConclusion().equals(r.getConclusion()));</span>
     }
 
     /**
@@ -279,13 +260,13 @@ public class Rule implements Comparable {
      * equal to, or greater than the specified object.
      */
     public int compareTo(Object o) {
-<span class="fc" id="L282">        Rule r = (Rule) o;</span>
-<span class="fc" id="L283">        ComparableSet thisPremise = (ComparableSet) this.getPremise();</span>
-<span class="fc" id="L284">        ComparableSet thisConclusion = (ComparableSet) this.getConclusion();</span>
-<span class="fc bfc" id="L285" title="All 2 branches covered.">        if (thisPremise.compareTo(r.getPremise()) == 0) {</span>
-<span class="fc" id="L286">            return (thisConclusion.compareTo(r.getConclusion()));</span>
+<span class="fc" id="L263">        Rule r = (Rule) o;</span>
+<span class="fc" id="L264">        ComparableSet thisPremise = (ComparableSet) this.getPremise();</span>
+<span class="fc" id="L265">        ComparableSet thisConclusion = (ComparableSet) this.getConclusion();</span>
+<span class="fc bfc" id="L266" title="All 2 branches covered.">        if (thisPremise.compareTo(r.getPremise()) == 0) {</span>
+<span class="fc" id="L267">            return (thisConclusion.compareTo(r.getConclusion()));</span>
         } else {
-<span class="fc" id="L288">            return (thisPremise.compareTo(r.getPremise()));</span>
+<span class="fc" id="L269">            return (thisPremise.compareTo(r.getPremise()));</span>
         }
     }
 }
