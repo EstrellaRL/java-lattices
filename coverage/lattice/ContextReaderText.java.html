@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ContextReaderText.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Java Lattices</a> &gt; <a href="index.source.html" class="el_package">lattice</a> &gt; <span class="el_source">ContextReaderText.java</span></div><h1>ContextReaderText.java</h1><pre class="source lang-java linenums">package lattice;
+
+/*
+ * ContextReaderText.java
+ *
+ * Copyright: 2013 Karell Bertet, France
+ *
+ * License: http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html CeCILL-B license
+ *
+ * This file is part of lattice, free package. You can redistribute it and/or modify
+ * it under the terms of CeCILL-B license.
+ *
+ * @author Karell Bertet
+ * @version 2014
+ */
+
+import java.util.StringTokenizer;
+import java.io.BufferedReader;
+import java.io.IOException;
+
+/**
+ * This class defines the way for reading a context from a text file.
+ *
+ * ![ContextReaderText](ContextReaderText.png)
+ *
+ * @uml ContextReaderText.png
+ * !include src/lattice/ContextReaderText.iuml
+ * !include src/lattice/ContextReader.iuml
+ *
+ * hide members
+ * show ContextReaderText members
+ * class ContextReaderText #LightCyan
+ * title ContextReaderText UML graph
+ */
+<span class="fc" id="L35">public final class ContextReaderText implements ContextReader {</span>
+    /**
+     * The singleton instance.
+     */
+<span class="fc" id="L39">    private static ContextReaderText instance = null;</span>
+
+    /**
+     * Return the singleton instance of this class.
+     *
+     * @return  the singleton instance
+     */
+    public static ContextReaderText getInstance() {
+<span class="pc bpc" id="L47" title="1 of 2 branches missed.">        if (instance == null) {</span>
+<span class="fc" id="L48">            instance = new ContextReaderText();</span>
+        }
+<span class="fc" id="L50">        return instance;</span>
+    }
+
+    /**
+     * Register this class for reading .txt files.
+     */
+    public static void register() {
+<span class="fc" id="L57">        ContextReaderFactory.register(ContextReaderText.getInstance(), &quot;txt&quot;);</span>
+<span class="fc" id="L58">    }</span>
+
+    /**
+     * Read a context from a file.
+     *
+     * The following format is respected:
+     *
+     * The list of observations separated by a space on the first line ;
+     * the list of attrbutes separated by a space on the second line ;
+     * then, for each observations o, the list of its intent on a line, written like o a1 a2 ...
+     *
+     * ~~~
+     * Observations: 1 2 3
+     * Attributes: a b c d e
+     * 1 a c
+     * 2 a b
+     * 3 b d e
+     * 4 c e
+     * ~~~
+     *
+     * @param   context  a context to read
+     * @param   file     a file
+     *
+     * @throws  IOException  When an IOException occurs
+     */
+    public void read(Context context, BufferedReader file) throws IOException {
+        // first line : All observations separated by a space
+        // a StringTokenizer is used to divide the line into different observations
+        // considering spaces as separator.
+<span class="fc" id="L87">        StringTokenizer st =  new StringTokenizer(file.readLine());</span>
+<span class="fc" id="L88">        st.nextToken(); // first token corresponds to the string &quot;Observations:&quot;</span>
+<span class="fc bfc" id="L89" title="All 2 branches covered.">        while (st.hasMoreTokens()) {</span>
+<span class="fc" id="L90">            String n = new String(st.nextToken());</span>
+<span class="fc" id="L91">            context.addToObservations(n);</span>
+<span class="fc" id="L92">        }</span>
+        // second line : All attributes separated by a space
+        // a StringTokenizer is used to divide the line into different token,
+        // considering spaces as separator.
+<span class="fc" id="L96">        st =  new StringTokenizer(file.readLine());</span>
+<span class="fc" id="L97">        st.nextToken(); // first token corresponds to the string &quot;Attributes:&quot;</span>
+<span class="fc bfc" id="L98" title="All 2 branches covered.">        while (st.hasMoreTokens()) {</span>
+<span class="fc" id="L99">            String n = new String(st.nextToken());</span>
+<span class="fc" id="L100">            context.addToAttributes(n);</span>
+<span class="fc" id="L101">        }</span>
+        // next lines : All intents of observations, one on each line:
+        // observation : list of attributes
+        // a StringTokenizer is used to divide each intent.
+<span class="fc" id="L105">        String line = file.readLine();</span>
+<span class="pc bpc" id="L106" title="1 of 4 branches missed.">        while (line != null &amp;&amp; !line.isEmpty()) {</span>
+<span class="fc" id="L107">            st = new StringTokenizer(line);</span>
+<span class="fc" id="L108">            String word = st.nextToken();</span>
+<span class="fc" id="L109">            Comparable o = null;</span>
+            // search of o in observations
+<span class="fc bfc" id="L111" title="All 2 branches covered.">            for (Comparable e : context.getObservations()) {</span>
+<span class="fc bfc" id="L112" title="All 2 branches covered.">                if (e.equals(word)) {</span>
+<span class="fc" id="L113">                    o = e;</span>
+                }
+<span class="fc" id="L115">            }</span>
+<span class="pc bpc" id="L116" title="1 of 2 branches missed.">            if (o != null) {</span>
+<span class="fc" id="L117">                word = st.nextToken(); // this token corresponds to the sting &quot;:&quot;</span>
+<span class="fc bfc" id="L118" title="All 2 branches covered.">                while (st.hasMoreTokens()) {</span>
+<span class="fc" id="L119">                    word = st.nextToken();</span>
+<span class="fc" id="L120">                    Comparable a = null;</span>
+                    // search of a in attributes
+<span class="fc bfc" id="L122" title="All 2 branches covered.">                    for (Comparable e : context.getAttributes()) {</span>
+<span class="fc bfc" id="L123" title="All 2 branches covered.">                        if (e.equals(word)) {</span>
+<span class="fc" id="L124">                            a = e;</span>
+                        }
+<span class="fc" id="L126">                    }</span>
+<span class="pc bpc" id="L127" title="1 of 2 branches missed.">                    if (a != null) {</span>
+<span class="fc" id="L128">                        context.addExtentIntent(o, a);</span>
+                    }
+<span class="fc" id="L130">                }</span>
+            }
+<span class="fc" id="L132">            line = file.readLine();</span>
+<span class="fc" id="L133">        }</span>
+<span class="fc" id="L134">        context.setBitSets();</span>
+<span class="fc" id="L135">    }</span>
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.0.201403182114</span></div></body></html>
