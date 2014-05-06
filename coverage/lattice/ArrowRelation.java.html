@@ -15,12 +15,8 @@
  */
 
 import java.io.IOException;
-import java.io.File;
 import java.io.FileWriter;
-import java.util.SortedSet;
-import java.util.TreeSet;
-import dgraph.Edge;
-import dgraph.Node;
+import java.io.BufferedWriter;
 import dgraph.DGraph;
 
 /**
@@ -49,6 +45,15 @@ import dgraph.DGraph;
  * title ArrowRelation UML graph
  */
 public class ArrowRelation extends DGraph  {
+    /*
+     * Register tex writer
+     */
+    static {
+<span class="pc bpc" id="L52" title="1 of 2 branches missed.">        if (ArrowRelationWriterFactory.get(&quot;tex&quot;) == null) {</span>
+<span class="fc" id="L53">            ArrowRelationWriterTeX.register();</span>
+        }
+<span class="fc" id="L55">    }</span>
+
     /**
      * Unique constructor of this component from a lattice.
      *
@@ -58,71 +63,25 @@ public class ArrowRelation extends DGraph  {
      * @param   lattice  Lattice from which this component is deduced.
      */
     public ArrowRelation(Lattice lattice) {
-<span class="fc" id="L61">        super(lattice.getArrowRelation());</span>
-<span class="fc" id="L62">    }</span>
+<span class="fc" id="L66">        super(lattice.getArrowRelation());</span>
+<span class="fc" id="L67">    }</span>
 
     /**
-     * Produces the LaTex source code for the array of arrows of this component.
-     * The LaTeX source produced isn't autonomous. It must be included in a document.
+     * Save the description of this component in a file whose name is specified.
      *
-     * @param   filename  Name of the file to be writen.
+     * @param   filename  the name of the file
      *
      * @throws  IOException  When an IOException occurs
      */
-    public void writeLaTex(String filename) throws IOException {
-<span class="fc" id="L73">        File outfile = new File(filename);</span>
-<span class="fc" id="L74">        FileWriter out = new FileWriter(outfile);</span>
-<span class="fc" id="L75">        SortedSet&lt;Edge&gt; edges = this.getEdges();</span>
-<span class="fc" id="L76">        TreeSet&lt;Node&gt; m = new TreeSet&lt;Node&gt;();</span>
-<span class="fc" id="L77">        TreeSet&lt;Node&gt; j = new TreeSet&lt;Node&gt;();</span>
-<span class="fc bfc" id="L78" title="All 2 branches covered.">        for (Edge e : edges) {</span>
-<span class="fc" id="L79">            m.add(e.getFrom());</span>
-<span class="fc" id="L80">            j.add(e.getTo());</span>
-<span class="fc" id="L81">        }</span>
-<span class="fc" id="L82">        String str = &quot;\\begin{tabular}{|c|*{&quot; + Integer.toString(j.size()) + &quot;}{c|}}\n&quot;;</span>
-<span class="fc" id="L83">        str += &quot;\\hline\n&quot;;</span>
-<span class="fc bfc" id="L84" title="All 2 branches covered.">        for (Node nj : j) {</span>
-<span class="fc" id="L85">            str += &quot; &amp; &quot; + nj.getContent();</span>
-<span class="fc" id="L86">        }</span>
-<span class="fc" id="L87">        str += &quot;\\\\ \n&quot;;</span>
-<span class="fc" id="L88">        str += &quot;\\hline\n&quot;;</span>
-<span class="fc bfc" id="L89" title="All 2 branches covered.">        for (Node nm : m) {</span>
-<span class="fc" id="L90">            str += nm.getContent();</span>
-<span class="fc bfc" id="L91" title="All 2 branches covered.">            for (Node nj : j) {</span>
-<span class="fc" id="L92">                Edge e = this.getEdge(nm, nj);</span>
-<span class="fc bfc" id="L93" title="All 2 branches covered.">                if ((String) e.getContent() == &quot;Up&quot;) {</span>
-<span class="fc" id="L94">                    str += &quot; &amp; $\\uparrow$&quot;;</span>
-                } else {
-<span class="fc bfc" id="L96" title="All 2 branches covered.">                    if ((String) e.getContent() == &quot;Down&quot;) {</span>
-<span class="fc" id="L97">                    str += &quot; &amp; $\\downarrow$&quot;;</span>
-                } else {
-<span class="fc bfc" id="L99" title="All 2 branches covered.">                    if ((String) e.getContent() == &quot;UpDown&quot;) {</span>
-<span class="fc" id="L100">                    str += &quot; &amp; $\\updownarrow$&quot;;</span>
-                } else {
-<span class="fc bfc" id="L102" title="All 2 branches covered.">                    if ((String) e.getContent() == &quot;Cross&quot;) {</span>
-<span class="fc" id="L103">                    str += &quot; &amp; $\\times$&quot;;</span>
-                } else {
-<span class="fc" id="L105">                    str += &quot; &amp; $\\circ$&quot;;</span>
-                    }
-                    }
-                    }
-                /* Previous code, in a Java7 only way, was :
-                switch ((String)e.getContent()) {
-                    case &quot;Up&quot;:str += &quot; &amp; $\\uparrow$&quot;;break;
-                    case &quot;Down&quot;:str += &quot; &amp; $\\downarrow$&quot;;break;
-                    case &quot;UpDown&quot;:str += &quot; &amp; $\\updownarrow$&quot;;break;
-                    case &quot;Cross&quot;:str += &quot; &amp; $\\times$&quot;;break;
-                    case &quot;Circ&quot;:str += &quot; &amp; $\\circ$&quot;;break;
-                    default :break;
-                */
-                }
-<span class="fc" id="L119">            }</span>
-<span class="fc" id="L120">            str += &quot;\\\\ \n&quot;;</span>
-<span class="fc" id="L121">            str += &quot;\\hline\n&quot;;</span>
-<span class="fc" id="L122">        }</span>
-<span class="fc" id="L123">        str += &quot;\\end{tabular}\n&quot;;</span>
-<span class="fc" id="L124">        out.write(str);</span>
-<span class="fc" id="L125">        out.close();</span>
-<span class="fc" id="L126">    }</span>
+    public void save(final String filename) throws IOException {
+<span class="fc" id="L77">        String extension = &quot;&quot;;</span>
+<span class="fc" id="L78">        int index = filename.lastIndexOf('.');</span>
+<span class="pc bpc" id="L79" title="1 of 2 branches missed.">        if (index &gt; 0) {</span>
+<span class="fc" id="L80">            extension = filename.substring(index + 1);</span>
+        }
+<span class="fc" id="L82">        BufferedWriter file = new BufferedWriter(new FileWriter(filename));</span>
+<span class="fc" id="L83">        ArrowRelationWriterFactory.get(extension).write(this, file);</span>
+<span class="fc" id="L84">        file.close();</span>
+<span class="fc" id="L85">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.0.201403182114</span></div></body></html>

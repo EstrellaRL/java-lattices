@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ArrowRelationWriterTeX.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Java Lattices</a> &gt; <a href="index.source.html" class="el_package">lattice</a> &gt; <span class="el_source">ArrowRelationWriterTeX.java</span></div><h1>ArrowRelationWriterTeX.java</h1><pre class="source lang-java linenums">package lattice;
+
+/*
+ * ArrowRelationWriterTeX.java
+ *
+ * Copyright: 2013 Karell Bertet, France
+ *
+ * License: http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html CeCILL-B license
+ *
+ * This file is part of lattice, free package. You can redistribute it and/or modify
+ * it under the terms of CeCILL-B license.
+ *
+ * @author Karell Bertet
+ * @version 2014
+ */
+
+import java.util.SortedSet;
+import java.util.TreeSet;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import dgraph.Edge;
+import dgraph.Node;
+
+/**
+ * This class defines the way for writing an arrow relatin as a tex file.
+ *
+ * ![ArrowRelationWriterTex](ArrowRelationWriterTex.png)
+ *
+ * @uml ArrowRelationWriterTeX.png
+ * !include src/lattice/ArrowRelationWriterTeX.iuml
+ * !include src/lattice/ArrowRelationWriter.iuml
+ *
+ * hide members
+ * show ArrowRelationWriterTeX members
+ * class ArrowRelationWriterTeX #LightCyan
+ * title ArrowRelationWriterTeX UML graph
+ */
+<span class="fc" id="L38">public final class ArrowRelationWriterTeX implements ArrowRelationWriter {</span>
+    /**
+     * The singleton instance.
+     */
+<span class="fc" id="L42">    private static ArrowRelationWriterTeX instance = null;</span>
+
+    /**
+     * Return the singleton instance of this class.
+     *
+     * @return  the singleton instance
+     */
+    public static ArrowRelationWriterTeX getInstance() {
+<span class="pc bpc" id="L50" title="1 of 2 branches missed.">        if (instance == null) {</span>
+<span class="fc" id="L51">            instance = new ArrowRelationWriterTeX();</span>
+        }
+<span class="fc" id="L53">        return instance;</span>
+    }
+
+    /**
+     * Register this class for writing .txt files.
+     */
+    public static void register() {
+<span class="fc" id="L60">        ArrowRelationWriterFactory.register(ArrowRelationWriterTeX.getInstance(), &quot;tex&quot;);</span>
+<span class="fc" id="L61">    }</span>
+
+    /**
+     * Produces the LaTex source code for the array of arrows of this component.
+     * The LaTeX source produced isn't autonomous. It must be included in a document.
+     *
+     * @param   arrow  an arrow relation to write
+     * @param   file   a file
+     *
+     * @throws  IOException  When an IOException occurs
+     */
+    public void write(ArrowRelation arrow, BufferedWriter file) throws IOException {
+<span class="fc" id="L73">        SortedSet&lt;Edge&gt; edges = arrow.getEdges();</span>
+<span class="fc" id="L74">        TreeSet&lt;Node&gt; m = new TreeSet&lt;Node&gt;();</span>
+<span class="fc" id="L75">        TreeSet&lt;Node&gt; j = new TreeSet&lt;Node&gt;();</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">        for (Edge e : edges) {</span>
+<span class="fc" id="L77">            m.add(e.getFrom());</span>
+<span class="fc" id="L78">            j.add(e.getTo());</span>
+<span class="fc" id="L79">        }</span>
+<span class="fc" id="L80">        String str = &quot;\\begin{tabular}{|c|*{&quot; + Integer.toString(j.size()) + &quot;}{c|}}\n&quot;;</span>
+<span class="fc" id="L81">        str += &quot;\\hline\n&quot;;</span>
+<span class="fc bfc" id="L82" title="All 2 branches covered.">        for (Node nj : j) {</span>
+<span class="fc" id="L83">            str += &quot; &amp; &quot; + nj.getContent();</span>
+<span class="fc" id="L84">        }</span>
+<span class="fc" id="L85">        str += &quot;\\\\ \n&quot;;</span>
+<span class="fc" id="L86">        str += &quot;\\hline\n&quot;;</span>
+<span class="fc bfc" id="L87" title="All 2 branches covered.">        for (Node nm : m) {</span>
+<span class="fc" id="L88">            str += nm.getContent();</span>
+<span class="fc bfc" id="L89" title="All 2 branches covered.">            for (Node nj : j) {</span>
+<span class="fc" id="L90">                Edge e = arrow.getEdge(nm, nj);</span>
+<span class="fc bfc" id="L91" title="All 2 branches covered.">                if ((String) e.getContent() == &quot;Up&quot;) {</span>
+<span class="fc" id="L92">                    str += &quot; &amp; $\\uparrow$&quot;;</span>
+                } else {
+<span class="fc bfc" id="L94" title="All 2 branches covered.">                    if ((String) e.getContent() == &quot;Down&quot;) {</span>
+<span class="fc" id="L95">                    str += &quot; &amp; $\\downarrow$&quot;;</span>
+                } else {
+<span class="fc bfc" id="L97" title="All 2 branches covered.">                    if ((String) e.getContent() == &quot;UpDown&quot;) {</span>
+<span class="fc" id="L98">                    str += &quot; &amp; $\\updownarrow$&quot;;</span>
+                } else {
+<span class="fc bfc" id="L100" title="All 2 branches covered.">                    if ((String) e.getContent() == &quot;Cross&quot;) {</span>
+<span class="fc" id="L101">                    str += &quot; &amp; $\\times$&quot;;</span>
+                } else {
+<span class="fc" id="L103">                    str += &quot; &amp; $\\circ$&quot;;</span>
+                    }
+                    }
+                    }
+                /* Previous code, in a Java7 only way, was :
+                switch ((String)e.getContent()) {
+                    case &quot;Up&quot;:str += &quot; &amp; $\\uparrow$&quot;;break;
+                    case &quot;Down&quot;:str += &quot; &amp; $\\downarrow$&quot;;break;
+                    case &quot;UpDown&quot;:str += &quot; &amp; $\\updownarrow$&quot;;break;
+                    case &quot;Cross&quot;:str += &quot; &amp; $\\times$&quot;;break;
+                    case &quot;Circ&quot;:str += &quot; &amp; $\\circ$&quot;;break;
+                    default :break;
+                */
+                }
+<span class="fc" id="L117">            }</span>
+<span class="fc" id="L118">            str += &quot;\\\\ \n&quot;;</span>
+<span class="fc" id="L119">            str += &quot;\\hline\n&quot;;</span>
+<span class="fc" id="L120">        }</span>
+<span class="fc" id="L121">        str += &quot;\\end{tabular}\n&quot;;</span>
+<span class="fc" id="L122">        file.write(str);</span>
+<span class="fc" id="L123">    }</span>
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.0.201403182114</span></div></body></html>
