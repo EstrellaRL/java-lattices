@@ -3,15 +3,12 @@
 /*
  * Rule.java
  *
- * Copyright: 2013 University of La Rochelle, France
+ * Copyright: 2013-2014 Karell Bertet, France
  *
  * License: http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html CeCILL-B license
  *
  * This file is part of lattice, free package. You can redistribute it and/or modify
  * it under the terms of CeCILL-B license.
- *
- * @author Karell Bertet
- * @version 2014
  */
 
 import java.util.Collection;
@@ -64,10 +61,10 @@ public class Rule implements Comparable {
     /**
      * Constructs a new empty Rule with a empty premise and an empty conclusion.
      */
-<span class="fc" id="L67">    public Rule() {</span>
-<span class="fc" id="L68">        premise = new ComparableSet();</span>
-<span class="fc" id="L69">        conclusion = new ComparableSet();</span>
-<span class="fc" id="L70">    }</span>
+<span class="fc" id="L64">    public Rule() {</span>
+<span class="fc" id="L65">        premise = new ComparableSet();</span>
+<span class="fc" id="L66">        conclusion = new ComparableSet();</span>
+<span class="fc" id="L67">    }</span>
 
     /**
      * Constructs a new Rule with the premise and the conclusion given in parameters.
@@ -75,10 +72,10 @@ public class Rule implements Comparable {
      * @param   premise     a set of indexed elements
      * @param   conclusion  a set of indexed elements
      */
-<span class="fc" id="L78">    public Rule(TreeSet&lt;Comparable&gt; premise, TreeSet&lt;Comparable&gt; conclusion) {</span>
-<span class="fc" id="L79">        this.premise = new ComparableSet(premise);</span>
-<span class="fc" id="L80">        this.conclusion = new ComparableSet(conclusion);</span>
-<span class="fc" id="L81">    }</span>
+<span class="fc" id="L75">    public Rule(TreeSet&lt;Comparable&gt; premise, TreeSet&lt;Comparable&gt; conclusion) {</span>
+<span class="fc" id="L76">        this.premise = new ComparableSet(premise);</span>
+<span class="fc" id="L77">        this.conclusion = new ComparableSet(conclusion);</span>
+<span class="fc" id="L78">    }</span>
 
     /* ------------- ACCESSORS METHODS ------------------ */
 
@@ -88,7 +85,7 @@ public class Rule implements Comparable {
      * @return  premises of this component
      */
     public TreeSet&lt;Comparable&gt; getPremise() {
-<span class="fc" id="L91">        return this.premise;</span>
+<span class="fc" id="L88">        return this.premise;</span>
     }
 
     /**
@@ -97,7 +94,7 @@ public class Rule implements Comparable {
      * @return  conclusions of this component
      */
     public TreeSet&lt;Comparable&gt; getConclusion() {
-<span class="fc" id="L100">        return this.conclusion;</span>
+<span class="fc" id="L97">        return this.conclusion;</span>
     }
 
     /* ------------- MODIFICATION METHODS ------------------ */
@@ -110,7 +107,7 @@ public class Rule implements Comparable {
      * @return  true if addition is successfull.
      */
     public boolean addToPremise(Comparable a) {
-<span class="fc" id="L113">        return this.premise.add(a);</span>
+<span class="fc" id="L110">        return this.premise.add(a);</span>
     }
 
     /**
@@ -121,7 +118,7 @@ public class Rule implements Comparable {
      * @return  true if addition is successfull.
      */
     public boolean removeFromPremise(Comparable a) {
-<span class="fc" id="L124">        return this.premise.remove(a);</span>
+<span class="fc" id="L121">        return this.premise.remove(a);</span>
     }
 
     /**
@@ -132,7 +129,7 @@ public class Rule implements Comparable {
      * @return  true if addition is successfull.
      */
     public boolean addToConclusion(Comparable a) {
-<span class="fc" id="L135">        return this.conclusion.add(a);</span>
+<span class="fc" id="L132">        return this.conclusion.add(a);</span>
     }
 
     /**
@@ -143,7 +140,7 @@ public class Rule implements Comparable {
      * @return  true if addition is successfull.
      */
     public boolean removeFromConclusion(Object a) {
-<span class="fc" id="L146">        return this.conclusion.remove(a);</span>
+<span class="fc" id="L143">        return this.conclusion.remove(a);</span>
     }
 
     /**
@@ -154,7 +151,7 @@ public class Rule implements Comparable {
      * @return  true if addition is successfull.
      */
     public boolean addAllToPremise(Collection&lt;Comparable&gt; a) {
-<span class="fc" id="L157">        return this.premise.addAll(a);</span>
+<span class="fc" id="L154">        return this.premise.addAll(a);</span>
     }
 
     /**
@@ -165,7 +162,7 @@ public class Rule implements Comparable {
      * @return  true if addition is successfull.
      */
     public boolean removeAllFromPremise(Collection&lt;Comparable&gt; a) {
-<span class="fc" id="L168">        return premise.removeAll(a);</span>
+<span class="fc" id="L165">        return premise.removeAll(a);</span>
     }
 
     /**
@@ -176,7 +173,7 @@ public class Rule implements Comparable {
      * @return  true if addition is successfull.
      */
     public boolean addAllToConclusion(Collection&lt;Comparable&gt; a) {
-<span class="fc" id="L179">        return conclusion.addAll(a);</span>
+<span class="fc" id="L176">        return conclusion.addAll(a);</span>
     }
 
     /**
@@ -187,7 +184,7 @@ public class Rule implements Comparable {
      * @return  true if addition is successfull.
      */
     public boolean removeAllFromConclusion(Collection&lt;Comparable&gt; a) {
-<span class="fc" id="L190">        return conclusion.removeAll(a);</span>
+<span class="fc" id="L187">        return conclusion.removeAll(a);</span>
     }
 
     /* ------------- OVERLAPING METHODS ------------------ */
@@ -207,23 +204,23 @@ public class Rule implements Comparable {
      * @return  a string made of premises followed by -&gt; and the conclusions.
      */
     public String toString() {
-<span class="fc" id="L210">        String s = &quot;&quot;;</span>
-<span class="fc bfc" id="L211" title="All 2 branches covered.">        for (Object e : this.getPremise()) {</span>
-<span class="fc" id="L212">            StringTokenizer st = new StringTokenizer(e.toString());</span>
-<span class="fc bfc" id="L213" title="All 2 branches covered.">            while (st.hasMoreTokens()) {</span>
-<span class="fc" id="L214">                s += st.nextToken();</span>
+<span class="fc" id="L207">        String s = &quot;&quot;;</span>
+<span class="fc bfc" id="L208" title="All 2 branches covered.">        for (Object e : this.getPremise()) {</span>
+<span class="fc" id="L209">            StringTokenizer st = new StringTokenizer(e.toString());</span>
+<span class="fc bfc" id="L210" title="All 2 branches covered.">            while (st.hasMoreTokens()) {</span>
+<span class="fc" id="L211">                s += st.nextToken();</span>
             }
-<span class="fc" id="L216">            s += &quot; &quot;;</span>
-<span class="fc" id="L217">            }</span>
-<span class="fc" id="L218">        s += &quot; -&gt; &quot;;</span>
-<span class="fc bfc" id="L219" title="All 2 branches covered.">        for (Object e : this.getConclusion()) {</span>
-<span class="fc" id="L220">            StringTokenizer st = new StringTokenizer(e.toString());</span>
-<span class="fc bfc" id="L221" title="All 2 branches covered.">            while (st.hasMoreTokens()) {</span>
-<span class="fc" id="L222">                s += st.nextToken();</span>
+<span class="fc" id="L213">            s += &quot; &quot;;</span>
+<span class="fc" id="L214">            }</span>
+<span class="fc" id="L215">        s += &quot; -&gt; &quot;;</span>
+<span class="fc bfc" id="L216" title="All 2 branches covered.">        for (Object e : this.getConclusion()) {</span>
+<span class="fc" id="L217">            StringTokenizer st = new StringTokenizer(e.toString());</span>
+<span class="fc bfc" id="L218" title="All 2 branches covered.">            while (st.hasMoreTokens()) {</span>
+<span class="fc" id="L219">                s += st.nextToken();</span>
             }
-<span class="fc" id="L224">            s += &quot; &quot;;</span>
-<span class="fc" id="L225">            }</span>
-<span class="fc" id="L226">        return s;</span>
+<span class="fc" id="L221">            s += &quot; &quot;;</span>
+<span class="fc" id="L222">            }</span>
+<span class="fc" id="L223">        return s;</span>
     }
 
     /**
@@ -232,7 +229,7 @@ public class Rule implements Comparable {
      * @return  hash code of this component
      */
     public int hashCode() {
-<span class="fc" id="L235">        return super.hashCode();</span>
+<span class="fc" id="L232">        return super.hashCode();</span>
     }
 
     /**
@@ -243,11 +240,11 @@ public class Rule implements Comparable {
      * @return  true or false as this componant is equals to the specified object.
      */
     public boolean equals(Object o) {
-<span class="fc bfc" id="L246" title="All 2 branches covered.">        if (!(o instanceof Rule)) {</span>
-<span class="fc" id="L247">            return false;</span>
+<span class="fc bfc" id="L243" title="All 2 branches covered.">        if (!(o instanceof Rule)) {</span>
+<span class="fc" id="L244">            return false;</span>
         }
-<span class="fc" id="L249">        Rule r = (Rule) o;</span>
-<span class="fc bfc" id="L250" title="All 4 branches covered.">        return (this.getPremise().equals(r.getPremise()) &amp;&amp; this.getConclusion().equals(r.getConclusion()));</span>
+<span class="fc" id="L246">        Rule r = (Rule) o;</span>
+<span class="fc bfc" id="L247" title="All 4 branches covered.">        return (this.getPremise().equals(r.getPremise()) &amp;&amp; this.getConclusion().equals(r.getConclusion()));</span>
     }
 
     /**
@@ -260,13 +257,13 @@ public class Rule implements Comparable {
      * equal to, or greater than the specified object.
      */
     public int compareTo(Object o) {
-<span class="fc" id="L263">        Rule r = (Rule) o;</span>
-<span class="fc" id="L264">        ComparableSet thisPremise = (ComparableSet) this.getPremise();</span>
-<span class="fc" id="L265">        ComparableSet thisConclusion = (ComparableSet) this.getConclusion();</span>
-<span class="fc bfc" id="L266" title="All 2 branches covered.">        if (thisPremise.compareTo(r.getPremise()) == 0) {</span>
-<span class="fc" id="L267">            return (thisConclusion.compareTo(r.getConclusion()));</span>
+<span class="fc" id="L260">        Rule r = (Rule) o;</span>
+<span class="fc" id="L261">        ComparableSet thisPremise = (ComparableSet) this.getPremise();</span>
+<span class="fc" id="L262">        ComparableSet thisConclusion = (ComparableSet) this.getConclusion();</span>
+<span class="fc bfc" id="L263" title="All 2 branches covered.">        if (thisPremise.compareTo(r.getPremise()) == 0) {</span>
+<span class="fc" id="L264">            return (thisConclusion.compareTo(r.getConclusion()));</span>
         } else {
-<span class="fc" id="L269">            return (thisPremise.compareTo(r.getPremise()));</span>
+<span class="fc" id="L266">            return (thisPremise.compareTo(r.getPremise()));</span>
         }
     }
 }

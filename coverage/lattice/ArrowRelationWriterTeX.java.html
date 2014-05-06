@@ -3,15 +3,12 @@
 /*
  * ArrowRelationWriterTeX.java
  *
- * Copyright: 2013 Karell Bertet, France
+ * Copyright: 2013-2014 Karell Bertet, France
  *
  * License: http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html CeCILL-B license
  *
  * This file is part of lattice, free package. You can redistribute it and/or modify
  * it under the terms of CeCILL-B license.
- *
- * @author Karell Bertet
- * @version 2014
  */
 
 import java.util.SortedSet;
@@ -35,11 +32,11 @@ import dgraph.Node;
  * class ArrowRelationWriterTeX #LightCyan
  * title ArrowRelationWriterTeX UML graph
  */
-<span class="fc" id="L38">public final class ArrowRelationWriterTeX implements ArrowRelationWriter {</span>
+<span class="fc" id="L35">public final class ArrowRelationWriterTeX implements ArrowRelationWriter {</span>
     /**
      * The singleton instance.
      */
-<span class="fc" id="L42">    private static ArrowRelationWriterTeX instance = null;</span>
+<span class="fc" id="L39">    private static ArrowRelationWriterTeX instance = null;</span>
 
     /**
      * Return the singleton instance of this class.
@@ -47,18 +44,18 @@ import dgraph.Node;
      * @return  the singleton instance
      */
     public static ArrowRelationWriterTeX getInstance() {
-<span class="pc bpc" id="L50" title="1 of 2 branches missed.">        if (instance == null) {</span>
-<span class="fc" id="L51">            instance = new ArrowRelationWriterTeX();</span>
+<span class="pc bpc" id="L47" title="1 of 2 branches missed.">        if (instance == null) {</span>
+<span class="fc" id="L48">            instance = new ArrowRelationWriterTeX();</span>
         }
-<span class="fc" id="L53">        return instance;</span>
+<span class="fc" id="L50">        return instance;</span>
     }
 
     /**
      * Register this class for writing .txt files.
      */
     public static void register() {
-<span class="fc" id="L60">        ArrowRelationWriterFactory.register(ArrowRelationWriterTeX.getInstance(), &quot;tex&quot;);</span>
-<span class="fc" id="L61">    }</span>
+<span class="fc" id="L57">        ArrowRelationWriterFactory.register(ArrowRelationWriterTeX.getInstance(), &quot;tex&quot;);</span>
+<span class="fc" id="L58">    }</span>
 
     /**
      * Produces the LaTex source code for the array of arrows of this component.
@@ -70,37 +67,37 @@ import dgraph.Node;
      * @throws  IOException  When an IOException occurs
      */
     public void write(ArrowRelation arrow, BufferedWriter file) throws IOException {
-<span class="fc" id="L73">        SortedSet&lt;Edge&gt; edges = arrow.getEdges();</span>
-<span class="fc" id="L74">        TreeSet&lt;Node&gt; m = new TreeSet&lt;Node&gt;();</span>
-<span class="fc" id="L75">        TreeSet&lt;Node&gt; j = new TreeSet&lt;Node&gt;();</span>
-<span class="fc bfc" id="L76" title="All 2 branches covered.">        for (Edge e : edges) {</span>
-<span class="fc" id="L77">            m.add(e.getFrom());</span>
-<span class="fc" id="L78">            j.add(e.getTo());</span>
-<span class="fc" id="L79">        }</span>
-<span class="fc" id="L80">        String str = &quot;\\begin{tabular}{|c|*{&quot; + Integer.toString(j.size()) + &quot;}{c|}}\n&quot;;</span>
-<span class="fc" id="L81">        str += &quot;\\hline\n&quot;;</span>
-<span class="fc bfc" id="L82" title="All 2 branches covered.">        for (Node nj : j) {</span>
-<span class="fc" id="L83">            str += &quot; &amp; &quot; + nj.getContent();</span>
-<span class="fc" id="L84">        }</span>
-<span class="fc" id="L85">        str += &quot;\\\\ \n&quot;;</span>
-<span class="fc" id="L86">        str += &quot;\\hline\n&quot;;</span>
-<span class="fc bfc" id="L87" title="All 2 branches covered.">        for (Node nm : m) {</span>
-<span class="fc" id="L88">            str += nm.getContent();</span>
-<span class="fc bfc" id="L89" title="All 2 branches covered.">            for (Node nj : j) {</span>
-<span class="fc" id="L90">                Edge e = arrow.getEdge(nm, nj);</span>
-<span class="fc bfc" id="L91" title="All 2 branches covered.">                if ((String) e.getContent() == &quot;Up&quot;) {</span>
-<span class="fc" id="L92">                    str += &quot; &amp; $\\uparrow$&quot;;</span>
+<span class="fc" id="L70">        SortedSet&lt;Edge&gt; edges = arrow.getEdges();</span>
+<span class="fc" id="L71">        TreeSet&lt;Node&gt; m = new TreeSet&lt;Node&gt;();</span>
+<span class="fc" id="L72">        TreeSet&lt;Node&gt; j = new TreeSet&lt;Node&gt;();</span>
+<span class="fc bfc" id="L73" title="All 2 branches covered.">        for (Edge e : edges) {</span>
+<span class="fc" id="L74">            m.add(e.getFrom());</span>
+<span class="fc" id="L75">            j.add(e.getTo());</span>
+<span class="fc" id="L76">        }</span>
+<span class="fc" id="L77">        String str = &quot;\\begin{tabular}{|c|*{&quot; + Integer.toString(j.size()) + &quot;}{c|}}\n&quot;;</span>
+<span class="fc" id="L78">        str += &quot;\\hline\n&quot;;</span>
+<span class="fc bfc" id="L79" title="All 2 branches covered.">        for (Node nj : j) {</span>
+<span class="fc" id="L80">            str += &quot; &amp; &quot; + nj.getContent();</span>
+<span class="fc" id="L81">        }</span>
+<span class="fc" id="L82">        str += &quot;\\\\ \n&quot;;</span>
+<span class="fc" id="L83">        str += &quot;\\hline\n&quot;;</span>
+<span class="fc bfc" id="L84" title="All 2 branches covered.">        for (Node nm : m) {</span>
+<span class="fc" id="L85">            str += nm.getContent();</span>
+<span class="fc bfc" id="L86" title="All 2 branches covered.">            for (Node nj : j) {</span>
+<span class="fc" id="L87">                Edge e = arrow.getEdge(nm, nj);</span>
+<span class="fc bfc" id="L88" title="All 2 branches covered.">                if ((String) e.getContent() == &quot;Up&quot;) {</span>
+<span class="fc" id="L89">                    str += &quot; &amp; $\\uparrow$&quot;;</span>
                 } else {
-<span class="fc bfc" id="L94" title="All 2 branches covered.">                    if ((String) e.getContent() == &quot;Down&quot;) {</span>
-<span class="fc" id="L95">                    str += &quot; &amp; $\\downarrow$&quot;;</span>
+<span class="fc bfc" id="L91" title="All 2 branches covered.">                    if ((String) e.getContent() == &quot;Down&quot;) {</span>
+<span class="fc" id="L92">                    str += &quot; &amp; $\\downarrow$&quot;;</span>
                 } else {
-<span class="fc bfc" id="L97" title="All 2 branches covered.">                    if ((String) e.getContent() == &quot;UpDown&quot;) {</span>
-<span class="fc" id="L98">                    str += &quot; &amp; $\\updownarrow$&quot;;</span>
+<span class="fc bfc" id="L94" title="All 2 branches covered.">                    if ((String) e.getContent() == &quot;UpDown&quot;) {</span>
+<span class="fc" id="L95">                    str += &quot; &amp; $\\updownarrow$&quot;;</span>
                 } else {
-<span class="fc bfc" id="L100" title="All 2 branches covered.">                    if ((String) e.getContent() == &quot;Cross&quot;) {</span>
-<span class="fc" id="L101">                    str += &quot; &amp; $\\times$&quot;;</span>
+<span class="fc bfc" id="L97" title="All 2 branches covered.">                    if ((String) e.getContent() == &quot;Cross&quot;) {</span>
+<span class="fc" id="L98">                    str += &quot; &amp; $\\times$&quot;;</span>
                 } else {
-<span class="fc" id="L103">                    str += &quot; &amp; $\\circ$&quot;;</span>
+<span class="fc" id="L100">                    str += &quot; &amp; $\\circ$&quot;;</span>
                     }
                     }
                     }
@@ -114,13 +111,13 @@ import dgraph.Node;
                     default :break;
                 */
                 }
-<span class="fc" id="L117">            }</span>
-<span class="fc" id="L118">            str += &quot;\\\\ \n&quot;;</span>
-<span class="fc" id="L119">            str += &quot;\\hline\n&quot;;</span>
-<span class="fc" id="L120">        }</span>
-<span class="fc" id="L121">        str += &quot;\\end{tabular}\n&quot;;</span>
-<span class="fc" id="L122">        file.write(str);</span>
-<span class="fc" id="L123">    }</span>
+<span class="fc" id="L114">            }</span>
+<span class="fc" id="L115">            str += &quot;\\\\ \n&quot;;</span>
+<span class="fc" id="L116">            str += &quot;\\hline\n&quot;;</span>
+<span class="fc" id="L117">        }</span>
+<span class="fc" id="L118">        str += &quot;\\end{tabular}\n&quot;;</span>
+<span class="fc" id="L119">        file.write(str);</span>
+<span class="fc" id="L120">    }</span>
 }
 
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.0.201403182114</span></div></body></html>

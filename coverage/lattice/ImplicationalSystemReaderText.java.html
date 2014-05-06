@@ -3,15 +3,12 @@
 /*
  * ImplicationalSystemReaderText.java
  *
- * Copyright: 2013 Karell Bertet, France
+ * Copyright: 2013-2014 Karell Bertet, France
  *
  * License: http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html CeCILL-B license
  *
  * This file is part of lattice, free package. You can redistribute it and/or modify
  * it under the terms of CeCILL-B license.
- *
- * @author Karell Bertet
- * @version 2014
  */
 
 import java.util.StringTokenizer;
@@ -32,11 +29,11 @@ import java.io.IOException;
  * class ImplicationalSystemReaderText #LightCyan
  * title ImplicationalSystemReaderText UML graph
  */
-<span class="fc" id="L35">public final class ImplicationalSystemReaderText implements ImplicationalSystemReader {</span>
+<span class="fc" id="L32">public final class ImplicationalSystemReaderText implements ImplicationalSystemReader {</span>
     /**
      * The singleton instance.
      */
-<span class="fc" id="L39">    private static ImplicationalSystemReaderText instance = null;</span>
+<span class="fc" id="L36">    private static ImplicationalSystemReaderText instance = null;</span>
 
     /**
      * Return the singleton instance of this class.
@@ -44,18 +41,18 @@ import java.io.IOException;
      * @return  the singleton instance
      */
     public static ImplicationalSystemReaderText getInstance() {
-<span class="pc bpc" id="L47" title="1 of 2 branches missed.">        if (instance == null) {</span>
-<span class="fc" id="L48">            instance = new ImplicationalSystemReaderText();</span>
+<span class="pc bpc" id="L44" title="1 of 2 branches missed.">        if (instance == null) {</span>
+<span class="fc" id="L45">            instance = new ImplicationalSystemReaderText();</span>
         }
-<span class="fc" id="L50">        return instance;</span>
+<span class="fc" id="L47">        return instance;</span>
     }
 
     /**
      * Register this class for reading .txt files.
      */
     public static void register() {
-<span class="fc" id="L57">        ImplicationalSystemReaderFactory.register(ImplicationalSystemReaderText.getInstance(), &quot;txt&quot;);</span>
-<span class="fc" id="L58">    }</span>
+<span class="fc" id="L54">        ImplicationalSystemReaderFactory.register(ImplicationalSystemReaderText.getInstance(), &quot;txt&quot;);</span>
+<span class="fc" id="L55">    }</span>
 
     /**
      * Saves this component in a file.
@@ -82,45 +79,45 @@ import java.io.IOException;
         // first line : All elements of S separated by a space
         // a StringTokenizer is used to divide the line into different token,
         // considering spaces as separator.
-<span class="fc" id="L85">        StringTokenizer st =  new StringTokenizer(file.readLine());</span>
-<span class="fc bfc" id="L86" title="All 2 branches covered.">        while (st.hasMoreTokens()) {</span>
-<span class="fc" id="L87">            String n = new String(st.nextToken());</span>
-<span class="fc" id="L88">            system.addElement(n);</span>
-<span class="fc" id="L89">        }</span>
+<span class="fc" id="L82">        StringTokenizer st =  new StringTokenizer(file.readLine());</span>
+<span class="fc bfc" id="L83" title="All 2 branches covered.">        while (st.hasMoreTokens()) {</span>
+<span class="fc" id="L84">            String n = new String(st.nextToken());</span>
+<span class="fc" id="L85">            system.addElement(n);</span>
+<span class="fc" id="L86">        }</span>
         // next lines : [elements of the premise separated by a space] -&gt; [elements of the conclusion separated by a space]
         // a StringTokenizer is used to divide each rule.
-<span class="fc" id="L92">        String line = file.readLine();</span>
-<span class="pc bpc" id="L93" title="1 of 4 branches missed.">        while (!(line == null) &amp;&amp; !line.isEmpty()) {</span>
-<span class="fc" id="L94">            st = new StringTokenizer(line);</span>
-<span class="fc" id="L95">            Rule r = new Rule();</span>
-<span class="fc" id="L96">            boolean prem = true;</span>
-<span class="fc bfc" id="L97" title="All 2 branches covered.">            while (st.hasMoreTokens()) {</span>
-<span class="fc" id="L98">                String word = st.nextToken();</span>
-<span class="fc bfc" id="L99" title="All 2 branches covered.">                if (word.equals(&quot;-&gt;&quot;)) {</span>
-<span class="fc" id="L100">                    prem = false;</span>
+<span class="fc" id="L89">        String line = file.readLine();</span>
+<span class="pc bpc" id="L90" title="1 of 4 branches missed.">        while (!(line == null) &amp;&amp; !line.isEmpty()) {</span>
+<span class="fc" id="L91">            st = new StringTokenizer(line);</span>
+<span class="fc" id="L92">            Rule r = new Rule();</span>
+<span class="fc" id="L93">            boolean prem = true;</span>
+<span class="fc bfc" id="L94" title="All 2 branches covered.">            while (st.hasMoreTokens()) {</span>
+<span class="fc" id="L95">                String word = st.nextToken();</span>
+<span class="fc bfc" id="L96" title="All 2 branches covered.">                if (word.equals(&quot;-&gt;&quot;)) {</span>
+<span class="fc" id="L97">                    prem = false;</span>
                 } else {
-<span class="fc" id="L102">                    String x = null;</span>
+<span class="fc" id="L99">                    String x = null;</span>
                     // search of x in S
-<span class="fc bfc" id="L104" title="All 2 branches covered.">                    for (Comparable e : system.getSet()) {</span>
-<span class="fc bfc" id="L105" title="All 2 branches covered.">                        if (((String) e).equals(word)) {</span>
-<span class="fc" id="L106">                            x = (String) e;</span>
+<span class="fc bfc" id="L101" title="All 2 branches covered.">                    for (Comparable e : system.getSet()) {</span>
+<span class="fc bfc" id="L102" title="All 2 branches covered.">                        if (((String) e).equals(word)) {</span>
+<span class="fc" id="L103">                            x = (String) e;</span>
                         }
-<span class="fc" id="L108">                    }</span>
-<span class="pc bpc" id="L109" title="1 of 2 branches missed.">                    if (x != null) {</span>
-<span class="fc bfc" id="L110" title="All 2 branches covered.">                        if (prem) {</span>
-<span class="fc" id="L111">                            r.addToPremise(x);</span>
+<span class="fc" id="L105">                    }</span>
+<span class="pc bpc" id="L106" title="1 of 2 branches missed.">                    if (x != null) {</span>
+<span class="fc bfc" id="L107" title="All 2 branches covered.">                        if (prem) {</span>
+<span class="fc" id="L108">                            r.addToPremise(x);</span>
                         } else {
-<span class="fc" id="L113">                        r.addToConclusion(x);</span>
+<span class="fc" id="L110">                        r.addToConclusion(x);</span>
                         }
                     }
                 }
-<span class="fc" id="L117">            }</span>
-<span class="pc bpc" id="L118" title="1 of 2 branches missed.">            if (!r.getConclusion().isEmpty()) {</span>
-<span class="fc" id="L119">                system.addRule(r);</span>
+<span class="fc" id="L114">            }</span>
+<span class="pc bpc" id="L115" title="1 of 2 branches missed.">            if (!r.getConclusion().isEmpty()) {</span>
+<span class="fc" id="L116">                system.addRule(r);</span>
             }
-<span class="fc" id="L121">            line = file.readLine();</span>
-<span class="fc" id="L122">        }</span>
-<span class="fc" id="L123">    }</span>
+<span class="fc" id="L118">            line = file.readLine();</span>
+<span class="fc" id="L119">        }</span>
+<span class="fc" id="L120">    }</span>
 }
 
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.0.201403182114</span></div></body></html>

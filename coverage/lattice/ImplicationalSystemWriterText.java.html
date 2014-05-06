@@ -3,15 +3,12 @@
 /*
  * ImplicationalSystemWriterText.java
  *
- * Copyright: 2013 Karell Bertet, France
+ * Copyright: 2013-2014 Karell Bertet, France
  *
  * License: http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html CeCILL-B license
  *
  * This file is part of lattice, free package. You can redistribute it and/or modify
  * it under the terms of CeCILL-B license.
- *
- * @author Karell Bertet
- * @version 2014
  */
 
 import java.io.BufferedWriter;
@@ -31,11 +28,11 @@ import java.io.IOException;
  * class ImplicationalSystemWriterText #LightCyan
  * title ImplicationalSystemWriterText UML graph
  */
-<span class="fc" id="L34">public final class ImplicationalSystemWriterText implements ImplicationalSystemWriter {</span>
+<span class="fc" id="L31">public final class ImplicationalSystemWriterText implements ImplicationalSystemWriter {</span>
     /**
      * The singleton instance.
      */
-<span class="fc" id="L38">    private static ImplicationalSystemWriterText instance = null;</span>
+<span class="fc" id="L35">    private static ImplicationalSystemWriterText instance = null;</span>
 
     /**
      * Return the singleton instance of this class.
@@ -43,18 +40,18 @@ import java.io.IOException;
      * @return  the singleton instance
      */
     public static ImplicationalSystemWriterText getInstance() {
-<span class="pc bpc" id="L46" title="1 of 2 branches missed.">        if (instance == null) {</span>
-<span class="fc" id="L47">            instance = new ImplicationalSystemWriterText();</span>
+<span class="pc bpc" id="L43" title="1 of 2 branches missed.">        if (instance == null) {</span>
+<span class="fc" id="L44">            instance = new ImplicationalSystemWriterText();</span>
         }
-<span class="fc" id="L49">        return instance;</span>
+<span class="fc" id="L46">        return instance;</span>
     }
 
     /**
      * Register this class for writing .txt files.
      */
     public static void register() {
-<span class="fc" id="L56">        ImplicationalSystemWriterFactory.register(ImplicationalSystemWriterText.getInstance(), &quot;txt&quot;);</span>
-<span class="fc" id="L57">    }</span>
+<span class="fc" id="L53">        ImplicationalSystemWriterFactory.register(ImplicationalSystemWriterText.getInstance(), &quot;txt&quot;);</span>
+<span class="fc" id="L54">    }</span>
 
     /**
      * Saves this component in a file.
@@ -78,8 +75,8 @@ import java.io.IOException;
      * @throws  IOException  When an IOException occurs
      */
     public void write(ImplicationalSystem system, BufferedWriter file) throws IOException {
-<span class="fc" id="L81">        file.write(system.toString());</span>
-<span class="fc" id="L82">    }</span>
+<span class="fc" id="L78">        file.write(system.toString());</span>
+<span class="fc" id="L79">    }</span>
 }
 
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.0.201403182114</span></div></body></html>

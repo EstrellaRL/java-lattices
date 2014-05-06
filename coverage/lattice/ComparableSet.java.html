@@ -3,15 +3,12 @@
 /*
  * ComparableSet.java
  *
- * Copyright: 2013 University of La Rochelle, France
+ * Copyright: 2013-2014 Karell Bertet, France
  *
  * License: http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html CeCILL-B license
  *
  * This file is part of lattice, free package. You can redistribute it and/or modify
  * it under the terms of CeCILL-B license.
- *
- * @author Karell Bertet
- * @version 2014
  */
 
 import java.util.StringTokenizer;
@@ -42,6 +39,8 @@ import java.util.TreeSet;
  * show ComparableSet members
  * class ComparableSet #LightCyan
  * title ComparableSet UML graph
+ *
+ * @todo  Check if this class is correctly used (performance)
  */
 public class ComparableSet extends TreeSet implements Comparable, Cloneable {
     /* ------------- CONSTRUCTORS ------------------ */
@@ -50,8 +49,8 @@ public class ComparableSet extends TreeSet implements Comparable, Cloneable {
      * Constructs a new and empty ComparableSet.
      */
     public ComparableSet() {
-<span class="fc" id="L53">        super();</span>
-<span class="fc" id="L54">    }</span>
+<span class="fc" id="L52">        super();</span>
+<span class="fc" id="L53">    }</span>
 
     /**
      * Constructs a new ComparableSet with the set from the specified set.
@@ -59,8 +58,8 @@ public class ComparableSet extends TreeSet implements Comparable, Cloneable {
      * @param   set  a comparable set
      */
     public ComparableSet(TreeSet&lt;Comparable&gt; set) {
-<span class="fc" id="L62">        super(set);</span>
-<span class="fc" id="L63">    }</span>
+<span class="fc" id="L61">        super(set);</span>
+<span class="fc" id="L62">    }</span>
 
     /* --------------- OVERLAPPING METHODS ------------ */
 
@@ -68,16 +67,14 @@ public class ComparableSet extends TreeSet implements Comparable, Cloneable {
      * Returns a string representation of this component without spaces.
      *
      * @return  a string representation of this component without spaces
-     *
-     * @todo  Whe do we remove spaces? and why this method is not called toString?
      */
-     public String toFile() {
-<span class="fc" id="L75">        String res = &quot;&quot;;</span>
-<span class="fc" id="L76">        StringTokenizer st = new StringTokenizer(this.toString());</span>
-<span class="fc bfc" id="L77" title="All 2 branches covered.">        while (st.hasMoreTokens()) {</span>
-<span class="fc" id="L78">            res += st.nextToken();</span>
+     public String toString() {
+<span class="fc" id="L72">        String res = &quot;&quot;;</span>
+<span class="fc" id="L73">        StringTokenizer st = new StringTokenizer(super.toString());</span>
+<span class="fc bfc" id="L74" title="All 2 branches covered.">        while (st.hasMoreTokens()) {</span>
+<span class="fc" id="L75">            res += st.nextToken();</span>
         }
-<span class="fc" id="L80">        return res;</span>
+<span class="fc" id="L77">        return res;</span>
     }
 
     /**
@@ -86,7 +83,7 @@ public class ComparableSet extends TreeSet implements Comparable, Cloneable {
      * @return  a copy of this component.
      */
     public ComparableSet copy() {
-<span class="fc" id="L89">        return new ComparableSet((TreeSet) super.clone());</span>
+<span class="fc" id="L86">        return new ComparableSet((TreeSet) super.clone());</span>
     }
 
     /**
@@ -97,10 +94,10 @@ public class ComparableSet extends TreeSet implements Comparable, Cloneable {
      * @return  true or false as this component is equal to the specified object.
      */
     public boolean equals(Object object) {
-<span class="fc bfc" id="L100" title="All 2 branches covered.">        if (!(object instanceof ComparableSet)) {</span>
-<span class="fc" id="L101">            return false;</span>
+<span class="fc bfc" id="L97" title="All 2 branches covered.">        if (!(object instanceof ComparableSet)) {</span>
+<span class="fc" id="L98">            return false;</span>
         }
-<span class="fc" id="L103">        return super.equals(object);</span>
+<span class="fc" id="L100">        return super.equals(object);</span>
     }
 
     /**
@@ -109,7 +106,7 @@ public class ComparableSet extends TreeSet implements Comparable, Cloneable {
      * @return  an integer representing the object
      */
     public int hashCode() {
-<span class="fc" id="L112">        return super.hashCode();</span>
+<span class="fc" id="L109">        return super.hashCode();</span>
     }
 
    /**
@@ -138,46 +135,46 @@ public class ComparableSet extends TreeSet implements Comparable, Cloneable {
     */
    public int compareTo(Object object) {
         // case of an object not instance of ComparableSet
-<span class="fc bfc" id="L141" title="All 2 branches covered.">        if (!(object instanceof ComparableSet)) {</span>
-<span class="fc" id="L142">            return -1;</span>
+<span class="fc bfc" id="L138" title="All 2 branches covered.">        if (!(object instanceof ComparableSet)) {</span>
+<span class="fc" id="L139">            return -1;</span>
         }
 
         // case of equality between this component and object
-<span class="fc bfc" id="L146" title="All 2 branches covered.">        if (this.equals(object)) {</span>
-<span class="fc" id="L147">            return 0;</span>
+<span class="fc bfc" id="L143" title="All 2 branches covered.">        if (this.equals(object)) {</span>
+<span class="fc" id="L144">            return 0;</span>
         }
 
         // test if this component is smaller than the set by lectic order
-<span class="fc" id="L151">        ComparableSet set = (ComparableSet) object;</span>
+<span class="fc" id="L148">        ComparableSet set = (ComparableSet) object;</span>
 
         // computes index i of the first element in set minus this
         // if i doesn't exist, then this component is not smaller than the set by lectic order
-<span class="fc" id="L155">        TreeSet&lt;Comparable&gt; setMinusThis = new TreeSet(set);</span>
-<span class="fc" id="L156">        setMinusThis.removeAll(this);</span>
-<span class="fc bfc" id="L157" title="All 2 branches covered.">        if (setMinusThis.isEmpty()) {</span>
-<span class="fc" id="L158">            return 1;</span>
+<span class="fc" id="L152">        TreeSet&lt;Comparable&gt; setMinusThis = new TreeSet(set);</span>
+<span class="fc" id="L153">        setMinusThis.removeAll(this);</span>
+<span class="fc bfc" id="L154" title="All 2 branches covered.">        if (setMinusThis.isEmpty()) {</span>
+<span class="fc" id="L155">            return 1;</span>
         }
 
-<span class="fc" id="L161">        Comparable i = setMinusThis.first();</span>
+<span class="fc" id="L158">        Comparable i = setMinusThis.first();</span>
         // compute this inter {1, ..., i-1}
-<span class="fc" id="L163">        TreeSet setAiMinus1 = new TreeSet();</span>
-<span class="fc bfc" id="L164" title="All 2 branches covered.">        for (Object c : this) {</span>
-<span class="fc bfc" id="L165" title="All 2 branches covered.">            if (i.compareTo(c) &gt; 0) {</span>
-<span class="fc" id="L166">                setAiMinus1.add(c);</span>
+<span class="fc" id="L160">        TreeSet setAiMinus1 = new TreeSet();</span>
+<span class="fc bfc" id="L161" title="All 2 branches covered.">        for (Object c : this) {</span>
+<span class="fc bfc" id="L162" title="All 2 branches covered.">            if (i.compareTo(c) &gt; 0) {</span>
+<span class="fc" id="L163">                setAiMinus1.add(c);</span>
             }
-<span class="fc" id="L168">        }</span>
+<span class="fc" id="L165">        }</span>
         // compute set inter {1, ..., i-1}
-<span class="fc" id="L170">        TreeSet setBiMinus1 = new TreeSet();</span>
-<span class="fc bfc" id="L171" title="All 2 branches covered.">        for (Object c : set) {</span>
-<span class="fc bfc" id="L172" title="All 2 branches covered.">            if (i.compareTo(c) &gt; 0) {</span>
-<span class="fc" id="L173">                setBiMinus1.add(c);</span>
+<span class="fc" id="L167">        TreeSet setBiMinus1 = new TreeSet();</span>
+<span class="fc bfc" id="L168" title="All 2 branches covered.">        for (Object c : set) {</span>
+<span class="fc bfc" id="L169" title="All 2 branches covered.">            if (i.compareTo(c) &gt; 0) {</span>
+<span class="fc" id="L170">                setBiMinus1.add(c);</span>
             }
-<span class="fc" id="L175">        }</span>
+<span class="fc" id="L172">        }</span>
         // if setAiminus1 and setBiminus1 are equal then this component is smaller than B by lectic order
-<span class="fc bfc" id="L177" title="All 2 branches covered.">        if  (setAiMinus1.equals(setBiMinus1)) {</span>
-<span class="fc" id="L178">            return -1;</span>
+<span class="fc bfc" id="L174" title="All 2 branches covered.">        if  (setAiMinus1.equals(setBiMinus1)) {</span>
+<span class="fc" id="L175">            return -1;</span>
         } else {
-<span class="fc" id="L180">            return 1;</span>
+<span class="fc" id="L177">            return 1;</span>
         }
     }
 }

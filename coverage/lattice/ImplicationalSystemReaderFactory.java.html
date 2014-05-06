@@ -3,15 +3,12 @@
 /*
  * ImplicationalSystemReaderFactory.java
  *
- * Copyright: 2013 Karell Bertet, France
+ * Copyright: 2013-2014 Karell Bertet, France
  *
  * License: http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html CeCILL-B license
  *
  * This file is part of lattice, free package. You can redistribute it and/or modify
  * it under the terms of CeCILL-B license.
- *
- * @author Karell Bertet
- * @version 2014
  */
 
 import java.util.HashMap;
@@ -34,13 +31,13 @@ public final class ImplicationalSystemReaderFactory {
     /**
      * This class is not designed to be instantiated.
      */
-<span class="nc" id="L37">    private ImplicationalSystemReaderFactory() {</span>
-<span class="nc" id="L38">    }</span>
+<span class="nc" id="L34">    private ImplicationalSystemReaderFactory() {</span>
+<span class="nc" id="L35">    }</span>
 
     /**
      * Map of extension/reader.
      */
-<span class="fc" id="L43">    private static HashMap&lt;String, ImplicationalSystemReader&gt; readers = new HashMap&lt;String, ImplicationalSystemReader&gt;();</span>
+<span class="fc" id="L40">    private static HashMap&lt;String, ImplicationalSystemReader&gt; readers = new HashMap&lt;String, ImplicationalSystemReader&gt;();</span>
 
     /**
      * Register a reader with an extension.
@@ -51,9 +48,9 @@ public final class ImplicationalSystemReaderFactory {
      * @return  The old reader or null
      */
     public static ImplicationalSystemReader register(ImplicationalSystemReader reader, String extension) {
-<span class="fc" id="L54">        ImplicationalSystemReader old = readers.get(extension);</span>
-<span class="fc" id="L55">        readers.put(extension, reader);</span>
-<span class="fc" id="L56">        return old;</span>
+<span class="fc" id="L51">        ImplicationalSystemReader old = readers.get(extension);</span>
+<span class="fc" id="L52">        readers.put(extension, reader);</span>
+<span class="fc" id="L53">        return old;</span>
     }
 
     /**
@@ -64,9 +61,9 @@ public final class ImplicationalSystemReaderFactory {
      * @return  The old reader or null
      */
     public static ImplicationalSystemReader unregister(String extension) {
-<span class="nc" id="L67">        ImplicationalSystemReader old = readers.get(extension);</span>
-<span class="nc" id="L68">        readers.remove(extension);</span>
-<span class="nc" id="L69">        return old;</span>
+<span class="nc" id="L64">        ImplicationalSystemReader old = readers.get(extension);</span>
+<span class="nc" id="L65">        readers.remove(extension);</span>
+<span class="nc" id="L66">        return old;</span>
     }
 
     /**
@@ -77,7 +74,7 @@ public final class ImplicationalSystemReaderFactory {
      * @return  The reader or null
      */
     public static ImplicationalSystemReader get(String extension) {
-<span class="fc" id="L80">        return readers.get(extension);</span>
+<span class="fc" id="L77">        return readers.get(extension);</span>
     }
 }
 

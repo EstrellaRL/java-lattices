@@ -4,15 +4,12 @@
  * Concept.java
  *
  *
- * Copyright: 2013 University of La Rochelle, France
+ * Copyright: 2013-2014 Karell Bertet, France
  *
  * License: http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html CeCILL-B license
  *
  * This file is part of lattice, free package. You can redistribute it and/or modify
  * it under the terms of CeCILL-B license.
- *
- * @author Karell Bertet
- * @version 2013
  */
 
 import java.util.ArrayList;
@@ -37,7 +34,6 @@ import dgraph.Edge;
  * Comparison between this component and those in parameter is realised by comparing set `A`.
  *
  * @todo  Should not inherit from Node since content is not used
- * @todo  Deal with toDot
  *
  * ![Concept](Concept.png)
  *
@@ -72,10 +68,10 @@ public class Concept extends Node {
      * @param   setA  set of comparable used to initialise setA.
      * @param   setB  set of comparable used to initialise setB.
      */
-<span class="fc" id="L75">    public Concept(TreeSet&lt;Comparable&gt; setA, TreeSet&lt;Comparable&gt; setB) {</span>
-<span class="fc" id="L76">            this.setA = new ComparableSet(setA);</span>
-<span class="fc" id="L77">            this.setB = new ComparableSet(setB);</span>
-<span class="fc" id="L78">    }</span>
+<span class="fc" id="L71">    public Concept(TreeSet&lt;Comparable&gt; setA, TreeSet&lt;Comparable&gt; setB) {</span>
+<span class="fc" id="L72">            this.setA = new ComparableSet(setA);</span>
+<span class="fc" id="L73">            this.setB = new ComparableSet(setB);</span>
+<span class="fc" id="L74">    }</span>
 
     /**
      * Constructs a new concept with an empty set of comparableset as setA and set B if the two boolean are true.
@@ -84,18 +80,18 @@ public class Concept extends Node {
      * @param   setA  field setA is empty if true, setA is null if false.
      * @param   setB  field setB is empty if true, setB is null if false.
      */
-<span class="fc" id="L87">    public Concept(boolean setA, boolean setB) {</span>
-<span class="fc bfc" id="L88" title="All 2 branches covered.">        if (setA) {</span>
-<span class="fc" id="L89">            this.setA = new ComparableSet();</span>
+<span class="fc" id="L83">    public Concept(boolean setA, boolean setB) {</span>
+<span class="fc bfc" id="L84" title="All 2 branches covered.">        if (setA) {</span>
+<span class="fc" id="L85">            this.setA = new ComparableSet();</span>
         } else {
-<span class="fc" id="L91">            this.setA = null;</span>
+<span class="fc" id="L87">            this.setA = null;</span>
         }
-<span class="fc bfc" id="L93" title="All 2 branches covered.">        if (setB) {</span>
-<span class="fc" id="L94">            this.setB = new ComparableSet();</span>
+<span class="fc bfc" id="L89" title="All 2 branches covered.">        if (setB) {</span>
+<span class="fc" id="L90">            this.setB = new ComparableSet();</span>
         } else {
-<span class="fc" id="L96">            this.setB = null;</span>
+<span class="fc" id="L92">            this.setB = null;</span>
         }
-<span class="fc" id="L98">    }</span>
+<span class="fc" id="L94">    }</span>
 
     /**
      * Constructs a new concept containing the specified comparables set as setA, and an empty set of comparableset as setB if the boolean is true.
@@ -104,14 +100,14 @@ public class Concept extends Node {
      * @param   setA  set of comparable used to initialise setA.
      * @param   setB  field setB is empty if true, setB is null if false.
      */
-<span class="fc" id="L107">    public Concept(TreeSet&lt;Comparable&gt; setA, boolean setB) {</span>
-<span class="fc" id="L108">        this.setA = new ComparableSet(setA);</span>
-<span class="fc bfc" id="L109" title="All 2 branches covered.">        if (setB) {</span>
-<span class="fc" id="L110">            this.setB = new ComparableSet();</span>
+<span class="fc" id="L103">    public Concept(TreeSet&lt;Comparable&gt; setA, boolean setB) {</span>
+<span class="fc" id="L104">        this.setA = new ComparableSet(setA);</span>
+<span class="fc bfc" id="L105" title="All 2 branches covered.">        if (setB) {</span>
+<span class="fc" id="L106">            this.setB = new ComparableSet();</span>
         } else {
-<span class="fc" id="L112">            this.setB = null;</span>
+<span class="fc" id="L108">            this.setB = null;</span>
         }
-<span class="fc" id="L114">    }</span>
+<span class="fc" id="L110">    }</span>
 
     /**
      * Constructs a new concept containing the specified comparables set as setB, and an empty set of comparableset as setA if the boolean is true.
@@ -120,32 +116,32 @@ public class Concept extends Node {
      * @param   setA  field setA is empty if true, setA is null if false.
      * @param   setB  set of comparable used to initialise setB.
      */
-<span class="fc" id="L123">    public Concept(boolean setA, TreeSet&lt;Comparable&gt; setB) {</span>
-<span class="fc" id="L124">        this.setB = new ComparableSet(setB);</span>
-<span class="fc bfc" id="L125" title="All 2 branches covered.">        if (setA) {</span>
-<span class="fc" id="L126">            this.setA = new ComparableSet();</span>
+<span class="fc" id="L119">    public Concept(boolean setA, TreeSet&lt;Comparable&gt; setB) {</span>
+<span class="fc" id="L120">        this.setB = new ComparableSet(setB);</span>
+<span class="fc bfc" id="L121" title="All 2 branches covered.">        if (setA) {</span>
+<span class="fc" id="L122">            this.setA = new ComparableSet();</span>
         } else {
-<span class="fc" id="L128">            this.setA = null;</span>
+<span class="fc" id="L124">            this.setA = null;</span>
         }
-<span class="fc" id="L130">    }</span>
+<span class="fc" id="L126">    }</span>
 
     /**
      * Constructs this component as a copy of the specified ClosedSet.
      *
      * @param   c  the closed set to be copied
      */
-<span class="fc" id="L137">    public Concept(Concept c) {</span>
-<span class="fc bfc" id="L138" title="All 2 branches covered.">        if (c.hasSetA()) {</span>
-<span class="fc" id="L139">            this.setA = new ComparableSet(c.getSetA());</span>
+<span class="fc" id="L133">    public Concept(Concept c) {</span>
+<span class="fc bfc" id="L134" title="All 2 branches covered.">        if (c.hasSetA()) {</span>
+<span class="fc" id="L135">            this.setA = new ComparableSet(c.getSetA());</span>
         } else {
-<span class="fc" id="L141">            this.setA = null;</span>
+<span class="fc" id="L137">            this.setA = null;</span>
         }
-<span class="fc bfc" id="L143" title="All 2 branches covered.">        if (c.hasSetB()) {</span>
-<span class="fc" id="L144">            this.setB = new ComparableSet(c.getSetB());</span>
+<span class="fc bfc" id="L139" title="All 2 branches covered.">        if (c.hasSetB()) {</span>
+<span class="fc" id="L140">            this.setB = new ComparableSet(c.getSetB());</span>
         } else {
-<span class="fc" id="L146">            this.setB = null;</span>
+<span class="fc" id="L142">            this.setB = null;</span>
         }
-<span class="fc" id="L148">    }</span>
+<span class="fc" id="L144">    }</span>
 
     /* --------------- ACCESSOR AND OVERLAPPING METHODS ------------ */
 
@@ -155,20 +151,20 @@ public class Concept extends Node {
      * @return  a copy of this component
      */
     public Concept copy() {
-<span class="fc bfc" id="L158" title="All 4 branches covered.">        if (this.hasSetA() &amp;&amp; this.hasSetB()) {</span>
-<span class="fc" id="L159">            TreeSet setA = (TreeSet) this.getSetA().clone();</span>
-<span class="fc" id="L160">            TreeSet setB = (TreeSet) this.getSetB().clone();</span>
-<span class="fc" id="L161">            return new Concept(setA, setB);</span>
+<span class="fc bfc" id="L154" title="All 4 branches covered.">        if (this.hasSetA() &amp;&amp; this.hasSetB()) {</span>
+<span class="fc" id="L155">            TreeSet setA = (TreeSet) this.getSetA().clone();</span>
+<span class="fc" id="L156">            TreeSet setB = (TreeSet) this.getSetB().clone();</span>
+<span class="fc" id="L157">            return new Concept(setA, setB);</span>
         }
-<span class="pc bpc" id="L163" title="1 of 4 branches missed.">        if (this.hasSetA() &amp;&amp; !this.hasSetB()) {</span>
-<span class="fc" id="L164">            TreeSet setA = (TreeSet) this.getSetA().clone();</span>
-<span class="fc" id="L165">            return new Concept(setA, false);</span>
+<span class="pc bpc" id="L159" title="1 of 4 branches missed.">        if (this.hasSetA() &amp;&amp; !this.hasSetB()) {</span>
+<span class="fc" id="L160">            TreeSet setA = (TreeSet) this.getSetA().clone();</span>
+<span class="fc" id="L161">            return new Concept(setA, false);</span>
         } else {
-<span class="fc bfc" id="L167" title="All 2 branches covered.">            if (this.hasSetB()) {</span>
-<span class="fc" id="L168">                TreeSet setB = (TreeSet) this.getSetB().clone();</span>
-<span class="fc" id="L169">                return new Concept(false, setB);</span>
+<span class="fc bfc" id="L163" title="All 2 branches covered.">            if (this.hasSetB()) {</span>
+<span class="fc" id="L164">                TreeSet setB = (TreeSet) this.getSetB().clone();</span>
+<span class="fc" id="L165">                return new Concept(false, setB);</span>
             } else {
-<span class="fc" id="L171">                return new Concept(false, false);</span>
+<span class="fc" id="L167">                return new Concept(false, false);</span>
             }
         }
     }
@@ -179,7 +175,7 @@ public class Concept extends Node {
      * @return  true if and only if setB is not null
      */
     public boolean hasSetB() {
-<span class="fc bfc" id="L182" title="All 2 branches covered.">        return this.setB != null;</span>
+<span class="fc bfc" id="L178" title="All 2 branches covered.">        return this.setB != null;</span>
     }
 
     /**
@@ -188,7 +184,7 @@ public class Concept extends Node {
      * @return  true if and only if setA is not null
      */
     public boolean hasSetA() {
-<span class="fc bfc" id="L191" title="All 2 branches covered.">        return this.setA != null;</span>
+<span class="fc bfc" id="L187" title="All 2 branches covered.">        return this.setA != null;</span>
     }
 
     /**
@@ -197,7 +193,7 @@ public class Concept extends Node {
      * @return  the set A of this component
      */
     public TreeSet&lt;Comparable&gt; getSetA() {
-<span class="fc" id="L200">        return this.setA;</span>
+<span class="fc" id="L196">        return this.setA;</span>
     }
 
     /**
@@ -206,7 +202,7 @@ public class Concept extends Node {
      * @return the set B of this component.
      */
     public TreeSet&lt;Comparable&gt; getSetB() {
-<span class="fc" id="L209">        return this.setB;</span>
+<span class="fc" id="L205">        return this.setB;</span>
     }
 
     /**
@@ -217,10 +213,10 @@ public class Concept extends Node {
      * @return  true if and only if setA contains x.
      */
     public boolean containsInA(Comparable x) {
-<span class="fc bfc" id="L220" title="All 2 branches covered.">        if (this.hasSetA()) {</span>
-<span class="fc" id="L221">            return this.setA.contains(x);</span>
+<span class="fc bfc" id="L216" title="All 2 branches covered.">        if (this.hasSetA()) {</span>
+<span class="fc" id="L217">            return this.setA.contains(x);</span>
         } else {
-<span class="fc" id="L223">            return false;</span>
+<span class="fc" id="L219">            return false;</span>
         }
     }
 
@@ -232,10 +228,10 @@ public class Concept extends Node {
      * @return  true if and only if setB contains x.
      */
     public boolean containsInB(Comparable x) {
-<span class="fc bfc" id="L235" title="All 2 branches covered.">        if (this.hasSetB()) {</span>
-<span class="fc" id="L236">            return this.setB.contains(x);</span>
+<span class="fc bfc" id="L231" title="All 2 branches covered.">        if (this.hasSetB()) {</span>
+<span class="fc" id="L232">            return this.setB.contains(x);</span>
         } else {
-<span class="fc" id="L238">            return false;</span>
+<span class="fc" id="L234">            return false;</span>
         }
     }
 
@@ -247,10 +243,10 @@ public class Concept extends Node {
      * @return  true if and only if setA contains all elemens of x.
      */
     public boolean containsAllInA(TreeSet x) {
-<span class="fc bfc" id="L250" title="All 2 branches covered.">        if (this.hasSetA()) {</span>
-<span class="fc" id="L251">            return this.setA.containsAll(x);</span>
+<span class="fc bfc" id="L246" title="All 2 branches covered.">        if (this.hasSetA()) {</span>
+<span class="fc" id="L247">            return this.setA.containsAll(x);</span>
         } else {
-<span class="fc" id="L253">            return false;</span>
+<span class="fc" id="L249">            return false;</span>
         }
     }
 
@@ -262,10 +258,10 @@ public class Concept extends Node {
      * @return  true if and only if setB contains all elemens of x.
      */
     public boolean containsAllInB(TreeSet x) {
-<span class="fc bfc" id="L265" title="All 2 branches covered.">        if (this.hasSetB()) {</span>
-<span class="fc" id="L266">            return this.setB.containsAll(x);</span>
+<span class="fc bfc" id="L261" title="All 2 branches covered.">        if (this.hasSetB()) {</span>
+<span class="fc" id="L262">            return this.setB.containsAll(x);</span>
         } else {
-<span class="fc" id="L268">            return false;</span>
+<span class="fc" id="L264">            return false;</span>
         }
     }
 
@@ -275,12 +271,12 @@ public class Concept extends Node {
      * @param   x  set of comparable used to replace setB
      */
     public void putSetB(ComparableSet x) {
-<span class="fc bfc" id="L278" title="All 2 branches covered.">        if (this.hasSetB()) {</span>
-<span class="fc" id="L279">            this.setB = x;</span>
+<span class="fc bfc" id="L274" title="All 2 branches covered.">        if (this.hasSetB()) {</span>
+<span class="fc" id="L275">            this.setB = x;</span>
         } else {
-<span class="fc" id="L281">            this.setB = new ComparableSet(x);</span>
+<span class="fc" id="L277">            this.setB = new ComparableSet(x);</span>
         }
-<span class="fc" id="L283">    }</span>
+<span class="fc" id="L279">    }</span>
 
     /**
      * Replaces the set A of this component by the specified one.
@@ -288,12 +284,12 @@ public class Concept extends Node {
      * @param   x  set of comparable used to replace setA
      */
     public void putSetA(ComparableSet x) {
-<span class="fc bfc" id="L291" title="All 2 branches covered.">        if (this.hasSetA()) {</span>
-<span class="fc" id="L292">            this.setA = x;</span>
+<span class="fc bfc" id="L287" title="All 2 branches covered.">        if (this.hasSetA()) {</span>
+<span class="fc" id="L288">            this.setA = x;</span>
         } else {
-<span class="fc" id="L294">            this.setA = new ComparableSet(x);</span>
+<span class="fc" id="L290">            this.setA = new ComparableSet(x);</span>
         }
-<span class="fc" id="L296">    }</span>
+<span class="fc" id="L292">    }</span>
 
     /**
      * Adds a comparable to the set A.
@@ -303,10 +299,10 @@ public class Concept extends Node {
      * @return  true if and only if addition is successful.
      */
     public boolean addToA(Comparable x) {
-<span class="fc bfc" id="L306" title="All 2 branches covered.">        if (this.hasSetA()) {</span>
-<span class="fc" id="L307">            return this.setA.add(x);</span>
+<span class="fc bfc" id="L302" title="All 2 branches covered.">        if (this.hasSetA()) {</span>
+<span class="fc" id="L303">            return this.setA.add(x);</span>
         } else {
-<span class="fc" id="L309">            return false;</span>
+<span class="fc" id="L305">            return false;</span>
         }
     }
 
@@ -318,10 +314,10 @@ public class Concept extends Node {
      * @return  true if and only if addition is successful.
      */
     public boolean addToB(Comparable x) {
-<span class="fc bfc" id="L321" title="All 2 branches covered.">        if (this.hasSetB()) {</span>
-<span class="fc" id="L322">            return this.setB.add(x);</span>
+<span class="fc bfc" id="L317" title="All 2 branches covered.">        if (this.hasSetB()) {</span>
+<span class="fc" id="L318">            return this.setB.add(x);</span>
         } else {
-<span class="fc" id="L324">            return false;</span>
+<span class="fc" id="L320">            return false;</span>
         }
     }
 
@@ -333,10 +329,10 @@ public class Concept extends Node {
      * @return  true if and only if addition is successful.
      */
     public boolean addAllToA(TreeSet x) {
-<span class="fc bfc" id="L336" title="All 2 branches covered.">        if (this.hasSetA()) {</span>
-<span class="fc" id="L337">            return this.setA.addAll(x);</span>
+<span class="fc bfc" id="L332" title="All 2 branches covered.">        if (this.hasSetA()) {</span>
+<span class="fc" id="L333">            return this.setA.addAll(x);</span>
         } else {
-<span class="fc" id="L339">            return false;</span>
+<span class="fc" id="L335">            return false;</span>
         }
     }
 
@@ -348,10 +344,10 @@ public class Concept extends Node {
      * @return  true if and only if addition is successful.
      */
     public boolean addAllToB(TreeSet x) {
-<span class="fc bfc" id="L351" title="All 2 branches covered.">        if (this.hasSetB()) {</span>
-<span class="fc" id="L352">            return this.setB.addAll(x);</span>
+<span class="fc bfc" id="L347" title="All 2 branches covered.">        if (this.hasSetB()) {</span>
+<span class="fc" id="L348">            return this.setB.addAll(x);</span>
         } else {
-<span class="fc" id="L354">            return false;</span>
+<span class="fc" id="L350">            return false;</span>
         }
     }
 
@@ -363,10 +359,10 @@ public class Concept extends Node {
      * @return  true if and only if removal is successful.
      */
     public boolean removeFromA(Comparable x) {
-<span class="fc bfc" id="L366" title="All 2 branches covered.">        if (this.hasSetA()) {</span>
-<span class="fc" id="L367">            return this.setA.remove(x);</span>
+<span class="fc bfc" id="L362" title="All 2 branches covered.">        if (this.hasSetA()) {</span>
+<span class="fc" id="L363">            return this.setA.remove(x);</span>
         } else {
-<span class="fc" id="L369">            return false;</span>
+<span class="fc" id="L365">            return false;</span>
         }
     }
 
@@ -378,10 +374,10 @@ public class Concept extends Node {
      * @return  true if and only if removal is successful.
      */
     public boolean removeFromB(Comparable x) {
-<span class="fc bfc" id="L381" title="All 2 branches covered.">        if (this.hasSetB()) {</span>
-<span class="fc" id="L382">            return this.setB.remove(x);</span>
+<span class="fc bfc" id="L377" title="All 2 branches covered.">        if (this.hasSetB()) {</span>
+<span class="fc" id="L378">            return this.setB.remove(x);</span>
         } else {
-<span class="fc" id="L384">            return false;</span>
+<span class="fc" id="L380">            return false;</span>
         }
     }
 
@@ -393,10 +389,10 @@ public class Concept extends Node {
      * @return  true if and only if removal is successful.
      */
     public boolean removeAllFromA(TreeSet x) {
-<span class="fc bfc" id="L396" title="All 2 branches covered.">        if (this.hasSetA()) {</span>
-<span class="fc" id="L397">            return this.setA.removeAll(x);</span>
+<span class="fc bfc" id="L392" title="All 2 branches covered.">        if (this.hasSetA()) {</span>
+<span class="fc" id="L393">            return this.setA.removeAll(x);</span>
         } else {
-<span class="fc" id="L399">            return false;</span>
+<span class="fc" id="L395">            return false;</span>
         }
     }
 
@@ -408,10 +404,10 @@ public class Concept extends Node {
      * @return  true if and only if removal is successful.
      */
     public boolean removeAllFromB(TreeSet x) {
-<span class="fc bfc" id="L411" title="All 2 branches covered.">        if (this.hasSetB()) {</span>
-<span class="fc" id="L412">            return this.setB.removeAll(x);</span>
+<span class="fc bfc" id="L407" title="All 2 branches covered.">        if (this.hasSetB()) {</span>
+<span class="fc" id="L408">            return this.setB.removeAll(x);</span>
         } else {
-<span class="fc" id="L414">            return false;</span>
+<span class="fc" id="L410">            return false;</span>
         }
     }
 
@@ -423,22 +419,22 @@ public class Concept extends Node {
      * @return  the description of this component in a String without spaces.
      */
     public String toString() {
-<span class="fc" id="L426">       String s = &quot;&quot;;</span>
-<span class="pc bpc" id="L427" title="1 of 2 branches missed.">       if (this.hasSetA()) {</span>
-<span class="fc" id="L428">           s += this.setA;</span>
+<span class="fc" id="L422">       String s = &quot;&quot;;</span>
+<span class="pc bpc" id="L423" title="1 of 2 branches missed.">       if (this.hasSetA()) {</span>
+<span class="fc" id="L424">           s += this.setA;</span>
        }
-<span class="pc bpc" id="L430" title="1 of 4 branches missed.">       if (this.hasSetA() &amp;&amp; this.hasSetB()) {</span>
-<span class="fc" id="L431">           s += &quot;-&quot;;</span>
+<span class="pc bpc" id="L426" title="1 of 4 branches missed.">       if (this.hasSetA() &amp;&amp; this.hasSetB()) {</span>
+<span class="fc" id="L427">           s += &quot;-&quot;;</span>
        }
-<span class="fc bfc" id="L433" title="All 2 branches covered.">       if (this.hasSetB()) {</span>
-<span class="fc" id="L434">           s += this.setB;</span>
+<span class="fc bfc" id="L429" title="All 2 branches covered.">       if (this.hasSetB()) {</span>
+<span class="fc" id="L430">           s += this.setB;</span>
        }
-<span class="fc" id="L436">       StringTokenizer st = new StringTokenizer(s);</span>
-<span class="fc" id="L437">       s = &quot;&quot;;</span>
-<span class="fc bfc" id="L438" title="All 2 branches covered.">       while (st.hasMoreTokens()) {</span>
-<span class="fc" id="L439">            s += st.nextToken();</span>
+<span class="fc" id="L432">       StringTokenizer st = new StringTokenizer(s);</span>
+<span class="fc" id="L433">       s = &quot;&quot;;</span>
+<span class="fc bfc" id="L434" title="All 2 branches covered.">       while (st.hasMoreTokens()) {</span>
+<span class="fc" id="L435">            s += st.nextToken();</span>
         }
-<span class="fc" id="L441">       return s;</span>
+<span class="fc" id="L437">       return s;</span>
     }
 
     /**
@@ -447,7 +443,7 @@ public class Concept extends Node {
      * @return  hash code of this component
      */
     public int hashCode() {
-<span class="fc" id="L450">        return super.hashCode();</span>
+<span class="fc" id="L446">        return super.hashCode();</span>
     }
 
     /**
@@ -458,16 +454,16 @@ public class Concept extends Node {
      * @return  true if and only if o is equals to this component.
      */
     public boolean equals(Object o) {
-<span class="pc bpc" id="L461" title="1 of 2 branches missed.">        if (!(o instanceof Concept)) {</span>
-<span class="nc" id="L462">            return false;</span>
+<span class="pc bpc" id="L457" title="1 of 2 branches missed.">        if (!(o instanceof Concept)) {</span>
+<span class="nc" id="L458">            return false;</span>
         }
-<span class="fc bfc" id="L464" title="All 2 branches covered.">        if (!this.hasSetB()) {</span>
-<span class="fc" id="L465">            return this.setA.equals(((Concept) o).setA);</span>
+<span class="fc bfc" id="L460" title="All 2 branches covered.">        if (!this.hasSetB()) {</span>
+<span class="fc" id="L461">            return this.setA.equals(((Concept) o).setA);</span>
         }
-<span class="fc bfc" id="L467" title="All 2 branches covered.">        if (!this.hasSetA()) {</span>
-<span class="fc" id="L468">            return this.setB.equals(((Concept) o).setB);</span>
+<span class="fc bfc" id="L463" title="All 2 branches covered.">        if (!this.hasSetA()) {</span>
+<span class="fc" id="L464">            return this.setB.equals(((Concept) o).setB);</span>
         }
-<span class="pc bpc" id="L470" title="2 of 4 branches missed.">        return this.setA.equals(((Concept) o).setA) &amp;&amp; this.setB.equals(((Concept) o).setB);</span>
+<span class="pc bpc" id="L466" title="2 of 4 branches missed.">        return this.setA.equals(((Concept) o).setA) &amp;&amp; this.setB.equals(((Concept) o).setB);</span>
     }
 
         /** Compares this component with the specified one sorted by the lectic order.
@@ -499,58 +495,58 @@ public class Concept extends Node {
      * @return immediate successors of this component.
      */
      public ArrayList&lt;TreeSet&lt;Comparable&gt;&gt; immediateSuccessorsLOA(Context init) {
-<span class="fc" id="L502">        ArrayList&lt;TreeSet&lt;Comparable&gt;&gt; succB = new ArrayList();</span>
-<span class="fc" id="L503">        TreeSet&lt;Comparable&gt; attributes = (TreeSet&lt;Comparable&gt;) init.getSet().clone();</span>
-<span class="fc" id="L504">        attributes.removeAll(this.getSetA());</span>
+<span class="fc" id="L498">        ArrayList&lt;TreeSet&lt;Comparable&gt;&gt; succB = new ArrayList();</span>
+<span class="fc" id="L499">        TreeSet&lt;Comparable&gt; attributes = (TreeSet&lt;Comparable&gt;) init.getSet().clone();</span>
+<span class="fc" id="L500">        attributes.removeAll(this.getSetA());</span>
 
         boolean add;
-<span class="fc bfc" id="L507" title="All 2 branches covered.">        for (Comparable x : attributes) {</span>
-<span class="fc" id="L508">            add = true;</span>
-<span class="fc" id="L509">            Iterator it = succB.iterator();</span>
-<span class="fc bfc" id="L510" title="All 2 branches covered.">            while (it.hasNext()) {</span>
-<span class="fc" id="L511">                TreeSet tX = (TreeSet) it.next();</span>
-<span class="fc" id="L512">                TreeSet&lt;Comparable&gt; bx = (TreeSet&lt;Comparable&gt;) this.getSetA().clone();</span>
-<span class="fc" id="L513">                bx.add(x);</span>
-<span class="fc" id="L514">                TreeSet&lt;Comparable&gt; bX = (TreeSet&lt;Comparable&gt;) this.getSetA().clone();</span>
-<span class="fc" id="L515">                bX.addAll(tX);</span>
-<span class="fc" id="L516">                TreeSet&lt;Comparable&gt; bXx = (TreeSet&lt;Comparable&gt;) bX.clone();</span>
-<span class="fc" id="L517">                bXx.add(x);</span>
-<span class="fc" id="L518">                int cBx = count(init, bx);</span>
-<span class="fc" id="L519">                int cBX = count(init, bX);</span>
-<span class="fc" id="L520">                int cBXx = count(init, bXx);</span>
-<span class="fc bfc" id="L521" title="All 2 branches covered.">                if (cBx == cBX) { // Try to group tests by pairs.</span>
-<span class="pc bpc" id="L522" title="1 of 2 branches missed.">                    if (cBXx == cBx) {</span>
-<span class="nc" id="L523">                        it.remove(); // Update present potential successor.</span>
-<span class="nc" id="L524">                        TreeSet&lt;Comparable&gt; xX = new TreeSet();</span>
-<span class="nc" id="L525">                        xX.addAll(tX);</span>
-<span class="nc" id="L526">                        xX.add(x);</span>
-<span class="nc" id="L527">                        succB.add(xX);</span>
-<span class="nc" id="L528">                        add = false;</span>
-<span class="nc" id="L529">                        break;</span>
+<span class="fc bfc" id="L503" title="All 2 branches covered.">        for (Comparable x : attributes) {</span>
+<span class="fc" id="L504">            add = true;</span>
+<span class="fc" id="L505">            Iterator it = succB.iterator();</span>
+<span class="fc bfc" id="L506" title="All 2 branches covered.">            while (it.hasNext()) {</span>
+<span class="fc" id="L507">                TreeSet tX = (TreeSet) it.next();</span>
+<span class="fc" id="L508">                TreeSet&lt;Comparable&gt; bx = (TreeSet&lt;Comparable&gt;) this.getSetA().clone();</span>
+<span class="fc" id="L509">                bx.add(x);</span>
+<span class="fc" id="L510">                TreeSet&lt;Comparable&gt; bX = (TreeSet&lt;Comparable&gt;) this.getSetA().clone();</span>
+<span class="fc" id="L511">                bX.addAll(tX);</span>
+<span class="fc" id="L512">                TreeSet&lt;Comparable&gt; bXx = (TreeSet&lt;Comparable&gt;) bX.clone();</span>
+<span class="fc" id="L513">                bXx.add(x);</span>
+<span class="fc" id="L514">                int cBx = count(init, bx);</span>
+<span class="fc" id="L515">                int cBX = count(init, bX);</span>
+<span class="fc" id="L516">                int cBXx = count(init, bXx);</span>
+<span class="fc bfc" id="L517" title="All 2 branches covered.">                if (cBx == cBX) { // Try to group tests by pairs.</span>
+<span class="pc bpc" id="L518" title="1 of 2 branches missed.">                    if (cBXx == cBx) {</span>
+<span class="nc" id="L519">                        it.remove(); // Update present potential successor.</span>
+<span class="nc" id="L520">                        TreeSet&lt;Comparable&gt; xX = new TreeSet();</span>
+<span class="nc" id="L521">                        xX.addAll(tX);</span>
+<span class="nc" id="L522">                        xX.add(x);</span>
+<span class="nc" id="L523">                        succB.add(xX);</span>
+<span class="nc" id="L524">                        add = false;</span>
+<span class="nc" id="L525">                        break;</span>
                     }
                 }
-<span class="fc bfc" id="L532" title="All 2 branches covered.">                if (cBx &lt; cBX) {</span>
-<span class="fc bfc" id="L533" title="All 2 branches covered.">                    if (cBXx == cBx) {</span>
-<span class="fc" id="L534">                        add = false;</span>
-<span class="fc" id="L535">                        break;</span>
+<span class="fc bfc" id="L528" title="All 2 branches covered.">                if (cBx &lt; cBX) {</span>
+<span class="fc bfc" id="L529" title="All 2 branches covered.">                    if (cBXx == cBx) {</span>
+<span class="fc" id="L530">                        add = false;</span>
+<span class="fc" id="L531">                        break;</span>
                     }
                 }
-<span class="pc bpc" id="L538" title="1 of 2 branches missed.">                if (cBx &gt; cBX) {</span>
-<span class="nc bnc" id="L539" title="All 2 branches missed.">                    if (cBXx == cBX) {</span>
-<span class="nc" id="L540">                        it.remove();</span>
+<span class="pc bpc" id="L534" title="1 of 2 branches missed.">                if (cBx &gt; cBX) {</span>
+<span class="nc bnc" id="L535" title="All 2 branches missed.">                    if (cBXx == cBX) {</span>
+<span class="nc" id="L536">                        it.remove();</span>
                     }
                 }
-<span class="fc" id="L543">            }</span>
-<span class="fc bfc" id="L544" title="All 2 branches covered.">            if (add) {</span>
-<span class="fc" id="L545">                TreeSet&lt;Comparable&gt; t = new TreeSet();</span>
-<span class="fc" id="L546">                t.add(x);</span>
-<span class="fc" id="L547">                succB.add(new TreeSet(t));</span>
+<span class="fc" id="L539">            }</span>
+<span class="fc bfc" id="L540" title="All 2 branches covered.">            if (add) {</span>
+<span class="fc" id="L541">                TreeSet&lt;Comparable&gt; t = new TreeSet();</span>
+<span class="fc" id="L542">                t.add(x);</span>
+<span class="fc" id="L543">                succB.add(new TreeSet(t));</span>
             }
-<span class="fc" id="L549">        }</span>
-<span class="fc bfc" id="L550" title="All 2 branches covered.">        for (TreeSet t : succB) {</span>
-<span class="fc" id="L551">            t.addAll(this.getSetA());</span>
-<span class="fc" id="L552">        }</span>
-<span class="fc" id="L553">        return succB;</span>
+<span class="fc" id="L545">        }</span>
+<span class="fc bfc" id="L546" title="All 2 branches covered.">        for (TreeSet t : succB) {</span>
+<span class="fc" id="L547">            t.addAll(this.getSetA());</span>
+<span class="fc" id="L548">        }</span>
+<span class="fc" id="L549">        return succB;</span>
     }
 
     /**
@@ -562,7 +558,7 @@ public class Concept extends Node {
      * @return  number of observations corresponding to the set of attributes in init context.
      */
     private int count(Context init, TreeSet&lt;Comparable&gt; attributes) {
-<span class="fc" id="L565">        return init.getExtentNb(attributes);</span>
+<span class="fc" id="L561">        return init.getExtentNb(attributes);</span>
     }
 
     /**
@@ -591,113 +587,113 @@ public class Concept extends Node {
      */
     public ArrayList&lt;TreeSet&lt;Comparable&gt;&gt; immediateSuccessors(ClosureSystem init) {
         // Initialization of the dependance graph when not initialized by method recursiveDiagramLattice
-<span class="fc" id="L594">        DGraph dependanceGraph = null;</span>
-<span class="fc" id="L595">        dependanceGraph = new DGraph();</span>
-<span class="fc bfc" id="L596" title="All 2 branches covered.">        for (Comparable c : init.getSet()) {</span>
-<span class="fc" id="L597">            dependanceGraph.addNode(new Node(c));</span>
-<span class="fc" id="L598">        }</span>
+<span class="fc" id="L590">        DGraph dependanceGraph = null;</span>
+<span class="fc" id="L591">        dependanceGraph = new DGraph();</span>
+<span class="fc bfc" id="L592" title="All 2 branches covered.">        for (Comparable c : init.getSet()) {</span>
+<span class="fc" id="L593">            dependanceGraph.addNode(new Node(c));</span>
+<span class="fc" id="L594">        }</span>
         // computes newVal, the subset to be used to valuate every new dependance relation
         // newVal = F\predecessors of F in the precedence graph of the closure system
         // For a non reduced closure system, the precedence graph is not acyclic,
         // and therefore strongly connected components have to be used.
-<span class="fc" id="L603">        ComparableSet f = new ComparableSet(this.getSetA());</span>
-<span class="fc" id="L604">        long start = System.currentTimeMillis();</span>
-<span class="fc" id="L605">        System.out.print(&quot;Precedence graph... &quot;);</span>
-<span class="fc" id="L606">        DGraph prec = init.precedenceGraph();</span>
+<span class="fc" id="L599">        ComparableSet f = new ComparableSet(this.getSetA());</span>
+<span class="fc" id="L600">        long start = System.currentTimeMillis();</span>
+<span class="fc" id="L601">        System.out.print(&quot;Precedence graph... &quot;);</span>
+<span class="fc" id="L602">        DGraph prec = init.precedenceGraph();</span>
+<span class="fc" id="L603">        System.out.println(System.currentTimeMillis() - start + &quot;ms&quot;);</span>
+<span class="fc" id="L604">        start = System.currentTimeMillis();</span>
+<span class="fc" id="L605">        System.out.print(&quot;Srongly connected component... &quot;);</span>
+<span class="fc" id="L606">        DAGraph acyclPrec = prec.getStronglyConnectedComponent();</span>
 <span class="fc" id="L607">        System.out.println(System.currentTimeMillis() - start + &quot;ms&quot;);</span>
-<span class="fc" id="L608">        start = System.currentTimeMillis();</span>
-<span class="fc" id="L609">        System.out.print(&quot;Srongly connected component... &quot;);</span>
-<span class="fc" id="L610">        DAGraph acyclPrec = prec.getStronglyConnectedComponent();</span>
-<span class="fc" id="L611">        System.out.println(System.currentTimeMillis() - start + &quot;ms&quot;);</span>
-<span class="fc" id="L612">        ComparableSet newVal = new ComparableSet();</span>
-<span class="fc" id="L613">        newVal.addAll(f);</span>
-<span class="fc bfc" id="L614" title="All 2 branches covered.">        for (Object x : f)  {</span>
+<span class="fc" id="L608">        ComparableSet newVal = new ComparableSet();</span>
+<span class="fc" id="L609">        newVal.addAll(f);</span>
+<span class="fc bfc" id="L610" title="All 2 branches covered.">        for (Object x : f)  {</span>
             // computes nx, the strongly connected component containing x
-<span class="fc" id="L616">            Node nx = null;</span>
-<span class="fc bfc" id="L617" title="All 2 branches covered.">            for (Node cc : acyclPrec.getNodes()) {</span>
-<span class="fc" id="L618">                TreeSet&lt;Node&gt; cC = (TreeSet&lt;Node&gt;) cc.getContent();</span>
-<span class="fc bfc" id="L619" title="All 2 branches covered.">                for (Node y : cC) {</span>
-<span class="fc bfc" id="L620" title="All 2 branches covered.">                    if (x.equals(y.getContent())) {</span>
-<span class="fc" id="L621">                        nx = cc;</span>
+<span class="fc" id="L612">            Node nx = null;</span>
+<span class="fc bfc" id="L613" title="All 2 branches covered.">            for (Node cc : acyclPrec.getNodes()) {</span>
+<span class="fc" id="L614">                TreeSet&lt;Node&gt; cC = (TreeSet&lt;Node&gt;) cc.getContent();</span>
+<span class="fc bfc" id="L615" title="All 2 branches covered.">                for (Node y : cC) {</span>
+<span class="fc bfc" id="L616" title="All 2 branches covered.">                    if (x.equals(y.getContent())) {</span>
+<span class="fc" id="L617">                        nx = cc;</span>
                     }
-<span class="fc" id="L623">                }</span>
-<span class="fc" id="L624">            }</span>
+<span class="fc" id="L619">                }</span>
+<span class="fc" id="L620">            }</span>
             // computes the minorants of nx in the acyclic graph
-<span class="fc" id="L626">            TreeSet&lt;Node&gt; ccMinNx = acyclPrec.minorants(nx);</span>
+<span class="fc" id="L622">            TreeSet&lt;Node&gt; ccMinNx = acyclPrec.minorants(nx);</span>
             // removes from newVal every minorants of nx
-<span class="pc bpc" id="L628" title="1 of 2 branches missed.">            for (Node cc : ccMinNx) {</span>
-<span class="nc" id="L629">                TreeSet&lt;Node&gt; cC = (TreeSet&lt;Node&gt;) cc.getContent();</span>
-<span class="nc bnc" id="L630" title="All 2 branches missed.">                for (Node y : cC) {</span>
-<span class="nc" id="L631">                    newVal.remove(y.getContent());</span>
-<span class="nc" id="L632">                }</span>
-<span class="nc" id="L633">            }</span>
-<span class="fc" id="L634">        }</span>
+<span class="pc bpc" id="L624" title="1 of 2 branches missed.">            for (Node cc : ccMinNx) {</span>
+<span class="nc" id="L625">                TreeSet&lt;Node&gt; cC = (TreeSet&lt;Node&gt;) cc.getContent();</span>
+<span class="nc bnc" id="L626" title="All 2 branches missed.">                for (Node y : cC) {</span>
+<span class="nc" id="L627">                    newVal.remove(y.getContent());</span>
+<span class="nc" id="L628">                }</span>
+<span class="nc" id="L629">            }</span>
+<span class="fc" id="L630">        }</span>
         // computes the node belonging in S\F
-<span class="fc" id="L636">        TreeSet&lt;Node&gt; n = new TreeSet&lt;Node&gt;();</span>
-<span class="fc bfc" id="L637" title="All 2 branches covered.">        for (Node in : dependanceGraph.getNodes()) {</span>
-<span class="fc bfc" id="L638" title="All 2 branches covered.">            if (!f.contains(in.getContent())) {</span>
-<span class="fc" id="L639">                n.add(in);</span>
+<span class="fc" id="L632">        TreeSet&lt;Node&gt; n = new TreeSet&lt;Node&gt;();</span>
+<span class="fc bfc" id="L633" title="All 2 branches covered.">        for (Node in : dependanceGraph.getNodes()) {</span>
+<span class="fc bfc" id="L634" title="All 2 branches covered.">            if (!f.contains(in.getContent())) {</span>
+<span class="fc" id="L635">                n.add(in);</span>
             }
-<span class="fc" id="L641">        }</span>
-<span class="fc" id="L642">        System.out.print(&quot;Dependance... &quot;);</span>
-<span class="fc" id="L643">        start = System.currentTimeMillis();</span>
+<span class="fc" id="L637">        }</span>
+<span class="fc" id="L638">        System.out.print(&quot;Dependance... &quot;);</span>
+<span class="fc" id="L639">        start = System.currentTimeMillis();</span>
         // computes the dependance relation between nodes in S\F
         // and valuated this relation by the subset of S\F
-<span class="fc" id="L646">        TreeSet&lt;Edge&gt; e = new TreeSet&lt;Edge&gt;();</span>
-<span class="fc bfc" id="L647" title="All 2 branches covered.">        for (Node from : n) {</span>
-<span class="fc bfc" id="L648" title="All 2 branches covered.">            for (Node to : n) {</span>
-<span class="fc bfc" id="L649" title="All 2 branches covered.">               if (!from.equals(to)) {</span>
+<span class="fc" id="L642">        TreeSet&lt;Edge&gt; e = new TreeSet&lt;Edge&gt;();</span>
+<span class="fc bfc" id="L643" title="All 2 branches covered.">        for (Node from : n) {</span>
+<span class="fc bfc" id="L644" title="All 2 branches covered.">            for (Node to : n) {</span>
+<span class="fc bfc" id="L645" title="All 2 branches covered.">               if (!from.equals(to)) {</span>
                 // check if from is in dependance relation with to
                 // i.e. &quot;from&quot; belongs to the closure of &quot;F+to&quot;
-<span class="fc" id="L652">                ComparableSet fPlusTo = new ComparableSet(f);</span>
-<span class="fc" id="L653">                fPlusTo.add(to.getContent());</span>
-<span class="fc" id="L654">                fPlusTo = new ComparableSet(init.closure(fPlusTo));</span>
-<span class="pc bpc" id="L655" title="1 of 2 branches missed.">                if (fPlusTo.contains(from.getContent())) {</span>
+<span class="fc" id="L648">                ComparableSet fPlusTo = new ComparableSet(f);</span>
+<span class="fc" id="L649">                fPlusTo.add(to.getContent());</span>
+<span class="fc" id="L650">                fPlusTo = new ComparableSet(init.closure(fPlusTo));</span>
+<span class="pc bpc" id="L651" title="1 of 2 branches missed.">                if (fPlusTo.contains(from.getContent())) {</span>
                     // there is a dependance relation between from and to
                     // search for an existing edge between from and to
-<span class="fc" id="L658">                    Edge ed = dependanceGraph.getEdge(from, to);</span>
-<span class="pc bpc" id="L659" title="1 of 2 branches missed.">                    if (ed == null) {</span>
-<span class="fc" id="L660">                        ed = new Edge(from, to, new TreeSet&lt;ComparableSet&gt;());</span>
-<span class="fc" id="L661">                        dependanceGraph.addEdge(ed);</span>
+<span class="fc" id="L654">                    Edge ed = dependanceGraph.getEdge(from, to);</span>
+<span class="pc bpc" id="L655" title="1 of 2 branches missed.">                    if (ed == null) {</span>
+<span class="fc" id="L656">                        ed = new Edge(from, to, new TreeSet&lt;ComparableSet&gt;());</span>
+<span class="fc" id="L657">                        dependanceGraph.addEdge(ed);</span>
                     }
-<span class="fc" id="L663">                    e.add(ed);</span>
+<span class="fc" id="L659">                    e.add(ed);</span>
                     // check if F is a minimal set closed for dependance relation between from and to
-<span class="fc" id="L665">                    ((TreeSet&lt;ComparableSet&gt;) ed.getContent()).add(newVal);</span>
-<span class="fc" id="L666">                    TreeSet&lt;ComparableSet&gt; valEd = new TreeSet&lt;ComparableSet&gt;((TreeSet&lt;ComparableSet&gt;) ed.getContent());</span>
-<span class="fc bfc" id="L667" title="All 2 branches covered.">                        for (ComparableSet x1 : valEd) {</span>
-<span class="pc bpc" id="L668" title="2 of 4 branches missed.">                            if (x1.containsAll(newVal) &amp;&amp; !newVal.containsAll(x1)) {</span>
-<span class="nc" id="L669">                                ((TreeSet&lt;ComparableSet&gt;) ed.getContent()).remove(x1);</span>
+<span class="fc" id="L661">                    ((TreeSet&lt;ComparableSet&gt;) ed.getContent()).add(newVal);</span>
+<span class="fc" id="L662">                    TreeSet&lt;ComparableSet&gt; valEd = new TreeSet&lt;ComparableSet&gt;((TreeSet&lt;ComparableSet&gt;) ed.getContent());</span>
+<span class="fc bfc" id="L663" title="All 2 branches covered.">                        for (ComparableSet x1 : valEd) {</span>
+<span class="pc bpc" id="L664" title="2 of 4 branches missed.">                            if (x1.containsAll(newVal) &amp;&amp; !newVal.containsAll(x1)) {</span>
+<span class="nc" id="L665">                                ((TreeSet&lt;ComparableSet&gt;) ed.getContent()).remove(x1);</span>
                             }
-<span class="pc bpc" id="L671" title="3 of 4 branches missed.">                            if (!x1.containsAll(newVal) &amp;&amp; newVal.containsAll(x1)) {</span>
-<span class="nc" id="L672">                                ((TreeSet&lt;ComparableSet&gt;) ed.getContent()).remove(newVal);</span>
+<span class="pc bpc" id="L667" title="3 of 4 branches missed.">                            if (!x1.containsAll(newVal) &amp;&amp; newVal.containsAll(x1)) {</span>
+<span class="nc" id="L668">                                ((TreeSet&lt;ComparableSet&gt;) ed.getContent()).remove(newVal);</span>
                             }
-<span class="fc" id="L674">                        }</span>
+<span class="fc" id="L670">                        }</span>
                     }
                 }
-<span class="fc" id="L677">            }</span>
-<span class="fc" id="L678">        }</span>
-<span class="fc" id="L679">        System.out.println(System.currentTimeMillis() - start + &quot;ms&quot;);</span>
-<span class="fc" id="L680">        System.out.print(&quot;Subgraph... &quot;);</span>
-<span class="fc" id="L681">        start = System.currentTimeMillis();</span>
+<span class="fc" id="L673">            }</span>
+<span class="fc" id="L674">        }</span>
+<span class="fc" id="L675">        System.out.println(System.currentTimeMillis() - start + &quot;ms&quot;);</span>
+<span class="fc" id="L676">        System.out.print(&quot;Subgraph... &quot;);</span>
+<span class="fc" id="L677">        start = System.currentTimeMillis();</span>
         // computes the dependance subgraph of the closed set F as the reduction
         // of the dependance graph composed of nodes in S\A and edges of the dependance relation
-<span class="fc" id="L684">        DGraph sub = dependanceGraph.getSubgraphByNodes(n);</span>
-<span class="fc" id="L685">        DGraph delta = sub.getSubgraphByEdges(e);</span>
+<span class="fc" id="L680">        DGraph sub = dependanceGraph.getSubgraphByNodes(n);</span>
+<span class="fc" id="L681">        DGraph delta = sub.getSubgraphByEdges(e);</span>
         // computes the sources of the CFC of the dependance subgraph
         // that corresponds to successors of the closed set F
-<span class="fc" id="L688">        DAGraph cfc = delta.getStronglyConnectedComponent();</span>
-<span class="fc" id="L689">        TreeSet&lt;Node&gt; sccmin = cfc.getSinks();</span>
-<span class="fc" id="L690">        System.out.println(System.currentTimeMillis() - start + &quot;ms&quot;);</span>
-<span class="fc" id="L691">        ArrayList&lt;TreeSet&lt;Comparable&gt;&gt; immSucc = new ArrayList&lt;TreeSet&lt;Comparable&gt;&gt;();</span>
-<span class="fc bfc" id="L692" title="All 2 branches covered.">        for (Node n1 : sccmin) {</span>
-<span class="fc" id="L693">            TreeSet s = new TreeSet(f);</span>
-<span class="fc" id="L694">            TreeSet&lt;Node&gt; toadd = (TreeSet&lt;Node&gt;) n1.getContent();</span>
-<span class="fc bfc" id="L695" title="All 2 branches covered.">            for (Node n2 : toadd) {</span>
-<span class="fc" id="L696">                s.add(n2.getContent());</span>
-<span class="fc" id="L697">            }</span>
-<span class="fc" id="L698">            immSucc.add(s);</span>
-<span class="fc" id="L699">        }</span>
-<span class="fc" id="L700">        return immSucc;</span>
+<span class="fc" id="L684">        DAGraph cfc = delta.getStronglyConnectedComponent();</span>
+<span class="fc" id="L685">        TreeSet&lt;Node&gt; sccmin = cfc.getSinks();</span>
+<span class="fc" id="L686">        System.out.println(System.currentTimeMillis() - start + &quot;ms&quot;);</span>
+<span class="fc" id="L687">        ArrayList&lt;TreeSet&lt;Comparable&gt;&gt; immSucc = new ArrayList&lt;TreeSet&lt;Comparable&gt;&gt;();</span>
+<span class="fc bfc" id="L688" title="All 2 branches covered.">        for (Node n1 : sccmin) {</span>
+<span class="fc" id="L689">            TreeSet s = new TreeSet(f);</span>
+<span class="fc" id="L690">            TreeSet&lt;Node&gt; toadd = (TreeSet&lt;Node&gt;) n1.getContent();</span>
+<span class="fc bfc" id="L691" title="All 2 branches covered.">            for (Node n2 : toadd) {</span>
+<span class="fc" id="L692">                s.add(n2.getContent());</span>
+<span class="fc" id="L693">            }</span>
+<span class="fc" id="L694">            immSucc.add(s);</span>
+<span class="fc" id="L695">        }</span>
+<span class="fc" id="L696">        return immSucc;</span>
     }
 }
 

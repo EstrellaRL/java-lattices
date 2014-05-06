@@ -2,14 +2,12 @@
 /*
  * LatticeFactory.java
  *
- * Copyright: 2013 University of La Rochelle, France
+ * Copyright: 2013-2014 Karell Bertet, France
  *
  * License: http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html CeCILL-B license
  *
  * This file is part of lattice, free package. You can redistribute it and/or modify
  * it under the terms of CeCILL-B license.
- *
- * @version 2014
  */
 
 import dgraph.DAGraph;
@@ -34,8 +32,8 @@ public class LatticeFactory {
      * Empty constructor.
      */
     protected LatticeFactory() {
-<span class="fc" id="L37">        super();</span>
-<span class="fc" id="L38">    }</span>
+<span class="fc" id="L35">        super();</span>
+<span class="fc" id="L36">    }</span>
 
     /**
      * Returns a randomly generated lattice with nb nodes.
@@ -45,31 +43,31 @@ public class LatticeFactory {
      * @return  a randomly generated lattice with nb nodes
      */
     public static Lattice random(int nb) {
-<span class="fc" id="L48">        boolean done = false;</span>
-<span class="fc" id="L49">        Lattice l = new Lattice();</span>
-<span class="fc bfc" id="L50" title="All 2 branches covered.">        while (!done) {</span>
-<span class="fc" id="L51">            DAGraph dag = DAGraph.random(nb - 2); // what an ugly strategy :-(</span>
-<span class="fc" id="L52">            Lattice tmp = new Lattice(dag);</span>
-<span class="fc" id="L53">            Node top = new Node(new Integer(nb - 1));</span>
-<span class="fc" id="L54">            tmp.addNode(top);</span>
-<span class="fc bfc" id="L55" title="All 2 branches covered.">            for (Node n : tmp.max()) {</span>
-<span class="fc bfc" id="L56" title="All 2 branches covered.">                if (!n.equals(top)) {</span>
-<span class="fc" id="L57">                    tmp.addEdge(n, top);</span>
+<span class="fc" id="L46">        boolean done = false;</span>
+<span class="fc" id="L47">        Lattice l = new Lattice();</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">        while (!done) {</span>
+<span class="fc" id="L49">            DAGraph dag = DAGraph.random(nb - 2); // what an ugly strategy :-(</span>
+<span class="fc" id="L50">            Lattice tmp = new Lattice(dag);</span>
+<span class="fc" id="L51">            Node top = new Node(new Integer(nb - 1));</span>
+<span class="fc" id="L52">            tmp.addNode(top);</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">            for (Node n : tmp.max()) {</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">                if (!n.equals(top)) {</span>
+<span class="fc" id="L55">                    tmp.addEdge(n, top);</span>
                 }
-<span class="fc" id="L59">            }</span>
-<span class="fc" id="L60">            Node bot = new Node(new Integer(nb));</span>
-<span class="fc" id="L61">            tmp.addNode(bot);</span>
-<span class="fc bfc" id="L62" title="All 2 branches covered.">            for (Node n : tmp.min()) {</span>
-<span class="fc bfc" id="L63" title="All 2 branches covered.">                if (!n.equals(bot)) {</span>
-<span class="fc" id="L64">                    tmp.addEdge(bot, n);</span>
+<span class="fc" id="L57">            }</span>
+<span class="fc" id="L58">            Node bot = new Node(new Integer(nb));</span>
+<span class="fc" id="L59">            tmp.addNode(bot);</span>
+<span class="fc bfc" id="L60" title="All 2 branches covered.">            for (Node n : tmp.min()) {</span>
+<span class="fc bfc" id="L61" title="All 2 branches covered.">                if (!n.equals(bot)) {</span>
+<span class="fc" id="L62">                    tmp.addEdge(bot, n);</span>
                 }
-<span class="fc" id="L66">            }</span>
-<span class="fc bfc" id="L67" title="All 2 branches covered.">            if (tmp.isLattice()) {</span>
-<span class="fc" id="L68">                done = true;</span>
-<span class="fc" id="L69">                l = tmp;</span>
+<span class="fc" id="L64">            }</span>
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">            if (tmp.isLattice()) {</span>
+<span class="fc" id="L66">                done = true;</span>
+<span class="fc" id="L67">                l = tmp;</span>
             }
-<span class="fc" id="L71">        }</span>
-<span class="fc" id="L72">        return l;</span>
+<span class="fc" id="L69">        }</span>
+<span class="fc" id="L70">        return l;</span>
     }
 
     /**
@@ -80,19 +78,19 @@ public class LatticeFactory {
      * @return  the boolean algebra of cardinal 2^n
      */
     public static Lattice booleanAlgebra(int n) {
-<span class="fc" id="L83">        Lattice l = new Lattice();</span>
-<span class="fc" id="L84">        BitSet b = new BitSet(n);</span>
-<span class="fc" id="L85">        Node bot = new Node(b);</span>
-<span class="fc" id="L86">        l.addNode(bot);</span>
-<span class="fc bfc" id="L87" title="All 2 branches covered.">        for (int i = 0; i &lt; n; i++) {</span>
-<span class="fc" id="L88">            BitSet bs = new BitSet(n);</span>
-<span class="fc" id="L89">            bs.set(i, true);</span>
-<span class="fc" id="L90">            Node next = new Node(bs);</span>
-<span class="fc" id="L91">            l.addNode(next);</span>
-<span class="fc" id="L92">            l.addEdge(bot, next);</span>
-<span class="fc" id="L93">            recursiveBooleanAlgebra(next, l, n);</span>
+<span class="fc" id="L81">        Lattice l = new Lattice();</span>
+<span class="fc" id="L82">        BitSet b = new BitSet(n);</span>
+<span class="fc" id="L83">        Node bot = new Node(b);</span>
+<span class="fc" id="L84">        l.addNode(bot);</span>
+<span class="fc bfc" id="L85" title="All 2 branches covered.">        for (int i = 0; i &lt; n; i++) {</span>
+<span class="fc" id="L86">            BitSet bs = new BitSet(n);</span>
+<span class="fc" id="L87">            bs.set(i, true);</span>
+<span class="fc" id="L88">            Node next = new Node(bs);</span>
+<span class="fc" id="L89">            l.addNode(next);</span>
+<span class="fc" id="L90">            l.addEdge(bot, next);</span>
+<span class="fc" id="L91">            recursiveBooleanAlgebra(next, l, n);</span>
         }
-<span class="fc" id="L95">        return l;</span>
+<span class="fc" id="L93">        return l;</span>
     }
 
     /**
@@ -103,22 +101,22 @@ public class LatticeFactory {
      * @param   n     the number of node of l will be 2^n at the end of computation
      */
     private static void recursiveBooleanAlgebra(Node node, Lattice l, int n) {
-<span class="fc bfc" id="L106" title="All 2 branches covered.">        for (int i = 0; i &lt; n; i++) {</span>
-<span class="fc" id="L107">            BitSet b = (BitSet) node.getContent();</span>
-<span class="fc bfc" id="L108" title="All 2 branches covered.">            if (!b.get(i)) {</span>
-<span class="fc" id="L109">                BitSet bs = (BitSet) b.clone();</span>
-<span class="fc" id="L110">                bs.set(i, true);</span>
-<span class="fc bfc" id="L111" title="All 2 branches covered.">                if (l.getNodeByContent(bs) == null) {</span>
-<span class="fc" id="L112">                    Node next = new Node(bs);</span>
-<span class="fc" id="L113">                    l.addNode(next);</span>
-<span class="fc" id="L114">                    l.addEdge(node, next);</span>
-<span class="fc" id="L115">                    recursiveBooleanAlgebra(next, l, n);</span>
-<span class="fc" id="L116">                } else {</span>
-<span class="fc" id="L117">                    l.addEdge(node, l.getNodeByContent(bs));</span>
+<span class="fc bfc" id="L104" title="All 2 branches covered.">        for (int i = 0; i &lt; n; i++) {</span>
+<span class="fc" id="L105">            BitSet b = (BitSet) node.getContent();</span>
+<span class="fc bfc" id="L106" title="All 2 branches covered.">            if (!b.get(i)) {</span>
+<span class="fc" id="L107">                BitSet bs = (BitSet) b.clone();</span>
+<span class="fc" id="L108">                bs.set(i, true);</span>
+<span class="fc bfc" id="L109" title="All 2 branches covered.">                if (l.getNodeByContent(bs) == null) {</span>
+<span class="fc" id="L110">                    Node next = new Node(bs);</span>
+<span class="fc" id="L111">                    l.addNode(next);</span>
+<span class="fc" id="L112">                    l.addEdge(node, next);</span>
+<span class="fc" id="L113">                    recursiveBooleanAlgebra(next, l, n);</span>
+<span class="fc" id="L114">                } else {</span>
+<span class="fc" id="L115">                    l.addEdge(node, l.getNodeByContent(bs));</span>
                 }
             }
         }
-<span class="fc" id="L121">    }</span>
+<span class="fc" id="L119">    }</span>
 
     /**
      * Returns the lattice of permutations of 1..n.
@@ -136,27 +134,27 @@ public class LatticeFactory {
      * @return  the lattice of permutations of 1..n.
      */
     public static Lattice permutationLattice(int n) {
-<span class="fc" id="L139">        Lattice l = new Lattice();</span>
-<span class="fc" id="L140">        int[] content = new int[n];</span>
-<span class="fc bfc" id="L141" title="All 2 branches covered.">        for (int i = 0; i &lt; n; i++) {</span>
-<span class="fc" id="L142">            content[i] = i;</span>
+<span class="fc" id="L137">        Lattice l = new Lattice();</span>
+<span class="fc" id="L138">        int[] content = new int[n];</span>
+<span class="fc bfc" id="L139" title="All 2 branches covered.">        for (int i = 0; i &lt; n; i++) {</span>
+<span class="fc" id="L140">            content[i] = i;</span>
         }
-<span class="fc" id="L144">        Permutation s = new Permutation(n);</span>
-<span class="fc" id="L145">        s.setContent(content);</span>
-<span class="fc" id="L146">        Node bot = new Node(s);</span>
-<span class="fc" id="L147">        l.addNode(bot);</span>
-<span class="fc bfc" id="L148" title="All 2 branches covered.">        for (int i = 0; i &lt; n - 1; i++) {</span>
-<span class="fc" id="L149">            int[] newC = content.clone();</span>
-<span class="fc" id="L150">            newC[i] = content[i + 1];</span>
-<span class="fc" id="L151">            newC[i + 1] = content[i];</span>
-<span class="fc" id="L152">            Permutation newS = new Permutation(n);</span>
-<span class="fc" id="L153">            newS.setContent(newC);</span>
-<span class="fc" id="L154">            Node succ = new Node(newS);</span>
-<span class="fc" id="L155">            l.addNode(succ);</span>
-<span class="fc" id="L156">            l.addEdge(bot, succ);</span>
-<span class="fc" id="L157">            recursivePermutationLattice(succ, l, n);</span>
+<span class="fc" id="L142">        Permutation s = new Permutation(n);</span>
+<span class="fc" id="L143">        s.setContent(content);</span>
+<span class="fc" id="L144">        Node bot = new Node(s);</span>
+<span class="fc" id="L145">        l.addNode(bot);</span>
+<span class="fc bfc" id="L146" title="All 2 branches covered.">        for (int i = 0; i &lt; n - 1; i++) {</span>
+<span class="fc" id="L147">            int[] newC = content.clone();</span>
+<span class="fc" id="L148">            newC[i] = content[i + 1];</span>
+<span class="fc" id="L149">            newC[i + 1] = content[i];</span>
+<span class="fc" id="L150">            Permutation newS = new Permutation(n);</span>
+<span class="fc" id="L151">            newS.setContent(newC);</span>
+<span class="fc" id="L152">            Node succ = new Node(newS);</span>
+<span class="fc" id="L153">            l.addNode(succ);</span>
+<span class="fc" id="L154">            l.addEdge(bot, succ);</span>
+<span class="fc" id="L155">            recursivePermutationLattice(succ, l, n);</span>
         }
-<span class="fc" id="L159">        return l;</span>
+<span class="fc" id="L157">        return l;</span>
     }
 
     /**
@@ -167,35 +165,35 @@ public class LatticeFactory {
      * @param   n     lattice of permutation of the set 1..n is currently generated
      */
     private static void recursivePermutationLattice(Node node, Lattice l, int n) {
-<span class="fc" id="L170">        Permutation s = (Permutation) node.getContent();</span>
-<span class="fc bfc" id="L171" title="All 2 branches covered.">        for (int i = 0; i &lt; s.getLength() - 1; i++) {</span>
-<span class="fc bfc" id="L172" title="All 2 branches covered.">            if (s.getContent()[i] &lt; s.getContent()[i + 1]) {</span>
-<span class="fc" id="L173">                int[] newC = s.getContent().clone();</span>
-<span class="fc" id="L174">                Node currentNode = new Node();</span>
-<span class="fc" id="L175">                newC[i] = s.getContent()[i + 1];</span>
-<span class="fc" id="L176">                newC[i + 1] = s.getContent()[i];</span>
-<span class="fc" id="L177">                Permutation newP = new Permutation(n);</span>
-<span class="fc" id="L178">                newP.setContent(newC);</span>
-<span class="fc" id="L179">                boolean newNode = true;</span>
-<span class="fc" id="L180">                Iterator&lt;Node&gt; it = l.getNodes().iterator();</span>
-<span class="fc bfc" id="L181" title="All 4 branches covered.">                while (it.hasNext() &amp;&amp; newNode) {</span>
-<span class="fc" id="L182">                    currentNode = it.next();</span>
-<span class="fc" id="L183">                    Permutation currentContent = (Permutation) currentNode.getContent();</span>
-<span class="fc bfc" id="L184" title="All 2 branches covered.">                    newNode = !(currentContent.equals(newP));</span>
-<span class="fc" id="L185">                }</span>
-<span class="fc bfc" id="L186" title="All 2 branches covered.">                if (newNode) {</span>
-<span class="fc" id="L187">                    Permutation newS = new Permutation(n);</span>
-<span class="fc" id="L188">                    newS.setContent(newC);</span>
-<span class="fc" id="L189">                    Node next = new Node(newS);</span>
-<span class="fc" id="L190">                    l.addNode(next);</span>
-<span class="fc" id="L191">                    l.addEdge(node, next);</span>
-<span class="fc" id="L192">                    recursivePermutationLattice(next, l, n);</span>
-<span class="fc" id="L193">                } else {</span>
-<span class="fc" id="L194">                    l.addEdge(node, currentNode);</span>
+<span class="fc" id="L168">        Permutation s = (Permutation) node.getContent();</span>
+<span class="fc bfc" id="L169" title="All 2 branches covered.">        for (int i = 0; i &lt; s.getLength() - 1; i++) {</span>
+<span class="fc bfc" id="L170" title="All 2 branches covered.">            if (s.getContent()[i] &lt; s.getContent()[i + 1]) {</span>
+<span class="fc" id="L171">                int[] newC = s.getContent().clone();</span>
+<span class="fc" id="L172">                Node currentNode = new Node();</span>
+<span class="fc" id="L173">                newC[i] = s.getContent()[i + 1];</span>
+<span class="fc" id="L174">                newC[i + 1] = s.getContent()[i];</span>
+<span class="fc" id="L175">                Permutation newP = new Permutation(n);</span>
+<span class="fc" id="L176">                newP.setContent(newC);</span>
+<span class="fc" id="L177">                boolean newNode = true;</span>
+<span class="fc" id="L178">                Iterator&lt;Node&gt; it = l.getNodes().iterator();</span>
+<span class="fc bfc" id="L179" title="All 4 branches covered.">                while (it.hasNext() &amp;&amp; newNode) {</span>
+<span class="fc" id="L180">                    currentNode = it.next();</span>
+<span class="fc" id="L181">                    Permutation currentContent = (Permutation) currentNode.getContent();</span>
+<span class="fc bfc" id="L182" title="All 2 branches covered.">                    newNode = !(currentContent.equals(newP));</span>
+<span class="fc" id="L183">                }</span>
+<span class="fc bfc" id="L184" title="All 2 branches covered.">                if (newNode) {</span>
+<span class="fc" id="L185">                    Permutation newS = new Permutation(n);</span>
+<span class="fc" id="L186">                    newS.setContent(newC);</span>
+<span class="fc" id="L187">                    Node next = new Node(newS);</span>
+<span class="fc" id="L188">                    l.addNode(next);</span>
+<span class="fc" id="L189">                    l.addEdge(node, next);</span>
+<span class="fc" id="L190">                    recursivePermutationLattice(next, l, n);</span>
+<span class="fc" id="L191">                } else {</span>
+<span class="fc" id="L192">                    l.addEdge(node, currentNode);</span>
                 }
             }
         }
-<span class="fc" id="L198">    }</span>
+<span class="fc" id="L196">    }</span>
 
     /**
      * Returns the lattice cartesian product of l and r.
@@ -210,25 +208,25 @@ public class LatticeFactory {
      * @return  the lattice cartesian product of l and r
      */
     public static Lattice product(Lattice l, Lattice r) {
-<span class="fc" id="L213">        Lattice prod = new Lattice();</span>
+<span class="fc" id="L211">        Lattice prod = new Lattice();</span>
         // Create nodes
-<span class="fc bfc" id="L215" title="All 2 branches covered.">        for (Node nL : l.getNodes()) {</span>
-<span class="fc bfc" id="L216" title="All 2 branches covered.">            for (Node nR : r.getNodes()) {</span>
-<span class="fc" id="L217">                prod.addNode(new Node(new Couple(nL.getContent(), nR.getContent())));</span>
-<span class="fc" id="L218">            }</span>
-<span class="fc" id="L219">        }</span>
+<span class="fc bfc" id="L213" title="All 2 branches covered.">        for (Node nL : l.getNodes()) {</span>
+<span class="fc bfc" id="L214" title="All 2 branches covered.">            for (Node nR : r.getNodes()) {</span>
+<span class="fc" id="L215">                prod.addNode(new Node(new Couple(nL.getContent(), nR.getContent())));</span>
+<span class="fc" id="L216">            }</span>
+<span class="fc" id="L217">        }</span>
         // Create edges
-<span class="fc bfc" id="L221" title="All 2 branches covered.">        for (Node from : prod.getNodes()) {</span>
-<span class="fc bfc" id="L222" title="All 2 branches covered.">            for (Node to : prod.getNodes()) {</span>
-<span class="fc bfc" id="L223" title="All 4 branches covered.">                if (l.containsEdge(l.getNodeByContent(((Couple) from.getContent()).getLeft()),</span>
+<span class="fc bfc" id="L219" title="All 2 branches covered.">        for (Node from : prod.getNodes()) {</span>
+<span class="fc bfc" id="L220" title="All 2 branches covered.">            for (Node to : prod.getNodes()) {</span>
+<span class="fc bfc" id="L221" title="All 4 branches covered.">                if (l.containsEdge(l.getNodeByContent(((Couple) from.getContent()).getLeft()),</span>
                         l.getNodeByContent(((Couple) to.getContent()).getLeft()))
                         &amp;&amp; r.containsEdge(r.getNodeByContent(((Couple) from.getContent()).getRight()),
                                 r.getNodeByContent(((Couple) to.getContent()).getRight()))) {
-<span class="fc" id="L227">                    prod.addEdge(from, to);</span>
+<span class="fc" id="L225">                    prod.addEdge(from, to);</span>
                 }
-<span class="fc" id="L229">            }</span>
-<span class="fc" id="L230">        }</span>
-<span class="fc" id="L231">        return prod;</span>
+<span class="fc" id="L227">            }</span>
+<span class="fc" id="L228">        }</span>
+<span class="fc" id="L229">        return prod;</span>
     }
     /**
      * Returns lattice l in which convex c has been doubled.
@@ -239,73 +237,73 @@ public class LatticeFactory {
      * @return  a lattice construct from l by doubling the convex subset c.
      */
     public static Lattice doublingConvex(Lattice l, DAGraph c) {
-<span class="fc" id="L242">        Lattice doubled = new Lattice();</span>
+<span class="fc" id="L240">        Lattice doubled = new Lattice();</span>
         // Copy nodes by Content
-<span class="fc bfc" id="L244" title="All 2 branches covered.">        for (Node n : l.getNodes()) {</span>
-<span class="fc bfc" id="L245" title="All 2 branches covered.">            if (c.containsNode(n)) {</span>
+<span class="fc bfc" id="L242" title="All 2 branches covered.">        for (Node n : l.getNodes()) {</span>
+<span class="fc bfc" id="L243" title="All 2 branches covered.">            if (c.containsNode(n)) {</span>
                 // These nodes are doubled
-<span class="fc" id="L247">                Couple cpl0 = new Couple(n.getContent(), 0);</span>
-<span class="fc" id="L248">                Node n0 = new Node(cpl0);</span>
-<span class="fc" id="L249">                Couple cpl1 = new Couple(n.getContent(), 1);</span>
-<span class="fc" id="L250">                Node n1 = new Node(cpl1);</span>
-<span class="fc" id="L251">                doubled.addNode(n0);</span>
-<span class="fc" id="L252">                doubled.addNode(n1);</span>
-<span class="fc" id="L253">            } else {</span>
+<span class="fc" id="L245">                Couple cpl0 = new Couple(n.getContent(), 0);</span>
+<span class="fc" id="L246">                Node n0 = new Node(cpl0);</span>
+<span class="fc" id="L247">                Couple cpl1 = new Couple(n.getContent(), 1);</span>
+<span class="fc" id="L248">                Node n1 = new Node(cpl1);</span>
+<span class="fc" id="L249">                doubled.addNode(n0);</span>
+<span class="fc" id="L250">                doubled.addNode(n1);</span>
+<span class="fc" id="L251">            } else {</span>
                 // These nodes are just copied
-<span class="fc" id="L255">                doubled.addNode(new Node(n.getContent()));</span>
+<span class="fc" id="L253">                doubled.addNode(new Node(n.getContent()));</span>
             }
-<span class="fc" id="L257">        }</span>
+<span class="fc" id="L255">        }</span>
         // Construct edges of doubled
-<span class="fc" id="L259">        Couple test = new Couple(0, 0); // used to test class of contents</span>
-<span class="fc bfc" id="L260" title="All 2 branches covered.">        for (Node x : doubled.getNodes()) {</span>
-<span class="fc bfc" id="L261" title="All 2 branches covered.">            for (Node y : doubled.getNodes()) {</span>
+<span class="fc" id="L257">        Couple test = new Couple(0, 0); // used to test class of contents</span>
+<span class="fc bfc" id="L258" title="All 2 branches covered.">        for (Node x : doubled.getNodes()) {</span>
+<span class="fc bfc" id="L259" title="All 2 branches covered.">            for (Node y : doubled.getNodes()) {</span>
                 // Add an edge if x &lt; y
-<span class="fc bfc" id="L263" title="All 2 branches covered.">                if (x.getContent().getClass() == test.getClass()) { // x was in convex c</span>
-<span class="fc bfc" id="L264" title="All 2 branches covered.">                    if (y.getContent().getClass() == test.getClass()) { // y was also in convex c</span>
+<span class="fc bfc" id="L261" title="All 2 branches covered.">                if (x.getContent().getClass() == test.getClass()) { // x was in convex c</span>
+<span class="fc bfc" id="L262" title="All 2 branches covered.">                    if (y.getContent().getClass() == test.getClass()) { // y was also in convex c</span>
                         // x &amp; y were in convex c
-<span class="fc" id="L266">                        Couple cX = (Couple) x.getContent();</span>
-<span class="fc" id="L267">                        Couple cY = (Couple) y.getContent();</span>
-<span class="fc bfc" id="L268" title="All 6 branches covered.">                        if ((cX.getLeft() == cY.getLeft()) &amp;&amp; (((Integer) cX.getRight()).intValue() == 0)</span>
+<span class="fc" id="L264">                        Couple cX = (Couple) x.getContent();</span>
+<span class="fc" id="L265">                        Couple cY = (Couple) y.getContent();</span>
+<span class="fc bfc" id="L266" title="All 6 branches covered.">                        if ((cX.getLeft() == cY.getLeft()) &amp;&amp; (((Integer) cX.getRight()).intValue() == 0)</span>
                                 &amp;&amp; (((Integer) cY.getRight()).intValue() == 1)) {
                             // Same content means same node. x is of the form (cX, 0) and y is of the for (cX, 1) so x &lt; y in doubled.
-<span class="fc" id="L271">                            doubled.addEdge(x, y);</span>
+<span class="fc" id="L269">                            doubled.addEdge(x, y);</span>
                         } else {
-<span class="fc bfc" id="L273" title="All 4 branches covered.">                            if (l.majorants(l.getNodeByContent(cX.getLeft())).contains(l.getNodeByContent(cY.getLeft()))</span>
+<span class="fc bfc" id="L271" title="All 4 branches covered.">                            if (l.majorants(l.getNodeByContent(cX.getLeft())).contains(l.getNodeByContent(cY.getLeft()))</span>
                                     &amp;&amp; (cX.getRight() == cY.getRight())) {
                                 // x &lt; y in l and x &amp; y have the same second component si x &lt; y in doubled.
-<span class="fc" id="L276">                                doubled.addEdge(x, y);</span>
+<span class="fc" id="L274">                                doubled.addEdge(x, y);</span>
                             }
                         }
-<span class="fc" id="L279">                    } else { // y wasn't in convex c</span>
+<span class="fc" id="L277">                    } else { // y wasn't in convex c</span>
                         // x was in c &amp; y wasn't
-<span class="fc" id="L281">                        Couple cX = (Couple) x.getContent();</span>
-<span class="fc bfc" id="L282" title="All 4 branches covered.">                        if (l.majorants(l.getNodeByContent(cX.getLeft())).contains(l.getNodeByContent(y.getContent()))</span>
+<span class="fc" id="L279">                        Couple cX = (Couple) x.getContent();</span>
+<span class="fc bfc" id="L280" title="All 4 branches covered.">                        if (l.majorants(l.getNodeByContent(cX.getLeft())).contains(l.getNodeByContent(y.getContent()))</span>
                                 &amp;&amp; (((Integer) cX.getRight()).intValue() == 1)) {
                             // x &lt; y in l and second component of x is 1.
-<span class="fc" id="L285">                            doubled.addEdge(x, y);</span>
+<span class="fc" id="L283">                            doubled.addEdge(x, y);</span>
                         }
-<span class="fc" id="L287">                    }</span>
+<span class="fc" id="L285">                    }</span>
                 } else { // x wasn't in convex c
-<span class="fc bfc" id="L289" title="All 2 branches covered.">                    if (y.getContent().getClass() == test.getClass()) { // y was in convex c</span>
+<span class="fc bfc" id="L287" title="All 2 branches covered.">                    if (y.getContent().getClass() == test.getClass()) { // y was in convex c</span>
                         // x wasn't in c but y was
-<span class="fc" id="L291">                        Couple cY = (Couple) y.getContent();</span>
-<span class="fc bfc" id="L292" title="All 4 branches covered.">                        if (l.majorants(l.getNodeByContent(x.getContent())).contains(l.getNodeByContent(cY.getLeft()))</span>
+<span class="fc" id="L289">                        Couple cY = (Couple) y.getContent();</span>
+<span class="fc bfc" id="L290" title="All 4 branches covered.">                        if (l.majorants(l.getNodeByContent(x.getContent())).contains(l.getNodeByContent(cY.getLeft()))</span>
                                 &amp;&amp; (((Integer) cY.getRight()).intValue() == 0)) {
                                 // x &lt; y in l and x &amp; second component of y is 0.
-<span class="fc" id="L295">                                doubled.addEdge(x, y);</span>
+<span class="fc" id="L293">                                doubled.addEdge(x, y);</span>
                             }
-<span class="fc" id="L297">                    } else { // y wasn't in convex c</span>
+<span class="fc" id="L295">                    } else { // y wasn't in convex c</span>
                         // x wasn't in c nor y
-<span class="fc bfc" id="L299" title="All 2 branches covered.">                        if (l.majorants(l.getNodeByContent(x.getContent())).contains(l.getNodeByContent(y.getContent()))) {</span>
+<span class="fc bfc" id="L297" title="All 2 branches covered.">                        if (l.majorants(l.getNodeByContent(x.getContent())).contains(l.getNodeByContent(y.getContent()))) {</span>
                                 // x &lt; y in l and x &amp; second component of y is 0.
-<span class="fc" id="L301">                                doubled.addEdge(x, y);</span>
+<span class="fc" id="L299">                                doubled.addEdge(x, y);</span>
                             }
                     }
                 }
-<span class="fc" id="L305">            }</span>
-<span class="fc" id="L306">        }</span>
-<span class="fc" id="L307">        doubled.transitiveReduction();</span>
-<span class="fc" id="L308">        return doubled;</span>
+<span class="fc" id="L303">            }</span>
+<span class="fc" id="L304">        }</span>
+<span class="fc" id="L305">        doubled.transitiveReduction();</span>
+<span class="fc" id="L306">        return doubled;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.0.201403182114</span></div></body></html>

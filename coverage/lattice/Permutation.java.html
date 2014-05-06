@@ -2,14 +2,12 @@
 /*
  * Permutation.java
  *
- * Copyright: 2013 University of La Rochelle, France
+ * Copyright: 2013-2014 Karell Bertet, France
  *
  * License: http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html CeCILL-B license
  *
  * This file is part of lattice, free package. You can redistribute it and/or modify
  * it under the terms of CeCILL-B license.
- *
- * @version 2014
  */
 
 /**
@@ -60,13 +58,13 @@ public class Permutation {
      *
      * @param   n  permutation of the set 0..n-1.
      */
-<span class="fc" id="L63">    public Permutation(int n) {</span>
-<span class="fc" id="L64">        this.length = n;</span>
-<span class="fc" id="L65">        this.content = new int[n];</span>
-<span class="fc bfc" id="L66" title="All 2 branches covered.">        for (int i = 0; i &lt; n; i++) {</span>
-<span class="fc" id="L67">            this.content[i] = i;</span>
+<span class="fc" id="L61">    public Permutation(int n) {</span>
+<span class="fc" id="L62">        this.length = n;</span>
+<span class="fc" id="L63">        this.content = new int[n];</span>
+<span class="fc bfc" id="L64" title="All 2 branches covered.">        for (int i = 0; i &lt; n; i++) {</span>
+<span class="fc" id="L65">            this.content[i] = i;</span>
         }
-<span class="fc" id="L69">    }</span>
+<span class="fc" id="L67">    }</span>
 
     /**
      * Returns the transformation coded by this component.
@@ -74,7 +72,7 @@ public class Permutation {
      * @return  the transformation coded by this component.
      */
     public int[] getContent() {
-<span class="fc" id="L77">        return this.content;</span>
+<span class="fc" id="L75">        return this.content;</span>
     }
 
     /**
@@ -85,9 +83,9 @@ public class Permutation {
      * @param   c  the transformation coded in this component.
      */
     public void setContent(int[] c) {
-<span class="fc" id="L88">        this.content = c;</span>
-<span class="fc" id="L89">        this.length = c.length;</span>
-<span class="fc" id="L90">    }</span>
+<span class="fc" id="L86">        this.content = c;</span>
+<span class="fc" id="L87">        this.length = c.length;</span>
+<span class="fc" id="L88">    }</span>
 
     /**
      * Return length of this component.
@@ -95,7 +93,7 @@ public class Permutation {
      * @return  length of this component.
      */
     public int getLength() {
-<span class="fc" id="L98">        return this.length;</span>
+<span class="fc" id="L96">        return this.length;</span>
     }
 
     /**
@@ -106,11 +104,11 @@ public class Permutation {
      * @return  true if update is successful.
      */
     public boolean setLength(int l) {
-<span class="pc bpc" id="L109" title="1 of 4 branches missed.">        if ((this.content.length == l) &amp;&amp; (l &lt;= this.getLength())) {</span>
-<span class="fc" id="L110">            this.length = l;</span>
-<span class="fc" id="L111">            return true;</span>
+<span class="pc bpc" id="L107" title="1 of 4 branches missed.">        if ((this.content.length == l) &amp;&amp; (l &lt;= this.getLength())) {</span>
+<span class="fc" id="L108">            this.length = l;</span>
+<span class="fc" id="L109">            return true;</span>
         } else {
-<span class="fc" id="L113">            return false;</span>
+<span class="fc" id="L111">            return false;</span>
         }
     }
 
@@ -121,11 +119,11 @@ public class Permutation {
      */
     @Override
     public String toString() {
-<span class="fc" id="L124">        String str = &quot;&quot;;</span>
-<span class="fc bfc" id="L125" title="All 2 branches covered.">        for (int i = 0; i &lt; this.length; i++) {</span>
-<span class="fc" id="L126">            str = str + this.content[i];</span>
+<span class="fc" id="L122">        String str = &quot;&quot;;</span>
+<span class="fc bfc" id="L123" title="All 2 branches covered.">        for (int i = 0; i &lt; this.length; i++) {</span>
+<span class="fc" id="L124">            str = str + this.content[i];</span>
         }
-<span class="fc" id="L128">        return str;</span>
+<span class="fc" id="L126">        return str;</span>
     }
 
     /**
@@ -136,14 +134,14 @@ public class Permutation {
      * @return  true if this component is equal to s
      */
     public boolean equals(Permutation s) {
-<span class="pc bpc" id="L139" title="1 of 2 branches missed.">        if (!(s.getLength() == this.length)) {</span>
-<span class="nc" id="L140">            return false;</span>
+<span class="pc bpc" id="L137" title="1 of 2 branches missed.">        if (!(s.getLength() == this.length)) {</span>
+<span class="nc" id="L138">            return false;</span>
         } else {
-<span class="fc" id="L142">            boolean tmp = true;</span>
-<span class="fc bfc" id="L143" title="All 2 branches covered.">            for (int i = 0; i &lt; this.length; i++) {</span>
-<span class="fc bfc" id="L144" title="All 4 branches covered.">                tmp = tmp &amp;&amp; (this.content[i] == s.getContent()[i]);</span>
+<span class="fc" id="L140">            boolean tmp = true;</span>
+<span class="fc bfc" id="L141" title="All 2 branches covered.">            for (int i = 0; i &lt; this.length; i++) {</span>
+<span class="fc bfc" id="L142" title="All 4 branches covered.">                tmp = tmp &amp;&amp; (this.content[i] == s.getContent()[i]);</span>
             }
-<span class="fc" id="L146">            return tmp;</span>
+<span class="fc" id="L144">            return tmp;</span>
         }
     }
 
@@ -154,7 +152,7 @@ public class Permutation {
      */
     @Override
     public int hashCode() {
-<span class="fc" id="L157">        return super.hashCode();</span>
+<span class="fc" id="L155">        return super.hashCode();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.0.201403182114</span></div></body></html>

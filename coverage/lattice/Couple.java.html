@@ -2,14 +2,12 @@
 /*
  * Couple.java
  *
- * Copyright: 2013 University of La Rochelle, France
+ * Copyright: 2013-2014 Karell Bertet, France
  *
  * License: http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html CeCILL-B license
  *
  * This file is part of lattice, free package. You can redistribute it and/or modify
  * it under the terms of CeCILL-B license.
- *
- * @version 2014
  */
 
 /**
@@ -41,10 +39,10 @@ public class Couple {
      * @param   l  left hand side of this component
      * @param   r  right hand side of this component
      */
-<span class="fc" id="L44">    public Couple(Object l, Object r) {</span>
-<span class="fc" id="L45">        this.left = l;</span>
-<span class="fc" id="L46">        this.right = r;</span>
-<span class="fc" id="L47">    }</span>
+<span class="fc" id="L42">    public Couple(Object l, Object r) {</span>
+<span class="fc" id="L43">        this.left = l;</span>
+<span class="fc" id="L44">        this.right = r;</span>
+<span class="fc" id="L45">    }</span>
 
     /**
      * Returns left hand side of this component.
@@ -52,7 +50,7 @@ public class Couple {
      * @return  left hand side of this component
      */
     public Object getLeft() {
-<span class="fc" id="L55">        return left;</span>
+<span class="fc" id="L53">        return left;</span>
     }
 
     /**
@@ -61,8 +59,8 @@ public class Couple {
      * @param   left  hand side of this component
      */
     public void setLeft(Object left) {
-<span class="fc" id="L64">        this.left = left;</span>
-<span class="fc" id="L65">    }</span>
+<span class="fc" id="L62">        this.left = left;</span>
+<span class="fc" id="L63">    }</span>
 
     /**
      * Returns right hand side of this component.
@@ -70,7 +68,7 @@ public class Couple {
      * @return  right hand side of this component
      */
     public Object getRight() {
-<span class="fc" id="L73">        return right;</span>
+<span class="fc" id="L71">        return right;</span>
     }
 
     /**
@@ -79,8 +77,8 @@ public class Couple {
      * @param   right  hand side of this component
      */
     public void setRight(Object right) {
-<span class="fc" id="L82">        this.right = right;</span>
-<span class="fc" id="L83">    }</span>
+<span class="fc" id="L80">        this.right = right;</span>
+<span class="fc" id="L81">    }</span>
 
     /**
      * Returns true if c is equals to this component.
@@ -90,7 +88,7 @@ public class Couple {
      * @return  true if c is equals to this component.
      */
     public boolean equals(Couple c) {
-<span class="pc bpc" id="L93" title="2 of 4 branches missed.">        return (this.left == c.getLeft()) &amp;&amp; (this.right == c.getRight());</span>
+<span class="pc bpc" id="L91" title="2 of 4 branches missed.">        return (this.left == c.getLeft()) &amp;&amp; (this.right == c.getRight());</span>
     }
 
     /**
@@ -100,7 +98,7 @@ public class Couple {
      */
     @Override
     public int hashCode() {
-<span class="fc" id="L103">        return super.hashCode();</span>
+<span class="fc" id="L101">        return super.hashCode();</span>
     }
 
     /**
@@ -110,7 +108,7 @@ public class Couple {
      */
     @Override
     public String toString() {
-<span class="nc" id="L113">        return &quot;(&quot; + this.left.toString() + &quot;,&quot; + this.right.toString() + &quot;)&quot;;</span>
+<span class="nc" id="L111">        return &quot;(&quot; + this.left.toString() + &quot;,&quot; + this.right.toString() + &quot;)&quot;;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.0.201403182114</span></div></body></html>

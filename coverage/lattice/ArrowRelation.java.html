@@ -3,15 +3,12 @@
 /*
  * ArrowRelation.java
  *
- * Copyright: 2013 University of La Rochelle, France
+ * Copyright: 2013-2014 Karell Bertet, France
  *
  * License: http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html CeCILL-B license
  *
  * This file is part of lattice, free package. You can redistribute it and/or modify
  * it under the terms of CeCILL-B license.
- *
- * @author Jean-Francois
- * @version 2014
  */
 
 import java.io.IOException;
@@ -49,10 +46,10 @@ public class ArrowRelation extends DGraph  {
      * Register tex writer
      */
     static {
-<span class="pc bpc" id="L52" title="1 of 2 branches missed.">        if (ArrowRelationWriterFactory.get(&quot;tex&quot;) == null) {</span>
-<span class="fc" id="L53">            ArrowRelationWriterTeX.register();</span>
+<span class="pc bpc" id="L49" title="1 of 2 branches missed.">        if (ArrowRelationWriterFactory.get(&quot;tex&quot;) == null) {</span>
+<span class="fc" id="L50">            ArrowRelationWriterTeX.register();</span>
         }
-<span class="fc" id="L55">    }</span>
+<span class="fc" id="L52">    }</span>
 
     /**
      * Unique constructor of this component from a lattice.
@@ -63,8 +60,8 @@ public class ArrowRelation extends DGraph  {
      * @param   lattice  Lattice from which this component is deduced.
      */
     public ArrowRelation(Lattice lattice) {
-<span class="fc" id="L66">        super(lattice.getArrowRelation());</span>
-<span class="fc" id="L67">    }</span>
+<span class="fc" id="L63">        super(lattice.getArrowRelation());</span>
+<span class="fc" id="L64">    }</span>
 
     /**
      * Save the description of this component in a file whose name is specified.
@@ -74,14 +71,14 @@ public class ArrowRelation extends DGraph  {
      * @throws  IOException  When an IOException occurs
      */
     public void save(final String filename) throws IOException {
-<span class="fc" id="L77">        String extension = &quot;&quot;;</span>
-<span class="fc" id="L78">        int index = filename.lastIndexOf('.');</span>
-<span class="pc bpc" id="L79" title="1 of 2 branches missed.">        if (index &gt; 0) {</span>
-<span class="fc" id="L80">            extension = filename.substring(index + 1);</span>
+<span class="fc" id="L74">        String extension = &quot;&quot;;</span>
+<span class="fc" id="L75">        int index = filename.lastIndexOf('.');</span>
+<span class="pc bpc" id="L76" title="1 of 2 branches missed.">        if (index &gt; 0) {</span>
+<span class="fc" id="L77">            extension = filename.substring(index + 1);</span>
         }
-<span class="fc" id="L82">        BufferedWriter file = new BufferedWriter(new FileWriter(filename));</span>
-<span class="fc" id="L83">        ArrowRelationWriterFactory.get(extension).write(this, file);</span>
-<span class="fc" id="L84">        file.close();</span>
-<span class="fc" id="L85">    }</span>
+<span class="fc" id="L79">        BufferedWriter file = new BufferedWriter(new FileWriter(filename));</span>
+<span class="fc" id="L80">        ArrowRelationWriterFactory.get(extension).write(this, file);</span>
+<span class="fc" id="L81">        file.close();</span>
+<span class="fc" id="L82">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.0.201403182114</span></div></body></html>
