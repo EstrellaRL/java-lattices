@@ -146,44 +146,26 @@ public class Context extends ClosureSystem {
      * Constructs a new empty context.
      */
 <span class="fc" id="L148">    public Context() {</span>
-<span class="fc" id="L149">        this.observations = new TreeSet();</span>
-<span class="fc" id="L150">        this.attributes = new TreeSet();</span>
-<span class="fc" id="L151">        this.intent = new TreeMap();</span>
-<span class="fc" id="L152">        this.extent = new TreeMap();</span>
-<span class="fc" id="L153">        this.bitsetAttributes = new BitSet();</span>
-<span class="fc" id="L154">        this.bitsetObservations = new BitSet();</span>
-<span class="fc" id="L155">        this.bitsetIntent = new TreeMap();</span>
-<span class="fc" id="L156">        this.bitsetExtent = new TreeMap();</span>
-<span class="fc" id="L157">        this.arrayObservations = new ArrayList();</span>
-<span class="fc" id="L158">        this.arrayAttributes = new ArrayList();</span>
-<span class="fc" id="L159">    }</span>
+<span class="fc" id="L149">        this.init();</span>
+<span class="fc" id="L150">    }</span>
 
     /**
      * Constructs a new context as a copy of the specified context.
      *
      * @param   context  context to be copied
      */
-<span class="fc" id="L166">    public Context(Context context) {</span>
-<span class="fc" id="L167">        this.observations = new TreeSet();</span>
-<span class="fc" id="L168">        this.attributes = new TreeSet();</span>
-<span class="fc" id="L169">        this.intent = new TreeMap();</span>
-<span class="fc" id="L170">        this.extent = new TreeMap();</span>
-<span class="fc" id="L171">        this.bitsetAttributes = new BitSet();</span>
-<span class="fc" id="L172">        this.bitsetObservations = new BitSet();</span>
-<span class="fc" id="L173">        this.bitsetIntent = new TreeMap();</span>
-<span class="fc" id="L174">        this.bitsetExtent = new TreeMap();</span>
-<span class="fc" id="L175">        this.arrayObservations = new ArrayList();</span>
-<span class="fc" id="L176">        this.arrayAttributes = new ArrayList();</span>
-<span class="fc" id="L177">        this.attributes.addAll(context.getAttributes());</span>
-<span class="fc" id="L178">        this.observations.addAll(context.getObservations());</span>
-<span class="fc bfc" id="L179" title="All 2 branches covered.">        for (Comparable o : context.getObservations()) {</span>
-<span class="fc" id="L180">            this.intent.put(o, new TreeSet(context.getIntent(o)));</span>
-<span class="fc" id="L181">        }</span>
-<span class="fc bfc" id="L182" title="All 2 branches covered.">        for (Comparable a : context.getAttributes()) {</span>
-<span class="fc" id="L183">            this.extent.put(a, new TreeSet(context.getExtent(a)));</span>
-<span class="fc" id="L184">        }</span>
-<span class="fc" id="L185">        this.setBitSets();</span>
-<span class="fc" id="L186">    }</span>
+    public Context(Context context) {
+<span class="fc" id="L158">        this();</span>
+<span class="fc" id="L159">        this.attributes.addAll(context.getAttributes());</span>
+<span class="fc" id="L160">        this.observations.addAll(context.getObservations());</span>
+<span class="fc bfc" id="L161" title="All 2 branches covered.">        for (Comparable o : context.getObservations()) {</span>
+<span class="fc" id="L162">            this.intent.put(o, new TreeSet(context.getIntent(o)));</span>
+<span class="fc" id="L163">        }</span>
+<span class="fc bfc" id="L164" title="All 2 branches covered.">        for (Comparable a : context.getAttributes()) {</span>
+<span class="fc" id="L165">            this.extent.put(a, new TreeSet(context.getExtent(a)));</span>
+<span class="fc" id="L166">        }</span>
+<span class="fc" id="L167">        this.setBitSets();</span>
+<span class="fc" id="L168">    }</span>
 
     /**
      * Constructs this component from the specified file.
@@ -210,10 +192,28 @@ public class Context extends ClosureSystem {
      *
      * @throws  IOException  When an IOException occurs
      */
-    public Context(String filename) throws IOException {
-<span class="fc" id="L214">        this();</span>
-<span class="fc" id="L215">        this.parse(filename);</span>
-<span class="fc" id="L216">    }</span>
+<span class="fc" id="L195">    public Context(String filename) throws IOException {</span>
+<span class="fc" id="L196">        this.parse(filename);</span>
+<span class="fc" id="L197">    }</span>
+
+    /**
+     * Initialise the context.
+     *
+     * @return  this for chaining
+     */
+    public Context init() {
+<span class="fc" id="L205">        this.observations = new TreeSet();</span>
+<span class="fc" id="L206">        this.attributes = new TreeSet();</span>
+<span class="fc" id="L207">        this.intent = new TreeMap();</span>
+<span class="fc" id="L208">        this.extent = new TreeMap();</span>
+<span class="fc" id="L209">        this.bitsetAttributes = new BitSet();</span>
+<span class="fc" id="L210">        this.bitsetObservations = new BitSet();</span>
+<span class="fc" id="L211">        this.bitsetIntent = new TreeMap();</span>
+<span class="fc" id="L212">        this.bitsetExtent = new TreeMap();</span>
+<span class="fc" id="L213">        this.arrayObservations = new ArrayList();</span>
+<span class="fc" id="L214">        this.arrayAttributes = new ArrayList();</span>
+<span class="fc" id="L215">        return this;</span>
+    }
 
     /**
      * Generates a partially random context.
@@ -758,18 +758,22 @@ public class Context extends ClosureSystem {
      *
      * @param   filename  the name of the file
      *
+     * @return  this for chaining
+     *
      * @throws  IOException  When an IOException occurs
      */
-    public void parse(final String filename) throws IOException {
-<span class="fc" id="L764">        String extension = &quot;&quot;;</span>
-<span class="fc" id="L765">        int index = filename.lastIndexOf('.');</span>
-<span class="pc bpc" id="L766" title="1 of 2 branches missed.">        if (index &gt; 0) {</span>
-<span class="fc" id="L767">            extension = filename.substring(index + 1);</span>
+    public Context parse(final String filename) throws IOException {
+<span class="fc" id="L766">        this.init();</span>
+<span class="fc" id="L767">        String extension = &quot;&quot;;</span>
+<span class="fc" id="L768">        int index = filename.lastIndexOf('.');</span>
+<span class="pc bpc" id="L769" title="1 of 2 branches missed.">        if (index &gt; 0) {</span>
+<span class="fc" id="L770">            extension = filename.substring(index + 1);</span>
         }
-<span class="fc" id="L769">        BufferedReader file = new BufferedReader(new FileReader(filename));</span>
-<span class="fc" id="L770">        ContextReaderFactory.get(extension).read(this, file);</span>
-<span class="fc" id="L771">        file.close();</span>
-<span class="fc" id="L772">    }</span>
+<span class="fc" id="L772">        BufferedReader file = new BufferedReader(new FileReader(filename));</span>
+<span class="fc" id="L773">        ContextReaderFactory.get(extension).read(this, file);</span>
+<span class="fc" id="L774">        file.close();</span>
+<span class="fc" id="L775">        return this;</span>
+    }
 
     /**
      * Removes from this component reducible attributes.
@@ -781,12 +785,12 @@ public class Context extends ClosureSystem {
      */
     public TreeMap&lt;Comparable, TreeSet&lt;Comparable&gt;&gt; attributesReduction() {
         // compute the reducible elements
-<span class="nc" id="L784">        TreeMap red = this.getReducibleElements();</span>
+<span class="nc" id="L788">        TreeMap red = this.getReducibleElements();</span>
         // remove the reducible elements from the attributes set
-<span class="nc bnc" id="L786" title="All 2 branches missed.">        for (Object att : red.keySet()) {</span>
-<span class="nc" id="L787">            this.removeFromAttributes((Comparable) att);</span>
-<span class="nc" id="L788">        }</span>
-<span class="nc" id="L789">        return red;</span>
+<span class="nc bnc" id="L790" title="All 2 branches missed.">        for (Object att : red.keySet()) {</span>
+<span class="nc" id="L791">            this.removeFromAttributes((Comparable) att);</span>
+<span class="nc" id="L792">        }</span>
+<span class="nc" id="L793">        return red;</span>
     }
 
     /**
@@ -800,14 +804,14 @@ public class Context extends ClosureSystem {
      */
     public TreeMap&lt;Comparable, TreeSet&lt;Comparable&gt;&gt; observationsReduction() {
         // compute the reducible elements of the reverse context
-<span class="nc" id="L803">        this.reverse();</span>
-<span class="nc" id="L804">        TreeMap red = this.getReducibleElements();</span>
-<span class="nc" id="L805">        this.reverse();</span>
+<span class="nc" id="L807">        this.reverse();</span>
+<span class="nc" id="L808">        TreeMap red = this.getReducibleElements();</span>
+<span class="nc" id="L809">        this.reverse();</span>
         // remove the reducible elements from the observations set
-<span class="nc bnc" id="L807" title="All 2 branches missed.">        for (Object att : red.keySet()) {</span>
-<span class="nc" id="L808">            this.removeFromObservations((Comparable) att);</span>
-<span class="nc" id="L809">        }</span>
-<span class="nc" id="L810">        return red;</span>
+<span class="nc bnc" id="L811" title="All 2 branches missed.">        for (Object att : red.keySet()) {</span>
+<span class="nc" id="L812">            this.removeFromObservations((Comparable) att);</span>
+<span class="nc" id="L813">        }</span>
+<span class="nc" id="L814">        return red;</span>
     }
 
     /**
@@ -819,9 +823,9 @@ public class Context extends ClosureSystem {
      * @return  the set of reducibles removed attributes and observations with their equivalent elements
      */
     public TreeMap&lt;Comparable, TreeSet&lt;Comparable&gt;&gt; reduction() {
-<span class="nc" id="L822">        TreeMap&lt;Comparable, TreeSet&lt;Comparable&gt;&gt; red = this.attributesReduction();</span>
-<span class="nc" id="L823">        red.putAll(this.observationsReduction());</span>
-<span class="nc" id="L824">        return red;</span>
+<span class="nc" id="L826">        TreeMap&lt;Comparable, TreeSet&lt;Comparable&gt;&gt; red = this.attributesReduction();</span>
+<span class="nc" id="L827">        red.putAll(this.observationsReduction());</span>
+<span class="nc" id="L828">        return red;</span>
     }
 
     /**
@@ -829,13 +833,13 @@ public class Context extends ClosureSystem {
      * attributes. Intent and extent are exchanged in the same way.
      */
     public void reverse() {
-<span class="fc" id="L832">        TreeSet&lt;Comparable&gt; tmp = this.attributes;</span>
-<span class="fc" id="L833">        this.attributes = this.observations;</span>
-<span class="fc" id="L834">        this.observations = tmp;</span>
-<span class="fc" id="L835">        TreeMap&lt;Comparable, TreeSet&lt;Comparable&gt;&gt; sauv = this.intent;</span>
-<span class="fc" id="L836">        this.intent = this.extent;</span>
-<span class="fc" id="L837">        this.extent = sauv;</span>
-<span class="fc" id="L838">    }</span>
+<span class="fc" id="L836">        TreeSet&lt;Comparable&gt; tmp = this.attributes;</span>
+<span class="fc" id="L837">        this.attributes = this.observations;</span>
+<span class="fc" id="L838">        this.observations = tmp;</span>
+<span class="fc" id="L839">        TreeMap&lt;Comparable, TreeSet&lt;Comparable&gt;&gt; sauv = this.intent;</span>
+<span class="fc" id="L840">        this.intent = this.extent;</span>
+<span class="fc" id="L841">        this.extent = sauv;</span>
+<span class="fc" id="L842">    }</span>
 
     /**
      * Return a new reversed Context.
@@ -843,10 +847,10 @@ public class Context extends ClosureSystem {
      * @return  a new reversed Context
      */
     public Context getReverseContext() {
-<span class="fc" id="L846">        Context context = new Context(this);</span>
-<span class="fc" id="L847">        context.reverse();</span>
-<span class="fc" id="L848">        context.setBitSets();</span>
-<span class="fc" id="L849">        return context;</span>
+<span class="fc" id="L850">        Context context = new Context(this);</span>
+<span class="fc" id="L851">        context.reverse();</span>
+<span class="fc" id="L852">        context.setBitSets();</span>
+<span class="fc" id="L853">        return context;</span>
     }
 
     /* --------------- IMPLEMENTATION OF CLOSURE SYSTEM ABSTRACT METHODS ------------ */
@@ -861,7 +865,7 @@ public class Context extends ClosureSystem {
      */
     @Override
     public TreeSet&lt;Comparable&gt; getSet() {
-<span class="fc" id="L864">        return this.attributes;</span>
+<span class="fc" id="L868">        return this.attributes;</span>
     }
 
     /**
@@ -878,7 +882,7 @@ public class Context extends ClosureSystem {
      */
     @Override
     public TreeSet&lt;Comparable&gt; closure(TreeSet&lt;Comparable&gt; set) {
-<span class="fc" id="L881">        return this.getIntent(this.getExtent(set));</span>
+<span class="fc" id="L885">        return this.getIntent(this.getExtent(set));</span>
     }
 
     /**
@@ -889,15 +893,15 @@ public class Context extends ClosureSystem {
      * @return  the set of union of observations
      */
       public TreeSet&lt;Comparable&gt; getExtentUnion(TreeSet&lt;Comparable&gt; set) {
-<span class="nc" id="L892">        TreeSet&lt;Comparable&gt; ext = new TreeSet();</span>
-<span class="nc bnc" id="L893" title="All 2 branches missed.">        for (Comparable att : set) {</span>
-<span class="nc bnc" id="L894" title="All 2 branches missed.">            for (Comparable obs : this.getExtent(att)) {</span>
-<span class="nc bnc" id="L895" title="All 4 branches missed.">                if (this.containAsExtent(att, obs) &amp;&amp; !ext.contains(obs)) {</span>
-<span class="nc" id="L896">                    ext.add(obs);</span>
+<span class="nc" id="L896">        TreeSet&lt;Comparable&gt; ext = new TreeSet();</span>
+<span class="nc bnc" id="L897" title="All 2 branches missed.">        for (Comparable att : set) {</span>
+<span class="nc bnc" id="L898" title="All 2 branches missed.">            for (Comparable obs : this.getExtent(att)) {</span>
+<span class="nc bnc" id="L899" title="All 4 branches missed.">                if (this.containAsExtent(att, obs) &amp;&amp; !ext.contains(obs)) {</span>
+<span class="nc" id="L900">                    ext.add(obs);</span>
                 }
-<span class="nc" id="L898">            }</span>
-<span class="nc" id="L899">        }</span>
-<span class="nc" id="L900">        return ext;</span>
+<span class="nc" id="L902">            }</span>
+<span class="nc" id="L903">        }</span>
+<span class="nc" id="L904">        return ext;</span>
     }
 
     /**
@@ -912,7 +916,7 @@ public class Context extends ClosureSystem {
      * @return  the closure of the set for this component
      */
     public ComparableSet inverseClosure(ComparableSet set) {
-<span class="nc" id="L915">        return new ComparableSet(this.getExtent(this.getIntent((TreeSet) set)));</span>
+<span class="nc" id="L919">        return new ComparableSet(this.getExtent(this.getIntent((TreeSet) set)));</span>
     }
 
     /**
@@ -931,13 +935,13 @@ public class Context extends ClosureSystem {
      * @return  The concept lattice induced by this component
      */
     public ConceptLattice conceptLattice(boolean  diagram) {
-<span class="fc" id="L934">        ConceptLattice csl = this.closedSetLattice(diagram);</span>
+<span class="fc" id="L938">        ConceptLattice csl = this.closedSetLattice(diagram);</span>
         // TreeMap&lt;Concept, Concept&gt; nodes = new TreeMap&lt;Concept, Concept&gt;();
-<span class="fc bfc" id="L936" title="All 2 branches covered.">        for (Node n : csl.getNodes()) {</span>
-<span class="fc" id="L937">             Concept cl = (Concept) n;</span>
-<span class="fc" id="L938">             cl.putSetB(new ComparableSet(this.getExtent(cl.getSetA())));</span>
-<span class="fc" id="L939">        }</span>
-<span class="fc" id="L940">        return csl;</span>
+<span class="fc bfc" id="L940" title="All 2 branches covered.">        for (Node n : csl.getNodes()) {</span>
+<span class="fc" id="L941">             Concept cl = (Concept) n;</span>
+<span class="fc" id="L942">             cl.putSetB(new ComparableSet(this.getExtent(cl.getSetA())));</span>
+<span class="fc" id="L943">        }</span>
+<span class="fc" id="L944">        return csl;</span>
     }
 
     /**
@@ -946,7 +950,7 @@ public class Context extends ClosureSystem {
      * @return  The lattice induced by this component
      */
     public ConceptLattice lattice() {
-<span class="fc" id="L949">        return this.conceptLattice(true);</span>
+<span class="fc" id="L953">        return this.conceptLattice(true);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.0.201403182114</span></div></body></html>
