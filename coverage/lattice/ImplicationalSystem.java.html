@@ -977,11 +977,11 @@ public class ImplicationalSystem extends ClosureSystem {
                 // replace the reducible element by its equivalent in the premise
 <span class="fc" id="L978">                TreeSet premise = r.getPremise();</span>
 <span class="fc" id="L979">                premise = (TreeSet) premise.clone();</span>
-<span class="pc bpc" id="L980" title="1 of 2 branches missed.">                if (premise.contains(x)) {</span>
-<span class="nc" id="L981">                    premise.remove(x);</span>
-<span class="nc" id="L982">                    premise.addAll((TreeSet) red.get(x));</span>
-<span class="nc" id="L983">                    r2.addAllToPremise(premise);</span>
-<span class="nc" id="L984">                    modif = true;</span>
+<span class="fc bfc" id="L980" title="All 2 branches covered.">                if (premise.contains(x)) {</span>
+<span class="fc" id="L981">                    premise.remove(x);</span>
+<span class="fc" id="L982">                    premise.addAll((TreeSet) red.get(x));</span>
+<span class="fc" id="L983">                    r2.addAllToPremise(premise);</span>
+<span class="fc" id="L984">                    modif = true;</span>
                 } else {
 <span class="fc" id="L986">                    r2.addAllToPremise(premise);</span>
                 }
@@ -998,14 +998,14 @@ public class ImplicationalSystem extends ClosureSystem {
                 }
                 // replace the rule if modified
 <span class="fc bfc" id="L1000" title="All 2 branches covered.">                if (modif) {</span>
-<span class="pc bpc" id="L1001" title="1 of 2 branches missed.">                    if (truth.containsAll(r2.getConclusion())) {</span>
+<span class="fc bfc" id="L1001" title="All 2 branches covered.">                    if (truth.containsAll(r2.getConclusion())) {</span>
 <span class="fc" id="L1002">                        this.removeRule(r); // Conclusions of this rule are always true, thus the rule is useless</span>
                     } else {
-<span class="nc" id="L1004">                        this.replaceRule(r, r2);</span>
+<span class="fc" id="L1004">                        this.replaceRule(r, r2);</span>
                     }
                 } else {
-<span class="pc bpc" id="L1007" title="1 of 2 branches missed.">                    if (truth.containsAll(r.getConclusion())) {</span>
-<span class="nc" id="L1008">                        this.removeRule(r); // Conclusions of this rule are always true, thus the rule is useless</span>
+<span class="fc bfc" id="L1007" title="All 2 branches covered.">                    if (truth.containsAll(r.getConclusion())) {</span>
+<span class="fc" id="L1008">                        this.removeRule(r); // Conclusions of this rule are always true, thus the rule is useless</span>
                     }
                 }
 <span class="fc" id="L1011">            }</span>
